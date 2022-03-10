@@ -20,7 +20,7 @@ export class ServicesService {
  // public methods
   login(email: string, password: string):void {
     this.auth.signInWithEmailAndPassword(email,password).then(()=>{
-      this.router.navigate(['/']);
+      this.router.navigate(['/dashboard']);
     }).catch((err)=>{
       console.log("err",err.message)
     })
@@ -29,7 +29,7 @@ export class ServicesService {
 
  async logout() {
     await this.auth.signOut().then(()=>{
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     })
    
   }
@@ -39,7 +39,7 @@ export class ServicesService {
     this.auth.createUserWithEmailAndPassword(email,password).then((userData)=>{
       if (userData.user) {
         this.login(email, password)
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
         console.log(userData.user)
       } else {
       }
