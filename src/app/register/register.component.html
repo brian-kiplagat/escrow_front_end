@@ -1,6 +1,9 @@
 <!-- BEGIN: Content-->
 <div class="auth-wrapper auth-cover">
     <div class="auth-inner row m-0">
+      <div class="alert alert-danger" role="alert">
+        {{error}}
+      </div>
         <!-- Left Text-->
         <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
             <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
@@ -96,36 +99,28 @@
                     [formGroup]="registrationForm"
                     (ngSubmit)="register()"
                 >
-                    <div class="mb-1">
-                        <label class="form-label" for="register-email">Email</label>
-                        <input
-                            class="form-control"
-                            id="register-email"
-                            type="text"
-                            name="register-email"
-                            placeholder="john@example.com"
-                            aria-describedby="register-email"
-                            tabindex="2"
-                            formControlName="email"
-                        />
-                    </div>
-                    <div class="mb-1">
-                        <label class="form-label" for="register-password">Password</label>
-                        <div class="input-group input-group-merge form-password-toggle">
-                            <input
-                                formControlName="password"
-                                class="form-control form-control-merge"
-                                id="register-password"
-                                type="password"
-                                name="register-password"
-                                placeholder="············"
-                                aria-describedby="register-password"
-                                tabindex="3"
-                            /><span class="input-group-text cursor-pointer"
-                                ><i data-feather="eye"></i
-                            ></span>
-                        </div>
-                    </div>
+                <div class="form-group">
+                  <label class="form-label" for="login-email">Email</label>
+                  <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': f['email'].dirty }"
+                    placeholder="example@company.com" aria-describedby="login-email" autofocus="" tabindex="1" />
+                  <div *ngIf="f['email'].errors" class="invalid-feedback">
+                    <div *ngIf="f['email'].errors['required']">Email is required</div>
+                    <div *ngIf="f['email'].errors['email']">Email must be a valid email address</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="d-flex justify-content-between mt-2">
+                    <label for="login-password">Password</label><a routerLink="/pages/authentication/forgot-password-v2"
+                      class="d-none"><small>Forgot Password?</small></a>
+                  </div>
+                  <input type="password" formControlName="password" class="form-control"
+                    [ngClass]="{ 'is-invalid': f['password'].dirty }" placeholder="*****" aria-describedby="login-email" autofocus=""
+                    tabindex="1" />
+                  <div *ngIf=" f['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors['required']">password is required</div>
+                    <div *ngIf="f['password'].errors['minLength']">password must not be less than 8 characters</div>
+                  </div>
+                </div>
                     <div class="mb-1">
                         <div class="form-check">
                             <input

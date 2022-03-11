@@ -12,10 +12,12 @@ import {ServicesService} from '../services/services.service';
 export class RegisterComponent implements OnInit {
 
  registrationForm!: FormGroup;
+ public error:string=''
 
   constructor( private fb: FormBuilder,
     private router: Router,
-    private firebase:ServicesService
+    private firebase:ServicesService,
+
 ) { }
 
   ngOnInit(): void {
@@ -46,7 +48,7 @@ export class RegisterComponent implements OnInit {
           ]),
         ],
         email: [
-          'qwe@qwe.com',
+          '',
           Validators.compose([
             Validators.required,
             Validators.email,

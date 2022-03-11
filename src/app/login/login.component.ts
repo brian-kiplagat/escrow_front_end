@@ -14,8 +14,9 @@ export class LoginComponent implements OnInit {
   public coreConfig: any;
   public loading = false;
   public submitted = false;
-  public error = '';
+  public error = 'please submit a valid email';
   public passwordTextType: boolean =true;
+
 
 
 onSubmit(){
@@ -41,7 +42,7 @@ togglePasswordTextType(){}
     this.loginForm = this.fb.group(
       {
         email: [
-          'qwe@qwe.com',
+          '',
           Validators.compose([
             Validators.required,
             Validators.email,
@@ -71,6 +72,7 @@ togglePasswordTextType(){}
     console.log(result)
     this.firebase.login(result['email'], result['password'])
   }
+  
 
 
 }
