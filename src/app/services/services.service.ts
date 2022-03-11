@@ -17,7 +17,7 @@ export class ServicesService {
 
 
   constructor(private router:Router, public auth: AngularFireAuth,) { }
- // public methods
+  // public methods
   login(email: string, password: string):void {
     this.auth.signInWithEmailAndPassword(email,password).then(()=>{
       this.router.navigate(['/dashboard']);
