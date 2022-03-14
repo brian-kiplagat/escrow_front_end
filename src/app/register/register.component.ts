@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {ServicesService} from '../services/services.service';
+import { ServicesService } from '../services/services.service';
 
 
 @Component({
@@ -11,13 +11,13 @@ import {ServicesService} from '../services/services.service';
 })
 export class RegisterComponent implements OnInit {
 
- registrationForm!: FormGroup;
+  registrationForm!: FormGroup;
 
-  constructor( private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
     private router: Router,
-    private firebase:ServicesService,
+    private firebase: ServicesService,
 
-) { }
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -26,9 +26,11 @@ export class RegisterComponent implements OnInit {
   get f() {
     return this.registrationForm.controls;
   }
- get error(): string {
-        return this.firebase.signuperror;
-    }
+  get error(): string {
+    var firebaseError = this.firebase.signuperror;
+    return this.fixCapitalsText(firebaseError);
+  }
+
   initForm() {
     this.registrationForm = this.fb.group(
       {
@@ -40,7 +42,7 @@ export class RegisterComponent implements OnInit {
             Validators.maxLength(100),
           ]),
         ],
-         lastname: [
+        lastname: [
           '',
           Validators.compose([
             Validators.required,
@@ -78,14 +80,41 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-register(){
-      const result: {
+  register() {
+    const result: {
       [key: string]: string;
     } = {};
     Object.keys(this.f).forEach((key) => {
       result[key] = this.f[key].value;
     });
-  this.firebase.registration(result['email'],result['password'])
-}
+    this.firebase.registration(result['email'], result['password'])
+  }
+
+  fixCapitalsText(text: string) {
+    var result = "";
+    var sentenceStart = true;
+    var i = 0;
+    var ch = '';
+
+    for (i = 0; i < text.length; i++) {
+      ch = text.charAt(i);
+
+      if (sentenceStart && ch.match(/^\S$/)) {
+        ch = ch.toUpperCase();
+        sentenceStart = false;
+      }
+      else {
+        ch = ch.toLowerCase();
+      }
+
+      if (ch.match(/^[.!?]$/)) {
+        sentenceStart = true;
+      }
+
+      result += ch;
+    }
+
+    return result;
+  }
 
 }
