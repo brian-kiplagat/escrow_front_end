@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
   public coreConfig: any;
   public loading = false;
   public submitted = false;
-  public error = 'please submit a valid email';
   public passwordTextType: boolean =true;
 
 
@@ -37,6 +36,9 @@ togglePasswordTextType(){}
   get f() {
     return this.loginForm.controls;
   }
+ get error(): string {
+        return this.firebase.error;
+    }
 
   initForm() {
     this.loginForm = this.fb.group(

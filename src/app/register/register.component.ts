@@ -12,7 +12,6 @@ import {ServicesService} from '../services/services.service';
 export class RegisterComponent implements OnInit {
 
  registrationForm!: FormGroup;
- public error:string=''
 
   constructor( private fb: FormBuilder,
     private router: Router,
@@ -27,7 +26,9 @@ export class RegisterComponent implements OnInit {
   get f() {
     return this.registrationForm.controls;
   }
-
+ get error(): string {
+        return this.firebase.error;
+    }
   initForm() {
     this.registrationForm = this.fb.group(
       {

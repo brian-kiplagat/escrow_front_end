@@ -5,6 +5,7 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import {Router} from '@angular/router';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { BehaviorSubject,Subject } from "rxjs";
 
 
 @Injectable({
@@ -14,14 +15,21 @@ export class ServicesService {
    app = initializeApp(environment.firebase);
    db = getFirestore(this.app);
    auth1 = getAuth(this.app);
+   error:string =''
+   errorChange: Subject<string> = new Subject<string>();
 
 
-  constructor(private router:Router, public auth: AngularFireAuth,) { }
+  constructor(private router:Router, public auth: AngularFireAuth,) { 
+      this.errorChange.subscribe((value) => {
+            this.error = value
+        });
+  }
   // public methods
   login(email: string, password: string):void {
     this.auth.signInWithEmailAndPassword(email,password).then(()=>{
       this.router.navigate(['/dashboard']);
     }).catch((err)=>{
+        this.errorChange.next(err.message);
       console.log("err",err.message)
     })
   
@@ -45,6 +53,7 @@ export class ServicesService {
       }
       console.log(userData.user)
     }).catch((err)=>{
+        this.errorChange.next(err.message);
       console.log('err',err)
     })}
 
