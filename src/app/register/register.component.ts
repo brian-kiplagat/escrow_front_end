@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
     return this.registrationForm.controls;
   }
  get error(): string {
-        return this.firebase.error;
+        return this.firebase.signuperror;
     }
   initForm() {
     this.registrationForm = this.fb.group(

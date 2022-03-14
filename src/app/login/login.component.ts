@@ -37,7 +37,7 @@ togglePasswordTextType(){}
     return this.loginForm.controls;
   }
  get error(): string {
-        return this.firebase.error;
+        return this.firebase.loginerror;
     }
 
   initForm() {

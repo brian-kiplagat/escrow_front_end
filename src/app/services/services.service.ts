@@ -15,13 +15,18 @@ export class ServicesService {
    app = initializeApp(environment.firebase);
    db = getFirestore(this.app);
    auth1 = getAuth(this.app);
-   error:string =''
-   errorChange: Subject<string> = new Subject<string>();
+   signuperror:string =''
+   loginerror:string = ''
+   signuperrorChange: Subject<string> = new Subject<string>();
+   loginerrorChange: Subject<string> = new Subject<string>();
 
 
   constructor(private router:Router, public auth: AngularFireAuth,) { 
-      this.errorChange.subscribe((value) => {
-            this.error = value
+      this.signuperrorChange.subscribe((value) => {
+            this.signuperror = value
+        });
+         this.loginerrorChange.subscribe((value) => {
+            this.loginerror = value
         });
   }
   // public methods
@@ -29,8 +34,8 @@ export class ServicesService {
     this.auth.signInWithEmailAndPassword(email,password).then(()=>{
       this.router.navigate(['/dashboard']);
     }).catch((err)=>{
-        this.errorChange.next(err.message);
-      console.log("user not found, please check email or password")
+        this.loginerrorChange.next("user not found, please check email or password");
+      console.log(err.message)
     })
   
   }
@@ -53,8 +58,8 @@ export class ServicesService {
       }
       console.log(userData.user)
     }).catch((err)=>{
-        this.errorChange.next(err.message);
-      console.log('user already exists')
+        this.signuperrorChange.next('user already exists');
+      console.log(err.message)
     })}
 
 }
