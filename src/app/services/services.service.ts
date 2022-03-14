@@ -30,7 +30,7 @@ export class ServicesService {
       this.router.navigate(['/dashboard']);
     }).catch((err)=>{
         this.errorChange.next(err.message);
-      console.log("err",err.message)
+      console.log("user not found, please check email or password")
     })
   
   }
@@ -54,7 +54,7 @@ export class ServicesService {
       console.log(userData.user)
     }).catch((err)=>{
         this.errorChange.next(err.message);
-      console.log('err',err)
+      console.log('user already exists')
     })}
 
 }
