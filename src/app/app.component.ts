@@ -46,6 +46,11 @@ export class AppComponent {
     style.rel = "stylesheet";
     style.href = "/assets/css/core/menu/menu-types/vertical-menu.css";
     body.appendChild(style);
+    style = document.createElement("link");
+    style.type = "text/css";
+    style.rel = "stylesheet";
+    style.href = "/assets/css/style.css";
+    body.appendChild(style);
 
 
 
