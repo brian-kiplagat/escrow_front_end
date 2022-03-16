@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FirebaseService } from 'app/services/firebase.service';
 
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -28,7 +29,7 @@ export class AuthRegisterV2Component implements OnInit {
    * @param {CoreConfigService} _coreConfigService
    * @param {FormBuilder} _formBuilder
    */
-  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder) {
+  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder,public firebase:FirebaseService) {
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -53,6 +54,11 @@ export class AuthRegisterV2Component implements OnInit {
   get f() {
     return this.registerForm.controls;
   }
+  get error(): string {
+    var firebaseError = this.firebase.signuperror;
+    return this.fixCapitalsText(firebaseError);
+  }
+
 
   /**
    * Toggle password
@@ -66,10 +72,10 @@ export class AuthRegisterV2Component implements OnInit {
    */
   onSubmit() {
     this.submitted = true;
-
     // stop here if form is invalid
-    if (this.registerForm.invalid) {
-      return;
+    if (!this.registerForm.invalid) {
+     console.log("hellothere",this.f.email.value, this.f.password.value)  
+     return  this.firebase.registration(this.f.email.value, this.f.password.value)
     }
   }
 
@@ -81,7 +87,7 @@ export class AuthRegisterV2Component implements OnInit {
    */
   ngOnInit(): void {
     this.registerForm = this._formBuilder.group({
-      username: ['', [Validators.required]],
+      // username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
@@ -90,6 +96,32 @@ export class AuthRegisterV2Component implements OnInit {
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;
     });
+  }
+  fixCapitalsText(text: string) {
+    var result = "";
+    var sentenceStart = true;
+    var i = 0;
+    var ch = '';
+
+    for (i = 0; i < text.length; i++) {
+      ch = text.charAt(i);
+
+      if (sentenceStart && ch.match(/^\S$/)) {
+        ch = ch.toUpperCase();
+        sentenceStart = false;
+      }
+      else {
+        ch = ch.toLowerCase();
+      }
+
+      if (ch.match(/^[.!?]$/)) {
+        sentenceStart = true;
+      }
+
+      result += ch;
+    }
+
+    return result;
   }
 
   /**

@@ -25,6 +25,11 @@
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
         <h2 class="card-title font-weight-bold mb-1">Welcome to CoinPes 🚀</h2>
         <p class="card-text mb-2">Buy and selll BTC With Buyer Protection!</p>
+        <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
+          <div class="alert-body">
+            <p>{{ error }}</p>
+          </div>
+        </ngb-alert>
         <form class="auth-register-form mt-2" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="register-email" class="form-label">Email</label>
@@ -89,7 +94,7 @@
         </form>
         <p class="text-center mt-2">
           <span>Already have an account?</span
-          ><a routerLink="/pages/authentication/login-v2"><span>&nbsp;Sign in instead</span></a>
+          ><a routerLink="/pages/login"><span>&nbsp;Sign in instead</span></a>
         </p>
       </div>
     </div>

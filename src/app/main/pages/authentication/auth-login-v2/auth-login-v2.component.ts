@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 
 import { AuthenticationService } from 'app/auth/service';
 import { CoreConfigService } from '@core/services/config.service';
+import { FirebaseService } from 'app/services/firebase.service';
 
 @Component({
   selector: 'app-auth-login-v2',
@@ -20,9 +21,7 @@ export class AuthLoginV2Component implements OnInit {
   public loading = false;
   public submitted = false;
   public returnUrl: string;
-  public error = '';
   public passwordTextType: boolean;
-
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -36,15 +35,15 @@ export class AuthLoginV2Component implements OnInit {
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _authenticationService: AuthenticationService
+    private _authenticationService: AuthenticationService,
+    private firebase:FirebaseService
   ) {
     // redirect to home if already logged in
-    if (this._authenticationService.currentUserValue) {
+    if (this.firebase.auth.currentUser) {
       this._router.navigate(['/']);
     }
 
     this._unsubscribeAll = new Subject();
-
     // Configure the layout
     this._coreConfigService.config = {
       layout: {
@@ -67,6 +66,10 @@ export class AuthLoginV2Component implements OnInit {
   get f() {
     return this.loginForm.controls;
   }
+  get error(): string {
+    var firebaseError = this.firebase.loginerror;
+    return this.fixCapitalsText(firebaseError);
+  }
 
   /**
    * Toggle password
@@ -85,18 +88,21 @@ export class AuthLoginV2Component implements OnInit {
 
     // Login
     this.loading = true;
-    this._authenticationService
+    this.firebase
       .login(this.f.email.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this._router.navigate([this.returnUrl]);
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        }
-      );
+    if (this.error) {
+      this.loading = false;
+    }
+      // .pipe(first())
+      // .subscribe(
+      //   data => {
+      //     this._router.navigate([this.returnUrl]);
+      //   },
+      //   error => {
+      //     this.error = error;
+      //     this.loading = false;
+      //   }
+      // );
   }
 
   // Lifecycle Hooks
@@ -118,6 +124,32 @@ export class AuthLoginV2Component implements OnInit {
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;
     });
+  }
+  fixCapitalsText(text: string) {
+    var result = "";
+    var sentenceStart = true;
+    var i = 0;
+    var ch = '';
+
+    for (i = 0; i < text.length; i++) {
+      ch = text.charAt(i);
+
+      if (sentenceStart && ch.match(/^\S$/)) {
+        ch = ch.toUpperCase();
+        sentenceStart = false;
+      }
+      else {
+        ch = ch.toLowerCase();
+      }
+
+      if (ch.match(/^[.!?]$/)) {
+        sentenceStart = true;
+      }
+
+      result += ch;
+    }
+
+    return result;
   }
 
   /**
