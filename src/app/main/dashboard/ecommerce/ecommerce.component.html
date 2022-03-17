@@ -1,11 +1,11 @@
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body">
-    <div class="row match-height" *ngIf="isAdmin || isClient">
+    <div class="row match-height" >
       <!-- Medal Card -->
       <div class="col-xl-4 col-md-6 col-12">
         <div class="card card-congratulation-medal">
           <div class="card-body">
-            <h5>{{ 'SAMPLE.CONGRATULATIONS' | translate }} 🎉 {{ currentUser?.firstName }}!</h5>
+            <h5>{{ 'SAMPLE.CONGRATULATIONS' | translate }} 🎉 </h5>
             <p class="card-text font-small-3">{{ 'SAMPLE.BADGE' | translate }}</p>
             <h3 class="mb-75 mt-2 pt-50">
               <a href="javascript:void(0);">$48.9k</a>
@@ -87,7 +87,7 @@
       <!--/ Statistics Card -->
     </div>
 
-    <div class="row match-height" *ngIf="isAdmin">
+    <div class="row match-height" >
       <div class="col-lg-4 col-12">
         <div class="row match-height">
           <!-- Bar Chart Orders -->
@@ -294,7 +294,7 @@
       </div>
     </div>
 
-    <div class="row match-height" *ngIf="isAdmin">
+    <div class="row match-height" >
       <!-- Company Table -->
       <div class="col-lg-8 col-12">
         <div class="card card-company-table">

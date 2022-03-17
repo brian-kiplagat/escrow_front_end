@@ -24,7 +24,7 @@ const routes: Routes = [
   {
     path: 'knowledge-base',
     component: KnowledgeBaseComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     resolve: {
       kb: knowledgeBaseService
     },
@@ -33,7 +33,7 @@ const routes: Routes = [
   {
     path: 'knowledge-base/:category',
     component: KnowledgeBaseCategoryComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     resolve: {
       kbc: knowledgeBaseCategoryService
     },
@@ -42,7 +42,7 @@ const routes: Routes = [
   {
     path: 'knowledge-base/:category/:question',
     component: KnowledgeBaseQuestionComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     resolve: {
       kbq: knowledgeBaseQuestionService
     },

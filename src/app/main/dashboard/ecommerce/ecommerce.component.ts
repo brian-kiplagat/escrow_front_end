@@ -76,8 +76,7 @@ export class EcommerceComponent implements OnInit {
     private _coreTranslationService: CoreTranslationService
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
-    this.isAdmin = this._authenticationService.isAdmin;
-    this.isClient = this._authenticationService.isClient;
+    
 
     this._coreTranslationService.translate(english, french, german, portuguese);
     // Statistics Bar Chart
@@ -679,7 +678,7 @@ export class EcommerceComponent implements OnInit {
    */
   ngOnInit(): void {
     // get the currentUser details from localStorage
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+   // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     // Get the dashboard service data
     this._dashboardService.onApiDataChanged.subscribe(response => {
@@ -695,20 +694,27 @@ export class EcommerceComponent implements OnInit {
     this._coreConfigService.getConfig().subscribe(config => {
       // If Menu Collapsed Changes
       if (
-        (config.layout.menu.collapsed === true || config.layout.menu.collapsed === false) &&
-        localStorage.getItem('currentUser')
+        (config.layout.menu.collapsed === true || config.layout.menu.collapsed === false) 
+        
       ) {
         setTimeout(() => {
-          if (this.currentUser.role == 'Admin') {
-            // Get Dynamic Width for Charts
-            this.isMenuToggled = true;
-            this.statisticsBar.chart.width = this.statisticsBarChartRef?.nativeElement.offsetWidth;
-            this.statisticsLine.chart.width = this.statisticsLineChartRef?.nativeElement.offsetWidth;
-            this.earningChartoptions.chart.width = this.earningChartRef?.nativeElement.offsetWidth;
-            this.revenueReportChartoptions.chart.width = this.revenueReportChartRef?.nativeElement.offsetWidth;
-            this.budgetChartoptions.chart.width = this.budgetChartRef?.nativeElement.offsetWidth;
-            this.goalChartoptions.chart.width = this.goalChartRef?.nativeElement.offsetWidth;
-          }
+          this.isMenuToggled = true;
+          this.statisticsBar.chart.width = this.statisticsBarChartRef?.nativeElement.offsetWidth;
+          this.statisticsLine.chart.width = this.statisticsLineChartRef?.nativeElement.offsetWidth;
+          this.earningChartoptions.chart.width = this.earningChartRef?.nativeElement.offsetWidth;
+          this.revenueReportChartoptions.chart.width = this.revenueReportChartRef?.nativeElement.offsetWidth;
+          this.budgetChartoptions.chart.width = this.budgetChartRef?.nativeElement.offsetWidth;
+          this.goalChartoptions.chart.width = this.goalChartRef?.nativeElement.offsetWidth;
+          // if (this.currentUser.role == 'Admin') {
+          //   // Get Dynamic Width for Charts
+          //   this.isMenuToggled = true;
+          //   this.statisticsBar.chart.width = this.statisticsBarChartRef?.nativeElement.offsetWidth;
+          //   this.statisticsLine.chart.width = this.statisticsLineChartRef?.nativeElement.offsetWidth;
+          //   this.earningChartoptions.chart.width = this.earningChartRef?.nativeElement.offsetWidth;
+          //   this.revenueReportChartoptions.chart.width = this.revenueReportChartRef?.nativeElement.offsetWidth;
+          //   this.budgetChartoptions.chart.width = this.budgetChartRef?.nativeElement.offsetWidth;
+          //   this.goalChartoptions.chart.width = this.goalChartRef?.nativeElement.offsetWidth;
+          // }
         }, 500);
       }
     });

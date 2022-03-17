@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'blog-list',
     component: BlogListComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     resolve: {
       kbq: BlogListService
     },
@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'blog-details/:id',
     component: BlogDetailComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     resolve: {
       kbq: BlogDetailService
     },
@@ -40,7 +40,7 @@ const routes: Routes = [
   {
     path: 'blog-edit',
     component: BlogEditComponent,
-    canActivate: [AuthGuard],
+   // canActivate: [AuthGuard],
     resolve: {
       kbq: BlogEditService
     },

@@ -10,6 +10,7 @@ import { AuthenticationService } from 'app/auth/service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreMediaService } from '@core/services/media.service';
+import { FirebaseService } from 'app/services/firebase.service';
 
 import { User } from 'app/auth/models';
 
@@ -81,7 +82,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _coreMediaService: CoreMediaService,
     private _coreSidebarService: CoreSidebarService,
     private _mediaObserver: MediaObserver,
-    public _translateService: TranslateService
+    public _translateService: TranslateService,
+    private _firebae :FirebaseService
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
@@ -165,8 +167,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * Logout method
    */
   logout() {
-    this._authenticationService.logout();
-    this._router.navigate(['/pages/authentication/login-v2']);
+   this._firebae.logout()
   }
 
   // Lifecycle Hooks

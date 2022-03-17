@@ -15,7 +15,17 @@ export class NavbarBookmarkComponent implements OnInit {
   public apiData;
   public pages = [];
   public bookmarkSearchLimit;
-  public bookmarkedItems;
+  public bookmarkedItems = [
+    {
+      title: "Buy Bitcoin",
+    },
+    {
+      title: "Buy Tether",
+    },
+    {
+      title: "Buy Etherium",
+    }
+  ];
 
   // Decorator
   @ViewChild('openBookmark') private _bookmarkElement: ElementRef;
@@ -61,7 +71,7 @@ export class NavbarBookmarkComponent implements OnInit {
     });
     this.pages[index].isBookmarked = true;
 
-    this.bookmarkedItems.push(this.pages[index]);
+    //this.bookmarkedItems.push(this.pages[index]);
   }
 
   /**
@@ -70,11 +80,11 @@ export class NavbarBookmarkComponent implements OnInit {
    * @param id
    */
   removeBookmark(id) {
-    const index = this.bookmarkedItems.findIndex(object => {
-      return object.id === id;
-    });
-    this.bookmarkedItems[index].isBookmarked = false;
-    this.bookmarkedItems.splice(index, 1);
+  //   //const index = this.bookmarkedItems.findIndex(object => {
+  //     return object.id === id;
+  //   });
+  //  // this.bookmarkedItems[index].isBookmarked = false;
+  //   this.bookmarkedItems.splice(index, 1);
   }
 
   /**

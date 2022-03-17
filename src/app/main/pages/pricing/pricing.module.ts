@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'pricing',
     component: PricingComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     resolve: {
       kbq: PricingService
     },

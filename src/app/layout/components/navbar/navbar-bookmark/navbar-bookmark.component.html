@@ -14,23 +14,13 @@
   <li class="nav-item d-none d-lg-block">
     <!-- Bookmark Icon -->
     <a class="nav-link bookmark-star" (click)="toggleBookmarkPopup()"
-      ><span [data-feather]="'star'" [class]="'ficon text-warning'"></span
+      >Buy<span [data-feather]="'arrow-down'" [class]="'ficon text-warning'"></span
     ></a>
     <!--/ Bookmark Icon -->
 
     <!-- Bookmark Pop-up -->
     <div class="bookmark-input search-input" [class.show]="openBookmarkRef">
-      <div class="bookmark-input-icon"><span [data-feather]="'search'"></span></div>
-      <input
-        class="form-control input"
-        type="text"
-        placeholder="Bookmark"
-        #openBookmark
-        tabindex="0"
-        data-search="search"
-        (keyup)="bookmarkUpdate($event)"
-        [(ngModel)]="bookmarkText"
-      />
+     
 
       <!-- Auto Suggestion List -->
       <ul class="search-list search-list-bookmark show" [perfectScrollbar]>

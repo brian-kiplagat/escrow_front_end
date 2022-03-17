@@ -25,8 +25,8 @@ const routes = [
   {
     path: 'analytics',
     component: AnalyticsComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin], animation: 'danalytics' },
+    //canActivate: [AuthGuard],
+    data: { animation: 'danalytics' },
     resolve: {
       css: DashboardService,
       inv: InvoiceListService
@@ -35,7 +35,7 @@ const routes = [
   {
     path: 'ecommerce',
     component: EcommerceComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     resolve: {
       css: DashboardService
     },

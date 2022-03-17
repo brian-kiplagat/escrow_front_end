@@ -32,7 +32,7 @@ export class AuthenticationService {
    * @param {ToastrService} _toastrService
    */
   constructor(private _http: HttpClient, private _toastrService: ToastrService, public auth: AngularFireAuth) {
-    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<any>(this.auth.currentUser);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -44,16 +44,12 @@ export class AuthenticationService {
   /**
    *  Confirms if user is admin
    */
-  get isAdmin() {
-    return this.currentUser && this.currentUserSubject.value.role === Role.Admin;
-  }
+  
 
   /**
    *  Confirms if user is client
    */
-  get isClient() {
-    return this.currentUser && this.currentUserSubject.value.role === Role.Client;
-  }
+
 
   /**
    * User login
