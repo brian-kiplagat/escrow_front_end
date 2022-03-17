@@ -11,7 +11,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {Router} from '@angular/router';
-
+import { FirebaseService } from 'app/services/firebase.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -63,52 +63,52 @@ export class AuthenticationService {
    * @returns user
    */
   login(email: string, password: string) {
-//  return   this.auth.signInWithEmailAndPassword(email, password).then((user) => {
-//         // login successful if there's a jwt token in the response
-//         if (user.user) {
-//           // Display welcome toast!
-//           setTimeout(() => {
-//             this._toastrService.success(
-//                 ' user to Vuexy. Now you can start to explore. Enjoy! 🎉',
-//               '👋 Welcome, ' + user.user.email + '!',
-//               { toastClass: 'toast ngx-toastr', closeButton: true }
-//             );
-//           }, 2500);
+ return   this.auth.signInWithEmailAndPassword(email, password).then((user) => {
+        // login successful if there's a jwt token in the response
+        if (user.user) {
+          // Display welcome toast!
+          setTimeout(() => {
+            this._toastrService.success(
+                ' user to Vuexy. Now you can start to explore. Enjoy! 🎉',
+              '👋 Welcome, ' + user.user.email + '!',
+              { toastClass: 'toast ngx-toastr', closeButton: true }
+            );
+          }, 2500);
 
-//           // notify
-//           this.currentUserSubject.next(user.user);
-//         }
+          // notify
+          this.currentUserSubject.next(user.user);
+        }
 
-//         return user.user;
+        return user.user;
       
-//     })
-    return this._http
-      .post<any>(`${environment.apiUrl}/users/authenticate`, { email, password })
-      .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
+    })
+    // return this._http
+    //   .post<any>(`${environment.apiUrl}/users/authenticate`, { email, password })
+    //   .pipe(
+    //     map(user => {
+    //       // login successful if there's a jwt token in the response
+    //       if (user && user.token) {
+    //         // store user details and jwt token in local storage to keep user logged in between page refreshes
+    //         localStorage.setItem('currentUser', JSON.stringify(user));
 
-            // Display welcome toast!
-            setTimeout(() => {
-              this._toastrService.success(
-                'You have successfully logged in as an ' +
-                  user.role +
-                  ' user to Vuexy. Now you can start to explore. Enjoy! 🎉',
-                '👋 Welcome, ' + user.email + '!',
-                { toastClass: 'toast ngx-toastr', closeButton: true }
-              );
-            }, 2500);
+    //         // Display welcome toast!
+    //         setTimeout(() => {
+    //           this._toastrService.success(
+    //             'You have successfully logged in as an ' +
+    //               user.role +
+    //               ' user to Vuexy. Now you can start to explore. Enjoy! 🎉',
+    //             '👋 Welcome, ' + user.email + '!',
+    //             { toastClass: 'toast ngx-toastr', closeButton: true }
+    //           );
+    //         }, 2500);
 
-            // notify
-            this.currentUserSubject.next(user);
-          }
+    //         // notify
+    //         this.currentUserSubject.next(user);
+    //       }
 
-          return user;
-        })
-      );
+    //       return user;
+    //     })
+      //);
   }
 
   /**

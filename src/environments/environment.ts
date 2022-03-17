@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  hmr: false,
+  apiUrl: 'http://localhost:4000',
   firebase: {
     apiKey: "AIzaSyDMsPInM58uPksNu3E9iQ5EhnWBz67CPeQ",
     authDomain: "scanpal-f74da.firebaseapp.com",

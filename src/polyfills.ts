@@ -1,10 +1,8 @@
-<<<<<<< HEAD
-=======
 /***************************************************************************************************
  * Load `$localize` onto the global scope - used if i18n tags appear in Angular templates.
  */
 import '@angular/localize/init';
->>>>>>> add template reference files
+
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.
@@ -15,13 +13,11 @@ import '@angular/localize/init';
  *      file.
  *
  * The current setup is for so-called "evergreen" browsers; the last versions of browsers that
-<<<<<<< HEAD
  * automatically update themselves. This includes recent versions of Safari, Chrome (including
  * Opera), Edge on the desktop, and iOS and Chrome on mobile.
-=======
  * automatically update themselves. This includes Safari >= 10, Chrome >= 55 (including Opera),
  * Edge >= 13 on the desktop, and iOS 10 and Chrome on mobile.
->>>>>>> add template reference files
+ * add template reference files
  *
  * Learn more in https://angular.io/guide/browser-support
  */
