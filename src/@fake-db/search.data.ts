@@ -25,30 +25,30 @@ export class SearchFakeData {
           id: 2,
           target: 'email',
           isBookmarked: true,
-          title: 'Email',
+          title: 'Buy Bitcoin',
           icon: 'mail',
-          link: '/apps/email'
+          link: 'apps/invoice/list'
         },
         {
           id: 3,
           target: 'chat',
           isBookmarked: true,
-          title: 'Chat',
+          title: 'Buy Tether',
           icon: 'message-square',
-          link: '/apps/chat'
+          link: 'apps/invoice/list'
         },
         {
           id: 4,
           target: 'todo',
           isBookmarked: true,
-          title: 'Todo',
+          title: 'Buy Etherium',
           icon: 'check-square',
-          link: '/apps/todo'
+          link: 'apps/invoice/list'
         },
         {
           id: 5,
           target: 'calendar',
-          isBookmarked: true,
+          isBookmarked:false,
           title: 'Calendar',
           icon: 'calendar',
           link: '/apps/calendar'
@@ -200,6 +200,7 @@ export class SearchFakeData {
         {
           id: 24,
           target: 'lock-screen',
+          sell:true,
           isBookmarked: false,
           title: 'Lock Screen',
           icon: 'trending-up',
@@ -208,6 +209,7 @@ export class SearchFakeData {
         {
           id: 25,
           target: 'accountSettings',
+          sell:true,
           isBookmarked: false,
           title: 'Account Settings',
           icon: 'settings',

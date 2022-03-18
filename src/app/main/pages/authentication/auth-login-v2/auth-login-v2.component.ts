@@ -38,10 +38,10 @@ export class AuthLoginV2Component implements OnInit {
     private _authenticationService: AuthenticationService,
     private firebase:FirebaseService
   ) {
-    // redirect to home if already logged in
-    if (this.firebase.auth.currentUser) {
-      this._router.navigate(['/']);
-    }
+    // // redirect to home if already logged in
+    // if (this.firebase.auth.currentUser) {
+    //   this._router.navigate(['/']);
+    // }
 
     this._unsubscribeAll = new Subject();
     // Configure the layout
