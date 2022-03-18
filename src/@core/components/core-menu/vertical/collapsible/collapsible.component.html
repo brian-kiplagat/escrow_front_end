@@ -7,11 +7,11 @@
   <!-- itemContent template -->
   <ng-template #itemContent>
     <span [data-feather]="item.icon" *ngIf="item.icon"></span>
-    <span class="menu-title text-truncate" [translate]="item.translate">{{ item.title }}</span>
+    <span class="menu-title text-truncate" >{{ item.title }}</span>
     <span
       class="badge ml-auto mr-1"
       *ngIf="item.badge"
-      [translate]="item.badge.translate"
+     
       [ngClass]="item.badge.classes"
     >
       {{ item.badge.title }}
@@ -38,8 +38,7 @@
       <li
         core-menu-vertical-collapsible
         *ngIf="
-          item.type == 'collapsible' &&
-          (item.role ? item.role.includes(currentUser.role) : false || item.role == undefined)
+          item.type == 'collapsible'
         "
         [item]="item"
         class="nav-item has-sub"

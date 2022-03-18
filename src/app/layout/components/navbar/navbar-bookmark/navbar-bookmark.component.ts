@@ -13,7 +13,23 @@ export class NavbarBookmarkComponent implements OnInit {
   public openBookmarkRef = false;
   public activeIndex = 0;
   public apiData;
-  public pages = [];
+  public pages = [
+    {
+      title: "Buy Bitcoin",
+      icon: "arrow-down",
+      link:"/"
+    },
+    {
+      title: "Buy Tether",
+      icon: "arrow-down",
+      link:"/"
+    },
+    {
+      title: "Buy Etherium",
+      icon: "arrow-down",
+      link:"/"
+    }
+  ];
   public bookmarkSearchLimit;
   public bookmarkedItems = [
     {
@@ -65,14 +81,13 @@ export class NavbarBookmarkComponent implements OnInit {
    *
    * @param id
    */
-  addBookmark(id) {
-    const index = this.pages.findIndex(object => {
-      return object.id === id;
-    });
-    this.pages[index].isBookmarked = true;
+  // addBookmark(id) {
+  //   const index = this.pages.findIndex(object => {
+  //     return object.id === id;
+  //   });
 
     //this.bookmarkedItems.push(this.pages[index]);
-  }
+  //}
 
   /**
    * Remove Bookmark
@@ -144,14 +159,14 @@ export class NavbarBookmarkComponent implements OnInit {
    * @param id
    */
   toggleBookmark(id) {
-    const index = this.pages.findIndex(object => {
-      return object.id === id;
-    });
-    if (this.pages[index].isBookmarked === true) {
-      this.removeBookmark(id);
-    } else {
-      this.addBookmark(id);
-    }
+    // const index = this.pages.findIndex(object => {
+    //   return object.id === id;
+    // });
+    // if (this.pages[index].isBookmarked === true) {
+    //   this.removeBookmark(id);
+    // } else {
+    //   this.addBookmark(id);
+    // }
   }
 
   /**
@@ -194,8 +209,6 @@ export class NavbarBookmarkComponent implements OnInit {
   ngOnInit(): void {
     this._searchService.onApiDataChange.subscribe(res => {
       this.apiData = res;
-      this.pages = this.apiData[0].data;
-      this.bookmarkedItems = this.pages.filter(page => page.isBookmarked === true);
       this.bookmarkSearchLimit = this.apiData[0].bookmarkLimit;
     });
     this._searchService.onIsBookmarkOpenChange.subscribe(res => {
