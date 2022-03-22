@@ -7,6 +7,7 @@ import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 import { CoreConfigService } from '@core/services/config.service';
 
 import { InvoiceListService } from 'app/main/apps/invoice/invoice-list/invoice-list.service';
+import {FirebaseService} from '../../../../services/firebase.service';
 
 @Component({
   selector: 'app-invoice-list',
@@ -49,7 +50,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
    * @param {CalendarService} _calendarService
    * @param {InvoiceListService} _invoiceListService
    */
-  constructor(private _invoiceListService: InvoiceListService, private _coreConfigService: CoreConfigService) {
+  constructor(private _invoiceListService: InvoiceListService, private _coreConfigService: CoreConfigService,private firebase:FirebaseService) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -113,6 +114,11 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
+       // console.log(this.getData.myData);
+      this.retireveData()
+       
+       //console.log('hers the data',data);
+   
     // Subscribe config change
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       // If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
@@ -135,7 +141,12 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+async retireveData(){
+  const data = await this.firebase.retrieve("orders")
+  data.forEach((d)=>{
+    console.log(d.data())
+  })
+}
   /**
    * On destroy
    */

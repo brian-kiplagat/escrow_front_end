@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { environment } from 'src/environments/environment';
+import { environment } from 'environments/environment';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import {Router} from '@angular/router';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";

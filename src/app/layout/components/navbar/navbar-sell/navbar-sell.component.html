@@ -7,14 +7,12 @@
 <ul class="nav navbar-nav">
   <li class="nav-item d-none d-lg-block">
     <!-- Bookmark Icon -->
-    <a class="nav-link bookmark-star" (click)="toggleBookmarkPopup()">Sell<span [data-feather]="'arrow-down'"
+    <a class="nav-link bookmark-star" (click)="toggleBookmarkPopup()">Sell Bitcoin <span [data-feather]="'arrow-'"
         [class]="'ficon text-warning'"></span></a>
     <!--/ Bookmark Icon -->
 
     <!-- Bookmark Pop-up -->
-    <div class="bookmark-input search-input" [class.show]="openBookmarkRef">
-
-      <!-- Auto Suggestion List -->
+    <!-- <div class="bookmark-input search-input" [class.show]="openBookmarkRef">
       <ul class="search-list search-list-bookmark show" [perfectScrollbar]>
         <ng-container *ngIf="bookmarkText !== ''; else defaultBookmarks">
           <li class="auto-suggestion"
@@ -51,8 +49,7 @@
           </ng-container>
         </ng-template>
       </ul>
-      <!--/ Auto Suggestion List -->
-    </div>
+    </div> -->
     <!--/ Bookmark Pop-up -->
   </li>
 </ul>

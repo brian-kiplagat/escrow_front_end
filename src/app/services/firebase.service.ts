@@ -61,4 +61,20 @@ export class FirebaseService {
         this.signuperrorChange.next('user already exists');
       console.log(err.message)
     })}
+    // retireive items from firestore
+
+  // get applications
+  async getApplications(collectionName:string){
+    const citiesCol = collection(this.db, collectionName);
+    const citySnapshot = await getDocs(citiesCol);
+    return citySnapshot.docs;
+  }
+  // retrieve list of feeds
+  async retrieve(colletion : string) {
+    const feedsCol = collection(this.db, colletion);
+    
+    const feedsSnapshot = await getDocs(feedsCol);
+    return feedsSnapshot.docs;}
+
+
 }
