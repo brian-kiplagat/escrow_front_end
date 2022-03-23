@@ -32,7 +32,7 @@ export class FirebaseService {
   // public methods
   login(email: string, password: string):void {
     this.auth.signInWithEmailAndPassword(email,password).then(()=>{
-      this.router.navigate(['/apps/invoice/list']);
+      this.router.navigate(['/dashboard/ecommerce']);
     }).catch((err)=>{
         this.loginerrorChange.next("user not found, please check email or password");
       console.log(err.message)
