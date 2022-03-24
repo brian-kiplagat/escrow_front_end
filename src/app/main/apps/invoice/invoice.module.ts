@@ -29,6 +29,7 @@ import { InvoicePreviewComponent } from 'app/main/apps/invoice/invoice-preview/i
 import { InvoicePreviewService } from 'app/main/apps/invoice/invoice-preview/invoice-preview.service';
 import { AddPaymentSidebarPreviewComponent } from 'app/main/apps/invoice/invoice-preview/sidebar/add-payment-sidebar-preview/add-payment-sidebar-preview.component';
 import { SendInvoiceSidebarPreviewComponent } from 'app/main/apps/invoice/invoice-preview/sidebar/send-invoice-sidebar-preview/send-invoice-sidebar-preview.component';
+import { SellComponent } from './sell/sell.component';
 
 // routing
 const routes: Routes = [
@@ -43,6 +44,14 @@ const routes: Routes = [
   {
     path: 'list',
     component: InvoiceListComponent,
+    resolve: {
+      uls: InvoiceListService
+    },
+    data: { animation: 'InvoiceListComponent' }
+  },
+    {
+    path: 'sell',
+    component: SellComponent,
     resolve: {
       uls: InvoiceListService
     },
@@ -84,7 +93,8 @@ const routes: Routes = [
     SendInvoiceSidebarComponent,
     AddPaymentSidebarComponent,
     SendInvoiceSidebarPreviewComponent,
-    AddPaymentSidebarPreviewComponent
+    AddPaymentSidebarPreviewComponent,
+    SellComponent
   ],
   imports: [
     CommonModule,
