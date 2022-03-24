@@ -92,7 +92,7 @@
       <section id="profile-info">
         <div class="row">
           <!-- left profile info section -->
-          <div class="col-lg-3 col-12 order-2 order-lg-1">
+          <div class="col-lg-8 col-12 order-2 order-lg-1">
             <!-- about -->
             <div class="card">
               <div class="card-body">
@@ -119,40 +119,6 @@
               </div>
             </div>
             <!--/ about -->
-
-            <!-- suggestion pages -->
-            <div class="card">
-              <div class="card-body profile-suggestion">
-                <h5 class="mb-2">Suggested Pages</h5>
-                <!-- user suggestions -->
-                <div
-                  class="d-flex justify-content-start align-items-center"
-                  [class.mb-1]="
-                    data.profileData.suggestedPages.length - 1 !==
-                    data.profileData.suggestedPages.indexOf(suggestedPagesRef)
-                  "
-                  *ngFor="let suggestedPagesRef of data.profileData.suggestedPages"
-                >
-                  <div class="avatar mr-1">
-                    <img [src]="suggestedPagesRef.avatar" alt="avatar img" height="40" width="40" />
-                  </div>
-                  <div class="profile-user-info">
-                    <h6 class="mb-0">{{ suggestedPagesRef.username }}</h6>
-                    <small class="text-muted">{{ suggestedPagesRef.subtitle }}</small>
-                  </div>
-                  <div class="profile-star ml-auto">
-                    <i
-                      class="font-medium-3 fa"
-                      [ngClass]="{
-                        'fa-star text-warning': suggestedPagesRef.favorite === true,
-                        'fa-star-o': suggestedPagesRef.favorite !== true
-                      }"
-                    ></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--/ suggestion pages -->
 
             <!-- twitter feed card -->
             <div class="card">
@@ -192,133 +158,8 @@
           </div>
           <!--/ left profile info section -->
 
-          <!-- center profile info section -->
-          <div class="col-lg-6 col-12 order-1 order-lg-2">
-            <div class="card" *ngFor="let postRef of data.profileData.post">
-              <div class="card-body">
-                <div class="d-flex justify-content-start align-items-center mb-1">
-                  <!-- avatar -->
-                  <div class="avatar mr-1">
-                    <img [src]="postRef.avatar" alt="avatar img" height="50" width="50" />
-                  </div>
-                  <!--/ avatar -->
-                  <div class="profile-user-info">
-                    <h6 class="mb-0">{{ postRef.username }}</h6>
-                    <small class="text-muted">{{ postRef.postTime }}</small>
-                  </div>
-                </div>
-                <p class="card-text">
-                  {{ postRef.postText }}
-                </p>
-                <!-- post img -->
-                <div *ngIf="postRef.postImg">
-                  <img class="img-fluid rounded mb-75" src="{{ postRef.postImg }}" alt="avatar img" />
-                </div>
-
-                <div *ngIf="postRef.postVid">
-                  <iframe
-                    [src]="postRef.postVid | safe: 'resourceUrl'"
-                    class="w-100 rounded border-0 height-250 mb-50"
-                  ></iframe>
-                </div>
-
-                <!-- like share -->
-                <div class="row d-flex justify-content-start align-items-center flex-wrap pb-50">
-                  <div class="col-sm-6 d-flex justify-content-between justify-content-sm-start mb-2">
-                    <a href="javascript:void(0)" class="d-flex align-items-center text-muted text-nowrap">
-                      <i data-feather="heart" class="profile-likes font-medium-3 mr-50"></i>
-                      <span>{{ postRef.likes }}</span>
-                    </a>
-
-                    <!-- avatar group with tooltip -->
-                    <div class="d-flex align-items-center">
-                      <div class="avatar-group ml-1">
-                        <div
-                          data-toggle="tooltip"
-                          data-popup="tooltip-custom"
-                          placement="bottom"
-                          ngbTooltip="{{ likedUsersRef.username }}"
-                          class="avatar pull-up"
-                          *ngFor="let likedUsersRef of postRef.likedUsers"
-                        >
-                          <img [src]="likedUsersRef.avatar" alt="Avatar" height="26" width="26" />
-                        </div>
-                      </div>
-                      <a href="javascript:void(0)" class="text-muted text-nowrap ml-50"
-                        >+{{ postRef.likedCount }} more</a
-                      >
-                    </div>
-                    <!-- avatar group with tooltip -->
-                  </div>
-
-                  <!-- share and like count and icons -->
-                  <div class="col-sm-6 d-flex justify-content-between justify-content-sm-end align-items-center mb-2">
-                    <a href="javascript:void(0)" class="text-nowrap">
-                      <i data-feather="message-square" class="text-body font-medium-3 mr-50"></i>
-                      <span class="text-muted mr-1">{{ postRef.comments }}</span>
-                    </a>
-
-                    <a href="javascript:void(0)" class="text-nowrap">
-                      <i data-feather="share-2" class="text-body font-medium-3 mx-50"></i>
-                      <span class="text-muted">{{ postRef.share }}</span>
-                    </a>
-                  </div>
-                  <!-- share and like count and icons -->
-                </div>
-                <!-- like share -->
-
-                <!-- comments -->
-                <div
-                  class="d-flex align-items-start mb-1"
-                  *ngFor="let detailedCommentsRefRef of postRef.detailedComments"
-                >
-                  <div class="avatar mt-25 mr-75">
-                    <img [src]="detailedCommentsRefRef.avatar" alt="Avatar" height="34" width="34" />
-                  </div>
-                  <div class="profile-user-info w-100">
-                    <div class="d-flex align-items-center justify-content-between">
-                      <h6 class="mb-0">{{ detailedCommentsRefRef.username }}</h6>
-                      <a href="javascript:void(0)">
-                        <i data-feather="heart" class="text-body font-medium-3 profile-likes"></i>
-                        <span class="align-middle text-muted"> {{ detailedCommentsRefRef.commentsLikes }}</span>
-                      </a>
-                    </div>
-                    <small>{{ detailedCommentsRefRef.comment }}</small>
-                  </div>
-                </div>
-
-                <!--/ comments -->
-
-                <!-- comment box -->
-                <fieldset class="form-label-group mb-50">
-                  <textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-                  <label for="label-textarea">Add Comment</label>
-                </fieldset>
-                <!--/ comment box -->
-                <button type="button" class="btn btn-sm btn-primary" rippleEffect>Post Comment</button>
-              </div>
-            </div>
-          </div>
-          <!--/ center profile info section -->
-
           <!-- right profile info section -->
-          <div class="col-lg-3 col-12 order-3">
-            <!-- latest profile pictures -->
-            <div class="card">
-              <div class="card-body">
-                <h5 class="mb-0">Latest Photos</h5>
-                <div class="row">
-                  <div
-                    class="col-md-4 col-6 profile-latest-img"
-                    *ngFor="let latestPhotosRef of data.profileData.latestPhotos"
-                  >
-                    <a href="javascript:void(0)">
-                      <img [src]="latestPhotosRef.img" class="img-fluid rounded" alt="avatar img" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="col-lg-4 col-12 order-3">
             <!--/ latest profile pictures -->
 
             <!-- suggestion -->
@@ -344,63 +185,6 @@
             </div>
             <!--/ suggestion -->
 
-            <!-- polls card -->
-            <div class="card">
-              <div class="card-body">
-                <h5 class="mb-1">Polls</h5>
-                <p class="card-text mb-0">Who is the best actor in Marvel Cinematic Universe?</p>
-
-                <!-- polls -->
-                <div class="profile-polls-info mt-2" *ngFor="let pollsRef of data.profileData.polls">
-                  <!-- custom radio -->
-                  <div class="d-flex justify-content-between">
-                    <div class="custom-control custom-radio">
-                      <input
-                        type="radio"
-                        id="bestActorPoll{{ pollsRef.name }}"
-                        name="bestActorPoll"
-                        class="custom-control-input"
-                      />
-                      <label class="custom-control-label" for="bestActorPoll{{ pollsRef.name }}">{{
-                        pollsRef.name
-                      }}</label>
-                    </div>
-                    <div class="text-right">{{ pollsRef.result }}</div>
-                  </div>
-                  <!--/ custom radio -->
-
-                  <!-- progressbar -->
-                  <div class="progress progress-bar-primary my-50">
-                    <div
-                      class="progress-bar"
-                      role="progressbar"
-                      aria-valuenow="58"
-                      aria-valuemin="58"
-                      aria-valuemax="100"
-                      style="width: 82%"
-                    ></div>
-                  </div>
-                  <!--/ progressbar -->
-
-                  <!-- avatar group with tooltip -->
-                  <div class="avatar-group mt-1">
-                    <div
-                      placement="bottom"
-                      container="body"
-                      [ngbTooltip]="votedUserRef.username"
-                      class="avatar pull-up"
-                      *ngFor="let votedUserRef of pollsRef.votedUser"
-                    >
-                      <img [src]="votedUserRef.img" alt="Avatar" height="26" width="26" />
-                    </div>
-                  </div>
-                  <!--/ avatar group with tooltip -->
-                </div>
-
-                <!--/ polls -->
-              </div>
-            </div>
-            <!--/ polls card -->
           </div>
           <!--/ right profile info section -->
         </div>

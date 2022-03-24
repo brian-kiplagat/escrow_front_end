@@ -25,7 +25,7 @@ export const menu: CoreMenu[] = [
     title: 'Sell Bitcoin',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"apps/invoice/list"
+    url:"apps/invoice/sell"
   },
   {
     id: 'apps',
