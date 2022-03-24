@@ -22,12 +22,9 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   public ColumnMode = ColumnMode;
   public selectStatus: any = [
     { name: 'All', value: '' },
-    { name: 'Downloaded', value: 'Downloaded' },
-    { name: 'Draft', value: 'Draft' },
-    { name: 'Paid', value: 'Paid' },
-    { name: 'Partial Payment', value: 'Partial Payment' },
-    { name: 'Past Due', value: 'Past Due' },
-    { name: 'Sent', value: 'Sent' }
+    { name: 'Bank Transfer', value: 'Bank Transfer' },
+    { name: 'Mpesa', value: 'Mpesa' },
+    { name: 'Paypal', value: 'Paypal' }
   ];
 
   public selectedStatus = [];
