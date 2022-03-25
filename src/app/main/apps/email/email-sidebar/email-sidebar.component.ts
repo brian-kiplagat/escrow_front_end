@@ -19,6 +19,13 @@ export class EmailSidebarComponent implements OnInit {
   public openComposeRef;
   public draftCount;
   public unReadInboxCount;
+   public selectStatus: any = [
+    { name: 'All', value: '' },
+    { name: 'Bank Transfer', value: 'Bank Transfer' },
+    { name: 'Mpesa', value: 'Mpesa' },
+    { name: 'Paypal', value: 'Paypal' }
+  ];
+  public selectedOption = ''
 
   // Private
   private _unsubscribeAll: Subject<any>;
