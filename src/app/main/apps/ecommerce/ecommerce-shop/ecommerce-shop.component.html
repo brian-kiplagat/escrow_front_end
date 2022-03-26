@@ -30,25 +30,19 @@
                 <div class="search-results">{{ (products | filter: searchText:'name').length }} results found</div>
               </div>
               <div class="view-options d-flex">
-                <div class="row align-items-center mt-1">
-                  <div class=" col-lg-6 col-12">
-                    <fieldset class="form-group m-1">
-                      <label class="mr-1">Pay Via</label>
-                           <select class="form-control" placeholder="Pay Via">
-                             <option value="PayPal">Paypal</option>
-                             <option value="Mpesa">Mpesa</option>
-                             <option value="Bank Transfer">Bank Transfer</option>
-                           </select>
-                           </fieldset>
-                  </div>
-                  <div class=" col-lg-6 col-12">
-                    <fieldset class="form-group">
+                <fieldset class="form-group m-1">
+                  <label class="mr-1">Pay Via</label>
+                       <select class="form-control" placeholder="Pay Via">
+                         <option value="PayPal">Paypal</option>
+                         <option value="Mpesa">Mpesa</option>
+                         <option value="Bank Transfer">Bank Transfer</option>
+                       </select>
+                       </fieldset>
+                 <fieldset class="form-group">
                       <label class="d-flex align-items-center"><input 
                           name="searchValue" type="number" class="form-control" placeholder="Amount Spent"
                            /></label>
                     </fieldset>
-                  </div>
-                </div>
                 <div class="btn-group dropdown-sort" ngbDropdown>
                   <button
                     ngbDropdownToggle
