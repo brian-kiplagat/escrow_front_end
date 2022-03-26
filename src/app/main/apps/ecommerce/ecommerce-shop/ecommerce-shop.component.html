@@ -38,25 +38,11 @@
                          <option value="Bank Transfer">Bank Transfer</option>
                        </select>
                        </fieldset>
-                
-                <div class="btn-group dropdown-sort" ngbDropdown>
-                  <button
-                    ngbDropdownToggle
-                    type="button"
-                    class="btn btn-outline-primary mr-1"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    rippleEffect
-                  >
-                    <span class="active-sorting">Featured</span>
-                  </button>
-                  <div ngbDropdownMenu>
-                    <a ngbDropdownItem href="javascript:void(0);" (click)="sortProduct('featured')">Featured</a>
-                    <a ngbDropdownItem href="javascript:void(0);" (click)="sortProduct('price-asc')">Lowest</a>
-                    <a ngbDropdownItem href="javascript:void(0);" (click)="sortProduct('price-desc')">Highest</a>
-                  </div>
-                </div>
+                 <fieldset class="form-group">
+                      <label class="d-flex align-items-center"><input 
+                          name="searchValue" type="number" class="form-control" placeholder="Amount Spent"
+                           /></label>
+                    </fieldset>
 
               </div>
             </div>
