@@ -24,14 +24,6 @@
           <div class="col-sm-12">
             <div class="ecommerce-header-items">
               <div class="result-toggler">
-                <button
-                  class="navbar-toggler shop-sidebar-toggler"
-                  type="button"
-                  data-toggle="collapse"
-                  (click)="toggleSidebar('ecommerce-sidebar')"
-                >
-                  <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
-                </button>
                 <div class="search-results">{{ (products | filter: searchText:'name').length }} results found</div>
               </div>
               <div class="view-options d-flex">
@@ -53,43 +45,7 @@
                     <a ngbDropdownItem href="javascript:void(0);" (click)="sortProduct('price-desc')">Highest</a>
                   </div>
                 </div>
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                  <label
-                    class="btn btn-icon btn-outline-primary view-btn grid-view-btn"
-                    [class.active]="gridViewRef === true"
-                  >
-                    <input type="radio" name="radio_options" id="radio_option1" (click)="gridView()" />
-                    <i data-feather="grid" class="font-medium-3"></i>
-                  </label>
-                  <label
-                    class="btn btn-icon btn-outline-primary view-btn list-view-btn"
-                    [class.active]="gridViewRef !== true"
-                  >
-                    <input type="radio" name="radio_options" id="radio_option2" (click)="listView()" />
-                    <i data-feather="list" class="font-medium-3"></i>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <section id="ecommerce-searchbar" class="ecommerce-searchbar">
-        <div class="row mt-1">
-          <div class="col-sm-12">
-            <div class="input-group input-group-merge">
-              <input
-                type="text"
-                class="form-control search-product"
-                id="shop-search"
-                placeholder="Search Product"
-                aria-label="Search..."
-                aria-describedby="shop-search"
-                [(ngModel)]="searchText"
-              />
-              <div class="input-group-append">
-                <span class="input-group-text"><i data-feather="search" class="text-muted"></i></span>
               </div>
             </div>
           </div>
@@ -98,7 +54,7 @@
       <!-- E-commerce Head Section Starts -->
 
       <!-- E-commerce Products Starts -->
-      <section id="ecommerce-products" [ngClass]="gridViewRef === true ? 'grid-view' : 'list-view'">
+      <section id="ecommerce-products" [ngClass]="gridViewRef === true ? 'list-view' : 'grid-view'">
         <app-ecommerce-item
           class="card ecommerce-card"
           [product]="product"

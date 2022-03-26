@@ -17,7 +17,7 @@ export const menu: CoreMenu[] = [
     title: 'Buy Bitcoin',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"apps/invoice/list"
+    url:"apps/e-commerce/shop"
   },
   {
     id: 'apps',
@@ -41,7 +41,7 @@ export const menu: CoreMenu[] = [
     title: 'My Balance',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"apps/e-commerce/shop"
+    url:"apps/invoice/list"
   },
   {
     id: 'apps',

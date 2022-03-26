@@ -33,12 +33,12 @@
   <div class="item-wrapper">
     <div class="item-cost">
       <h4 class="item-price">${{ product.price }}</h4>
-      <p class="card-text shipping" *ngIf="product.hasFreeShipping">
+      <!-- <p class="card-text shipping" *ngIf="product.hasFreeShipping">
         <span class="badge badge-pill badge-light-success">Free Shipping</span>
-      </p>
+      </p> -->
     </div>
   </div>
-  <a
+  <!-- <a
     *ngIf="isWishlistOpen === true"
     href="javascript:void(0)"
     class="btn btn-light btn-wishlist"
@@ -47,8 +47,8 @@
   >
     <i data-feather="x"></i>
     <span>Remove</span>
-  </a>
-  <a
+  </a> -->
+  <!-- <a
     *ngIf="isWishlistOpen !== true"
     href="javascript:void(0)"
     class="btn btn-light btn-wishlist"
@@ -57,7 +57,7 @@
   >
     <i class="fa mr-25" [ngClass]="product.isInWishlist === true ? 'fa-heart text-danger' : 'fa-heart-o'"></i>
     <span>Wishlist</span>
-  </a>
+  </a> -->
   <a
     *ngIf="product.isInCart !== true"
     href="javascript:void(0)"
@@ -66,7 +66,7 @@
     rippleEffect
   >
     <i data-feather="shopping-cart" class="mr-25"></i>
-    <span class="add-to-cart">Add to cart</span>
+    <span class="add-to-cart">Buy Now</span>
   </a>
   <a
     *ngIf="product.isInCart === true"
@@ -75,7 +75,7 @@
     rippleEffect
   >
     <i data-feather="shopping-cart" class="mr-25"></i>
-    <span class="add-to-cart">View in cart</span>
+    <span class="add-to-cart">View in Cart</span>
   </a>
 </div>
 <!--/ Ecommerce Item -->
