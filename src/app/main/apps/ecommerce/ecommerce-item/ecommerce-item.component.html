@@ -1,60 +1,132 @@
-<div class="checkout-options">
-  <div class="card">
-    <div class="card-body">
-      <label class="section-label mb-1">Options</label>
-      <div class="coupons input-group input-group-merge">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Coupons"
-          aria-label="Coupons"
-          aria-describedby="input-coupons"
-        />
-        <div class="input-group-append">
-          <span class="input-group-text text-primary" id="input-coupons">Apply</span>
-        </div>
-      </div>
-      <hr />
-      <div class="price-details">
-        <h6 class="price-title">Price Details</h6>
-        <ul class="list-unstyled">
-          <li class="price-detail">
-            <div class="detail-title">Total MRP</div>
-            <div class="detail-amt">$598</div>
-          </li>
-          <li class="price-detail">
-            <div class="detail-title">Bag Discount</div>
-            <div class="detail-amt discount-amt text-success">-25$</div>
-          </li>
-          <li class="price-detail">
-            <div class="detail-title">Estimated Tax</div>
-            <div class="detail-amt">$1.3</div>
-          </li>
-          <li class="price-detail">
-            <div class="detail-title">EMI Eligibility</div>
-            <a href="javascript:void(0)" class="detail-amt text-primary">Details</a>
-          </li>
-          <li class="price-detail">
-            <div class="detail-title">Delivery Charges</div>
-            <div class="detail-amt discount-amt text-success">Free</div>
-          </li>
-        </ul>
-        <hr />
-        <ul class="list-unstyled">
-          <li class="price-detail">
-            <div class="detail-title detail-total">Total</div>
-            <div class="detail-amt font-weight-bolder">$574</div>
-          </li>
-        </ul>
-        <button
-          type="button"
-          class="btn btn-primary btn-block btn-next place-order"
-          rippleEffect
-        >
-          Place Order
-        </button>
-      </div>
+<!-- Ecommerce Item -->
+<div class="card-body">
+  <label class="section-label mb-1">Options</label>
+  <div class="coupons input-group input-group-merge">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Coupons"
+      aria-label="Coupons"
+      aria-describedby="input-coupons"
+    />
+    <div class="input-group-append">
+      <span class="input-group-text text-primary" id="input-coupons">Apply</span>
     </div>
   </div>
-  <!-- Checkout Place Order Right ends -->
+  <hr />
+  <div class="price-details">
+    <h6 class="price-title">Price Details</h6>
+    <ul class="list-unstyled">
+      <li class="price-detail">
+        <div class="detail-title">Total MRP</div>
+        <div class="detail-amt">$598</div>
+      </li>
+      <li class="price-detail">
+        <div class="detail-title">Bag Discount</div>
+        <div class="detail-amt discount-amt text-success">-25$</div>
+      </li>
+      <li class="price-detail">
+        <div class="detail-title">Estimated Tax</div>
+        <div class="detail-amt">$1.3</div>
+      </li>
+      <li class="price-detail">
+        <div class="detail-title">EMI Eligibility</div>
+        <a href="javascript:void(0)" class="detail-amt text-primary">Details</a>
+      </li>
+      <li class="price-detail">
+        <div class="detail-title">Delivery Charges</div>
+        <div class="detail-amt discount-amt text-success">Free</div>
+      </li>
+    </ul>
+    <hr />
+    <ul class="list-unstyled">
+      <li class="price-detail">
+        <div class="detail-title detail-total">Total</div>
+        <div class="detail-amt font-weight-bolder">$574</div>
+      </li>
+    </ul>
+    <button
+      type="button"
+      class="btn btn-primary btn-block btn-next place-order"
+     
+      rippleEffect
+    >
+      Place Order
+    </button>
+  </div>
 </div>
+<div class="card-body">
+  <div class="item-wrapper">
+    <div class="item-rating">
+      <div class="rating rating-sm">
+        <ngb-rating [rate]="product.rating" [readonly]="true" [max]="5" class="outline-none">
+          <ng-template let-fill="fill" let-index="index"
+            ><span class="fa fa-star-o mr-25" [class.fa-star]="fill === 100"></span
+          ></ng-template>
+        </ngb-rating>
+      </div>
+    </div>
+    <div class="item-cost">
+      <h6 class="item-price">${{ product.price }}</h6>
+    </div>
+  </div>
+  <h6 class="item-name">
+    <a class="text-body" [routerLink]="'/apps/e-commerce/details/' + product.id"> {{ product.name }}</a>
+    <span class="card-text item-company"
+      >By <a href="javascript:void(0)" class="company-name">{{ product.brand }}</a></span
+    >
+  </h6>
+  <p class="card-text item-description">
+    {{ product.description }}
+  </p>
+</div>
+<div class="item-options text-center">
+  <div class="item-wrapper">
+    <div class="item-cost">
+      <h4 class="item-price">${{ product.price }}</h4>
+      <!-- <p class="card-text shipping" *ngIf="product.hasFreeShipping">
+        <span class="badge badge-pill badge-light-success">Free Shipping</span>
+      </p> -->
+    </div>
+  </div>
+  <!-- <a
+    *ngIf="isWishlistOpen === true"
+    href="javascript:void(0)"
+    class="btn btn-light btn-wishlist"
+    (click)="toggleWishlist(product)"
+    rippleEffect
+  >
+    <i data-feather="x"></i>
+    <span>Remove</span>
+  </a> -->
+  <!-- <a
+    *ngIf="isWishlistOpen !== true"
+    href="javascript:void(0)"
+    class="btn btn-light btn-wishlist"
+    (click)="toggleWishlist(product)"
+    rippleEffect
+  >
+    <i class="fa mr-25" [ngClass]="product.isInWishlist === true ? 'fa-heart text-danger' : 'fa-heart-o'"></i>
+    <span>Wishlist</span>
+  </a> -->
+  <a
+    *ngIf="product.isInCart !== true"
+    href="javascript:void(0)"
+    class="btn btn-primary btn-cart"
+    (click)="addToCart(product)"
+    rippleEffect
+  >
+    <i data-feather="shopping-cart" class="mr-25"></i>
+    <span class="add-to-cart">Buy Now</span>
+  </a>
+  <a
+    *ngIf="product.isInCart === true"
+    routerLink="/apps/e-commerce/checkout"
+    class="btn btn-primary btn-cart"
+    rippleEffect
+  >
+    <i data-feather="shopping-cart" class="mr-25"></i>
+    <span class="add-to-cart">View in Cart</span>
+  </a>
+</div>
+<!--/ Ecommerce Item -->
