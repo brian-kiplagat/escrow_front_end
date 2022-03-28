@@ -80,8 +80,10 @@ export class EcommerceShopComponent implements OnInit {
     ngOnInit(): void {
         this._fb
             .getOffers()
-            .then((data) => {
-                console.log(data['data']);
+            .then((data:any) => {
+              let response = data
+
+                console.log(response.data);
             })
             .catch((err) => {
                 console.log(err);
