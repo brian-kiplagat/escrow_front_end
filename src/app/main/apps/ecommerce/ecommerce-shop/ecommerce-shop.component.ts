@@ -28,8 +28,9 @@ export class EcommerceShopComponent implements OnInit {
    *
    * @param {CoreSidebarService} _coreSidebarService
    * @param {EcommerceService} _ecommerceService
+   * @param {FirebaseService}_fb
    */
-  constructor(private _coreSidebarService: CoreSidebarService, private _ecommerceService: EcommerceService, public fb:FirebaseService) {}
+  constructor(private _coreSidebarService: CoreSidebarService, private _ecommerceService: EcommerceService, private _fb:FirebaseService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -73,7 +74,7 @@ export class EcommerceShopComponent implements OnInit {
   ngOnInit(): void {
     // Subscribe to ProductList change
 console.log("test here")
-this.fb.getOffers()
+this._fb.getOffers()
     this._ecommerceService.onProductListChange.subscribe(res => {
       this.products = res;
       this.products.isInWishlist = false;
