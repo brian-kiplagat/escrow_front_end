@@ -3,6 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
+import {FirebaseService} from '../../../../services/firebase.service';
 @Component({
   selector: 'app-ecommerce-shop',
   templateUrl: './ecommerce-shop.component.html',
@@ -28,7 +29,7 @@ export class EcommerceShopComponent implements OnInit {
    * @param {CoreSidebarService} _coreSidebarService
    * @param {EcommerceService} _ecommerceService
    */
-  constructor(private _coreSidebarService: CoreSidebarService, private _ecommerceService: EcommerceService) {}
+  constructor(private _coreSidebarService: CoreSidebarService, private _ecommerceService: EcommerceService, public fb:FirebaseService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -71,7 +72,8 @@ export class EcommerceShopComponent implements OnInit {
    */
   ngOnInit(): void {
     // Subscribe to ProductList change
-
+console.log("test here")
+this.fb.getOffers()
     this._ecommerceService.onProductListChange.subscribe(res => {
       this.products = res;
       this.products.isInWishlist = false;
