@@ -30,6 +30,8 @@ import { InvoicePreviewService } from 'app/main/apps/invoice/invoice-preview/inv
 import { AddPaymentSidebarPreviewComponent } from 'app/main/apps/invoice/invoice-preview/sidebar/add-payment-sidebar-preview/add-payment-sidebar-preview.component';
 import { SendInvoiceSidebarPreviewComponent } from 'app/main/apps/invoice/invoice-preview/sidebar/send-invoice-sidebar-preview/send-invoice-sidebar-preview.component';
 import { SellComponent } from './sell/sell.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { NouisliderModule } from 'ng2-nouislider';
 
 // routing
 const routes: Routes = [
@@ -94,7 +96,8 @@ const routes: Routes = [
     AddPaymentSidebarComponent,
     SendInvoiceSidebarPreviewComponent,
     AddPaymentSidebarPreviewComponent,
-    SellComponent
+    SellComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -107,7 +110,8 @@ const routes: Routes = [
     CorePipesModule,
     NgbModule,
     NgSelectModule,
-    CoreSidebarModule
+    CoreSidebarModule,
+    NouisliderModule
   ],
   providers: [InvoiceListService, InvoicePreviewService, InvoiceEditService, InvoiceAddService],
   exports: [InvoiceListComponent]

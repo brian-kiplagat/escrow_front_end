@@ -107,8 +107,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "vuexy:build",
-            "proxyConfig": "src/proxy.config.json"
+            "browserTarget": "vuexy:build"
+            
           },
           "configurations": {
             "production": {
