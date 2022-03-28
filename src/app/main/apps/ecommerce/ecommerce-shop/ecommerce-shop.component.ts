@@ -83,7 +83,7 @@ export class EcommerceShopComponent implements OnInit {
             .then((data:any) => {
               let response = data
 
-                console.log(response.data);
+                console.log(response);
             })
             .catch((err) => {
                 console.log(err);
