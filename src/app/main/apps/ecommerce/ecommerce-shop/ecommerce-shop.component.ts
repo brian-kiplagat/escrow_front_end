@@ -81,7 +81,7 @@ export class EcommerceShopComponent implements OnInit {
         this._fb
             .getOffers()
             .then((data) => {
-                console.log(data);
+                console.log(data['data']);
             })
             .catch((err) => {
                 console.log(err);
