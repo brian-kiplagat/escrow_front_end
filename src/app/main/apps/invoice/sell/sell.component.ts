@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 
-import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 
-import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
+import { CoreConfigService } from '@core/services/config.service';
+
+import { InvoiceListService } from 'app/main/apps/invoice/invoice-list/invoice-list.service';
 import {FirebaseService} from '../../../../services/firebase.service';
 
 @Component({
@@ -10,111 +14,145 @@ import {FirebaseService} from '../../../../services/firebase.service';
   templateUrl: './sell.component.html',
   styleUrls: ['./sell.component.scss']
 })
-export class SellComponent implements OnInit {
+export class SellComponent implements OnInit,OnDestroy {
 // public
-public contentHeader: object;
-public shopSidebarToggle = false;
-public shopSidebarReset = false;
-public gridViewRef = true;
-public products;
-public wishlist;
-public cartList;
-public page = 1;
-public pageSize = 9;
-public searchText = '';
+  public data: any;
+  public selectedOption = 10;
+  public ColumnMode = ColumnMode;
+  public selectStatus: any = [
+    { name: 'All', value: '' },
+    { name: 'Downloaded', value: 'Downloaded' },
+    { name: 'Draft', value: 'Draft' },
+    { name: 'Paid', value: 'Paid' },
+    { name: 'Partial Payment', value: 'Partial Payment' },
+    { name: 'Past Due', value: 'Past Due' },
+    { name: 'Sent', value: 'Sent' }
+  ];
 
-/**
- *
- * @param {CoreSidebarService} _coreSidebarService
- * @param {EcommerceService} _ecommerceService
- * @param {FirebaseService}_fb
- */
-constructor(private _coreSidebarService: CoreSidebarService, private _ecommerceService: EcommerceService, private _fb:FirebaseService) {}
+  public selectedStatus = [];
+  public searchValue = '';
 
-// Public Methods
-// -----------------------------------------------------------------------------------------------------
+  // decorator
+  @ViewChild(DatatableComponent) table: DatatableComponent;
 
-/**
- * Toggle Sidebar
- *
- * @param name
- */
-toggleSidebar(name): void {
-  this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+  // private
+  private tempData = [];
+  private _unsubscribeAll: Subject<any>;
+  public rows;
+  public tempFilterData;
+  public previousStatusFilter = '';
+
+  /**
+   * Constructor
+   *
+   * @param {CoreConfigService} _coreConfigService
+   * @param {CalendarService} _calendarService
+   * @param {InvoiceListService} _invoiceListService
+   */
+  constructor(private _invoiceListService: InvoiceListService, private _coreConfigService: CoreConfigService,private firebase:FirebaseService) {
+    this._unsubscribeAll = new Subject();
+  }
+
+  // Public Methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * filterUpdate
+   *
+   * @param event
+   */
+  filterUpdate(event) {
+    // Reset ng-select on search
+    this.selectedStatus = this.selectStatus[0];
+
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.tempData.filter(function (d) {
+      return d.client.name.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // update the rows
+    this.rows = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
+
+  /**
+   * Filter By Roles
+   *
+   * @param event
+   */
+  filterByStatus(event) {
+    const filter = event ? event.value : '';
+    this.previousStatusFilter = filter;
+    this.tempFilterData = this.filterRows(filter);
+    this.rows = this.tempFilterData;
+  }
+
+  /**
+   * Filter Rows
+   *
+   * @param statusFilter
+   */
+  filterRows(statusFilter): any[] {
+    // Reset search on select change
+    this.searchValue = '';
+
+    statusFilter = statusFilter.toLowerCase();
+
+    return this.tempData.filter(row => {
+      const isPartialNameMatch = row.invoiceStatus.toLowerCase().indexOf(statusFilter) !== -1 || !statusFilter;
+      return isPartialNameMatch;
+    });
+  }
+
+  // Lifecycle Hooks
+  // -----------------------------------------------------------------------------------------------------
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+       // console.log(this.getData.myData);
+      this.retireveData()
+       
+       //console.log('hers the data',data);
+   
+    // Subscribe config change
+    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+      // If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
+      if (config.layout.animation === 'zoomIn') {
+        setTimeout(() => {
+          this._invoiceListService.onInvoiceListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+            this.data = response;
+            this.rows = this.data;
+            this.tempData = this.rows;
+            this.tempFilterData = this.rows;
+          });
+        }, 450);
+      } else {
+        this._invoiceListService.onInvoiceListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+          this.data = response;
+          this.rows = this.data;
+          this.tempData = this.rows;
+          this.tempFilterData = this.rows;
+        });
+      }
+    });
+  }
+async retireveData(){
+  const data = await this.firebase.retrieve("orders")
+  data.forEach((d)=>{
+    console.log(d.data())
+  })
 }
-
-/**
- * Update to List View
- */
-listView() {
-  this.gridViewRef = false;
-}
-
-/**
- * Update to Grid View
- */
-gridView() {
-  this.gridViewRef = true;
-}
-
-/**
- * Sort Product
- */
-sortProduct(sortParam) {
-  this._ecommerceService.sortProduct(sortParam);
-}
-
-// Lifecycle Hooks
-// -----------------------------------------------------------------------------------------------------
-
-/**
- * On init
- */
-ngOnInit(): void {
-  // Subscribe to ProductList change
-console.log("test here")
-this._fb.getOffers()
-  this._ecommerceService.onProductListChange.subscribe(res => {
-    this.products = res;
-    this.products.isInWishlist = false;
-  });
-
-  // Subscribe to Wishlist change
-  this._ecommerceService.onWishlistChange.subscribe(res => (this.wishlist = res));
-
-  // Subscribe to Cartlist change
-  this._ecommerceService.onCartListChange.subscribe(res => (this.cartList = res));
-
-  // update product is in Wishlist & is in CartList : Boolean
-  this.products.forEach(product => {
-    product.isInWishlist = this.wishlist.findIndex(p => p.productId === product.id) > -1;
-    product.isInCart = this.cartList.findIndex(p => p.productId === product.id) > -1;
-  });
-
-  // content header
-  this.contentHeader = {
-    headerTitle: 'Shop',
-    actionButton: true,
-    breadcrumb: {
-      type: '',
-      links: [
-        {
-          name: 'Home',
-          isLink: true,
-          link: '/'
-        },
-        {
-          name: 'eCommerce',
-          isLink: true,
-          link: '/'
-        },
-        {
-          name: 'Shop',
-          isLink: false
-        }
-      ]
-    }
-  };
-}
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
 
 }
