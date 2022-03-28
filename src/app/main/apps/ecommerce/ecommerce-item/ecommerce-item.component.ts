@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
+import {FirebaseService} from '../../../../services/firebase.service';
 
 @Component({
   selector: 'app-ecommerce-item',
@@ -21,7 +22,7 @@ export class EcommerceItemComponent implements OnInit {
    *
    * @param {EcommerceService} _ecommerceService
    */
-  constructor(private _ecommerceService: EcommerceService) {}
+  constructor(private _ecommerceService: EcommerceService, private fb: FirebaseService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -56,5 +57,7 @@ export class EcommerceItemComponent implements OnInit {
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fb.getOffers()
+  }
 }

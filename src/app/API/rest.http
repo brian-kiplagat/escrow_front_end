@@ -1,0 +1,3 @@
+###
+POST http://coinlif.com/api/coin/create.php
+Content-Type: multipart/form-data

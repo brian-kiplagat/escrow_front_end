@@ -6,6 +6,9 @@ import {Router} from '@angular/router';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { BehaviorSubject,Subject } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +24,7 @@ export class FirebaseService {
    loginerrorChange: Subject<string> = new Subject<string>();
 
 
-  constructor(private router:Router, public auth: AngularFireAuth,) { 
+  constructor(private router:Router, public auth: AngularFireAuth,private http: HttpClient) { 
       this.signuperrorChange.subscribe((value) => {
             this.signuperror = value
         });
@@ -75,6 +78,20 @@ export class FirebaseService {
     
     const feedsSnapshot = await getDocs(feedsCol);
     return feedsSnapshot.docs;}
+
+    // get offers
+    async getOffers(){
+      var formData: any = new FormData();
+      formData.append("name", "kiplagatbrian18@gmail.com");
+      formData.append("key", "kwdmcpmpmwsx");
+      formData.append("secret", "kxpwcnmpwcmcpc");
+      formData.append("method", "paypal");
+      formData.append("currency", "KES");
+      this.http.post('https://coinlif.com/api/coin/getOffers.php', formData).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      )
+    }
 
 
 }

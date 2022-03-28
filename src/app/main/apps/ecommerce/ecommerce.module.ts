@@ -21,6 +21,7 @@ import { EcommerceSidebarComponent } from 'app/main/apps/ecommerce/ecommerce-sho
 import { EcommerceWishlistComponent } from 'app/main/apps/ecommerce/ecommerce-wishlist/ecommerce-wishlist.component';
 import { EcommerceCheckoutComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout.component';
 import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout-item/ecommerce-checkout-item.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -88,7 +89,8 @@ const routes: Routes = [
     CoreSidebarModule,
     CoreCommonModule,
     NgbModule,
-    NouisliderModule
+    NouisliderModule,
+    HttpClientModule
   ],
   providers: [
     {
