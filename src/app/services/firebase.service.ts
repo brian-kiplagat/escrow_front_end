@@ -82,7 +82,7 @@ export class FirebaseService {
     // get offers
     async getOffers(){
       var formData: any = new FormData();
-      formData.append("name", "kiplagatbrian18@gmail.com");
+      formData.append("email", "kiplagatbrian18@gmail.com");
       formData.append("key", "kwdmcpmpmwsx");
       formData.append("secret", "kxpwcnmpwcmcpc");
       formData.append("method", "paypal");
