@@ -59,5 +59,6 @@ export class EcommerceItemComponent implements OnInit {
   // -----------------------------------------------------------------------------------------------------
   ngOnInit(): void {
     this.fb.getOffers()
+    console.log("test successful")
   }
 }
