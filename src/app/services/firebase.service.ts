@@ -83,8 +83,8 @@ export class FirebaseService {
     async getOffers(){
       var data: any = new FormData();
       data.append('email', 'kiplagatbrian18@gmail.com');
-      data.append('key', 'ldcm[m[m');
-      data.append('secret', 'asxpadmcp[wmc');
+      data.append('key', 'kwdmcpmpmwsx');
+      data.append('secret', 'kxpwcnmpwcmcpc');
       data.append('method', 'paypal');
       data.append('currency', 'KES');
        data.append("type", "sell");
