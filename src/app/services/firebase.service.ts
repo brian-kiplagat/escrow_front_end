@@ -81,13 +81,13 @@ export class FirebaseService {
 
     // get offers
     async getOffers(){
-      var formData: any = new FormData();
-      formData.append("email", "kiplagatbrian18@gmail.com");
-      formData.append("key", "kwdmcpmpmwsx");
-      formData.append("secret", "kxpwcnmpwcmcpc");
-      formData.append("method", "paypal");
-      formData.append("currency", "KES");
-      this.http.post('https://coinlif.com/api/coin/getOffers.php', formData).subscribe(
+      var data: any = new FormData();
+      data.append('email', 'kiplagatbrian18@gmail.com');
+      data.append('key', 'ldcm[m[m');
+      data.append('secret', 'asxpadmcp[wmc');
+      data.append('method', 'paypal');
+      data.append('currency', 'KES');
+      this.http.post('https://coinlif.com/api/coin/getOffers.php', data).subscribe(
         (response) => console.log(response),
         (error) => console.log(error)
       )
