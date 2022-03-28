@@ -73,7 +73,6 @@ export class EcommerceShopComponent implements OnInit {
    */
   ngOnInit(): void {
     // Subscribe to ProductList change
-this._fb.getOffers()
     this._ecommerceService.onProductListChange.subscribe(res => {
       this.products = res;
       this.products.isInWishlist = false;
