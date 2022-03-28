@@ -101,9 +101,6 @@ export class FirebaseService {
        
 
 
-      this.http.post('https://coinlif.com/api/coin/getOffers.php', data).subscribe(
-        (response) => console.log(response),
-        (error) => console.log(error)
-      )
+      this.http.post('https://coinlif.com/api/coin/getOffers.php', data)
     }
 }
