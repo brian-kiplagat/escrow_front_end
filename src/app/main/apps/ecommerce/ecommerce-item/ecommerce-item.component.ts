@@ -58,7 +58,6 @@ export class EcommerceItemComponent implements OnInit {
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
   ngOnInit(): void {
-    this.fb.getOffers()
     console.log("test successful")
   }
 }
