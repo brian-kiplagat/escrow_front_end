@@ -22,6 +22,7 @@ import { EcommerceWishlistComponent } from 'app/main/apps/ecommerce/ecommerce-wi
 import { EcommerceCheckoutComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout.component';
 import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout-item/ecommerce-checkout-item.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -90,7 +91,8 @@ const routes: Routes = [
     CoreCommonModule,
     NgbModule,
     NouisliderModule,
-    HttpClientModule
+    HttpClientModule,
+    NgSelectModule
   ],
   providers: [
     {

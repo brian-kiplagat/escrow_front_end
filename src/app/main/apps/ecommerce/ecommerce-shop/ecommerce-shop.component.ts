@@ -23,6 +23,8 @@ export class EcommerceShopComponent implements OnInit {
   public page = 1;
   public pageSize = 9;
   public searchText = '';
+  public selectBasic: any[] = ["Bank Transfer","Mpesa","Paypal","Skrill"];
+  public selectBasicLoading = false;
 
   /**
    *
