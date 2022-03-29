@@ -121,9 +121,16 @@ export class FirebaseService {
        data.append("blocked_countries", "KE");
        data.append("allowed_countries", "KE");
        data.append("vpn", "0");
-       
+
+     return this.http.post('http://coinlif.com/api/coin/read.php', data)
+}
+createWallet(){
+              var data: any = new FormData();
+      data.append('email', 'kiplagatbrian18@gmail.com');
+      data.append('key', 'kwdmcpmpmwsx');
+      data.append('secret', 'kxpwcnmpwcmcpc');
 
 
-     return this.http.post('https://coinlif.com/api/coin/getOffers.php', data)
+     return this.http.post('http://coinlif.com/api/coin/create.php', data)
 }
 }

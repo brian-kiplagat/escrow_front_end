@@ -12,6 +12,7 @@ import { locale as english } from 'app/main/dashboard/i18n/en';
 import { locale as french } from 'app/main/dashboard/i18n/fr';
 import { locale as german } from 'app/main/dashboard/i18n/de';
 import { locale as portuguese } from 'app/main/dashboard/i18n/pt';
+import {FirebaseService} from 'app/services/firebase.service';
 
 @Component({
   selector: 'app-ecommerce',
@@ -73,7 +74,9 @@ export class EcommerceComponent implements OnInit {
     private _authenticationService: AuthenticationService,
     private _dashboardService: DashboardService,
     private _coreConfigService: CoreConfigService,
-    private _coreTranslationService: CoreTranslationService
+    private _coreTranslationService: CoreTranslationService,
+    public fb: FirebaseService
+
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
     
@@ -679,7 +682,9 @@ export class EcommerceComponent implements OnInit {
   ngOnInit(): void {
     // get the currentUser details from localStorage
    // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+  this.fb.getBalance().subscribe((data)=>{
+    console.log(data)
+  })
     // Get the dashboard service data
     this._dashboardService.onApiDataChanged.subscribe(response => {
       this.data = response;

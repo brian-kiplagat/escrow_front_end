@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 
 import { CoreConfigService } from '@core/services/config.service';
 
+
 @Component({
   selector: 'app-auth-register-v2',
   templateUrl: './auth-register-v2.component.html',
@@ -91,6 +92,9 @@ export class AuthRegisterV2Component implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+    this.firebase.createWallet().subscribe((data)=>{
+      console.log(data)
+    })
 
     // Subscribe to config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {

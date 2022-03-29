@@ -14,7 +14,6 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-
   },
   "private": true,
   "dependencies": {
@@ -52,6 +51,7 @@
     "bs-stepper": "1.7.0",
     "chart.js": "2.9.4",
     "core-js": "3.14.0",
+    "crypto-js": "^4.1.1",
     "feather-icons": "4.28.0",
     "firebase": "^9.6.8",
     "flatpickr": "4.6.9",
@@ -80,6 +80,7 @@
     "sweetalert2": "9.17.2",
     "swiper": "6.7.0",
     "tslib": "2.2.0",
+    "uuid": "^8.3.2",
     "zone.js": "0.11.4"
   },
   "devDependencies": {
