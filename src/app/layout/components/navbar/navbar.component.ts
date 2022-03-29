@@ -36,6 +36,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public languageOptions: any;
   public navigation: any;
   public selectedLanguage: any;
+  public mail = '';
+  public balance = 0;
 
   @HostBinding('class.fixed-top')
   public isFixed = false;
@@ -83,6 +85,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _coreSidebarService: CoreSidebarService,
     private _mediaObserver: MediaObserver,
     public _translateService: TranslateService,
+    
     private _firebae :FirebaseService
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
@@ -179,6 +182,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // get the currentUser details from localStorage
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this._firebae.getBalance().subscribe((data) => {
+      this.mail = data['data']['email']
+      this.balance = data['data']['balance']
+    })
 
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {

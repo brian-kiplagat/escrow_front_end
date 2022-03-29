@@ -12,7 +12,7 @@ import { locale as english } from 'app/main/dashboard/i18n/en';
 import { locale as french } from 'app/main/dashboard/i18n/fr';
 import { locale as german } from 'app/main/dashboard/i18n/de';
 import { locale as portuguese } from 'app/main/dashboard/i18n/pt';
-import {FirebaseService} from 'app/services/firebase.service';
+import { FirebaseService } from 'app/services/firebase.service';
 
 @Component({
   selector: 'app-ecommerce',
@@ -62,6 +62,8 @@ export class EcommerceComponent implements OnInit {
   private $strokeColor = '#ebe9f1';
   private $earningsStrokeColor2 = '#28c76f66';
   private $earningsStrokeColor3 = '#28c76f33';
+  public balance = 0
+  public email =''
 
   /**
    * Constructor
@@ -79,7 +81,7 @@ export class EcommerceComponent implements OnInit {
 
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
-    
+
 
     this._coreTranslationService.translate(english, french, german, portuguese);
     // Statistics Bar Chart
@@ -681,10 +683,12 @@ export class EcommerceComponent implements OnInit {
    */
   ngOnInit(): void {
     // get the currentUser details from localStorage
-   // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  this.fb.getBalance().subscribe((data)=>{
-    console.log(data)
-  })
+    // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.fb.getBalance().subscribe((data) => {
+      this.balance = data['data']['balance'],
+        this.email = data['data']['email']
+      console.log(data)
+    })
     // Get the dashboard service data
     this._dashboardService.onApiDataChanged.subscribe(response => {
       this.data = response;
@@ -699,8 +703,8 @@ export class EcommerceComponent implements OnInit {
     this._coreConfigService.getConfig().subscribe(config => {
       // If Menu Collapsed Changes
       if (
-        (config.layout.menu.collapsed === true || config.layout.menu.collapsed === false) 
-        
+        (config.layout.menu.collapsed === true || config.layout.menu.collapsed === false)
+
       ) {
         setTimeout(() => {
           this.isMenuToggled = true;
