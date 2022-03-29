@@ -80,14 +80,14 @@
       </section> -->
       <div class="checkout-options">
         <div class="card"   *ngFor="
-        let product of products
+        let offer of offers
           | filter: searchText:'name'
           | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
       ">
       <div class="card-body">
  
         <div class="coupons input-group input-group-merge">
-          <span class=" form-control input-group-text text-primary" id="username">User3893</span>
+          <span class=" form-control input-group-text text-primary" id="username">{{offer.email}}</span>
 
           <div class="input-group-append">
             <span class="input-group-text text-primary" id="selling-price">45,598 EUR</span>
@@ -109,7 +109,7 @@
                 <div class="badge badge-pill badge-light-secondary">No third party</div>
 
               </div>
-              <div class="detail-amt discount-amt text-success">Limits: 300-5000 EUR</div>
+              <div class="detail-amt discount-amt text-success">Limits: {{offer.maximum}} EUR</div>
             </li>
 
           </ul>

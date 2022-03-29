@@ -25,6 +25,7 @@ export class EcommerceShopComponent implements OnInit {
     public searchText = '';
     public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
     public selectBasicLoading = false;
+    public offers = []
 
     /**
      *
@@ -36,7 +37,7 @@ export class EcommerceShopComponent implements OnInit {
         private _coreSidebarService: CoreSidebarService,
         private _ecommerceService: EcommerceService,
         private _fb: FirebaseService
-    ) {}
+    ) { }
 
     // Public Methods
     // -----------------------------------------------------------------------------------------------------
@@ -79,15 +80,11 @@ export class EcommerceShopComponent implements OnInit {
      */
     ngOnInit(): void {
         this._fb
-            .getOffers()
-            .then((data) => {
-              let response = data
-
-                console.log(response);
+            .getOffers().subscribe((data)=>{
+                this.offers = data['data']['payload']
+                console.log(this.offers)
             })
-            .catch((err) => {
-                console.log(err);
-            });
+            
         // Subscribe to ProductList change
         this._ecommerceService.onProductListChange.subscribe((res) => {
             this.products = res;
