@@ -1,17 +1,127 @@
-<!-- Ecommerce Wishlist -->
-<div class="content-wrapper container-xxl p-0">
-  <app-content-header [contentHeader]="contentHeader"></app-content-header>
-  <div class="content-body">
-    <section id="wishlist" class="grid-view wishlist-items">
-      <ng-container *ngFor="let product of products">
+<div class="content-wrapper container-xxl overflow-hidden p-0">
+  <!-- Sidebar filters  -->
+  <div class="sidebar-detached sidebar-left">
+    <div class="sidebar">
+      <core-sidebar
+        class="sidebar-shop"
+        id="ecommerce-sidebar-toggler"
+        name="ecommerce-sidebar"
+        collapsibleSidebar="bs-gt-lg"
+        overlayClass="body-content-overlay"
+      >
+        <ecommerce-sidebar></ecommerce-sidebar>
+      </core-sidebar>
+    </div>
+  </div>
+  <!--/ Sidebar filters -->
+
+  <div class="content-detached content-right">
+    <div class="content-body">
+      <div class="align-items-center">
+        <h2>Buy Bitcoin (BTC)</h2><br>
+        <p>With bank transfers, online wallets, gift cards, and over 350 other payment methods.</p>
+      </div>
+      <!-- E-commerce Head Section Starts -->
+      <section id="multiple-column-form">
+        <div class="row match-height">
+          <div class="col-12">
+ 
+              <div class="card-body">
+                <form class="form">
+                  <div class="row">
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="first-name-column">Pay via</label>
+                       <!-- Basic Select with Search -->
+          
+                        <!-- Basic Select with Search -->
+                        <ng-select [items]="selectBasic" bindLabel="name" [loading]="selectBasicLoading" class="form-control"> </ng-select>
+                    <!--/ Basic Select with Search -->
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="last-name-column">I want to buy</label>
+                        <input
+                          type="text"
+                          id="last-name-column"
+                          class="form-control"
+                          placeholder="Amount"
+                        />
+                      </div>
+                    </div>
+ 
+                    <div class="col-12">
+                      <button type="button" class="btn btn-primary btn-block" rippleEffect>
+                        <span [data-feather]="'search'" [class]="'mr-25'"></span>FIND OFFERS
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+      </section>
+      <!-- E-commerce Head Section Starts -->
+
+      <!-- E-commerce Head Section Starts -->
+
+      <!-- E-commerce Products Starts -->
+      <!-- <section id="ecommerce-products" [ngClass]="gridViewRef === true ? 'list-view' : 'grid-view'">
         <app-ecommerce-item
           class="card ecommerce-card"
           [product]="product"
-          [isWishlistOpen]="true"
-          *ngIf="product.isInWishlist === true"
+          *ngFor="
+            let product of products
+              | filter: searchText:'name'
+              | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
+          "
         ></app-ecommerce-item>
-      </ng-container>
-    </section>
+      </section> -->
+      <div class="checkout-options">
+        <div class="card"   *ngFor="
+        let offer of products
+          | filter: searchText:'name'
+          | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
+      ">
+     <app-ecommerce-item [offer]="offer"></app-ecommerce-item>
+        </div>
+        <!-- Checkout Place Order Right ends -->
+      </div>
+      <!-- E-commerce Products Ends -->
+
+      <!-- E-commerce Pagination Starts -->
+      <section id="ecommerce-pagination">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="d-flex justify-content-center">
+              <ngb-pagination
+                [collectionSize]="(products | filter: searchText:'name').length"
+                [(page)]="page"
+                [maxSize]="5"
+                [rotate]="true"
+                [ellipses]="false"
+                [boundaryLinks]="true"
+              >
+                <!-- Custom pagination icons -->
+                <ng-template ngbPaginationPrevious
+                  ><span [data-feather]="'chevron-left'" [class]="'font-weight-bolder'" [size]="18"></span>
+                </ng-template>
+                <ng-template ngbPaginationFirst
+                  ><span [data-feather]="'chevrons-left'" [class]="'font-weight-bolder'" [size]="18"></span>
+                </ng-template>
+                <ng-template ngbPaginationNext
+                  ><span [data-feather]="'chevron-right'" [class]="'font-weight-bolder'" [size]="18"></span
+                ></ng-template>
+                <ng-template ngbPaginationLast
+                  ><span [data-feather]="'chevrons-right'" [class]="'font-weight-bolder'" [size]="18"></span>
+                </ng-template>
+              </ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- E-commerce Pagination Ends -->
+    </div>
   </div>
 </div>
-<!--/ Ecommerce Wishlist -->

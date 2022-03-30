@@ -12,7 +12,7 @@ import {FirebaseService} from '../../../../services/firebase.service';
 })
 export class EcommerceItemComponent implements OnInit {
   // Input Decorotor
-  @Input() product;
+  @Input() offer;
   @Input() isWishlistOpen = false;
 
   // Public

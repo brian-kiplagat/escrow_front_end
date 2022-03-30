@@ -126,7 +126,7 @@ export class FirebaseService {
 }
 createWallet(){
               var data: any = new FormData();
-      data.append('email', 'kiplagatbrian18@gmail.com');
+      data.append('email', 'kiplagatbrian181@gmail.com');
       data.append('key', 'kwdmcpmpmwsx');
       data.append('secret', 'kxpwcnmpwcmcpc');
 

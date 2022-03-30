@@ -32,6 +32,7 @@ import { SendInvoiceSidebarPreviewComponent } from 'app/main/apps/invoice/invoic
 import { SellComponent } from './sell/sell.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NouisliderModule } from 'ng2-nouislider';
+import { EcommerceItemComponent } from 'app/main/apps/ecommerce/ecommerce-item/ecommerce-item.component';
 
 // routing
 const routes: Routes = [
@@ -92,12 +93,14 @@ const routes: Routes = [
     InvoicePreviewComponent,
     InvoiceEditComponent,
     AddCustomerSidebarComponent,
+
     SendInvoiceSidebarComponent,
     AddPaymentSidebarComponent,
     SendInvoiceSidebarPreviewComponent,
     AddPaymentSidebarPreviewComponent,
     SellComponent,
-    SidebarComponent
+    SidebarComponent,
+    
   ],
   imports: [
     CommonModule,

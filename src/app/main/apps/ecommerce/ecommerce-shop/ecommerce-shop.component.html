@@ -84,59 +84,7 @@
           | filter: searchText:'name'
           | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
       ">
-      <div class="card-body">
- 
-        <div class="coupons input-group input-group-merge">
-          <span class=" form-control input-group-text text-primary" id="username">{{offer.email}}</span>
-
-          <div class="input-group-append">
-            <span class="input-group-text text-primary" id="selling-price">45,598 EUR</span>
-          </div>
-
-        </div>
-        <hr />
-        <div class="price-details">
-          <ul class="list-unstyled">
-            <li class="price-detail">
-              <div class="detail-title">Fast trades</div>
-              <div class="detail-title detail-total">Rate: 2%</div>
-            </li>
-            <li class="price-detail">
-              <div class="detail-title">
-                <div class="badge badge-pill badge-light-secondary">Photo ID Required</div>
-                <div class="badge badge-pill badge-light-secondary">Friends and family</div>
-                <div class="badge badge-pill badge-light-secondary">Goods and Services</div>
-                <div class="badge badge-pill badge-light-secondary">No third party</div>
-
-              </div>
-              <div class="detail-amt discount-amt text-success">Limits: {{offer.maximum}} EUR</div>
-            </li>
-
-          </ul>
-
-          <ul class="list-unstyled">
-            <li class="price-detail">
-              <div class="detail-title detail-total"> <!-- alert -->
-                <ngb-alert [type]="'primary'" [dismissible]="false">
-                  <div class="alert-body">
-                    <strong>Info: </strong> Minimum of <a href="#" class="alert-link">10 trades </a>required to buy cryptocurrency from this seller
-                  </div>
-                </ngb-alert>
-                <!--/ alert --></div>
-              <div class="detail-amt font-weight-bolder">Get on the dollar: $574</div>
-            </li>
-            <li class="price-detail">
-              <div class="detail-title detail-total"></div>
-              <div class="detail-amt font-weight-bolder">
-                <button type="button" class="btn btn-primary btn-block btn-next place-order" rippleEffect>
-                  <span [data-feather]="'home'" [class]="'mr-25'"></span>BUY BTC</button
-                >
-
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+     <app-ecommerce-item [offer]="offer"></app-ecommerce-item>
         </div>
         <!-- Checkout Place Order Right ends -->
       </div>
