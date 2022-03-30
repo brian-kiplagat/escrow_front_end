@@ -122,7 +122,7 @@ export class FirebaseService {
        data.append("allowed_countries", "KE");
        data.append("vpn", "0");
 
-     return this.http.post('http://coinlif.com/api/coin/read.php', data)
+     return this.http.post('https://coinlif.com/api/coin/getBalance.php', data)
 }
 createWallet(){
               var data: any = new FormData();

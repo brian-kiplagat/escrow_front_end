@@ -2,13 +2,8 @@
   <!-- Sidebar filters  -->
   <div class="sidebar-detached sidebar-left">
     <div class="sidebar">
-      <core-sidebar
-        class="sidebar-shop"
-        id="ecommerce-sidebar-toggler"
-        name="ecommerce-sidebar"
-        collapsibleSidebar="bs-gt-lg"
-        overlayClass="body-content-overlay"
-      >
+      <core-sidebar class="sidebar-shop" id="ecommerce-sidebar-toggler" name="ecommerce-sidebar"
+        collapsibleSidebar="bs-gt-lg" overlayClass="body-content-overlay">
         <ecommerce-sidebar></ecommerce-sidebar>
       </core-sidebar>
     </div>
@@ -25,40 +20,36 @@
       <section id="multiple-column-form">
         <div class="row match-height">
           <div class="col-12">
- 
-              <div class="card-body">
-                <form class="form">
-                  <div class="row">
-                    <div class="col-md-6 col-12">
-                      <div class="form-group">
-                        <label for="first-name-column">Pay via</label>
-                       <!-- Basic Select with Search -->
-          
-                        <!-- Basic Select with Search -->
-                        <ng-select [items]="selectBasic" bindLabel="name" [loading]="selectBasicLoading" class="form-control"> </ng-select>
-                    <!--/ Basic Select with Search -->
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-12">
-                      <div class="form-group">
-                        <label for="last-name-column">I want to buy</label>
-                        <input
-                          type="text"
-                          id="last-name-column"
-                          class="form-control"
-                          placeholder="Amount"
-                        />
-                      </div>
-                    </div>
- 
-                    <div class="col-12">
-                      <button type="button" class="btn btn-primary btn-block" rippleEffect>
-                        <span [data-feather]="'search'" [class]="'mr-25'"></span>FIND OFFERS
-                      </button>
+
+            <div class="card-body">
+              <form class="form">
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="first-name-column">Pay via</label>
+                      <!-- Basic Select with Search -->
+
+                      <!-- Basic Select with Search -->
+                      <ng-select [items]="selectBasic" bindLabel="name" [loading]="selectBasicLoading"
+                        class="form-control"> </ng-select>
+                      <!--/ Basic Select with Search -->
                     </div>
                   </div>
-                </form>
-              </div>
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="last-name-column">I want to buy</label>
+                      <input type="text" id="last-name-column" class="form-control" placeholder="Amount" />
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <button type="button" class="btn btn-primary btn-block" rippleEffect>
+                      <span [data-feather]="'search'" [class]="'mr-25'"></span>FIND OFFERS
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </section>
@@ -79,7 +70,7 @@
         ></app-ecommerce-item>
       </section> -->
       <div class="checkout-options">
-        <div class="card"   *ngFor="
+        <div style="margin-bottom:6px;" class="card" *ngFor="
         let offer of offers
           | filter: searchText:'name'
           | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
@@ -88,6 +79,7 @@
         </div>
         <!-- Checkout Place Order Right ends -->
       </div>
+
       <!-- E-commerce Products Ends -->
 
       <!-- E-commerce Pagination Starts -->
@@ -95,26 +87,19 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="d-flex justify-content-center">
-              <ngb-pagination
-                [collectionSize]="(products | filter: searchText:'name').length"
-                [(page)]="page"
-                [maxSize]="5"
-                [rotate]="true"
-                [ellipses]="false"
-                [boundaryLinks]="true"
-              >
+              <ngb-pagination [collectionSize]="(products | filter: searchText:'name').length" [(page)]="page"
+                [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
                 <!-- Custom pagination icons -->
-                <ng-template ngbPaginationPrevious
-                  ><span [data-feather]="'chevron-left'" [class]="'font-weight-bolder'" [size]="18"></span>
+                <ng-template ngbPaginationPrevious><span [data-feather]="'chevron-left'" [class]="'font-weight-bolder'"
+                    [size]="18"></span>
                 </ng-template>
-                <ng-template ngbPaginationFirst
-                  ><span [data-feather]="'chevrons-left'" [class]="'font-weight-bolder'" [size]="18"></span>
+                <ng-template ngbPaginationFirst><span [data-feather]="'chevrons-left'" [class]="'font-weight-bolder'"
+                    [size]="18"></span>
                 </ng-template>
-                <ng-template ngbPaginationNext
-                  ><span [data-feather]="'chevron-right'" [class]="'font-weight-bolder'" [size]="18"></span
-                ></ng-template>
-                <ng-template ngbPaginationLast
-                  ><span [data-feather]="'chevrons-right'" [class]="'font-weight-bolder'" [size]="18"></span>
+                <ng-template ngbPaginationNext><span [data-feather]="'chevron-right'" [class]="'font-weight-bolder'"
+                    [size]="18"></span></ng-template>
+                <ng-template ngbPaginationLast><span [data-feather]="'chevrons-right'" [class]="'font-weight-bolder'"
+                    [size]="18"></span>
                 </ng-template>
               </ngb-pagination>
             </div>
