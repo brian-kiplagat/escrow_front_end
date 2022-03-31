@@ -29,13 +29,7 @@
 
                     <div class="form-group">
                       <!-- Basic Multi select -->
-                      <ng-select [items]="selectBasic" [multiple]="true" [closeOnSelect]="false"
-                        [searchable]="false" bindLabel="name" placeholder="Select method" [(ngModel)]="searchText">
-                        <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                          <span class="ng-value-label"> {{ item }}</span>
-                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                        </ng-template>
-                      </ng-select>
+                      <ng-select [items]="selectBasic" bindLabel="name" [loading]="selectBasicLoading"> </ng-select>
                       <!--/ Basic Multi select -->
                     </div>
                   </div>
@@ -54,13 +48,7 @@
 
                     <div class="form-group">
                       <!-- Basic Multi select -->
-                      <ng-select [items]="selectBasic" [multiple]="true" [closeOnSelect]="false"
-                        [searchable]="false" bindLabel="name" placeholder="Select method" [(ngModel)]="searchText">
-                        <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                          <span class="ng-value-label"> {{ item }}</span>
-                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                        </ng-template>
-                      </ng-select>
+                      <ng-select [items]="selectBasic" bindLabel="name" [loading]="selectBasicLoading"> </ng-select>
                       <!--/ Basic Multi select -->
                     </div>
                   </div>
