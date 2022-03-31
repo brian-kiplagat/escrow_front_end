@@ -9,7 +9,7 @@ export const menu: CoreMenu[] = [
     title: 'Dashboard',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"dashboard/ecommerce"
+    url: "dashboard/ecommerce"
   },
   {
     id: 'apps',
@@ -17,7 +17,7 @@ export const menu: CoreMenu[] = [
     title: 'Buy Bitcoin',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"apps/e-commerce/shop"
+    url: "apps/e-commerce/shop"
   },
   {
     id: 'apps',
@@ -25,7 +25,7 @@ export const menu: CoreMenu[] = [
     title: 'Sell Bitcoin',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"apps/e-commerce/wishlist"
+    url: "apps/e-commerce/wishlist"
   },
   {
     id: 'apps',
@@ -33,7 +33,7 @@ export const menu: CoreMenu[] = [
     title: 'Create an Offer',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"apps/email"
+    url: "apps/e-commerce/checkout"
   },
   {
     id: 'apps',
@@ -41,7 +41,7 @@ export const menu: CoreMenu[] = [
     title: 'My Balance',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"apps/invoice/list"
+    url: "apps/invoice/list"
   },
   {
     id: 'apps',
@@ -49,7 +49,7 @@ export const menu: CoreMenu[] = [
     title: 'Send|Receive',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"pages/pricing"
+    url: "pages/pricing"
   },
   {
     id: 'apps',
@@ -57,7 +57,7 @@ export const menu: CoreMenu[] = [
     title: 'Contact Support',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"apps/invoice/edit"
+    url: "apps/invoice/edit"
   },
-  
+
 ];
