@@ -14,47 +14,68 @@
     <div class="content-body">
       <div class="align-items-center">
         <h2>Buy Bitcoin (BTC)</h2><br>
-        <p>With bank transfers, online wallets, gift cards, and over 350 other payment methods.</p>
+        <p>With bank transfers, online wallets, gift cards, and over 350 other payment methods securely with escrow - seller protection</p>
       </div>
-      <!-- E-commerce Head Section Starts -->
-      <section id="multiple-column-form">
-        <div class="row match-height">
+      <!-- Multiple Select start -->
+      <section class="multiple-select">
+        <div class="row">
           <div class="col-12">
+            <div class="card">
 
-            <div class="card-body">
-              <form class="form">
+              <div class="card-body">
                 <div class="row">
-                  <div class="col-md-6 col-12">
-                    <div class="form-group">
-                      <label for="first-name-column">Pay via</label>
-                      <!-- Basic Select with Search -->
+                  <div class="col-sm-6 col-12">
+                    <label>Pay Via</label>
 
-                      <!-- Basic Select with Search -->
-                      <ng-select [items]="selectBasic" bindLabel="name" [loading]="selectBasicLoading"
-                        class="form-control"> </ng-select>
-                      <!--/ Basic Select with Search -->
+                    <div class="form-group">
+                      <!-- Basic Multi select -->
+                      <ng-select [items]="selectBasic" [multiple]="true" [closeOnSelect]="false"
+                        [searchable]="false" bindLabel="name" placeholder="Select method" [(ngModel)]="searchText">
+                        <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                          <span class="ng-value-label"> {{ item }}</span>
+                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                        </ng-template>
+                      </ng-select>
+                      <!--/ Basic Multi select -->
                     </div>
                   </div>
-                  <div class="col-md-6 col-12">
+                  <div class="col-sm-6 col-12">
+                    <label>Preffered currency</label>
+
                     <div class="form-group">
-                      <label for="last-name-column">I want to buy</label>
+                      <!-- Basic Multi select -->
+                      <ng-select [items]="selectBasic" [multiple]="true" [closeOnSelect]="false"
+                        [searchable]="false" bindLabel="name" placeholder="Select method" [(ngModel)]="searchText">
+                        <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                          <span class="ng-value-label"> {{ item }}</span>
+                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                        </ng-template>
+                      </ng-select>
+                      <!--/ Basic Multi select -->
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-12">
+                    <label>I want to buy</label>
+
+                    <div class="form-group">
+                      <!-- Select Multi with group -->
                       <input type="text" id="last-name-column" class="form-control" placeholder="Amount" />
+                   
+                      <!--/ Select Multi with group -->
                     </div>
                   </div>
-
                   <div class="col-12">
                     <button type="button" class="btn btn-primary btn-block" rippleEffect>
                       <span [data-feather]="'search'" [class]="'mr-25'"></span>FIND OFFERS
                     </button>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </section>
-      <!-- E-commerce Head Section Starts -->
-
+      <!-- Multiple Select end -->
       <!-- E-commerce Head Section Starts -->
 
       <!-- E-commerce Products Starts -->
@@ -79,10 +100,10 @@
 
             <div style="margin-bottom: -10px;" class="coupons input-group input-group-merge">
               <span class=" form-control input-group-text text-primary" id="username">{{offer.email}}</span>
-
+<!-- 
               <div class="input-group-append">
                 <span class="input-group-text text-primary" id="selling-price">45,598 EUR</span>
-              </div>
+              </div> -->
 
             </div>
             <hr />
@@ -90,7 +111,7 @@
               <ul class="list-unstyled">
                 <li class="price-detail">
                   <div class="detail-title">Fast trades</div>
-                  <div class="detail-title detail-total">Rate: 2%</div>
+                  <div class="detail-title detail-total">45,598 EUR</div>
                 </li>
                 <li class="price-detail">
                   <div class="detail-title">
@@ -98,7 +119,7 @@
                     <div class="badge badge-pill badge-light-secondary">Friends and family</div>
                     <div class="badge badge-pill badge-light-secondary">Goods and Services</div>
                     <div class="badge badge-pill badge-light-secondary">No third party</div>
-
+                    <div class="badge badge-pill badge-light-warning">This offer doesn't allow VPN</div>
                   </div>
                   <div class="detail-amt discount-amt text-success">Limits: {{offer.minimum}}-{{offer.maximum}} EUR
                   </div>
@@ -107,9 +128,7 @@
               </ul>
 
               <ul class="list-unstyled">
-                <li class="price-detail" style="margin-bottom: -15px">
-                  <div class="badge badge-pill badge-light-warning">This offer doesn't allow VPN</div>
-                </li>
+              
                 <li class="price-detail">
                   <div class="detail-title detail-total"></div>
                   <div class="detail-amt font-weight-bolder">
