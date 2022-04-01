@@ -63,7 +63,8 @@ export class EcommerceComponent implements OnInit {
   private $earningsStrokeColor2 = '#28c76f66';
   private $earningsStrokeColor3 = '#28c76f33';
   public balance = 0
-  public email =''
+  public email = ''
+  public wallet = ''
 
   /**
    * Constructor
@@ -687,6 +688,7 @@ export class EcommerceComponent implements OnInit {
     this.fb.getBalance().subscribe((data) => {
       this.balance = data['data']['balance'],
         this.email = data['data']['email']
+      this.wallet =  data['data']['wallet']
       console.log(data)
     })
     // Get the dashboard service data

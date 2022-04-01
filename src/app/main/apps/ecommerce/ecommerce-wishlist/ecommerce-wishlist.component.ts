@@ -4,16 +4,16 @@ import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.s
 
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
 import { FirebaseService } from '../../../../services/firebase.service';
-
 @Component({
-  selector: 'app-ecommerce-wishlist',
-  templateUrl: './ecommerce-wishlist.component.html',
-  styleUrls: ['./ecommerce-wishlist.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  host: { class: 'ecommerce-application' }
+    selector: 'app-ecommerce-wishlist',
+    templateUrl: './ecommerce-wishlist.component.html',
+    styleUrls: ['./ecommerce-wishlist.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    host: { class: 'ecommerce-application' }
 })
 export class EcommerceWishlistComponent implements OnInit {
- // public
+    // Public
+
     public contentHeader: object;
     public shopSidebarToggle = false;
     public shopSidebarReset = false;
@@ -73,19 +73,16 @@ export class EcommerceWishlistComponent implements OnInit {
         this._ecommerceService.sortProduct(sortParam);
     }
 
-    // Lifecycle Hooks
-    // -----------------------------------------------------------------------------------------------------
-
     /**
      * On init
      */
     ngOnInit(): void {
         this._fb
-            .getOffers().subscribe((data)=>{
+            .getOffers().subscribe((data) => {
                 this.offers = data['data']['payload']
                 console.log(this.offers)
             })
-            
+
         // Subscribe to ProductList change
         this._ecommerceService.onProductListChange.subscribe((res) => {
             this.products = res;
