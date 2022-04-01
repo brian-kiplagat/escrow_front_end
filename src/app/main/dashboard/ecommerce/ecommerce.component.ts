@@ -65,6 +65,8 @@ export class EcommerceComponent implements OnInit {
   public balance = 0
   public email = ''
   public wallet = ''
+  public joined = ''
+  public username = ''
 
   /**
    * Constructor
@@ -689,6 +691,8 @@ export class EcommerceComponent implements OnInit {
       this.balance = data['data']['balance'],
         this.email = data['data']['email']
       this.wallet =  data['data']['wallet']
+      this.username =  data['data']['username']
+      this.joined =  data['data']['joined']
       console.log(data)
     })
     // Get the dashboard service data
