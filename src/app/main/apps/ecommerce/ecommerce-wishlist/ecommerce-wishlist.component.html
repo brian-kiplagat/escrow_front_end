@@ -121,8 +121,15 @@
                 <li class="price-detail">
                   <div class="detail-title detail-total"></div>
                   <div class="detail-amt font-weight-bolder">
-                    <button type="button" class="btn btn-primary btn-block btn-next place-order" rippleEffect>
-                      <span [data-feather]="'home'" [class]="'mr-25'"></span>BUY BTC</button>
+                       <a [routerLink]="'/apps/e-commerce/details/' + offer.id">
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-block btn-next place-order"
+                            rippleEffect
+                        >
+                            <span [data-feather]="'home'" [class]="'mr-25'"></span>BUY BTC
+                        </button>
+                    </a>
 
                   </div>
                 </li>
