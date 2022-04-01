@@ -161,43 +161,6 @@
           </div>
         </div>
         <!-- Item features ends -->
-
-        <!-- Related Products starts -->
-        <div class="card-body">
-          <div class="mt-4 mb-2 text-center">
-            <h4>Related Products</h4>
-            <p class="card-text">People also search for this items</p>
-          </div>
-          <div class="swiper-responsive-breakpoints swiper-container px-4 py-2" [swiper]="swiperResponsive">
-            <div class="swiper-wrapper mb-2">
-              <div class="swiper-slide" *ngFor="let relatedProduct of relatedProducts">
-                <a href="javascript:void(0)">
-                  <div class="item-heading">
-                    <h5 class="text-truncate mb-0">{{ relatedProduct.name }}</h5>
-                    <small class="text-body">by {{ relatedProduct.brand }}</small>
-                  </div>
-                  <div class="img-container mx-auto py-75">
-                    <img [src]="relatedProduct.image" class="img-fluid" alt="image" />
-                  </div>
-                  <div class="item-meta">
-                    <div class="rating rating-sm">
-                      <ngb-rating [rate]="relatedProduct.rating" [readonly]="true" [max]="5" class="outline-none">
-                        <ng-template let-fill="fill" let-index="index"
-                          ><span class="fa fa-star-o mr-25" [class.fa-star]="fill === 100"></span
-                        ></ng-template>
-                      </ngb-rating>
-                    </div>
-                    <p class="card-text text-primary mb-0">${{ relatedProduct.price }}</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <!-- Add Arrows -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-          </div>
-        </div>
-        <!-- Related Products ends -->
       </div>
     </section>
     <!-- app e-commerce details end -->
