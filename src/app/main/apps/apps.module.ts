@@ -34,7 +34,7 @@ const routes: Routes = [
     loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
   },
   {
-    path: 'e-commerce',
+    path: 'bitcoin',
     loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule)
   },
   {

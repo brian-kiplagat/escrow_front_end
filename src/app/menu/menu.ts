@@ -9,7 +9,7 @@ export const menu: CoreMenu[] = [
     title: 'Dashboard',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url: "dashboard/ecommerce"
+    url: "dashboard/overview"
   },
   {
     id: 'apps',
@@ -17,7 +17,7 @@ export const menu: CoreMenu[] = [
     title: 'Buy Bitcoin',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url: "apps/e-commerce/shop"
+    url: "offers/bitcoin/buy"
   },
   {
     id: 'apps',
@@ -25,7 +25,7 @@ export const menu: CoreMenu[] = [
     title: 'Sell Bitcoin',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url:"apps/e-commerce/wishlist"
+    url:"offers/bitcoin/sell"
 
   },
   {
@@ -34,31 +34,31 @@ export const menu: CoreMenu[] = [
     title: 'Create an Offer',
     translate: 'MENU.APPS.SECTION',
     icon: 'package',
-    url: "apps/e-commerce/checkout"
+    url: "offers/bitcoin/create"
   },
-  {
-    id: 'apps',
-    type: 'item',
-    title: 'My Balance',
-    translate: 'MENU.APPS.SECTION',
-    icon: 'package',
-    url: "apps/invoice/list"
-  },
-  {
-    id: 'apps',
-    type: 'item',
-    title: 'Send|Receive',
-    translate: 'MENU.APPS.SECTION',
-    icon: 'package',
-    url: "pages/pricing"
-  },
-  {
-    id: 'apps',
-    type: 'item',
-    title: 'Contact Support',
-    translate: 'MENU.APPS.SECTION',
-    icon: 'package',
-    url: "apps/invoice/edit"
-  },
+  // {
+  //   id: 'apps',
+  //   type: 'item',
+  //   title: 'My Balance',
+  //   translate: 'MENU.APPS.SECTION',
+  //   icon: 'package',
+  //   url: "apps/invoice/list"
+  // },
+  // {
+  //   id: 'apps',
+  //   type: 'item',
+  //   title: 'Send|Receive',
+  //   translate: 'MENU.APPS.SECTION',
+  //   icon: 'package',
+  //   url: "pages/pricing"
+  // },
+  // {
+  //   id: 'apps',
+  //   type: 'item',
+  //   title: 'Contact Support',
+  //   translate: 'MENU.APPS.SECTION',
+  //   icon: 'package',
+  //   url: "apps/invoice/edit"
+  // },
 
 ];

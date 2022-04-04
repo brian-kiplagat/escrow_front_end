@@ -35,7 +35,7 @@ export class FirebaseService {
   // public methods
   login(email: string, password: string):void {
     this.auth.signInWithEmailAndPassword(email,password).then(()=>{
-      this.router.navigate(['/dashboard/ecommerce']);
+      this.router.navigate(['/dashboard/overview']);
     }).catch((err)=>{
         this.loginerrorChange.next("user not found, please check email or password");
       console.log(err.message)
@@ -98,7 +98,7 @@ export class FirebaseService {
        data.append("blocked_countries", "KE");
        data.append("allowed_countries", "KE");
        data.append("vpn", "0");
-       data.append("amount", "10");
+       data.append("amount", "");
        
 
 

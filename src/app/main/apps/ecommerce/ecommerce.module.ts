@@ -33,7 +33,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 // routing
 const routes: Routes = [
   {
-    path: 'shop',
+    path: 'buy',
     component: EcommerceShopComponent,
     resolve: {
       ecommerce: EcommerceService
@@ -49,7 +49,7 @@ const routes: Routes = [
     data: { animation: 'EcommerceDetailsComponent' }
   },
   {
-    path: 'wishlist',
+    path: 'sell',
     component: EcommerceWishlistComponent,
     resolve: {
       ecommerce: EcommerceService
@@ -57,7 +57,7 @@ const routes: Routes = [
     data: { animation: 'EcommerceWishlistComponent' }
   },
   {
-    path: 'checkout',
+    path: 'create',
     component: EcommerceCheckoutComponent,
     resolve: {
       ecommerce: EcommerceService

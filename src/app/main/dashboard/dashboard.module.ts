@@ -33,7 +33,7 @@ const routes = [
     }
   },
   {
-    path: 'ecommerce',
+    path: 'overview',
     component: EcommerceComponent,
     //canActivate: [AuthGuard],
     resolve: {

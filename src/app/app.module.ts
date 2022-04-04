@@ -42,7 +42,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('./main/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
-    path: 'apps',
+    path: 'offers',
     loadChildren: () => import('./main/apps/apps.module').then(m => m.AppsModule),
     
   },
