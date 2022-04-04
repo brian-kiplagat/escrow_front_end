@@ -98,6 +98,7 @@ export class FirebaseService {
        data.append("blocked_countries", "KE");
        data.append("allowed_countries", "KE");
        data.append("vpn", "0");
+       data.append("amount", "10");
        
 
 
