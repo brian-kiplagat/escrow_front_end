@@ -135,6 +135,6 @@ createWallet(){
      return this.http.post('http://coinlif.com/api/coin/create.php', data)
 }
 getExchange(){
-  return this.http.get('http://coinlif.com/api/coin/create.php')
+  return this.http.get('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
 }
 }
