@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation ,Input} from '@angular/core';
 
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
+import { ActivatedRoute } from '@angular/router';
+import { FirebaseService } from '../../../../services/firebase.service';
 
 @Component({
   selector: 'app-ecommerce-details',
@@ -12,12 +14,15 @@ import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
   host: { class: 'ecommerce-application' }
 })
 export class EcommerceDetailsComponent implements OnInit {
+ 
   // public
   public contentHeader: object;
   public product;
   public wishlist;
   public cartList;
   public relatedProducts;
+  public offer;
+  public offers = []
 
   // Swiper
   public swiperResponsive: SwiperConfigInterface = {
@@ -52,7 +57,7 @@ export class EcommerceDetailsComponent implements OnInit {
    *
    * @param {EcommerceService} _ecommerceService
    */
-  constructor(private _ecommerceService: EcommerceService) {}
+  constructor(private _ecommerceService: EcommerceService,private route: ActivatedRoute,private _fb: FirebaseService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -92,11 +97,21 @@ export class EcommerceDetailsComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    // Subscribe to Selected Product change
-    this._ecommerceService.onSelectedProductChange.subscribe(res => {
-      this.product = res[0];
-    });
-
+    this._fb
+    .getOffers().subscribe((data) => {
+        this.offers = data['data']['payload']
+      console.log(this.offers)
+      const routeParams = this.route.snapshot.paramMap;    
+      const productIdFromRoute = routeParams.get('id');
+      console.log(productIdFromRoute)
+        this.offer = this.offers.find(product => product.id === productIdFromRoute);
+    console.log(this.offer)
+    })
+  
+ 
+  
+    // Find the product that correspond with the id provided in route.
+  
     // Subscribe to Wishlist change
     this._ecommerceService.onWishlistChange.subscribe(res => (this.wishlist = res));
 

@@ -61,14 +61,14 @@
                 </div>
               </div>
 
-              <p class="card-text">Rate - <span class="text-success">2% Above market Price</span></p>
-              <p class="card-text">Buy limits - <span class="text-success">5000 KES-6000 KES</span></p>
+              <p class="card-text">Rate - <span class="text-success">{{offer.margin}}% Above market Price</span></p>
+              <p class="card-text">Buy limits - <span class="text-success">{{offer.minimum}} KES-{{offer.maximum}} KES</span></p>
               <p class="card-text">Escrow Fee - <span class="text-success">0%</span></p>
               <p class="card-text">Trade time limit - <span class="text-success">30 min</span></p>
 
 
               <p class="card-text">
-                {{ product.description }}
+               desc
               </p>
 
               <hr />
@@ -102,10 +102,10 @@
               <div class="d-flex flex-column flex-sm-row pt-1">
 
 
-                <a href="javascript:void(0)" (click)="toggleWishlist(product)"
+                <a href="javascript:void(0)" (click)="toggleWishlist(offer)"
                   class="btn btn-outline-secondary btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0" rippleEffect>
                   <i class="fa mr-50"
-                    [ngClass]="product.isInWishlist === true ? 'fa-heart text-danger' : 'fa-heart-o'"></i>
+                    [ngClass]="offer.isInWishlist === true ? 'fa-heart text-danger' : 'fa-heart-o'"></i>
                   <span>Wishlist</span>
                 </a>
                 <div class="btn-group dropdown-icon-wrapper btn-share" ngbDropdown>
