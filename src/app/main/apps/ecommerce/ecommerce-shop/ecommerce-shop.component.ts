@@ -26,7 +26,7 @@ export class EcommerceShopComponent implements OnInit {
     public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
     public selectBasicLoading = false;
     public offers = []
-    public currency = []
+    public currency:any[] = []
 
     /**
      *
@@ -87,9 +87,9 @@ export class EcommerceShopComponent implements OnInit {
             })
             this._fb.getExchange().subscribe((data)=>{
 
-                this.currency = data['data']['rates']
-               let listnew = this.currency['AAVE']
-                console.log(this.currency,'cureentcyuius',listnew)
+                let listnew = data['data']['rates']
+              this.currency = Object.keys(listnew)
+                console.log(this.currency)
             })
             
         // Subscribe to ProductList change

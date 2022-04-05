@@ -27,6 +27,8 @@ export class EcommerceWishlistComponent implements OnInit {
     public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
     public selectBasicLoading = false;
     public offers = []
+    public currency:any[] = []
+
 
     /**
      *
@@ -81,6 +83,12 @@ export class EcommerceWishlistComponent implements OnInit {
             .getOffers().subscribe((data) => {
                 this.offers = data['data']['payload']
                 console.log(this.offers)
+            })
+            this._fb.getExchange().subscribe((data)=>{
+
+                let listnew = data['data']['rates']
+              this.currency = Object.keys(listnew)
+                console.log(this.currency)
             })
 
         // Subscribe to ProductList change
