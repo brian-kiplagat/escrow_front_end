@@ -86,8 +86,10 @@ export class EcommerceShopComponent implements OnInit {
                 console.log(this.offers)
             })
             this._fb.getExchange().subscribe((data)=>{
+
                 this.currency = data['data']['rates']
-                console.log(this.currency)
+               let listnew = this.currency['AAVE']
+                console.log(this.currency,'cureentcyuius',listnew)
             })
             
         // Subscribe to ProductList change
