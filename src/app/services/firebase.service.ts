@@ -136,7 +136,7 @@ createWallet(){
 }
 getInfo(id:string){
   var data: any = new FormData();
-data.append('id',id);
+data.append('id','36');
 data.append('key', 'kwdmcpmpmwsx');
 data.append('secret', 'kxpwcnmpwcmcpc');
 
