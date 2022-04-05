@@ -107,7 +107,14 @@ export class EcommerceDetailsComponent implements OnInit {
         this.offer = this.offers.find(product => product.id === productIdFromRoute);
     console.log(this.offer)
     })
-  
+    const routeParams = this.route.snapshot.paramMap;    
+    const productIdFromRoute = routeParams.get('id');
+    console.log(productIdFromRoute)
+    this._fb
+    .getInfo(productIdFromRoute).subscribe((data) => {
+        let info= data
+        console.log(info)
+    })
  
   
     // Find the product that correspond with the id provided in route.

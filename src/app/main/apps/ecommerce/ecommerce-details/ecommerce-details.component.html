@@ -7,7 +7,7 @@
         <div class="card-body">
           <div class="row my-2">
             <div class="col-12 ">
-              <h4>{{offer.type}} Bitcoin with {{offer.method}}{{offer.currency}} — {{offer.label}}</h4>
+              <h4 class="text-capitalize">{{offer.type}} Bitcoin with {{offer.method}}({{offer.currency}}) — {{offer.label}}</h4>
               <span class="card-text item-company">By <a href="javascript:void(0)" class="company-name">{{offer.username}}</a></span>
 
               <div style="margin-top: 10px" class="detail-title">
@@ -61,13 +61,13 @@
               </div>
 
               <p class="card-text">Rate - <span class="text-success">{{offer.margin}}% Above market Price</span></p>
-              <p class="card-text">Buy limits - <span class="text-success">{{offer.minimum}} KES-{{offer.maximum}} KES</span></p>
+              <p class="card-text">Buy limits - <span class="text-success">{{offer.minimum}}-{{offer.maximum}} KES</span></p>
               <p class="card-text">Escrow Fee - <span class="text-success">0%</span></p>
               <p class="card-text">Trade time limit - <span class="text-success">30 min</span></p>
 
 
               <p class="card-text">
-               desc
+               {{offer.terms}}
               </p>
 
               <hr />
