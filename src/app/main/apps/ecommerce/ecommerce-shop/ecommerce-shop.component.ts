@@ -84,6 +84,9 @@ export class EcommerceShopComponent implements OnInit {
                 this.offers = data['data']['payload']
                 console.log(this.offers)
             })
+            this._fb.getExchange().subscribe((data)=>{
+                console.log(data)
+            })
             
         // Subscribe to ProductList change
         this._ecommerceService.onProductListChange.subscribe((res) => {
