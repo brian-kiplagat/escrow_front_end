@@ -135,10 +135,6 @@ createWallet(){
      return this.http.post('http://coinlif.com/api/coin/create.php', data)
 }
 getExchange(){
-  var data: any = new FormData();
-  data.append('email', 'kiplagatbrian181@gmail.com');
-  data.append('key', 'kwdmcpmpmwsx');
-  data.append('secret', 'kxpwcnmpwcmcpc');
-  return this.http.post('http://coinlif.com/api/coin/create.php', data)
+  return this.http.get('http://coinlif.com/api/coin/create.php')
 }
 }
