@@ -51,7 +51,7 @@
 
                         <div class="col-12">
                           <button type="button" class="btn btn-primary btn-block" rippleEffect>
-                            <span [data-feather]="'shield'" [class]="'mr-25'"></span>BUY BITCOIN
+                            <span [data-feather]="'shield'" [class]="'mr-25 text-capitalize'"></span>{{offer.type}}  BITCOIN
                           </button>
                         </div>
                       </div>
@@ -72,7 +72,7 @@
 
               <hr />
               <div class="product-color-options">
-                <h6>About this Seller*Buyer</h6>
+                <h6>About this {{offer.type}}er</h6>
 
                 <ul class="product-features list-unstyled">
                   <li><i data-feather="check"></i> <span>ID Verified</span></li>
