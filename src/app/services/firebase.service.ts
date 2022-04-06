@@ -132,7 +132,7 @@ createWallet(){
       data.append('secret', 'kxpwcnmpwcmcpc');
 
 
-     return this.http.post('http://coinlif.com/api/coin/create.php', data)
+     return this.http.post('https://coinlif.com/api/coin/create.php', data)
 }
 getInfo(id:string){
   var data: any = new FormData();
