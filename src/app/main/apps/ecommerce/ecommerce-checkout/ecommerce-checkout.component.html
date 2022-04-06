@@ -179,7 +179,7 @@
                   </div>
                   <div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
-                      <label for="checkout-landmark">Landmark e.g. near apollo hospital:</label>
+                      <label for="checkout-landmark">Offer rate:</label>
                       <input
                         type="text"
                         id="checkout-landmark"
@@ -243,7 +243,7 @@
                   <div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
                       <label for="checkout-state">Offer terms</label>
-                      <input
+                      <textarea
                         type="text"
                         id="checkout-state"
                         class="form-control"
@@ -252,8 +252,7 @@
                         placeholder="Write your terms here"
                         [(ngModel)]="address.stateVar"
                         #stateRef="ngModel"
-                        required
-                      />
+                        required></textarea>
                       <span *ngIf="addressForm.submitted && stateRef.invalid" class="invalid-form">
                         <small class="form-text text-danger" *ngIf="stateRef.errors.required"
                           >This field is required!</small
@@ -264,17 +263,16 @@
                   <div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
                       <label for="checkout-state">Trade Instructions</label>
-                      <input
-                        type="text"
-                        id="checkout-state"
-                        class="form-control"
-                        [class.error]="addressForm.submitted && stateRef.invalid"
-                        name="state"
-                        placeholder="List your instructions here"
-                        [(ngModel)]="address.stateVar"
-                        #stateRef="ngModel"
-                        required
-                      />
+                      <textarea
+                      type="text"
+                      id="checkout-state"
+                      class="form-control"
+                      [class.error]="addressForm.submitted && stateRef.invalid"
+                      name="state"
+                      placeholder="List your instructions here"
+                      [(ngModel)]="address.stateVar"
+                      #stateRef="ngModel"
+                      required></textarea>
                       <span *ngIf="addressForm.submitted && stateRef.invalid" class="invalid-form">
                         <small class="form-text text-danger" *ngIf="stateRef.errors.required"
                         >This field is required!</small
@@ -456,7 +454,7 @@
         <div class="step" data-target="#step-cart">
           <button type="button" class="step-trigger">
             <span class="bs-stepper-box">
-              <i data-feather="shopping-cart" class="font-medium-3"></i>
+              <i data-feather="dollar-sign" class="font-medium-3"></i>
             </span>
             <span class="bs-stepper-label">
               <span class="bs-stepper-title">Payment Method</span>
@@ -470,7 +468,7 @@
         <div class="step" data-target="#step-address">
           <button type="button" class="step-trigger">
             <span class="bs-stepper-box">
-              <i data-feather="home" class="font-medium-3"></i>
+              <i data-feather="alert-circle" class="font-medium-3"></i>
             </span>
             <span class="bs-stepper-label">
               <span class="bs-stepper-title">Pricing</span>
@@ -479,7 +477,7 @@
           </button>
         </div>
         <div class="line">
-          <i data-feather="chevron-right" class="font-medium-2"></i>
+          <i data-feather="check-circle" class="font-medium-2"></i>
         </div>
         <div class="step" data-target="#step-payment">
           <button type="button" class="step-trigger">
