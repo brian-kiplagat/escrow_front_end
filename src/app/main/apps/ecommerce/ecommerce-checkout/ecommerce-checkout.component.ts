@@ -4,6 +4,7 @@ import Stepper from 'bs-stepper';
 
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
 import { FirebaseService } from '../../../../services/firebase.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ecommerce-checkout',
@@ -35,6 +36,8 @@ export class EcommerceCheckoutComponent implements OnInit {
 
   // Private
   private checkoutStepper: Stepper;
+  public checkoutForm: FormGroup;
+  public submitted = false;
 
   /**
    *  Constructor
@@ -42,7 +45,7 @@ export class EcommerceCheckoutComponent implements OnInit {
    * @param {EcommerceService} _ecommerceService
    * 
    */
-  constructor(private _ecommerceService: EcommerceService, private _fb: FirebaseService) {}
+  constructor(private _ecommerceService: EcommerceService, private _fb: FirebaseService,private _formBuilder: FormBuilder,) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -70,7 +73,10 @@ export class EcommerceCheckoutComponent implements OnInit {
       this.nextStep();
     }
   }
-
+ // convenience getter for easy access to form fields
+ get f() {
+  return this.checkoutForm.controls;
+}
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
@@ -78,6 +84,11 @@ export class EcommerceCheckoutComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+    this.checkoutForm = this._formBuilder.group({
+      // username: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['', Validators.required]
+    });
     this._fb
     .getOffers().subscribe((data) => {
         this.offers = data['data']['payload']
