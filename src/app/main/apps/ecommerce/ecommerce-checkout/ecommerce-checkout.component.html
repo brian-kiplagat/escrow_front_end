@@ -198,25 +198,46 @@
                       </span>
                     </div>
                   </div>
-                  <div class="col-md-6 col-sm-12">
-                    <div class="form-group mb-2">
-                      <label for="checkout-city">Town/City:</label>
-                      <input
-                        type="text"
-                        id="checkout-city"
-                        class="form-control"
-                        [class.error]="addressForm.submitted && cityRef.invalid"
-                        name="city"
-                        placeholder="Tokyo"
-                        [(ngModel)]="address.cityVar"
-                        #cityRef="ngModel"
-                        required
-                      />
-                      <span *ngIf="addressForm.submitted && cityRef.invalid" class="invalid-form">
-                        <small class="form-text text-danger" *ngIf="cityRef.errors.required"
-                          >This field is required!</small
-                        >
-                      </span>
+                  <div class="col-sm-6 col-12">
+                    <label>Offer Tags</label>
+  
+                    <div class="form-group">
+                      <!-- Multi select with limited number of selections -->
+                      <ngb-alert
+                        [type]="'warning'"
+                        [dismissible]="false"
+                        class="mb-2"
+                        *ngIf="selectMultiLimitedSelected.length === 3"
+                      >
+                        <div class="alert-body">
+                          <small>Max selection reached</small>
+                        </div>
+                      </ngb-alert>
+  
+                      <ng-select
+                        #selectMultiLimited
+                        [items]="currency | async"
+                        [multiple]="true"
+                        [maxSelectedItems]="3"
+                        bindLabel="name"
+                        [(ngModel)]="selectMultiLimitedSelected"
+                      >
+                        <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                          <span class="ng-value-label"> {{ item }}</span>
+                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                        </ng-template>
+                      </ng-select>
+  
+                      <div class="mt-1">
+                        Selected value: <br />
+                        <ul>
+                          <li *ngFor="let item of selectMultiLimitedSelected">{{ item.name }}</li>
+                        </ul>
+                        <button (click)="multiLimitedClearModel()" class="btn btn-secondary btn-sm" rippleEffect>
+                          Clear model
+                        </button>
+                      </div>
+                      <!-- Multi select with limited number of selections -->
                     </div>
                   </div>
                   <div class="col-md-6 col-sm-12">

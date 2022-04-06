@@ -18,7 +18,8 @@ export class EcommerceCheckoutComponent implements OnInit {
   public contentHeader: object;
   public products;
   public cartLists;
-  public wishlist;
+  public wishlist; 
+  public selectMultiLimitedSelected = []
 
   public address = {
     fullNameVar: '',
@@ -83,6 +84,8 @@ export class EcommerceCheckoutComponent implements OnInit {
   /**
    * On init
    */
+   multiLimitedClearModel(){}
+  
   ngOnInit(): void {
     this.checkoutForm = this._formBuilder.group({
       // username: ['', [Validators.required]],
@@ -123,7 +126,7 @@ export class EcommerceCheckoutComponent implements OnInit {
       linear: false,
       animation: true
     });
-
+   
     // content header
     this.contentHeader = {
       headerTitle: 'Checkout',
