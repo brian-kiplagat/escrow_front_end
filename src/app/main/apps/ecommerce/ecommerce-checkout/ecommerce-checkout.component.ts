@@ -3,6 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import Stepper from 'bs-stepper';
 
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
+import { FirebaseService } from '../../../../services/firebase.service';
 
 @Component({
   selector: 'app-ecommerce-checkout',
@@ -27,6 +28,10 @@ export class EcommerceCheckoutComponent implements OnInit {
     pincodeVar: '',
     stateVar: ''
   };
+  public selectBasicLoading = false;
+    public offers = []
+    public currency:any[] = []
+    public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
 
   // Private
   private checkoutStepper: Stepper;
@@ -35,8 +40,9 @@ export class EcommerceCheckoutComponent implements OnInit {
    *  Constructor
    *
    * @param {EcommerceService} _ecommerceService
+   * 
    */
-  constructor(private _ecommerceService: EcommerceService) {}
+  constructor(private _ecommerceService: EcommerceService, private _fb: FirebaseService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -72,6 +78,17 @@ export class EcommerceCheckoutComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+    this._fb
+    .getOffers().subscribe((data) => {
+        this.offers = data['data']['payload']
+        console.log(this.offers)
+    })
+    this._fb.getExchange().subscribe((data)=>{
+
+        let listnew = data['data']['rates']
+      this.currency = Object.keys(listnew)
+        console.log(this.currency)
+    })
     // Subscribe to ProductList change
     this._ecommerceService.onProductListChange.subscribe(res => {
       this.products = res;
