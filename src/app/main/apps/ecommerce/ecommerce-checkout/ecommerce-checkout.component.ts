@@ -104,8 +104,8 @@ export class EcommerceCheckoutComponent implements OnInit {
     this.checkoutForm = this._formBuilder.group({
       // username: ['', [Validators.required]],
       todo: ['', [Validators.required]],
-      paymentMethod: ['', Validators.required],
-      currency: ['', Validators.required]
+      paymentMethod: [null, Validators.required],
+      currency: [null, Validators.required]
 
     });
     // Subscribe to ProductList change
