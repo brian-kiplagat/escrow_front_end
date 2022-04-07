@@ -16,6 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EcommerceCheckoutComponent implements OnInit {
   // Public
   public contentHeader: object;
+ public isLinear = true;
   public products;
   public cartLists;
   public wishlist; 
@@ -67,10 +68,10 @@ export class EcommerceCheckoutComponent implements OnInit {
   /**
    * Validate Next Step
    *
-   * @param addressForm
+   * @param checkoutForm
    */
-  validateNextStep(addressForm) {
-    if (addressForm.valid) {
+  validateNextStep(checkoutForm) {
+    if (checkoutForm.valid) {
       this.nextStep();
     }
   }
@@ -87,11 +88,7 @@ export class EcommerceCheckoutComponent implements OnInit {
    multiLimitedClearModel(){}
   
   ngOnInit(): void {
-    this.checkoutForm = this._formBuilder.group({
-      // username: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', Validators.required]
-    });
+
     this._fb
     .getOffers().subscribe((data) => {
         this.offers = data['data']['payload']
@@ -103,6 +100,14 @@ export class EcommerceCheckoutComponent implements OnInit {
       this.currency = Object.keys(listnew)
         console.log(this.currency)
     })
+//initialize form
+    this.checkoutForm = this._formBuilder.group({
+      // username: ['', [Validators.required]],
+      todo: ['', [Validators.required]],
+      paymentMethod: ['', Validators.required],
+      currency: ['', Validators.required]
+
+    });
     // Subscribe to ProductList change
     this._ecommerceService.onProductListChange.subscribe(res => {
       this.products = res;
@@ -151,5 +156,8 @@ export class EcommerceCheckoutComponent implements OnInit {
         ]
       }
     };
+  }
+  onSubmit(){
+
   }
 }

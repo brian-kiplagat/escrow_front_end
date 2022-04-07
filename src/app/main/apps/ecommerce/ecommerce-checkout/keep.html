@@ -1,0 +1,519 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+      <div class="bs-stepper checkout-tab-steps" id="checkoutStepper">
+   
+   
+        <div class="bs-stepper-content">
+          <!-- Checkout Place order starts -->
+          <div id="step-cart" class="content">
+            <form
+              id="checkout-address"
+              class="list-view product-checkout"
+              (ngSubmit)="(addressForm.form.valid)"
+              #addressForm="ngForm"
+            >
+              <!-- Checkout Customer Address Left starts -->
+              <div class="card">
+                <div class="card-header flex-column align-items-start">
+                  <h4 class="card-title">What would you like to do?</h4>
+                  <div class="row" style="margin-top: 1px; margin-left: 10px">
+                    <div class="form-group mb-2">
+                      <div style="margin-top: 5px;" class="custom-control custom-radio">
+                        <input  type="radio"
+                                id="sell"
+                                name="customColorRadio1"
+                                class="custom-control-input"
+                                checked />
+                        <label class="custom-control-label" for="sell">Sell Bitcoin</label>
+                        <p class="card-text text-muted mt-25">
+                          Your offer will be listed on the Buy Bitcoin page
+                        </p>
+                      </div>
+                      <div style="margin-top: 5px;" class="custom-control custom-radio">
+                        <input  type="radio"
+                                id="buy"
+                                name="customColorRadio2"
+                                class="custom-control-input"
+                                 />
+                        <label class="custom-control-label" for="buy">Buy Bitcoin</label>
+                        <p class="card-text text-muted mt-25">
+                          Your offer will be listed on the Sell Bitcoin page
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+   
+   
+                </div>
+                <div class="card-body" style="margin-top: -10px">
+                  <h4 class="card-title">Choose payment preferrences</h4>
+                  <div class="row">
+                    <div class="col-sm-6 col-12">
+                      <label>Payment Method</label>
+   
+                      <div class="form-group">
+                        <!-- Basic Multi select -->
+                        <ng-select [items]="selectBasic" bindLabel="name" [loading]="selectBasicLoading"> </ng-select>
+                        <!--/ Basic Multi select -->
+                      </div>
+                    </div>
+   
+                    <div class="col-sm-6 col-12">
+                      <label>Preffered currency</label>
+   
+                      <div class="form-group">
+                        <!-- Basic Multi select -->
+                        <ng-select [items]="currency" bindLabel="name" [loading]="selectBasicLoading"> </ng-select>
+                        <!--/ Basic Multi select -->
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button
+                        type="submit"
+                        class="btn btn-primary btn-next delivery-address"
+                        (click)="validateNextStep(addressForm)"
+                        rippleEffect
+                      >
+                        NEXT STEP
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Checkout Customer Address Left ends -->
+   
+              <!-- Checkout Customer Address Right starts -->
+              <div class="customer-card">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">About this step</h4>
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lor
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Checkout Customer Address Right ends -->
+            </form>
+          </div>
+          <!-- Checkout Customer Address Starts -->
+          <div id="step-address" class="content">
+            <form
+              id="checkout-address"
+              class="list-view product-checkout"
+              (ngSubmit)="(addressForm.form.valid)"
+              #addressForm="ngForm"
+            >
+              <!-- Checkout Customer Address Left starts -->
+              <div class="card">
+                <div class="card-header flex-column align-items-start">
+                  <h4 class="card-title">Trade pricing</h4>
+                  <p class="card-text text-muted mt-25">
+                    Choose the Bitcoin rate you want to use
+                  </p>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                      <div class="form-group mb-2">
+                        <label for="checkout-name">Minimum</label>
+                        <input
+                          type="text"
+                          id="checkout-name"
+                          class="form-control"
+                          [class.error]="addressForm.submitted && fullNameRef.invalid"
+                          name="fullname"
+                          placeholder="John Doe"
+                          [(ngModel)]="address.fullNameVar"
+                          #fullNameRef="ngModel"
+                          required
+                        />
+                        <span *ngIf="addressForm.submitted && fullNameRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="fullNameRef.errors.required"
+                            >This field is required!</small
+                          >
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                      <div class="form-group mb-2">
+                        <label for="checkout-number">Maximum</label>
+                        <input
+                          type="number"
+                          id="checkout-number"
+                          class="form-control"
+                          [class.error]="addressForm.submitted && numberRef.invalid"
+                          name="mnumber"
+                          placeholder="Amount"
+                          [(ngModel)]="address.numberVar"
+                          #numberRef="ngModel"
+                          required
+                        />
+                        <span *ngIf="addressForm.submitted && numberRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="numberRef.errors.required"
+                            >This field is required!</small
+                          >
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                      <div class="form-group mb-2">
+                        <label for="checkout-apt-number">Offer rate</label>
+                        <input
+                          type="number"
+                          id="checkout-apt-number"
+                          class="form-control"
+                          [class.error]="addressForm.submitted && flatRef.invalid"
+                          name="apt-number"
+                          placeholder="Amount"
+                          [(ngModel)]="address.flatVar"
+                          #flatRef="ngModel"
+                          required
+                        />
+                        <span *ngIf="addressForm.submitted && flatRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="flatRef.errors.required"
+                            >This field is required!</small
+                          >
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                      <div class="form-group mb-2">
+                        <label for="checkout-landmark">Offer rate:</label>
+                        <input
+                          type="text"
+                          id="checkout-landmark"
+                          class="form-control"
+                          [class.error]="addressForm.submitted && landmarkRef.invalid"
+                          name="landmark"
+                          placeholder="Your percentage"
+                          [(ngModel)]="address.landmarkVar"
+                          #landmarkRef="ngModel"
+                          required
+                        />
+                        <span *ngIf="addressForm.submitted && landmarkRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="landmarkRef.errors.required"
+                            >This field is required!</small
+                          >
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-12">
+                      <label>Offer Tags</label>
+    
+                      <div class="form-group">
+                        <!-- Multi select with limited number of selections -->
+                        <ngb-alert
+                          [type]="'warning'"
+                          [dismissible]="false"
+                          class="mb-2"
+                          *ngIf="selectMultiLimitedSelected.length === 3"
+                        >
+                          <div class="alert-body">
+                            <small>Max selection reached</small>
+                          </div>
+                        </ngb-alert>
+    
+                        <ng-select
+                          #selectMultiLimited
+                          [items]="currency | async"
+                          [multiple]="true"
+                          [maxSelectedItems]="3"
+                          bindLabel="name"
+                          [(ngModel)]="selectMultiLimitedSelected"
+                        >
+                          <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                            <span class="ng-value-label"> {{ item }}</span>
+                            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                          </ng-template>
+                        </ng-select>
+    
+                        <div class="mt-1">
+                          Selected value: <br />
+                          <ul>
+                            <li *ngFor="let item of selectMultiLimitedSelected">{{ item.name }}</li>
+                          </ul>
+                          <button (click)="multiLimitedClearModel()" class="btn btn-secondary btn-sm" rippleEffect>
+                            Clear model
+                          </button>
+                        </div>
+                        <!-- Multi select with limited number of selections -->
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                      <div class="form-group mb-2">
+                        <label for="checkout-pincode">Your offer label</label>
+                        <input
+                          type="number"
+                          id="checkout-pincode"
+                          class="form-control"
+                          [class.error]="addressForm.submitted && pincodeRef.invalid"
+                          name="pincode"
+                          placeholder="Maximum 25 characters. Only letter, numbers and dashes"
+                          [(ngModel)]="address.pincodeVar"
+                          #pincodeRef="ngModel"
+                          required
+                        />
+                        <span *ngIf="addressForm.submitted && pincodeRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="pincodeRef.errors.required"
+                            >This field is required!</small
+                          >
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                      <div class="form-group mb-2">
+                        <label for="checkout-state">Offer terms</label>
+                        <textarea
+                          type="text"
+                          id="checkout-state"
+                          class="form-control"
+                          [class.error]="addressForm.submitted && stateRef.invalid"
+                          name="state"
+                          placeholder="Write your terms here"
+                          [(ngModel)]="address.stateVar"
+                          #stateRef="ngModel"
+                          required></textarea>
+                        <span *ngIf="addressForm.submitted && stateRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="stateRef.errors.required"
+                            >This field is required!</small
+                          >
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                      <div class="form-group mb-2">
+                        <label for="checkout-state">Trade Instructions</label>
+                        <textarea
+                        type="text"
+                        id="checkout-state"
+                        class="form-control"
+                        [class.error]="addressForm.submitted && stateRef.invalid"
+                        name="state"
+                        placeholder="List your instructions here"
+                        [(ngModel)]="address.stateVar"
+                        #stateRef="ngModel"
+                        required></textarea>
+                        <span *ngIf="addressForm.submitted && stateRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="stateRef.errors.required"
+                          >This field is required!</small
+                          >
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button
+                        type="submit"
+                        class="btn btn-primary btn-next delivery-address"
+                        (click)="validateNextStep(addressForm)"
+                        rippleEffect
+                      >
+                        NEXT STEP
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Checkout Customer Address Left ends -->
+   
+              <!-- Checkout Customer Address Right starts -->
+              <div class="customer-card">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">About this step</h4>
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lor
+                    </p>
+                  </div>
+                </div>
+   
+              </div>
+              <!-- Checkout Customer Address Right ends -->
+            </form>
+          </div>
+          <!-- Checkout Customer Address Ends -->
+   
+          <!-- Checkout Payment Starts -->
+          <div id="step-payment" class="content">
+            <form id="checkout-payment" class="list-view product-checkout">
+              <div class="payment-type">
+                <div class="card">
+                  <div class="card-header flex-column align-items-start">
+                    <h4 class="card-title">Advanced options</h4>
+                    <p class="card-text text-muted mt-25">Optimise your offer to your need</p>
+                  </div>
+                  <div class="card-body">
+   
+                    <ul class="other-payment-options list-unstyled">
+   
+                      <li class="py-50">
+                        <div class="custom-control custom-radio">
+                          <input type="radio" id="customColorRadio3" name="options" class="custom-control-input" />
+                          <label class="custom-control-label" for="customColorRadio3"> Require partner to have verified their ID </label>
+                        </div>
+                      </li>
+                      <li class="py-50">
+                        <div class="custom-control custom-radio">
+                          <input type="radio" id="customColorRadio4" name="paymentOptions" class="custom-control-input" />
+                          <label class="custom-control-label" for="customColorRadio4"> Require partner to show their full name</label>
+                        </div>
+                      </li>
+   
+                    </ul>
+   
+                    <hr class="my-2" />
+                    <div class="row">
+   
+                      <div class="col-md-6 col-sm-12">
+                        <div class="form-group mb-2">
+                          <label for="checkout-number">Minimum trades required</label>
+                          <input
+                            type="number"
+                            id="checkout-number"
+                            class="form-control"
+                            [class.error]="addressForm.submitted && numberRef.invalid"
+                            name="mnumber"
+                            placeholder="Patner should have done this number of trades"
+                            [(ngModel)]="address.numberVar"
+                            #numberRef="ngModel"
+                            required
+                          />
+                          <span *ngIf="addressForm.submitted && numberRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="numberRef.errors.required"
+                          >This field is required!</small
+                          >
+                        </span>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <div class="form-group mb-2">
+                          <label for="checkout-apt-number">Limit for new users</label>
+                          <input
+                            type="number"
+                            id="checkout-apt-number"
+                            class="form-control"
+                            [class.error]="addressForm.submitted && flatRef.invalid"
+                            name="apt-number"
+                            placeholder="Restrict new users to trade a maximum amount"
+                            [(ngModel)]="address.flatVar"
+                            #flatRef="ngModel"
+                            required
+                          />
+                          <span *ngIf="addressForm.submitted && flatRef.invalid" class="invalid-form">
+                          <small class="form-text text-danger" *ngIf="flatRef.errors.required"
+                          >This field is required!</small
+                          >
+                        </span>
+                        </div>
+                      </div>
+                      <div class="card-header flex-column align-items-start">
+                        <h4 class="card-title">Limitation by countries</h4>
+                        <p class="card-text text-muted mt-25">
+                          Select the countries you'd like to show this offer in
+                        </p>
+                      </div>
+                    </div>
+   
+                    <ul class="other-payment-options list-unstyled">
+   
+                      <li class="py-50">
+                        <div class="custom-control custom-radio">
+                          <input type="radio" id="customColorRadio5" name="paymentOptions" class="custom-control-input" />
+                          <label class="custom-control-label" for="customColorRadio3"> None </label>
+                        </div>
+                      </li>
+                      <li class="py-50">
+                        <div class="custom-control custom-radio">
+                          <input type="radio" id="customColorRadio6" name="paymentOptions" class="custom-control-input" />
+                          <label class="custom-control-label" for="customColorRadio4"> Blocked countries</label>
+                        </div>
+                      </li>
+                      <li class="py-50">
+                        <div class="custom-control custom-radio">
+                          <input type="radio" id="customColorRadio7" name="paymentOptions" class="custom-control-input" />
+                          <label class="custom-control-label" for="customColorRadio5"> Allowed countries </label>
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="col-sm-6 col-12">
+                      <label>Country options</label>
+   
+                      <div class="form-group">
+                        <!-- Basic Multi select -->
+                        <ng-select [items]="currency" bindLabel="name" [loading]="selectBasicLoading"> </ng-select>
+                        <!--/ Basic Multi select -->
+                      </div>
+                    </div>
+                    <hr class="my-2" />
+                    <div class="col-12">
+                      <button class="btn btn-primary btn-next delivery-address"
+                              (click)="validateNextStep(addressForm)" type="button" class="btn btn-primary btn-block" rippleEffect>
+                        <span [data-feather]="'plus'" [class]="'mr-25'"></span>CREATE OFFER
+                      </button>
+                    </div>
+   
+                  </div>
+                </div>
+              </div>
+              <div class="amount-payable checkout-options">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">About this step</h4>
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lor
+                    </p>
+                  </div>
+   
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Checkout Payment Ends -->
+        </div>
+        <!-- Wizard starts -->
+        <div class="bs-stepper-header">
+          <div class="step" data-target="#step-cart">
+            <button type="button" class="step-trigger">
+              <span class="bs-stepper-box">
+                <i data-feather="dollar-sign" class="font-medium-3"></i>
+              </span>
+              <span class="bs-stepper-label">
+                <span class="bs-stepper-title">Payment Method</span>
+                <span class="bs-stepper-subtitle">Select a method</span>
+              </span>
+            </button>
+          </div>
+          <div class="line">
+            <i data-feather="chevron-right" class="font-medium-2"></i>
+          </div>
+          <div class="step" data-target="#step-address">
+            <button type="button" class="step-trigger">
+              <span class="bs-stepper-box">
+                <i data-feather="alert-circle" class="font-medium-3"></i>
+              </span>
+              <span class="bs-stepper-label">
+                <span class="bs-stepper-title">Pricing</span>
+                <span class="bs-stepper-subtitle">Set your rate</span>
+              </span>
+            </button>
+          </div>
+          <div class="line">
+            <i data-feather="check-circle" class="font-medium-2"></i>
+          </div>
+          <div class="step" data-target="#step-payment">
+            <button type="button" class="step-trigger">
+              <span class="bs-stepper-box">
+                <i data-feather="check-circle" class="font-medium-3"></i>
+              </span>
+              <span class="bs-stepper-label">
+                <span class="bs-stepper-title">Options</span>
+                <span class="bs-stepper-subtitle">Finalise your offer</span>
+              </span>
+            </button>
+          </div>
+        </div>
+        <!-- Wizard ends -->
+   
+      </div>
+    </div>
+  </div>
