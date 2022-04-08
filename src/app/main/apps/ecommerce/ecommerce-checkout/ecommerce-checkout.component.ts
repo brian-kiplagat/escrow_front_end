@@ -14,7 +14,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   host: { class: 'ecommerce-application' }
 })
 export class EcommerceCheckoutComponent implements OnInit {
-  private stepper: Stepper;
   // Public
   public contentHeader: object;
  public isLinear = true;
@@ -22,6 +21,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   public cartLists;
   public wishlist; 
   public selectMultiLimitedSelected = []
+  public error =''
 
   public address = {
     fullNameVar: '',
@@ -31,6 +31,7 @@ export class EcommerceCheckoutComponent implements OnInit {
     cityVar: '',
     pincodeVar: '',
     stateVar: ''
+
   };
   public selectBasicLoading = false;
     public offers = []
@@ -41,7 +42,8 @@ export class EcommerceCheckoutComponent implements OnInit {
   private checkoutStepper: Stepper;
   public checkoutForm: FormGroup;
   public submitted = false;
-
+  public form2 :FormGroup;
+  public form3 :FormGroup;
   /**
    *  Constructor
    *
@@ -57,7 +59,7 @@ export class EcommerceCheckoutComponent implements OnInit {
    * Stepper Next
    */
   nextStep() {
-    this.stepper.next();
+    this.checkoutStepper.next();
   }
   /**
    * Stepper Previous
@@ -70,15 +72,26 @@ export class EcommerceCheckoutComponent implements OnInit {
    * Validate Next Step
    *
    * @param checkoutForm
+   * @param form2
+   * @param form3
    */
-  validateNextStep(checkoutForm) {
-    if (checkoutForm.valid) {
+  validateNextStep(form) {
+    this.submitted = true
+    if (form.valid) {
       this.nextStep();
+      this.submitted = false
     }
   }
  // convenience getter for easy access to form fields
  get f() {
   return this.checkoutForm.controls;
+}
+get f1(){
+  return this.form2.controls;
+}
+
+get f2(){
+  return this.form3.controls;
 }
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
@@ -104,9 +117,13 @@ export class EcommerceCheckoutComponent implements OnInit {
 //initialize form
     this.checkoutForm = this._formBuilder.group({
       // username: ['', [Validators.required]],
-      todo: ['', [Validators.required]],
+      todo: ['sell'],
       paymentMethod: [null, Validators.required],
-      currency: [null, Validators.required],
+      currency: [null, Validators.required]
+
+    });
+    this.form2 = this._formBuilder.group({
+      // username: ['', [Validators.required]],
       minimum:['', Validators.required],
       maximum:['', Validators.required],
       offerRate:['', Validators.required],
@@ -118,6 +135,15 @@ export class EcommerceCheckoutComponent implements OnInit {
     minimumTrades:['', Validators.required],
     limitusers:['', Validators.required],
     limitCountries:['', Validators.required],
+
+    });
+    this.form3 = this._formBuilder.group({
+      // username: ['', [Validators.required]],
+      partnerOptions:[''],
+      minimumTrades:['', Validators.required],
+      limitusers:['', Validators.required],
+      limitCountries:['']
+  
 
     });
     // Subscribe to ProductList change
@@ -170,6 +196,12 @@ export class EcommerceCheckoutComponent implements OnInit {
     };
   }
   onSubmit(){
+this.submitted = true;
+console.log('we are here')
+if(this.form2.valid){
+  this.nextStep()  
+  this.submitted = false
+}
 
   }
 }

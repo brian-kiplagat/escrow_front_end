@@ -1,455 +1,608 @@
 <div class="content-wrapper container-xxl p-0">
-  <div class="content-body">
-    <div class="bs-stepper checkout-tab-steps" id="checkoutStepper">
-      <form class="auth-register-form mt-2" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-        <div class="bs-stepper-content">
-          <!-- Checkout Place order starts -->
-          <div id="step-cart" class="content">
-            <div class="card">
-              <div class="card-header flex-column align-items-start">
-                <h4 class="card-title">What would you like to do?</h4>
-                <div class="row" style="margin-top: 1px; margin-left: 10px">
-                  <div class="form-group mb-2">
-                    <div style="margin-top: 5px;" class="custom-control custom-radio">
-                      <input  type="radio"
-                              id="sell"
-                              value="sell" formControlName="todo"
-                              class="custom-control-input"
-                              checked />
-                      <label class="custom-control-label" for="sell">Sell Bitcoin</label>
-                      <p class="card-text text-muted mt-25">
-                        Your offer will be listed on the Buy Bitcoin page
-                      </p>
-                    </div>
-                    <div style="margin-top: 5px;" class="custom-control custom-radio">
-                      <input  type="radio"
-                              id="buy"
-                             
-                              value="buy" formControlName="todo"
-                              class="custom-control-input"
-                               />
-                      <label class="custom-control-label" for="buy">Buy Bitcoin</label>
-                      <p class="card-text text-muted mt-25">
-                        Your offer will be listed on the Sell Bitcoin page
-                      </p>
-                    </div>
-                  </div>
-                </div>
- 
- 
-              </div>
-              <div class="card-body" style="margin-top: -10px">
-                <h4 class="card-title">Choose payment preferrences</h4>
-                <div class="row">
-                  <div class="col-sm-6 col-12">
-                    <label>Payment Method</label>
- 
-                    <div class="form-group">
-                      <!-- Basic Multi select -->
-                      <ng-select [items]="selectBasic" bindLabel="name" [loading]="selectBasicLoading" formControlName="paymentMethod"> </ng-select>
-                      <!--/ Basic Multi select -->
-                    </div>
-                  </div>
- 
-                  <div class="col-sm-6 col-12">
-                    <label>Preffered currency</label>
- 
-                    <div class="form-group">
-                      <!-- Basic Multi select -->
-                      <ng-select [items]="currency" bindLabel="name" [loading]="selectBasicLoading" formControlName="currency"> </ng-select>
-                      <!--/ Basic Multi select -->
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <button
-                      type="submit"
-                      class="btn btn-primary btn-next delivery-address"
-                      (click)="nextStep()"
-                      rippleEffect
-                    >
-                      NEXT STEP
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Checkout Customer Address Starts -->
-          <div id="step-address" class="content">
-              <!-- Checkout Customer Address Left starts -->
-              <div class="card">
-                <div class="card-header flex-column align-items-start">
-                  <h4 class="card-title">Trade pricing</h4>
-                  <p class="card-text text-muted mt-25">
-                    Choose the Bitcoin rate you want to use
-                  </p>
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                      <div class="form-group mb-2">
-                        <label for="checkout-name">Minimum</label>
-                        <input
-                          type="text"
-                          id="checkout-name"
-                          class="form-control"
-                          [class.error]="submitted &&f.minimum.invalid"
-                         formControlName="minimum"
-                        />
-                        <span *ngIf="submitted && f.minimum.invalid" class="invalid-form">
-                          <small class="form-text text-danger" *ngIf="f.minimum.errors.required"
-                            >This field is required!</small
-                          >
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                      <div class="form-group mb-2">
-                        <label for="checkout-number">Maximum</label>
-                        <input
-                          type="number"
-                          id="checkout-number"
-                          class="form-control"
-                          [class.error]="submitted && f.maximum.invalid"
-                        formControlName="maximum"
-                          placeholder="Amount"
-                          
-                          required
-                        />
-                        <span *ngIf="submitted && f.maximum.invalid" class="invalid-form">
-                          <small class="form-text text-danger" *ngIf="f.maximum.errors.required"
-                            >This field is required!</small
-                          >
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                      <div class="form-group mb-2">
-                        <label for="checkout-apt-number">Offer rate</label>
-                        <input
-                          type="number"
-                          id="checkout-apt-number"
-                          class="form-control"
-                          [class.error]="submitted && f.offerRate.invalid"
-                         formControlName="offerRate"
-                          placeholder="Amount"
-                         
-                          required
-                        />
-                        <span *ngIf="submitted && f.offerRate.invalid" class="invalid-form">
-                          <small class="form-text text-danger" *ngIf="f.offerRate.errors.required"
-                            >This field is required!</small
-                          >
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                      <div class="form-group mb-2">
-                        <label for="checkout-landmark">Offer rate:</label>
-                        <input
-                          type="text"
-                          id="checkout-landmark"
-                          class="form-control"
-                          [class.error]="submitted && f.percentage.invalid"
-                         
-                          placeholder="Your percentage"
-                          formControlName="percentage"
-                          required
-                        />
-                        <span *ngIf="submitted && f.percentage.invalid" class="invalid-form">
-                          <small class="form-text text-danger" *ngIf="f.percentage.errors.required"
-                            >This field is required!</small
-                          >
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-12">
-                      <label>Offer Tags</label>
     
-                      <div class="form-group">
-                        <!-- Multi select with limited number of selections -->
-                        <ngb-alert
-                          [type]="'warning'"
-                          [dismissible]="false"
-                          class="mb-2"
-                          *ngIf="selectMultiLimitedSelected.length === 3"
-                        >
-                          <div class="alert-body">
-                            <small>Max selection reached</small>
-                          </div>
-                        </ngb-alert>
-    
-                        <ng-select
-                          #selectMultiLimited
-                          [items]="currency"
-                          [multiple]="true"
-                          [maxSelectedItems]="3"
-                          bindLabel="name"
-                          formControlName="selectMultiLimitedSelected"
-                        >
-                          <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                            <span class="ng-value-label"> {{ item }}</span>
-                            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                          </ng-template>
-                        </ng-select>
-    
-                        <div class="mt-1">
-                          Selected value: <br />
-                          <ul>
-                            <li *ngFor="let item of selectMultiLimitedSelected">{{ item }}</li>
-                          </ul>
-                          <button (click)="multiLimitedClearModel()" class="btn btn-secondary btn-sm" rippleEffect>
-                            Clear model
-                          </button>
-                        </div>
-                        <!-- Multi select with limited number of selections -->
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                      <div class="form-group mb-2">
-                        <label for="checkout-pincode">Your offer label</label>
-                        <input
-                          type="text"
-                          id="checkout-pincode"
-                          class="form-control"
-                          [class.error]="submitted && f.label.invalid"
-                          formControlName="label"
-                          placeholder="Maximum 25 characters. Only letter, numbers and dashes"
-                         
-                          required
-                        />
-                        <span *ngIf="submitted && f.label.invalid" class="invalid-form">
-                          <small class="form-text text-danger" *ngIf="f.label.errors.required"
-                            >This field is required!</small
-                          >
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                      <div class="form-group mb-2">
-                        <label for="checkout-state">Offer terms</label>
-                        <textarea
-                          type="text"
-                          id="checkout-state"
-                          class="form-control"
-                          [class.error]="submitted && f.terms.invalid"
-                        
-                          placeholder="Write your terms here"
-                         formControlName="terms"
-                          required></textarea>
-                        <span *ngIf="submitted && f.terms.invalid" class="invalid-form">
-                          <small class="form-text text-danger" *ngIf="f.terms.errors.required"
-                            >This field is required!</small
-                          >
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                      <div class="form-group mb-2">
-                        <label for="checkout-state">Trade Instructions</label>
-                        <textarea
-                        type="text"
-                        id="checkout-state"
-                        class="form-control"
-                        [class.error]="submitted && f.terms.invalid"
-                      formControlName="terms"
-                        placeholder="List your instructions here"
-                       
-                        required></textarea>
-                        <span *ngIf="submitted && f.terms.invalid" class="invalid-form">
-                          <small class="form-text text-danger" *ngIf="f.terms.errors.required"
-                          >This field is required!</small
-                          >
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button
-                        type="submit"
-                        class="btn btn-primary btn-next delivery-address"
-                      (click)="nextStep()"
-                        rippleEffect
-                      >
-                        NEXT STEP
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Checkout Customer Address Left ends -->
-          </div>
-          <!-- Checkout Customer Address Ends -->
-   
-          <!-- Checkout Payment Starts -->
-          <div id="step-payment" class="content">
-            <div class="payment-type">
-              <div class="card">
-                <div class="card-header flex-column align-items-start">
-                  <h4 class="card-title">Advanced options</h4>
-                  <p class="card-text text-muted mt-25">Optimise your offer to your need</p>
-                </div>
-                <div class="card-body">
- 
-                  <ul class="other-payment-options list-unstyled">
- 
-                    <li class="py-50">
-                      <div class="custom-control custom-radio">
-                        <input type="radio" id="customColorRadio3"  value="required" formControlName="partnerOptions" class="custom-control-input" />
-                        <label class="custom-control-label" for="customColorRadio3"> Require partner to have verified their ID </label>
-                      </div>
-                    </li>
-                    <li class="py-50">
-                      <div class="custom-control custom-radio">
-                        <input type="radio" id="customColorRadio4" value="notrequired" formControlName="partnerOptions" class="custom-control-input" />
-                        <label class="custom-control-label" for="customColorRadio4"> Require partner to show their full name</label>
-                      </div>
-                    </li>
- 
-                  </ul>
- 
-                  <hr class="my-2" />
-                  <div class="row">
- 
-                    <div class="col-md-6 col-sm-12">
-                      <div class="form-group mb-2">
-                        <label for="checkout-number">Minimum trades required</label>
-                        <input
-                          type="number"
-                          id="checkout-number"
-                          class="form-control"
-                          [class.error]="submitted && f.minimumTrades.invalid"
-                          formControlName="minimumTrades"
-                          placeholder="Patner should have done this number of trades"
-                          
-                          required
-                        />
-                        <span *ngIf="submitted && f.minimumTrades.invalid" class="invalid-form">
-                        <small class="form-text text-danger" *ngIf="f.minimumTrades.errors.required"
-                        >This field is required!</small
-                        >
-                      </span>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                      <div class="form-group mb-2">
-                        <label for="checkout-apt-number">Limit for new users</label>
-                        <input
-                          type="number"
-                          id="checkout-apt-number"
-                          class="form-control"
-                          [class.error]="submitted && f.limitusers.invalid"
+    <div class="content-body">
+        <div class="bs-stepper checkout-tab-steps" id="checkoutStepper">
+            <div class="bs-stepper-content">
+                <!-- Checkout Place order starts -->
+                <form
+                    class="auth-register-form mt-2"
+                    [formGroup]="checkoutForm"
                     
-                          placeholder="Restrict new users to trade a maximum amount"
-                          formControlName="limitusers"
-                         
-                          required
-                        />
-                        <span *ngIf="submitted && f.limitusers.invalid" class="invalid-form">
-                        <small class="form-text text-danger" *ngIf="f.limitusers.errors.required"
-                        >This field is required!</small
-                        >
-                      </span>
-                      </div>
+                >
+                    <div id="step-cart" class="content">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start">
+                                <h4 class="card-title">What would you like to do?</h4>
+                                <div class="row" style="margin-top: 1px; margin-left: 10px">
+                                    <div class="form-group mb-2">
+                                        <div
+                                            style="margin-top: 5px"
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                type="radio"
+                                                id="sell"
+                                                value="sell"
+                                                formControlName="todo"
+                                                class="custom-control-input"
+                                                checked
+                                            />
+                                            <label class="custom-control-label" for="sell"
+                                                >Sell Bitcoin</label
+                                            >
+                                            <p class="card-text text-muted mt-25">
+                                                Your offer will be listed on the Buy Bitcoin page
+                                            </p>
+                                        </div>
+                                        <div
+                                            style="margin-top: 5px"
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                type="radio"
+                                                id="buy"
+                                                value="buy"
+                                                formControlName="todo"
+                                                class="custom-control-input"
+                                            />
+                                            <label class="custom-control-label" for="buy"
+                                                >Buy Bitcoin</label
+                                            >
+                                            <p class="card-text text-muted mt-25">
+                                                Your offer will be listed on the Sell Bitcoin page
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body" style="margin-top: -10px">
+                                <h4 class="card-title">Choose payment preferrences</h4>
+                                <div class="row">
+                                    <div class="col-sm-6 col-12">
+                                        <label>Payment Method</label>
+
+                                        <div class="form-group">
+                                            <!-- Basic Multi select -->
+                                            <ng-select
+                                                [items]="selectBasic"
+                                                bindLabel="name"
+                                                [loading]="selectBasicLoading"
+                                                formControlName="paymentMethod"
+                                                [class.error]="submitted &&f.paymentMethod.errors"
+                                            >
+                                            </ng-select>
+                                            <!--/ Basic Multi select -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-12">
+                                        <label>Preffered currency</label>
+
+                                        <div class="form-group">
+                                            <!-- Basic Multi select -->
+                                            <ng-select
+                                                [items]="currency"
+                                                bindLabel="name"
+                                                [loading]="selectBasicLoading"
+                                                formControlName="currency"
+                                                [class.error]="submitted &&f.currency.errors"
+                                            >
+                                            </ng-select>
+                                            <!--/ Basic Multi select -->
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary btn-next delivery-address"
+                                            (click)="validateNextStep(checkoutForm)"
+                                            rippleEffect
+                                        >
+                                            NEXT STEP
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-header flex-column align-items-start">
-                      <h4 class="card-title">Limitation by countries</h4>
-                      <p class="card-text text-muted mt-25">
-                        Select the countries you'd like to show this offer in
-                      </p>
-                    </div>
-                  </div>
- 
-                  <ul class="other-payment-options list-unstyled">
- 
-                    <li class="py-50">
-                      <div class="custom-control custom-radio">
-                        <input type="radio" id="customColorRadio5" value="none" formControlName="limitCountries" class="custom-control-input" />
-                        <label class="custom-control-label" for="customColorRadio5"> None </label>
+                </form>
+                <!-- Checkout Customer Address Starts -->
+                <form
+                    class="auth-register-form mt-2"
+                    [formGroup]="form2"
+                >
+                <div id="step-address" class="content">
+                  <!-- Checkout Customer Address Left starts -->
+                  <div class="card">
+                   
+                      <div class="card-header flex-column align-items-start">
+                          <h4 class="card-title">Trade pricing</h4>
+                          <p class="card-text text-muted mt-25">
+                              Choose the Bitcoin rate you want to use
+                          </p>
                       </div>
-                    </li>
-                    <li class="py-50">
-                      <div class="custom-control custom-radio">
-                        <input type="radio" id="customColorRadio6"value="blocked" formControlName="limitCountries" class="custom-control-input" />
-                        <label class="custom-control-label" for="customColorRadio6"> Blocked countries</label>
+                      <div class="card-body">
+                          <div class="row">
+                              <div class="col-md-6 col-sm-12">
+                                  <div class="form-group mb-2">
+                                      <label for="checkout-name">Minimum</label>
+                                      <input
+                                          type="text"
+                                          id="checkout-name"
+                                          class="form-control"
+                                          [class.error]="submitted &&f1.minimum.errors"
+                                          formControlName="minimum"
+                                      />
+                                      <span
+                                          *ngIf="submitted && f1.minimum.errors"
+                                          class="invalid-form"
+                                      >
+                                          <small
+                                              class="form-text text-danger"
+                                              *ngIf="f1.minimum.errors.required"
+                                              >This field is required!</small
+                                          >
+                                      </span>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-sm-12">
+                                  <div class="form-group mb-2">
+                                      <label for="checkout-number">Maximum</label>
+                                      <input
+                                          type="number"
+                                          id="checkout-number"
+                                          class="form-control"
+                                          [class.error]="submitted && f1.maximum.errors"
+                                          formControlName="maximum"
+                                          placeholder="Amount"
+                                          required
+                                      />
+                                      <span
+                                          *ngIf="submitted && f1.maximum.errors"
+                                          class="invalid-form"
+                                      >
+                                          <small
+                                              class="form-text text-danger"
+                                              *ngIf="f1.maximum.errors.required"
+                                              >This field is required!</small
+                                          >
+                                      </span>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-sm-12">
+                                  <div class="form-group mb-2">
+                                      <label for="checkout-apt-number">Offer rate</label>
+                                      <input
+                                          type="number"
+                                          id="checkout-apt-number"
+                                          class="form-control"
+                                          [class.error]="submitted && f1.offerRate.errors"
+                                          formControlName="offerRate"
+                                          placeholder="Amount"
+                                          required
+                                      />
+                                      <span
+                                          *ngIf="submitted && f1.offerRate.errors"
+                                          class="invalid-form"
+                                      >
+                                          <small
+                                              class="form-text text-danger"
+                                              *ngIf="f1.offerRate.errors.required"
+                                              >This field is required!</small
+                                          >
+                                      </span>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-sm-12">
+                                  <div class="form-group mb-2">
+                                      <label for="checkout-landmark">Offer rate:</label>
+                                      <input
+                                          type="text"
+                                          id="checkout-landmark"
+                                          class="form-control"
+                                          [class.error]="submitted && f1.percentage.errors"
+                                          placeholder="Your percentage"
+                                          formControlName="percentage"
+                                          required
+                                      />
+                                      <span
+                                          *ngIf="submitted && f1.percentage.errors"
+                                          class="invalid-form"
+                                      >
+                                          <small
+                                              class="form-text text-danger"
+                                              *ngIf="f1.percentage.errors.required"
+                                              >This field is required!</small
+                                          >
+                                      </span>
+                                  </div>
+                              </div>
+                              <div class="col-sm-6 col-12">
+                                  <label>Offer Tags</label>
+
+                                  <div class="form-group">
+                                      <!-- Multi select with limited number of selections -->
+                                      <ngb-alert
+                                          [type]="'warning'"
+                                          [dismissible]="false"
+                                          class="mb-2"
+                                          *ngIf="selectMultiLimitedSelected.length === 3"
+                                      >
+                                          <div class="alert-body">
+                                              <small>Max selection reached</small>
+                                          </div>
+                                      </ngb-alert>
+
+                                      <ng-select
+                                          #selectMultiLimited
+                                          [items]="currency"
+                                          [multiple]="true"
+                                          [maxSelectedItems]="3"
+                                          bindLabel="name"
+                                          formControlName="selectMultiLimitedSelected"
+                                      >
+                                          <ng-template
+                                              ng-label-tmp
+                                              let-item="item"
+                                              let-clear="clear"
+                                          >
+                                              <span class="ng-value-label"> {{ item }}</span>
+                                              <span
+                                                  class="ng-value-icon right"
+                                                  (click)="clear(item)"
+                                                  aria-hidden="true"
+                                                  >×</span
+                                              >
+                                          </ng-template>
+                                      </ng-select>
+
+                                      <div class="mt-1">
+                                          Selected value: <br />
+                                          <ul>
+                                              <li *ngFor="let item of selectMultiLimitedSelected">
+                                                  {{ item }}
+                                              </li>
+                                          </ul>
+                                          <button
+                                              (click)="multiLimitedClearModel()"
+                                              class="btn btn-secondary btn-sm"
+                                              rippleEffect
+                                          >
+                                              Clear model
+                                          </button>
+                                      </div>
+                                      <!-- Multi select with limited number of selections -->
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-sm-12">
+                                  <div class="form-group mb-2">
+                                      <label for="checkout-pincode">Your offer label</label>
+                                      <input
+                                          type="text"
+                                          id="checkout-pincode"
+                                          class="form-control"
+                                          [class.error]="submitted && f1.label.errors"
+                                          formControlName="label"
+                                          placeholder="Maximum 25 characters. Only letter, numbers and dashes"
+                                          required
+                                      />
+                                      <span
+                                          *ngIf="submitted && f1.label.errors"
+                                          class="invalid-form"
+                                      >
+                                          <small
+                                              class="form-text text-danger"
+                                              *ngIf="f1.label.errors.required"
+                                              >This field is required!</small
+                                          >
+                                      </span>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-sm-12">
+                                  <div class="form-group mb-2">
+                                      <label for="checkout-state">Offer terms</label>
+                                      <textarea
+                                          type="text"
+                                          id="checkout-state"
+                                          class="form-control"
+                                          [class.error]="submitted && f1.terms.errors"
+                                          placeholder="Write your terms here"
+                                          formControlName="terms"
+                                          required
+                                      ></textarea>
+                                      <span
+                                          *ngIf="submitted && f1.terms.errors"
+                                          class="invalid-form"
+                                      >
+                                          <small
+                                              class="form-text text-danger"
+                                              *ngIf="f1.terms.errors.required"
+                                              >This field is required!</small
+                                          >
+                                      </span>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-sm-12">
+                                  <div class="form-group mb-2">
+                                      <label for="checkout-state">Trade Instructions</label>
+                                      <textarea
+                                          type="text"
+                                          id="checkout-state"
+                                          class="form-control"
+                                          [class.error]="submitted && f1.terms.errors"
+                                          formControlName="terms"
+                                          placeholder="List your instructions here"
+                                          required
+                                      ></textarea>
+                                      <span
+                                          *ngIf="submitted && f1.terms.errors"
+                                          class="invalid-form"
+                                      >
+                                          <small
+                                              class="form-text text-danger"
+                                              *ngIf="f1.terms.errors.required"
+                                              >This field is required!</small
+                                          >
+                                      </span>
+                                  </div>
+                              </div>
+                              <div class="col-12">
+                                  <button
+                                      type="submit"
+                                      class="btn btn-primary btn-next delivery-address"(click)="validateNextStep(form2)"
+                                      rippleEffect
+                                     
+                                  >
+                                      NEXT STEP
+                                  </button>
+                              </div>
+                          </div>
                       </div>
-                    </li>
-                    <li class="py-50">
-                      <div class="custom-control custom-radio">
-                        <input type="radio" id="customColorRadio7" value="allowed" formControlName="limitCountries" class="custom-control-input" />
-                        <label class="custom-control-label" for="customColorRadio7"> Allowed countries </label>
-                      </div>
-                    </li>
-                  </ul>
-                  <div class="col-sm-6 col-12">
-                    <label>Country options</label>
- 
-                    <div class="form-group">
-                      <!-- Basic Multi select -->
-                      <ng-select [items]="currency" bindLabel="name" [loading]="selectBasicLoading"> </ng-select>
-                      <!--/ Basic Multi select -->
-                    </div>
                   </div>
-                  <hr class="my-2" />
-                  <div class="col-12">
-                    <button class="btn btn-primary btn-next delivery-address"
-                            type="submit" class="btn btn-primary btn-block" rippleEffect>
-                      <span [data-feather]="'plus'" [class]="'mr-25'"></span>CREATE OFFER
-                    </button>
-                  </div>
- 
-                </div>
+                  <!-- Checkout Customer Address Left ends -->
               </div>
+            </form>
+               
+                <!-- Checkout Customer Address Ends -->
+
+                <!-- Checkout Payment Starts -->
+                <div id="step-payment" class="content">
+                    <div class="payment-type">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start">
+                                <h4 class="card-title">Advanced options</h4>
+                                <p class="card-text text-muted mt-25">
+                                    Optimise your offer to your need
+                                </p>
+                            </div>
+                            <form
+                            class="auth-register-form mt-2"
+                            [formGroup]="form3"
+                            (ngSubmit)="onSubmit()"
+                        >
+                        <div class="card-body">
+                            <ul class="other-payment-options list-unstyled">
+                                <li class="py-50">
+                                    <div class="custom-control custom-radio">
+                                        <input
+                                            type="radio"
+                                            id="customColorRadio3"
+                                            value="required"
+                                            formControlName="partnerOptions"
+                                            class="custom-control-input"
+                                        />
+                                        <label
+                                            class="custom-control-label"
+                                            for="customColorRadio3"
+                                        >
+                                            Require partner to have verified their ID
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="py-50">
+                                    <div class="custom-control custom-radio">
+                                        <input
+                                            type="radio"
+                                            id="customColorRadio4"
+                                            value="notrequired"
+                                            formControlName="partnerOptions"
+                                            class="custom-control-input"
+                                        />
+                                        <label
+                                            class="custom-control-label"
+                                            for="customColorRadio4"
+                                        >
+                                            Require partner to show their full name</label
+                                        >
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <hr class="my-2" />
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group mb-2">
+                                        <label for="checkout-number"
+                                            >Minimum trades required</label
+                                        >
+                                        <input
+                                            type="number"
+                                            id="checkout-number"
+                                            class="form-control"
+                                           
+                                            formControlName="minimumTrades"
+                                            placeholder="Patner should have done this number of trades"
+                                            required
+                                        />
+                                        <span
+                                            *ngIf="submitted && f2.minimumTrades.errors"
+                                            class="invalid-form"
+                                        >
+                                            <small
+                                                class="form-text text-danger"
+                                                *ngIf="f2.minimumTrades.errors.required"
+                                                >This field is required!</small
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group mb-2">
+                                        <label for="checkout-apt-number"
+                                            >Limit for new users</label
+                                        >
+                                        <input
+                                            type="number"
+                                            id="checkout-apt-number"
+                                            class="form-control"
+                                            [class.error]="submitted && f2.limitusers.errors"
+                                            placeholder="Restrict new users to trade a maximum amount"
+                                            formControlName="limitusers"
+                                            required
+                                        />
+                                      
+                                    </div>
+                                </div>
+                                <div class="card-header flex-column align-items-start">
+                                    <h4 class="card-title">Limitation by countries</h4>
+                                    <p class="card-text text-muted mt-25">
+                                        Select the countries you'd like to show this offer in
+                                    </p>
+                                </div>
+                            </div>
+
+                            <ul class="other-payment-options list-unstyled">
+                                <li class="py-50">
+                                    <div class="custom-control custom-radio">
+                                        <input
+                                            type="radio"
+                                            id="customColorRadio5"
+                                            value="none"
+                                            formControlName="limitCountries"
+                                            class="custom-control-input"
+                                        />
+                                        <label
+                                            class="custom-control-label"
+                                            for="customColorRadio5"
+                                        >
+                                            None
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="py-50">
+                                    <div class="custom-control custom-radio">
+                                        <input
+                                            type="radio"
+                                            id="customColorRadio6"
+                                            value="blocked"
+                                            formControlName="limitCountries"
+                                            class="custom-control-input"
+                                        />
+                                        <label
+                                            class="custom-control-label"
+                                            for="customColorRadio6"
+                                        >
+                                            Blocked countries</label
+                                        >
+                                    </div>
+                                </li>
+                                <li class="py-50">
+                                    <div class="custom-control custom-radio">
+                                        <input
+                                            type="radio"
+                                            id="customColorRadio7"
+                                            value="allowed"
+                                            formControlName="limitCountries"
+                                            class="custom-control-input"
+                                        />
+                                        <label
+                                            class="custom-control-label"
+                                            for="customColorRadio7"
+                                        >
+                                            Allowed countries
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="col-sm-6 col-12">
+                                <label>Country options</label>
+
+                                <div class="form-group">
+                                    <!-- Basic Multi select -->
+                                    <ng-select
+                                        [items]="currency"
+                                        bindLabel="name"
+                                        [loading]="selectBasicLoading"
+                                    >
+                                    </ng-select>
+                                    <!--/ Basic Multi select -->
+                                </div>
+                            </div>
+                            <hr class="my-2" />
+                            <div class="col-12">
+                                <button
+                                    class="btn btn-primary btn-next delivery-address"
+                                    type="submit"
+                                    class="btn btn-primary btn-block"
+                                    rippleEffect
+                                    (click)="onSubmit()"
+                                >
+                                    <span [data-feather]="'plus'" [class]="'mr-25'"></span
+                                    >CREATE OFFER
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- Checkout Payment Ends -->
             </div>
-          </div>
-          <!-- Checkout Payment Ends -->
+
+            <!-- Wizard starts -->
+            <div class="bs-stepper-header">
+                <div class="step" data-target="#step-cart">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-box">
+                            <i data-feather="dollar-sign" class="font-medium-3"></i>
+                        </span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Payment Method</span>
+                            <span class="bs-stepper-subtitle">Select a method</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="line">
+                    <i data-feather="chevron-right" class="font-medium-2"></i>
+                </div>
+                <div class="step" data-target="#step-address">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-box">
+                            <i data-feather="alert-circle" class="font-medium-3"></i>
+                        </span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Pricing</span>
+                            <span class="bs-stepper-subtitle">Set your rate</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="line">
+                    <i data-feather="check-circle" class="font-medium-2"></i>
+                </div>
+                <div class="step" data-target="#step-payment">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-box">
+                            <i data-feather="check-circle" class="font-medium-3"></i>
+                        </span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Options</span>
+                            <span class="bs-stepper-subtitle">Finalise your offer</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <!-- Wizard ends -->
         </div>
-      </form>
- 
-     
-      <!-- Wizard starts -->
-      <div class="bs-stepper-header">
-        <div class="step" data-target="#step-cart">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-box">
-              <i data-feather="dollar-sign" class="font-medium-3"></i>
-            </span>
-            <span class="bs-stepper-label">
-              <span class="bs-stepper-title">Payment Method</span>
-              <span class="bs-stepper-subtitle">Select a method</span>
-            </span>
-          </button>
-        </div>
-        <div class="line">
-          <i data-feather="chevron-right" class="font-medium-2"></i>
-        </div>
-        <div class="step" data-target="#step-address">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-box">
-              <i data-feather="alert-circle" class="font-medium-3"></i>
-            </span>
-            <span class="bs-stepper-label">
-              <span class="bs-stepper-title">Pricing</span>
-              <span class="bs-stepper-subtitle">Set your rate</span>
-            </span>
-          </button>
-        </div>
-        <div class="line">
-          <i data-feather="check-circle" class="font-medium-2"></i>
-        </div>
-        <div class="step" data-target="#step-payment">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-box">
-              <i data-feather="check-circle" class="font-medium-3"></i>
-            </span>
-            <span class="bs-stepper-label">
-              <span class="bs-stepper-title">Options</span>
-              <span class="bs-stepper-subtitle">Finalise your offer</span>
-            </span>
-          </button>
-        </div>
-      </div>
-      <!-- Wizard ends -->
- 
     </div>
-  </div>
 </div>
