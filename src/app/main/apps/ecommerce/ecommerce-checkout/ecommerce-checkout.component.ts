@@ -22,6 +22,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   public wishlist; 
   public selectMultiLimitedSelected = []
   public error =''
+  public tags = []
 
   public address = {
     fullNameVar: '',
@@ -116,6 +117,12 @@ get f2(){
         this.offers = data['data']['payload']
         console.log(this.offers)
     })
+    
+    this._fb
+    .getTags().subscribe((data) => {
+         this.tags = data['payload']
+        console.log(this.tags)
+    })
     this._fb.getExchange().subscribe((data)=>{
 
         let listnew = data['data']['rates']
@@ -136,7 +143,7 @@ get f2(){
       maximum:['', Validators.required],
       offerRate:['', Validators.required],
     percentage:['', Validators.required],
-    selectMultiLimitedSelected:[[],Validators.required],
+    selectMultiLimitedSelected:[[]],
     label:['',         Validators.compose([
       Validators.required,
       // Validators.minLength(3),

@@ -146,5 +146,13 @@ return this.http.post('https://coinlif.com/api/coin/getOfferInfo.php', data)
 getExchange(){
   return this.http.get('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
 }
+getTags(){
+  var data: any = new FormData();
+data.append('key', 'kwdmcpmpmwsx');
+data.append('secret', 'kxpwcnmpwcmcpc');
+
+
+return this.http.post('https://coinlif.com/api/coin/getTags.php', data)
+}
   
 }

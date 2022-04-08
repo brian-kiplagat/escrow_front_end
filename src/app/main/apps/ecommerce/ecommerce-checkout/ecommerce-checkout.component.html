@@ -213,10 +213,10 @@
 
                                       <ng-select
                                           #selectMultiLimited
-                                          [items]="currency"
+                                          [items]="tags"
                                           [multiple]="true"
                                           [maxSelectedItems]="3"
-                                          bindLabel="name"
+                                          bindLabel="tag"
                                           formControlName="selectMultiLimitedSelected"
                                       >
                                           <ng-template
@@ -224,7 +224,7 @@
                                               let-item="item"
                                               let-clear="clear"
                                           >
-                                              <span class="ng-value-label"> {{ item }}</span>
+                                              <span class="ng-value-label"> {{ item.tag }}</span>
                                               <span
                                                   class="ng-value-icon right"
                                                   (click)="clear(item)"
