@@ -508,29 +508,16 @@
                                             <small>Max selection reached</small>
                                         </div>
                                     </ngb-alert>
-
                                     <ng-select
-                                        #selectMultiLimited
-                                        [items]="countries"
+                                    #selectMultiLimited
                                         [multiple]="true"
                                         [maxSelectedItems]="3"
-                                        bindLabel="name"
+                                       
                                         formControlName="selectMultiLimitedSelected"
-                                    >
-                                        <ng-template
-                                            ng-label-tmp
-                                            let-item="item"
-                                            let-clear="clear"
-                                        >
-                                            <span class="ng-value-label"> {{ item.tag }}({{item.iso}})</span>
-                                            <span
-                                                class="ng-value-icon right"
-                                                (click)="clear(item)"
-                                                aria-hidden="true"
-                                                >×</span
-                                            >
-                                        </ng-template>
-                                    </ng-select>
+                                     >
+                                        <ng-option *ngFor="let car of countries" [value]="car.id">{{car.name}}({{car.iso}})</ng-option>
+                                     </ng-select>
+                                  
 
                             
                                     <!-- Multi select with limited number of selections -->
