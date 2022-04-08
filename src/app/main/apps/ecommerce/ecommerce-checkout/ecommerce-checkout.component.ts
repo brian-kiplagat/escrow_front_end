@@ -137,7 +137,12 @@ get f2(){
       offerRate:['', Validators.required],
     percentage:['', Validators.required],
     selectMultiLimitedSelected:[[],Validators.required],
-    label:['', Validators.required],
+    label:['',         Validators.compose([
+      Validators.required,
+      // Validators.minLength(3),
+      Validators.maxLength(25),
+    ]),
+],
     terms:['', Validators.required],
     instructions:['', Validators.required],
 
