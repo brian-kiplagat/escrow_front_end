@@ -130,6 +130,7 @@
                                           type="text"
                                           id="checkout-name"
                                           class="form-control"
+                                          placeholder="Amount"
                                           [class.error]="submitted &&f1.minimum.errors"
                                           formControlName="minimum"
                                       />
@@ -292,18 +293,18 @@
                                           type="text"
                                           id="checkout-state"
                                           class="form-control"
-                                          [class.error]="submitted && f1.terms.errors"
-                                          formControlName="terms"
+                                          [class.error]="submitted && f1.instructions.errors"
+                                          formControlName="instructions"
                                           placeholder="List your instructions here"
                                           required
                                       ></textarea>
                                       <span
-                                          *ngIf="submitted && f1.terms.errors"
+                                          *ngIf="submitted && f1.instructions.errors"
                                           class="invalid-form"
                                       >
                                           <small
                                               class="form-text text-danger"
-                                              *ngIf="f1.terms.errors.required"
+                                              *ngIf="f1.instructions.errors.required"
                                               >This field is required!</small
                                           >
                                       </span>

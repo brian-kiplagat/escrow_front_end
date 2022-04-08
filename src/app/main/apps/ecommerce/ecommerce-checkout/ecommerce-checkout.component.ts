@@ -139,6 +139,7 @@ get f2(){
     selectMultiLimitedSelected:[[],Validators.required],
     label:['', Validators.required],
     terms:['', Validators.required],
+    instructions:['', Validators.required],
 
 
     });
