@@ -340,12 +340,12 @@
                         <div class="card">
                             <div class="card-header flex-column align-items-start">
                                 <h4 class="card-title">Advanced options</h4>
-                                <p class="card-text text-muted mt-25">
+                                <p class="card-text text-muted ">
                                     Optimise your offer to your need
                                 </p>
                             </div>
                             <form
-                            class="auth-register-form mt-2"
+                            class="auth-register-form "
                             [formGroup]="form3"
                           
                         >
@@ -497,14 +497,43 @@
                                 <label>Country options</label>
 
                                 <div class="form-group">
-                                    <!-- Basic Multi select -->
-                                    <ng-select
-                                        [items]="currency"
-                                        bindLabel="name"
-                                        [loading]="selectBasicLoading"
+                                    <!-- Multi select with limited number of selections -->
+                                    <ngb-alert
+                                        [type]="'warning'"
+                                        [dismissible]="false"
+                                        class="mb-2"
+                                        *ngIf="selectMultiLimitedSelected.length === 3"
                                     >
+                                        <div class="alert-body">
+                                            <small>Max selection reached</small>
+                                        </div>
+                                    </ngb-alert>
+
+                                    <ng-select
+                                        #selectMultiLimited
+                                        [items]="countries"
+                                        [multiple]="true"
+                                        [maxSelectedItems]="3"
+                                        bindLabel="name"
+                                        formControlName="selectMultiLimitedSelected"
+                                    >
+                                        <ng-template
+                                            ng-label-tmp
+                                            let-item="item"
+                                            let-clear="clear"
+                                        >
+                                            <span class="ng-value-label"> {{ item.tag }}({{item.iso}})</span>
+                                            <span
+                                                class="ng-value-icon right"
+                                                (click)="clear(item)"
+                                                aria-hidden="true"
+                                                >×</span
+                                            >
+                                        </ng-template>
                                     </ng-select>
-                                    <!--/ Basic Multi select -->
+
+                            
+                                    <!-- Multi select with limited number of selections -->
                                 </div>
                             </div>
                             <hr class="my-2" />

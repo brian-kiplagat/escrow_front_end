@@ -37,6 +37,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   public selectBasicLoading = false;
     public offers = []
     public currency:any[] = []
+    public countries:any[] = []
     public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
 
   // Private
@@ -129,6 +130,12 @@ get f2(){
       this.currency = Object.keys(listnew)
         console.log(this.currency)
     })
+    this._fb.getCountries().subscribe((data)=>{
+
+      this.countries = data['payload']
+    // this.currency = Object.keys(listnew)
+      console.log(this.countries)
+  })
 //initialize form
     this.checkoutForm = this._formBuilder.group({
       // username: ['', [Validators.required]],
@@ -159,7 +166,8 @@ get f2(){
       partnerOptions:[''],
       minimumTrades:['', Validators.required],
       limitusers:['', Validators.required],
-      limitCountries:['']
+      limitCountries:['none'],
+      selectMultiLimitedSelected:[[]],
   
 
     });

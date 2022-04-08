@@ -154,5 +154,13 @@ data.append('secret', 'kxpwcnmpwcmcpc');
 
 return this.http.post('https://coinlif.com/api/coin/getTags.php', data)
 }
+getCountries(){
+  var data: any = new FormData();
+data.append('key', 'kwdmcpmpmwsx');
+data.append('secret', 'kxpwcnmpwcmcpc');
+
+
+return this.http.post('https://coinlif.com/api/coin/getCurrency.php', data)
+}
   
 }
