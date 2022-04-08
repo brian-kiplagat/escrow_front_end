@@ -348,7 +348,7 @@
                               </div>
                               <div class="col-12">
                                   <button
-                                      type="submit"
+                                      type="button"
                                       class="btn btn-primary btn-next delivery-address"(click)="validateNextStep(form2)"
                                       rippleEffect
                                      
@@ -378,7 +378,7 @@
                             <form
                             class="auth-register-form mt-2"
                             [formGroup]="form3"
-                            (ngSubmit)="onSubmit()"
+                          
                         >
                         <div class="card-body">
                             <ul class="other-payment-options list-unstyled">
@@ -545,7 +545,7 @@
                                     type="submit"
                                     class="btn btn-primary btn-block"
                                     rippleEffect
-                                    (click)="onSubmit()"
+                                    (click)="validateNextStep(form3)"
                                 >
                                     <span [data-feather]="'plus'" [class]="'mr-25'"></span
                                     >CREATE OFFER

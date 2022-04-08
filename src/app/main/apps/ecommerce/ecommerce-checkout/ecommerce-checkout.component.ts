@@ -42,6 +42,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   private checkoutStepper: Stepper;
   public checkoutForm: FormGroup;
   public submitted = false;
+  public step2 = false;
   public form2 :FormGroup;
   public form3 :FormGroup;
   /**
@@ -60,6 +61,13 @@ export class EcommerceCheckoutComponent implements OnInit {
    */
   nextStep() {
     this.checkoutStepper.next();
+  }
+  finalStep(){
+    this.submitted = true
+    if(!this.form2.invalid){
+      this.checkoutStepper.next()
+      this.submitted = false
+    }
   }
   /**
    * Stepper Previous
@@ -131,10 +139,7 @@ get f2(){
     selectMultiLimitedSelected:[[],Validators.required],
     label:['', Validators.required],
     terms:['', Validators.required],
-    partnerOptions:['', Validators.required],
-    minimumTrades:['', Validators.required],
-    limitusers:['', Validators.required],
-    limitCountries:['', Validators.required],
+
 
     });
     this.form3 = this._formBuilder.group({
