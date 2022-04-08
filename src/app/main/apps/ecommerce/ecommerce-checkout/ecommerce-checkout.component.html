@@ -156,7 +156,7 @@
                                           [class.error]="submitted && f1.maximum.errors"
                                           formControlName="maximum"
                                           placeholder="Amount"
-                                          required
+                                         
                                       />
                                       <span
                                           *ngIf="submitted && f1.maximum.errors"
@@ -258,6 +258,11 @@
                                               class="form-text text-danger"
                                               *ngIf="f1.label.errors.required"
                                               >This field is required!</small
+                                          >
+                                          <small
+                                              class="form-text text-danger"
+                                              *ngIf="f1.label.errors.maxLength"
+                                              >maximum of 25 characters!!</small
                                           >
                                       </span>
                                   </div>

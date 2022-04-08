@@ -142,7 +142,6 @@ get f2(){
       minimum:['', Validators.required],
       maximum:['', Validators.required],
       offerRate:['', Validators.required],
-    percentage:['', Validators.required],
     selectMultiLimitedSelected:[[]],
     label:['',         Validators.compose([
       Validators.required,
@@ -151,7 +150,7 @@ get f2(){
     ]),
 ],
     terms:['', Validators.required],
-    instructions:['', Validators.required],
+    instructions:['', Validators.required]
 
 
     });
