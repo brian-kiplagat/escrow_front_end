@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   host: { class: 'ecommerce-application' }
 })
 export class EcommerceCheckoutComponent implements OnInit {
+  private stepper: Stepper;
   // Public
   public contentHeader: object;
  public isLinear = true;
@@ -56,7 +57,7 @@ export class EcommerceCheckoutComponent implements OnInit {
    * Stepper Next
    */
   nextStep() {
-    this.checkoutStepper.next();
+    this.stepper.next();
   }
   /**
    * Stepper Previous
@@ -105,7 +106,18 @@ export class EcommerceCheckoutComponent implements OnInit {
       // username: ['', [Validators.required]],
       todo: ['', [Validators.required]],
       paymentMethod: [null, Validators.required],
-      currency: [null, Validators.required]
+      currency: [null, Validators.required],
+      minimum:['', Validators.required],
+      maximum:['', Validators.required],
+      offerRate:['', Validators.required],
+    percentage:['', Validators.required],
+    selectMultiLimitedSelected:[[],Validators.required],
+    label:['', Validators.required],
+    terms:['', Validators.required],
+    partnerOptions:['', Validators.required],
+    minimumTrades:['', Validators.required],
+    limitusers:['', Validators.required],
+    limitCountries:['', Validators.required],
 
     });
     // Subscribe to ProductList change

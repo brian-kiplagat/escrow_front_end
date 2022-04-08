@@ -1,7 +1,49 @@
 <div class="content-wrapper container-xxl p-0">
     <div class="content-body">
       <div class="bs-stepper checkout-tab-steps" id="checkoutStepper">
-   
+           <!-- Wizard starts -->
+           <div class="bs-stepper-header">
+            <div class="step" data-target="#step-cart">
+              <button type="button" class="step-trigger">
+                <span class="bs-stepper-box">
+                  <i data-feather="dollar-sign" class="font-medium-3"></i>
+                </span>
+                <span class="bs-stepper-label">
+                  <span class="bs-stepper-title">Payment Method</span>
+                  <span class="bs-stepper-subtitle">Select a method</span>
+                </span>
+              </button>
+            </div>
+            <div class="line">
+              <i data-feather="chevron-right" class="font-medium-2"></i>
+            </div>
+            <div class="step" data-target="#step-address">
+              <button type="button" class="step-trigger">
+                <span class="bs-stepper-box">
+                  <i data-feather="alert-circle" class="font-medium-3"></i>
+                </span>
+                <span class="bs-stepper-label">
+                  <span class="bs-stepper-title">Pricing</span>
+                  <span class="bs-stepper-subtitle">Set your rate</span>
+                </span>
+              </button>
+            </div>
+            <div class="line">
+              <i data-feather="check-circle" class="font-medium-2"></i>
+            </div>
+            <div class="step" data-target="#step-payment">
+              <button type="button" class="step-trigger">
+                <span class="bs-stepper-box">
+                  <i data-feather="check-circle" class="font-medium-3"></i>
+                </span>
+                <span class="bs-stepper-label">
+                  <span class="bs-stepper-title">Options</span>
+                  <span class="bs-stepper-subtitle">Finalise your offer</span>
+                </span>
+              </button>
+            </div>
+          </div>
+          <!-- Wizard ends -->
    
         <div class="bs-stepper-content">
           <!-- Checkout Place order starts -->
@@ -470,49 +512,7 @@
           </div>
           <!-- Checkout Payment Ends -->
         </div>
-        <!-- Wizard starts -->
-        <div class="bs-stepper-header">
-          <div class="step" data-target="#step-cart">
-            <button type="button" class="step-trigger">
-              <span class="bs-stepper-box">
-                <i data-feather="dollar-sign" class="font-medium-3"></i>
-              </span>
-              <span class="bs-stepper-label">
-                <span class="bs-stepper-title">Payment Method</span>
-                <span class="bs-stepper-subtitle">Select a method</span>
-              </span>
-            </button>
-          </div>
-          <div class="line">
-            <i data-feather="chevron-right" class="font-medium-2"></i>
-          </div>
-          <div class="step" data-target="#step-address">
-            <button type="button" class="step-trigger">
-              <span class="bs-stepper-box">
-                <i data-feather="alert-circle" class="font-medium-3"></i>
-              </span>
-              <span class="bs-stepper-label">
-                <span class="bs-stepper-title">Pricing</span>
-                <span class="bs-stepper-subtitle">Set your rate</span>
-              </span>
-            </button>
-          </div>
-          <div class="line">
-            <i data-feather="check-circle" class="font-medium-2"></i>
-          </div>
-          <div class="step" data-target="#step-payment">
-            <button type="button" class="step-trigger">
-              <span class="bs-stepper-box">
-                <i data-feather="check-circle" class="font-medium-3"></i>
-              </span>
-              <span class="bs-stepper-label">
-                <span class="bs-stepper-title">Options</span>
-                <span class="bs-stepper-subtitle">Finalise your offer</span>
-              </span>
-            </button>
-          </div>
-        </div>
-        <!-- Wizard ends -->
+
    
       </div>
     </div>
