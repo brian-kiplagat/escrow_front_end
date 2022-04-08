@@ -193,30 +193,7 @@
                                       </span>
                                   </div>
                               </div>
-                              <div class="col-md-6 col-sm-12">
-                                  <div class="form-group mb-2">
-                                      <label for="checkout-landmark">Offer rate:</label>
-                                      <input
-                                          type="text"
-                                          id="checkout-landmark"
-                                          class="form-control"
-                                          [class.error]="submitted && f1.percentage.errors"
-                                          placeholder="Your percentage"
-                                          formControlName="percentage"
-                                          required
-                                      />
-                                      <span
-                                          *ngIf="submitted && f1.percentage.errors"
-                                          class="invalid-form"
-                                      >
-                                          <small
-                                              class="form-text text-danger"
-                                              *ngIf="f1.percentage.errors.required"
-                                              >This field is required!</small
-                                          >
-                                      </span>
-                                  </div>
-                              </div>
+                             
                               <div class="col-sm-6 col-12">
                                   <label>Offer Tags</label>
 
@@ -256,21 +233,7 @@
                                           </ng-template>
                                       </ng-select>
 
-                                      <div class="mt-1">
-                                          Selected value: <br />
-                                          <ul>
-                                              <li *ngFor="let item of selectMultiLimitedSelected">
-                                                  {{ item }}
-                                              </li>
-                                          </ul>
-                                          <button
-                                              (click)="multiLimitedClearModel()"
-                                              class="btn btn-secondary btn-sm"
-                                              rippleEffect
-                                          >
-                                              Clear model
-                                          </button>
-                                      </div>
+                              
                                       <!-- Multi select with limited number of selections -->
                                   </div>
                               </div>
