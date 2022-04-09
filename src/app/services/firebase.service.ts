@@ -22,6 +22,7 @@ export class FirebaseService {
    loginerror:string = ''
    signuperrorChange: Subject<string> = new Subject<string>();
    loginerrorChange: Subject<string> = new Subject<string>();
+   public user = this.auth1.currentUser
 
 
   constructor(private router:Router, public auth: AngularFireAuth,private http: HttpClient) { 
@@ -57,7 +58,6 @@ export class FirebaseService {
       if (userData.user) {
         this.login(email, password)
         this.router.navigate(['/'])
-        console.log(userData.user)
         this.createWallet(email)
       }
       console.log(userData.user)
