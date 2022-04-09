@@ -345,7 +345,7 @@
                                 </p>
                             </div>
                         
-                        <div class="card-body">
+                        <div class="card-body" style="margin-top: -10px;">
                             <form
                             class="auth-register-form "
                             [formGroup]="form3"
@@ -503,7 +503,7 @@
                                         [type]="'warning'"
                                         [dismissible]="false"
                                         class="mb-2"
-                                        *ngIf="selectMultiLimitedSelected.length === 3"
+                                        *ngIf="selectMultiLimitedSelected.length === 50"
                                     >
                                         <div class="alert-body">
                                             <small>Max selection reached</small>
@@ -512,7 +512,7 @@
                                     <ng-select
                                     #selectMultiLimited
                                         [multiple]="true"
-                                        [maxSelectedItems]="3"
+                                        [maxSelectedItems]="50"
                                        
                                         formControlName="selectMultiLimitedSelected"
                                      >
@@ -575,7 +575,7 @@
                     </button>
                 </div>
                 <div class="line">
-                    <i data-feather="check-circle" class="font-medium-2"></i>
+                    <i data-feather="chevron-right" class="font-medium-2"></i>
                 </div>
                 <div class="step" data-target="#step-payment">
                     <button type="button" class="step-trigger">
