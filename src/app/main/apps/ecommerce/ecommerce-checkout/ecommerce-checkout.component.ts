@@ -39,6 +39,7 @@ export class EcommerceCheckoutComponent implements OnInit {
     public currency:any[] = []
     public countries:any[] = []
     public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
+    public noneSelected = true;
 
   // Private
   private checkoutStepper: Stepper;
@@ -110,6 +111,14 @@ get f2(){
    * On init
    */
    multiLimitedClearModel(){}
+   checkCountry(e){
+     this.noneSelected =!this.noneSelected
+     this.form3.controls['selectMultiLimitedSelected'].disable();
+    console.log(e)
+   }
+   removeDisable(){
+    this.form3.controls['selectMultiLimitedSelected'].enable()
+   }
   
   ngOnInit(): void {
 
@@ -171,6 +180,7 @@ get f2(){
   
 
     });
+    this.form3.controls['selectMultiLimitedSelected'].disable();
     // Subscribe to ProductList change
     this._ecommerceService.onProductListChange.subscribe(res => {
       this.products = res;

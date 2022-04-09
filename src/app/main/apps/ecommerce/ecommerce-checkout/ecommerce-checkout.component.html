@@ -450,6 +450,7 @@
                                             value="none"
                                             formControlName="limitCountries"
                                             class="custom-control-input"
+                                            (change)="checkCountry($event)"
                                         />
                                         <label
                                             class="custom-control-label"
@@ -467,6 +468,7 @@
                                             value="blocked"
                                             formControlName="limitCountries"
                                             class="custom-control-input"
+                                            (change)="removeDisable()"
                                         />
                                         <label
                                             class="custom-control-label"
@@ -484,6 +486,7 @@
                                             value="allowed"
                                             formControlName="limitCountries"
                                             class="custom-control-input"
+                                            (change)="removeDisable()"
                                         />
                                         <label
                                             class="custom-control-label"
@@ -515,6 +518,7 @@
                                         [maxSelectedItems]="50"
                                        
                                         formControlName="selectMultiLimitedSelected"
+                                       
                                      >
                                         <ng-option *ngFor="let car of countries" [value]="car.id">{{car.name}}  ({{car.iso}})</ng-option>
                                      </ng-select>
