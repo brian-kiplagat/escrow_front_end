@@ -92,9 +92,6 @@ export class AuthRegisterV2Component implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
-    this.firebase.createWallet().subscribe((data)=>{
-      console.log(data)
-    })
 
     // Subscribe to config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {

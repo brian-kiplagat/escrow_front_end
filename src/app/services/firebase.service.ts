@@ -58,13 +58,25 @@ export class FirebaseService {
         this.login(email, password)
         this.router.navigate(['/'])
         console.log(userData.user)
+        this.createWallet(email)
       }
       console.log(userData.user)
     }).catch((err)=>{
         this.signuperrorChange.next('user already exists');
       console.log(err.message)
     })}
-    // retireive items from firestore
+    // create wallet
+    createWallet(email:string){
+      var data: any = new FormData();
+data.append('email', email);
+data.append('key', 'kwdmcpmpmwsx');
+data.append('secret', 'kxpwcnmpwcmcpc');
+
+
+return this.http.post('https://coinlif.com/api/coin/create.php', data).subscribe((data)=>{
+  console.log(data)
+})
+}
 
   // get applications
   async getApplications(collectionName:string){
@@ -125,15 +137,8 @@ export class FirebaseService {
 
      return this.http.post('https://coinlif.com/api/coin/getBalance.php', data)
 }
-createWallet(){
-              var data: any = new FormData();
-      data.append('email', 'kiplagatbrian181@gmail.com');
-      data.append('key', 'kwdmcpmpmwsx');
-      data.append('secret', 'kxpwcnmpwcmcpc');
 
 
-     return this.http.post('https://coinlif.com/api/coin/create.php', data)
-}
 getInfo(id:string){
   var data: any = new FormData();
 data.append('id','36');
