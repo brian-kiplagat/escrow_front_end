@@ -1,6 +1,8 @@
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -20,6 +22,8 @@ import { DashboardService } from 'app/main/dashboard/dashboard.service';
 
 import { AnalyticsComponent } from 'app/main/dashboard/analytics/analytics.component';
 import { EcommerceComponent } from 'app/main/dashboard/ecommerce/ecommerce.component';
+import {CoreTouchspinModule} from "../../../@core/components/core-touchspin/core-touchspin.module"
+
 
 const routes = [
   {
@@ -53,7 +57,8 @@ const routes = [
     PerfectScrollbarModule,
     CoreCommonModule,
     NgApexchartsModule,
-    InvoiceModule
+    InvoiceModule,
+    CoreTouchspinModule
   ],
   providers: [DashboardService, InvoiceListService],
   exports: [EcommerceComponent]

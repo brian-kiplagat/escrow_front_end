@@ -86,293 +86,248 @@
       </div>
       <!--/ Statistics Card -->
     </div>
-    <!-- OFFER TABS -->
-    <section id="basic-tabs-components">
-      <div class="">
-       
-          <h4 class="card-title">My offers (6)</h4>
+
+    <div class="row match-height">
+      <!-- TRADES CARD -->
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="card card-apply-job card-transaction">
           <div class="card-body">
-            <ul ngbNav #navWithIcons="ngbNav" class="nav-tabs">
-              <li ngbNavItem>
-                <a ngbNavLink><span [data-feather]="'arrow-down'"></span> BUY OFFERS</a>
-                <ng-template ngbNavContent>
-                  <!-- TABLE -->
-                  <div class="row match-height">
-                    <!-- Company Table -->
-                    <div class="col-lg-12 col-12">
-                      <div class="card card-company-table">
-                        <div class="card-body p-0">
-                          <div class="table-responsive">
-                            <table class="table">
-                              <thead>
-                              <tr>
-                                <th>Method</th>
-                                <th>limits</th>
-                                <th>Rates</th>
-                                <th>Options</th>
-                                <th>Views</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr>
-                                <td>
-                                  <div class="d-flex align-items-center">
-                                    <div class="custom-control custom-switch custom-control-inline">
-                                      <input type="checkbox" class="custom-control-input" checked id="customSwitch2"/>
-                                      <label class="custom-control-label" for="customSwitch2"></label>
-                                    </div>
-                                    <div>
-                                      <div class="font-weight-bolder">PayPal</div>
-                                      <div class="font-small-2 text-muted">Fast trades</div>
-                                    </div>
-                                  </div>
-                                </td>
 
-                                <td class="text-nowrap">
-                                  <div class="d-flex flex-column">
-                                    <span class="font-weight-bolder mb-25">200-500</span>
-                                    <span class="font-small-2 text-muted">EUR</span>
-                                  </div>
-                                </td>
-                                <td class="text-nowrap">
-                                  <div class="d-flex flex-column">
-                                    <span class="font-weight-bolder mb-25">38,563</span>
-                                    <span class="font-small-2 text-muted">4%</span>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class="d-flex align-items-center">
-                                    <div class="avatar bg-light-secondary mr-1" placement="bottom"
-                                         ngbTooltip="Blocked Countries: DE, AR, CA, US">
-                                      <div class="avatar-content">
-                                        <i data-feather="globe" class="font-medium-3"></i>
-                                      </div>
-                                    </div>
-                                    <div class="avatar bg-light-secondary mr-1" placement="bottom"
-                                         ngbTooltip="VPN Users not allowed">
-                                      <div class="avatar-content">
-                                        <i data-feather="shield" class="font-medium-3"></i>
-                                      </div>
-                                    </div>
-                                    <div class="avatar bg-light-secondary mr-1" placement="bottom"
-                                         ngbTooltip="No options added">
-                                      <div class="avatar-content">
-                                        <i data-feather="x-square" class="font-medium-3"></i>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class="d-flex align-items-center">
-                                    <span class="font-weight-bolder mr-1">4%</span>
-                                    <i data-feather="eye" class="text-success font-medium-1"></i>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="d-flex align-items-center">
-                                    <div class="custom-control custom-switch custom-control-inline">
-                                      <input type="checkbox" class="custom-control-input" checked id="customSwitch2"/>
-                                      <label class="custom-control-label" for="customSwitch2"></label>
-                                    </div>
-                                    <div>
-                                      <div class="font-weight-bolder">PayPal</div>
-                                      <div class="font-small-2 text-muted">Fast trades</div>
-                                    </div>
-                                  </div>
-                                </td>
+            <!-- ONE ELEMENT -->
+            <div>
+              <ngb-alert [type]="'primary'" [dismissible]="false">
+                <div class="alert-body">Trade marked as PAID </div>
+              </ngb-alert>
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <div class="media">
+                <div class="avatar mr-1">
+                  <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42"/>
+                </div>
+                <div class="media-body">
+                  <h5 class="mb-0">Bank transfer</h5>
+                  <small class="text-muted">User2453</small>
 
-                                <td class="text-nowrap">
-                                  <div class="d-flex flex-column">
-                                    <span class="font-weight-bolder mb-25">200-500</span>
-                                    <span class="font-small-2 text-muted">EUR</span>
-                                  </div>
-                                </td>
-                                <td class="text-nowrap">
-                                  <div class="d-flex flex-column">
-                                    <span class="font-weight-bolder mb-25">38,563</span>
-                                    <span class="font-small-2 text-muted">4%</span>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class="d-flex align-items-center">
-                                    <div class="avatar bg-light-secondary mr-1" placement="bottom"
-                                         ngbTooltip="Blocked Countries: DE, AR, CA, US">
-                                      <div class="avatar-content">
-                                        <i data-feather="globe" class="font-medium-3"></i>
-                                      </div>
-                                    </div>
-                                    <div class="avatar bg-light-secondary mr-1" placement="bottom"
-                                         ngbTooltip="VPN Users not allowed">
-                                      <div class="avatar-content">
-                                        <i data-feather="shield" class="font-medium-3"></i>
-                                      </div>
-                                    </div>
-                                    <div class="avatar bg-light-secondary mr-1" placement="bottom"
-                                         ngbTooltip="No options added">
-                                      <div class="avatar-content">
-                                        <i data-feather="x-square" class="font-medium-3"></i>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class="d-flex align-items-center">
-                                    <span class="font-weight-bolder mr-1">4%</span>
-                                    <i data-feather="eye" class="text-success font-medium-1"></i>
-                                  </div>
-                                </td>
-                              </tr>
+                </div>
 
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!--/ Company Table -->
+              </div>
+              <div class="badge badge-pill badge-light-primary">BUY</div>
+
+            </div>
+            <div class="transaction-item">
+              <div class="media">
+                <div class="avatar bg-light-primary rounded">
+                  <div class="avatar-content">
+                    <i data-feather="pocket" class="avatar-icon font-medium-3"></i>
+                  </div>
+                </div>
+                <div class="media-body">
+                  <h6 class="transaction-title">400 EUR</h6>
+                  <small>0.00565 BTC</small>
+                </div>
+              </div>
+              <button type="button" class="btn btn-outline-primary" rippleEffect>VIEW</button>
+            </div>
+            <div class="apply-job-package bg-light-warning rounded">
+              <div>
+                <sup class="text-body"><small> <i data-feather="shield"
+                                                  class="avatar-icon font-medium-3"></i></small></sup>
+                <h2 class="d-inline mr-25">DISPUTE</h2>
+                <sub class="text-body"><small>open</small></sub>
+              </div>
+              <div class="badge badge-pill badge-light-primary">Awaiting Moderator</div>
+            </div>
+            <hr>
+            </div>
+            <!-- ONE ELEMENT -->
+            <!-- ONE ELEMENT -->
+            <div>
+              <ngb-alert [type]="'primary'" [dismissible]="false">
+                <div class="alert-body">Trade marked as PAID </div>
+              </ngb-alert>
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="media">
+                  <div class="avatar mr-1">
+                    <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42"/>
+                  </div>
+                  <div class="media-body">
+                    <h5 class="mb-0">Bank transfer</h5>
+                    <small class="text-muted">User2453</small>
 
                   </div>
-                  <!-- TABLE -->
-                </ng-template>
-              </li>
-              <li ngbNavItem>
-                <a ngbNavLink><span [data-feather]="'arrow-up'"></span> SELL OFFERS</a>
-                <ng-template ngbNavContent>
-                  <!-- TABLE -->
-                  <div class="row match-height">
-                    <!-- Company Table -->
-                    <div class="col-lg-12 col-12">
-                      <div class="card card-company-table">
-                        <div class="card-body p-0">
-                          <div class="table-responsive">
-                            <table class="table">
-                              <thead>
-                              <tr>
-                                <th></th>
-                                <th>Method</th>
-                                <th>Type</th>
-                                <th>Amount</th>
-                                <th>Action</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar bg-light-danger rounded">
-                                      <div class="avatar-content">
-                                        <i data-feather="shield" class="avatar-icon font-medium-3"></i>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
 
-                                <td class="text-nowrap">
-                                  <div class="media-body">
-                                    <h6 class="transaction-title">Paypal</h6>
-                                    <small>EUR</small>
-                                  </div>
-                                </td>
-                                <td class="text-nowrap">
-                                  <div class="d-flex flex-column">
-                                    <span class="font-weight-bolder mb-25">Selling</span>
-                                    <span class="font-small-2 text-warning">4%</span>
-                                  </div>
-                                </td>
-                                <td class="text-nowrap">
-                                  <div class="font-weight-bolder text-success">$590</div>
-                                </td>
-                                <td>
-                                  <button type="button" class="btn btn-primary" rippleEffect>VIEW</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar bg-light-success rounded">
-                                      <div class="avatar-content">
-                                        <i data-feather="check-circle" class="avatar-icon font-medium-3"></i>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
+                </div>
+                <div class="badge badge-pill badge-light-primary">BUY</div>
 
-                                <td class="text-nowrap">
-                                  <div class="media-body">
-                                    <h6 class="transaction-title">Paypal</h6>
-                                    <small>EUR</small>
-                                  </div>
-                                </td>
-                                <td class="text-nowrap">
-                                  <div class="d-flex flex-column">
-                                    <span class="font-weight-bolder mb-25">Selling</span>
-                                    <span class="font-small-2 text-warning">4%</span>
-                                  </div>
-                                </td>
-                                <td class="text-nowrap">
-                                  <div class="font-weight-bolder text-success">$590</div>
-                                </td>
-                                <td>
-                                  <button type="button" class="btn btn-primary" rippleEffect>VIEW</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar bg-light-primary rounded">
-                                      <div class="avatar-content">
-                                        <i data-feather="check-circle" class="avatar-icon font-medium-3"></i>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
-
-                                <td class="text-nowrap">
-                                  <div class="media-body">
-                                    <h6 class="transaction-title">Paypal</h6>
-                                    <small>EUR</small>
-                                  </div>
-                                </td>
-                                <td class="text-nowrap">
-                                  <div class="d-flex flex-column">
-                                    <span class="font-weight-bolder mb-25">Selling</span>
-                                    <span class="font-small-2 text-warning">4%</span>
-                                  </div>
-                                </td>
-                                <td class="text-nowrap">
-                                  <div class="font-weight-bolder text-success">$590</div>
-                                </td>
-                                <td>
-                                  <button type="button" class="btn btn-primary" rippleEffect>VIEW</button>
-                                </td>
-                              </tr>
-
-
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
+              </div>
+              <div class="transaction-item">
+                <div class="media">
+                  <div class="avatar bg-light-primary rounded">
+                    <div class="avatar-content">
+                      <i data-feather="pocket" class="avatar-icon font-medium-3"></i>
                     </div>
-                    <!--/ Company Table -->
-
                   </div>
-                  <!-- TABLE -->
-                </ng-template>
-              </li>
-
-
-            </ul>
-            <div [ngbNavOutlet]="navWithIcons" class="mt-2"></div>
+                  <div class="media-body">
+                    <h6 class="transaction-title">400 EUR</h6>
+                    <small>0.00565 BTC</small>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-outline-primary" rippleEffect>VIEW</button>
+              </div>
+              <div class="apply-job-package bg-light-warning rounded">
+                <div>
+                  <sup class="text-body"><small> <i data-feather="shield"
+                                                    class="avatar-icon font-medium-3"></i></small></sup>
+                  <h2 class="d-inline mr-25">DISPUTE</h2>
+                  <sub class="text-body"><small>open</small></sub>
+                </div>
+                <div class="badge badge-pill badge-light-primary">Awaiting Moderator</div>
+              </div>
+              <hr>
+            </div>
+            <!-- ONE ELEMENT -->
           </div>
+
+        </div>
       </div>
-    </section>
-    <!-- OFFER TABS -->
+      <!--/ TRADES CARD -->
 
+      <!-- Transaction card -->
+      <div class="col-xl-8 col-md-6 col-12">
+        <div class="card card-apply-job card-transaction">
+          <div class="card-header">
+            <h4 class="card-title">My offers</h4>
+            <div class="custom-control custom-control-primary custom-switch">
+              <input type="checkbox" checked class="custom-control-input" id="customSwitch3" />
+              <label class="custom-control-label" for="customSwitch3"></label>
+            </div>
+          </div>
+          <div class="card-body">
 
+            <!-- ONE ELEMENT -->
+            <div>
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="media">
 
+                  <div class="avatar mr-2 bg-light-primary rounded">
+                    <div class="avatar-content">
+                      <i data-feather="copy" class="avatar-icon font-medium-3"></i>
+                    </div>
+                  </div>
+                  <div class="media-body" >
+                    <h5 class="mb-0">Bank transfer</h5>
+                    <small class="text-muted">EUR</small>
+
+                  </div>
+
+                </div>
+                <div class="badge badge-pill badge-light-primary" placement="left"
+                     ngbTooltip="Blocked Countries: DE, AR, CA, US"> <i data-feather="alert-circle" class="font-medium-5"></i></div>
+
+              </div>
+              <div class="transaction-item">
+                <div class="media">
+                  <div class="custom-control custom-switch custom-control-inline">
+                    <input type="checkbox" class="custom-control-input" checked id="sw1"/>
+                    <label class="custom-control-label" for="sw1"></label>
+                  </div>
+                  <div class="media-body" style="margin-left: -10px">
+                    <core-touchspin class="transaction-title" id='' [numberValue]="5" [iconChevron]="true"></core-touchspin>
+                    <small>Rate</small>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-outline-primary" rippleEffect>EDIT</button>
+              </div>
+              <form action="javascript:void(0);" class="form">
+                <div class="row">
+
+                  <div class="col-sm-6 col-12">
+                    <div class="form-group mb-2">
+                      <label for="payment-expiry">Minimum(KES)</label>
+                      <input type="number" id="payment-expiry" class="form-control form-control-sm" placeholder="Amount"size="3" value="2000"/>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-12">
+                    <div class="form-group mb-2 ">
+                      <label for="payment-cvv">Maximum(KES)</label>
+                      <input type="number" id="payment-cvv" class="form-control form-control-sm" placeholder="Amount" size="3" value="10000"/>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+              <ngb-alert [type]="'primary'" [dismissible]="false">
+                <div class="alert-body">This offer was deauthorized. Contact support to reactivate this.</div>
+              </ngb-alert>
+              <hr>
+            </div>
+            <!-- ONE ELEMENT -->
+            <!-- ONE ELEMENT -->
+            <div>
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="media">
+
+                  <div class="avatar mr-2 bg-light-primary rounded">
+                    <div class="avatar-content">
+                      <i data-feather="copy" class="avatar-icon font-medium-3"></i>
+                    </div>
+                  </div>
+                  <div class="media-body" >
+                    <h5 class="mb-0">Bank transfer</h5>
+                    <small class="text-muted">EUR</small>
+
+                  </div>
+
+                </div>
+                <div class="badge badge-pill badge-light-primary" placement="left"
+                     ngbTooltip="Blocked Countries: DE, AR, CA, US"> <i data-feather="alert-circle" class="font-medium-5"></i></div>
+
+              </div>
+              <div class="transaction-item">
+                <div class="media">
+                  <div class="custom-control custom-switch custom-control-inline">
+                    <input type="checkbox" class="custom-control-input" checked id="sw1"/>
+                    <label class="custom-control-label" for="sw1"></label>
+                  </div>
+                  <div class="media-body" style="margin-left: -10px">
+                    <core-touchspin class="transaction-title" id='' [numberValue]="5" [iconChevron]="true"></core-touchspin>
+                    <small>Rate</small>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-outline-primary" rippleEffect>EDIT</button>
+              </div>
+              <form action="javascript:void(0);" class="form">
+                <div class="row">
+
+                  <div class="col-sm-6 col-12">
+                    <div class="form-group mb-2">
+                      <label for="payment-expiry">Minimum(KES)</label>
+                      <input type="number" id="payment-expiry" class="form-control form-control-sm" placeholder="Amount"size="3" value="2000"/>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-12">
+                    <div class="form-group mb-2 ">
+                      <label for="payment-cvv">Maximum(KES)</label>
+                      <input type="number" id="payment-cvv" class="form-control form-control-sm" placeholder="Amount" size="3" value="10000"/>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+              <ngb-alert [type]="'primary'" [dismissible]="false">
+                <div class="alert-body">This offer was deauthorized. Contact support to reactivate this.</div>
+              </ngb-alert>
+              <hr>
+            </div>
+            <!-- ONE ELEMENT -->
+
+          </div>
+
+        </div>
+
+      </div>
+      <!--/ Transaction card -->
+
+    </div>
 
 
   </div>
