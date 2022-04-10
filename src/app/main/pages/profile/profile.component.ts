@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FirebaseService } from 'app/services/firebase.service';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -20,6 +21,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public Monthly = false;
   public toggleNavbarRef = false;
   public loadMoreRef = false;
+  email:string =''
+  public userData:any={about: "No about yet",
+  active: 1,
+  feed_neg: 0,
+  feed_pos: 0,
+  geolocation: "none",
+  ip: "none",
+  registration_date: "2022-04-01 13:14:34",
+  status: 1}
+  public feeds:any[]=[]
 
   // private
   private _unsubscribeAll: Subject<any>;
@@ -29,7 +40,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    *
    * @param {PricingService} _pricingService
    */
-  constructor(private _pricingService: ProfileService, private sanitizer: DomSanitizer) {
+  constructor(private _pricingService: ProfileService, private sanitizer: DomSanitizer, private fb:FirebaseService) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -53,6 +64,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
+    console.log( this.fb.user)
+    this.fb.getProfile().subscribe((data)=>{
+      this.userData = data['user_data'][0]
+      this.feeds = data['feedback_data']
+      console.log(this.feeds)
+    })
+    
     this._pricingService.onPricingChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       this.data = response;
     });

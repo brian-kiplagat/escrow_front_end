@@ -167,5 +167,14 @@ data.append('secret', 'kxpwcnmpwcmcpc');
 
 return this.http.post('https://coinlif.com/api/coin/getCurrency.php', data)
 }
+getProfile(){
+  var data: any = new FormData();
+  data.append('username', 'MurderouLlipa455');
+data.append('key', 'kwdmcpmpmwsx');
+data.append('secret', 'kxpwcnmpwcmcpc');
+
+
+return this.http.post('https://coinlif.com/api/coin/getProfileData.php', data)
+}
   
 }

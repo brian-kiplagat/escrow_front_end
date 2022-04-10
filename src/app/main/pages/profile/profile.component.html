@@ -86,19 +86,19 @@
               <div class="card-body">
                 <h5 class="mb-75">About</h5>
                 <p class="card-text">
-                  {{ data.profileData.userAbout.about }}
+                  {{ userData.about}}
                 </p>
                 <div class="mt-2">
                   <h5 class="mb-75">Joined:</h5>
-                  <p class="card-text">{{ data.profileData.userAbout.joined }}</p>
+                  <p class="card-text">{{userData.registration_date |date }}</p>
                 </div>
                 <div class="mt-2">
                   <h5 class="mb-75">Lives:</h5>
-                  <p class="card-text">{{ data.profileData.userAbout.lives }}</p>
+                  <p class="card-text">{{ userData.geolocation}}</p>
                 </div>
                 <div class="mt-2">
                   <h5 class="mb-75">Email:</h5>
-                  <p class="card-text">{{ data.profileData.userAbout.email }}</p>
+                  <p class="card-text">{{ email }}</p>
                 </div>
                 <div class="mt-2">
                   <h5 class="mb-50">Website:</h5>
@@ -113,15 +113,15 @@
               <div class="card-body">
                 <h5>Twitter Feeds</h5>
                 <!-- twitter feed -->
-                <div class="profile-twitter-feed mt-2" *ngFor="let twitterFeedsRef of data.profileData.twitterFeeds">
+                <div class="profile-twitter-feed mt-2" *ngFor="let feed of feeds">
                   <div class="d-flex justify-content-start align-items-center mb-1">
-                    <div class="avatar mr-1">
+                    <!-- <div class="avatar mr-1">
                       <img [src]="twitterFeedsRef.imgUrl" alt="avatar img" height="40" width="40" />
-                    </div>
+                    </div> -->
                     <div class="profile-user-info">
-                      <h6 class="mb-0">{{ twitterFeedsRef.title }}</h6>
+                      <h6 class="mb-0">{{ feed.buyer }}</h6>
                       <a href="javascript:void(0)">
-                        <small class="text-muted">{{ twitterFeedsRef.id }}</small>
+                        <small class="text-muted">{{feed.seller}}</small>
                         <i data-feather="check-circle"></i>
                       </a>
                     </div>
@@ -129,15 +129,15 @@
                       <i
                         class="font-medium-3 fa"
                         [ngClass]="{
-                          'fa-star text-warning': twitterFeedsRef.favorite === true,
-                          'fa-star-o': twitterFeedsRef.favorite !== true
+                          'fa-star text-warning': feed.favorite === true,
+                          'fa-star-o': feed.favorite !== true
                         }"
                       ></i>
                     </div>
                   </div>
-                  <p class="card-text mb-50">{{ twitterFeedsRef.desc }}</p>
+                  <p class="card-text mb-50">{{ feed.coment }}</p>
                   <a href="javascript:void(0)">
-                    <small>{{ twitterFeedsRef.tags }}</small>
+                    <small>{{ feed.id }}</small>
                   </a>
                 </div>
               </div>
