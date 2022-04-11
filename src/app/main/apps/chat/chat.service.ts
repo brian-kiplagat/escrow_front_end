@@ -72,14 +72,14 @@ export class ChatService {
   /**
    * Get Chats
    */
-  getChats(): Promise<any[]> {
+  getChats(): Promise<any[]> {//Get chat array from @fakedb/chat.data.ts
     const url = `api/chat-chats`;
 
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
         this.chats = response;
         this.onChatsChange.next(this.chats);
-
+        //console.log('CHAT DATA '+ JSON.stringify(response));
         resolve(this.chats);
       }, reject);
     });
@@ -88,12 +88,13 @@ export class ChatService {
   /**
    * Get User Profile
    */
-  getUserProfile(): Promise<any[]> {
+  getUserProfile(): Promise<any[]> {//Pull profile of logged in user
     const url = `api/chat-profileUser`;
 
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
         this.userProfile = response;
+        console.log('SENDER DATA '+ JSON.stringify(response));
         this.onUserProfileChange.next(this.userProfile);
         resolve(this.userProfile);
       }, reject);
@@ -108,7 +109,7 @@ export class ChatService {
   getSelectedChatUser(userId) {
     const selectUser = this.contacts.find(contact => contact.id === userId);
     this.selectedChatUser = selectUser;
-
+    console.log('RECEIVER DATA '+ JSON.stringify(selectUser));
     this.onSelectedChatUserChange.next(this.selectedChatUser);
   }
 

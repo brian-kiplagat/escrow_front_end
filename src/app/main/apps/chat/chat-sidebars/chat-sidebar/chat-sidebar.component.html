@@ -1,108 +1,127 @@
 <!-- Chat Sidebar area -->
 <div class="chat-sidebar bg-white">
-  <button class="btn sidebar-close-icon" (click)="toggleSidebar('chat-sidebar')">
-    <i data-feather="x"></i>
-  </button>
-  <!-- Sidebar header start -->
-  <div class="chat-fixed-search">
-    <div class="d-flex align-items-center w-100">
-      <div class="sidebar-profile-toggle">
-        <button class="btn avatar avatar-border bg-transparent p-0" (click)="toggleSidebar('chat-user-sidebar')">
-          <img [src]="userProfile.avatar" alt="user_avatar" height="42" width="42" />
-          <span
-            [ngClass]="{
-              'avatar-status-offline': userProfile.status == 'offline',
-              'avatar-status-online': userProfile.status == 'online',
-              'avatar-status-busy': userProfile.status == 'busy',
-              'avatar-status-away': userProfile.status == 'away'
-            }"
-          ></span>
+
+    <!-- Sidebar header start -->
+    <div class="chat-fixed-search">
+        <button class="btn sidebar-close-icon" (click)="toggleSidebar('chat-sidebar')">
+            <i data-feather="x"></i>
         </button>
-      </div>
-      <div class="input-group input-group-merge ml-1 w-100">
-        <div class="input-group-prepend">
-          <span class="input-group-text round"><i data-feather="search" class="text-muted"></i></span>
+        <div class="meetup-header d-flex align-items-center">
+            <div class="my-auto">
+                <h4 class="card-title mb-25">10,000 KES</h4>
+                <p class="card-text mb-0">0.17274829 BTC</p>
+            </div>
         </div>
-        <input
-          type="text"
-          class="form-control round"
-          id="chat-search"
-          placeholder="Search or start a new chat"
-          aria-label="Search..."
-          aria-describedby="chat-search"
-          [(ngModel)]="searchText"
-        />
-      </div>
     </div>
-  </div>
-  <!-- Sidebar header end -->
+    <!-- Sidebar header end -->
 
-  <!-- Sidebar Users start -->
-  <div id="users-list" class="chat-user-list-wrapper list-group" [perfectScrollbar]>
-    <h4 class="chat-list-title">Chats</h4>
-    <ng-container *ngIf="(chatUsers | filter: searchText:'fullName').length; else noResultsChats"></ng-container>
-    <ul class="chat-users-list chat-list media-list">
-      <li
-        *ngFor="let chatUser of chatUsers | filter: searchText:'fullName'; let i = index"
-        [class.active]="selectedIndex === i"
-        (click)="openChat(chatUser.id); toggleSidebar('chat-sidebar'); setIndex(i)"
-      >
-        <span class="avatar"
-          ><img [src]="chatUser.avatar" height="42" width="42" alt="Generic placeholder image" />
-          <span
-            [ngClass]="{
-              'avatar-status-offline': chatUser.status == 'offline',
-              'avatar-status-online': chatUser.status == 'online',
-              'avatar-status-busy': chatUser.status == 'busy',
-              'avatar-status-away': chatUser.status == 'away'
-            }"
-          ></span>
-        </span>
-        <div class="chat-info flex-grow-1">
-          <h5 class="mb-0">{{ chatUser.fullName }}</h5>
-          <p class="card-text text-truncate">
-            {{ chatUser.about }}
-          </p>
-        </div>
-        <div class="chat-meta text-nowrap">
-          <small class="float-right mb-25 chat-time">4:14 PM</small>
-          <span *ngIf="chatUser.unseenMsgs >= 1" class="float-right badge badge-danger badge-pill">{{
-            chatUser.unseenMsgs
-          }}</span>
-        </div>
-      </li>
+    <!-- Sidebar Users start -->
+    <div id="users-list" class="chat-user-list-wrapper list-group" [perfectScrollbar]>
 
-      <ng-template #noResultsChats>
-        <li class="no-results" [ngClass]="{ show: (chatUsers | filter: searchText:'fullName').length <= 0 }">
-          <h6 class="mb-0">No Chats Found</h6>
-        </li>
-      </ng-template>
-    </ul>
-    <h4 class="chat-list-title">Contacts</h4>
-    <ng-container *ngIf="(contacts | filter: searchText:'fullName').length; else noResultsContacts"></ng-container>
-    <ul class="chat-users-list contact-list media-list">
-      <li
-        *ngFor="let contact of contacts | filter: searchText:'fullName'"
-        (click)="openChat(contact.id); toggleSidebar('chat-sidebar')"
-      >
-        <span class="avatar"
-          ><img [src]="contact.avatar" height="42" width="42" alt="Generic placeholder image" />
-        </span>
-        <div class="chat-info">
-          <h5 class="mb-0">{{ contact.fullName }}</h5>
-          <p class="card-text text-truncate">
-            {{ contact.about }}
-          </p>
-        </div>
-      </li>
+        <!-- App Design Card -->
+        <div class="card card-app-design">
+            <div class="card-body">
+                <div class="badge badge-light-primary">03 Sep, 20</div>
+                <h4 class="card-title mt-1 mb-75 pt-25">Trade Started</h4>
+                <p class="font-small-2">
+                    Send KES 10,000 using Bank transfer, 0.000245778 BTC will be added to your Coinlif wallet
+                </p>
+                <div class="design-group mb-2 pt-50" >
+                    <h6 class="section-label" >Expires in:</h6>
+                    <div class="badge badge-light-warning mr-1" ngbTooltip="You have this amount of time left to send the money and click I'VE PAID to confirm the payment" placement="right">30:00:00</div>
 
-      <ng-template #noResultsContacts>
-        <li class="no-results" [ngClass]="{ show: (contacts | filter: searchText:'fullName').length <= 0 }">
-          <h6 class="mb-0">No Contacts Found</h6>
-        </li>
-      </ng-template>
-    </ul>
-  </div>
-  <!-- Sidebar Users end -->
+                </div>
+                <button type="button" rippleEffect class="btn btn-primary btn-block" ngbTooltip="After sending the payment, Click this button, this will confirm that you have sent. If you don't confirm, the trade will be cancelled automatically after 30 minutes and BTC will be returned from our escrow | trust account back to the seller." placement="bottom" >
+                    <div >
+                       <h2 class="d-inline mr-25 text-white">I'VE PAID</h2>
+                        <sub class="text-body"><small class="text-white">Confirm payment</small></sub>
+                    </div>
+                </button>
+
+                <button type="button" rippleEffect class="btn btn-outline-warning btn-block" ngbTooltip="This will cancel this trade and return BTC from our escrow | trust account back to the seller. If you had sent any amount, for your safety, we require you to ask for refund first before cancelling" placement="bottom" >CANCEL TRADE</button>
+                <div class="design-group mb-2 pt-50">
+                    <h6 class="section-label">Details</h6>
+                    <div class="badge badge-light-warning mr-1"  ngbTooltip="Send this to support in case you have complaints regarding this trade" placement="bottom">Trade id: 93488njsnc</div>
+                    <div class="badge badge-light-primary">Rate: 4,890,270 KES/BTC</div>
+                </div>
+
+                <h4 class="card-title">Quick Tutorial</h4>
+                <ul class="timeline">
+                    <li class="timeline-item">
+                        <span class="timeline-point timeline-point-indicator"></span>
+                        <div class="timeline-event">
+                            <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <h6>Ask for payment details</h6>
+
+                            </div>
+                            <p>Seller will provide it in a few</p>
+
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <span class="timeline-point timeline-point-secondary timeline-point-indicator"></span>
+                        <div class="timeline-event">
+                            <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <h6>Send 400 EUR</h6>
+
+                            </div>
+                            <p>Send the exact amount to the seller. Dont send any other amount</p>
+
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <span class="timeline-point timeline-point-success timeline-point-indicator"></span>
+                        <div class="timeline-event">
+                            <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <h6>Confirm your payment</h6>
+
+                            </div>
+                            <p class="mb-50">Click the 'I HAVE PAID' to confirm that you have sent the money, if you
+                                dont confirm the escrow trade will be automatically cancelled after 30 minutes</p>
+
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <span class="timeline-point timeline-point-warning timeline-point-indicator"></span>
+                        <div class="timeline-event">
+                            <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <h6 class="mb-50">Seller will release Bitcoin</h6>
+                            </div>
+                            <p>The seller will check on your payment and release BTC to your wallet. </p>
+                            <hr/>
+                            <div class="media align-items-center">
+                                <div class="avatar">
+                                    <img src="assets/images/avatars/12-small.png" alt="avatar" height="38" width="38"/>
+                                </div>
+                                <div class="media-body ml-50">
+                                    <h6 class="mb-0">Buyer protection</h6>
+                                    <span>If you have any problem like the seller not releasing BTC after paying, Click 'DISPUTE NOW' so our moderators join in to help you</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <span class="timeline-point timeline-point-danger timeline-point-indicator"></span>
+                        <div class="timeline-event">
+                            <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <h6>Leave a feedback</h6>
+
+                            </div>
+                            <p>
+                                Give your patner a feedback depending on your trade experience. This wil help other
+                                traders like you better trade with this patner.
+                            </p>
+
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+        <!--/ App Design Card -->
+
+    </div>
+    <!-- Sidebar Users end -->
 </div>
 <!--/ Chat Sidebar area -->

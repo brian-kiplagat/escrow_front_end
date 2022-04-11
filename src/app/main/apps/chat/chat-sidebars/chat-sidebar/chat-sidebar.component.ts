@@ -36,7 +36,7 @@ export class ChatSidebarComponent implements OnInit {
    * @param newChat
    */
   openChat(id) {
-    this._chatService.openChat(id);
+    this._chatService.openChat(id);//Invoke chat.service.ts instance
 
     // Reset unread Message to zero
     this.chatUsers.map(user => {
@@ -109,5 +109,8 @@ export class ChatSidebarComponent implements OnInit {
     this._chatService.onUserProfileChange.subscribe(response => {
       this.userProfile = response;
     });
+    //Load up chat interface to the template....pass a chat id to pull up message...contact data is aailable .../@fake-db/chat.data.ts
+    this.openChat(1);//1
+
   }
 }
