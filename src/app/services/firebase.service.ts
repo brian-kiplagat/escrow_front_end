@@ -9,6 +9,8 @@ import { BehaviorSubject,Subject } from "rxjs";
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { Firestore, collectionData } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +27,7 @@ export class FirebaseService {
    public user = this.auth1.currentUser
 
 
-  constructor(private router:Router, public auth: AngularFireAuth,private http: HttpClient) { 
+  constructor(private router:Router, public auth: AngularFireAuth,private http: HttpClient,private firestore:AngularFirestore) { 
       this.signuperrorChange.subscribe((value) => {
             this.signuperror = value
         });
@@ -175,6 +177,19 @@ data.append('secret', 'kxpwcnmpwcmcpc');
 
 
 return this.http.post('https://coinlif.com/api/coin/getProfileData.php', data)
+}
+
+//chat logic
+createChat(){
+
+}
+//send message
+sendMessage(){}
+//retrieve all messages
+retrieveMessage(){
+let users =this.firestore.collection('users').valueChanges()
+console.log(users)
+return users
 }
   
 }

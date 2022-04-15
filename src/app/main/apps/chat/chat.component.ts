@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation,OnInit } from '@angular/core';
+import { FirebaseService } from 'app/services/firebase.service';
 
 @Component({
   selector: 'app-chat',
@@ -7,4 +8,14 @@ import { Component, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
   host: { class: 'chat-application' }
 })
-export class ChatComponent {}
+export class ChatComponent implements OnInit {
+  constructor(private fb : FirebaseService){
+
+   
+  }
+  ngOnInit():void{
+    this.fb.retrieveMessage().subscribe((data)=>{
+  console.log(data)
+    })
+  }
+}
