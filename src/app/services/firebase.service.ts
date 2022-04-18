@@ -9,9 +9,8 @@ import { BehaviorSubject,Subject } from "rxjs";
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Firestore, collectionData } from '@angular/fire/firestore';
+import {addDoc,doc, updateDoc,  Firestore, collectionData,setDoc,arrayUnion } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +24,7 @@ export class FirebaseService {
    signuperrorChange: Subject<string> = new Subject<string>();
    loginerrorChange: Subject<string> = new Subject<string>();
    public user = this.auth1.currentUser
+   
 
 
   constructor(private router:Router, public auth: AngularFireAuth,private http: HttpClient,private firestore:AngularFirestore) { 
@@ -184,10 +184,16 @@ createChat(){
 
 }
 //send message
-sendMessage(){}
+async sendMessage(data){
+ this.firestore.collection('trades').doc(data.tradeId).collection("chats").add({
+   senderId:data.senderId,
+   message:data.message
+ })
+  
+}
 //retrieve all messages
-retrieveMessage(){
-let users =this.firestore.collection('users').valueChanges()
+retrieveMessage(docId){
+let users =this.firestore.collection('trades').doc(docId).collection("chats").valueChanges()
 console.log(users)
 return users
 }

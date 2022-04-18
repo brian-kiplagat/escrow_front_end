@@ -1,8 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
-import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
+import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
-import {ChatService} from 'app/main/apps/chat/chat.service';
+import { ChatService } from 'app/main/apps/chat/chat.service';
+import { FirebaseService } from 'app/services/firebase.service';
 
 @Component({
     selector: 'app-chat-content',
@@ -15,26 +16,17 @@ export class ChatContentComponent implements OnInit {
 
     // Public
     public activeChat: Boolean;
-    public chats =[
-        {
-            senderId:1,
-            message:"hello"
-        },
-        {
-            senderId:2,
-            message:"hello there"
-        }
-    ];
-    public chatUser={
-        fullName:"ochieng Warren",
-        userId:1,
-        avatar:"assets/images/avatars/12-small.png",
-        status:"online"
+    public chats:any = [ ];
+    public chatUser = {
+        fullName: 'ochieng Warren',
+        userId: 1,
+        avatar: 'assets/images/avatars/12-small.png',
+        status: 'online'
     };
     public userProfile;
     public chatMessage = '';
     public newChat;
-    public startConvo:Boolean = true
+    public startConvo: Boolean = true;
 
     /**
      * Constructor
@@ -42,8 +34,11 @@ export class ChatContentComponent implements OnInit {
      * @param {ChatService} _chatService
      * @param {CoreSidebarService} _coreSidebarService
      */
-    constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService) {
-    }
+    constructor(
+        private _chatService: ChatService,
+        private _coreSidebarService: CoreSidebarService,
+        private fb: FirebaseService
+    ) {}
 
     // Public Methods
     // -----------------------------------------------------------------------------------------------------
@@ -52,15 +47,16 @@ export class ChatContentComponent implements OnInit {
      * Update Chat
      */
     updateChat() {
+        this.fb.sendMessage({ tradeId: "24", senderId: 1, message: this.chatMessage });
 
-        this.newChat = {
-            message: this.chatMessage,
-            time: Math.floor(Date.now()/1000),//Unix timestamp
-            senderId: this.userProfile.id//Userid or username
-        };
-        console.log(this.chatMessage);
-        console.log(this.newChat)
-       // If chat data is available (update chat)
+        // this.newChat = {
+        //     message: this.chatMessage,
+        //     time: Math.floor(Date.now()/1000),//Unix timestamp
+        //     senderId: this.userProfile.id//Userid or username
+        // };
+        // console.log(this.chatMessage);
+        // console.log(this.newChat)
+        // If chat data is available (update chat)
         // if (this.chats.chat) {
         //     if (this.newChat.message !== '') {
         //         this.chats.chat.push(this.newChat);
@@ -75,7 +71,7 @@ export class ChatContentComponent implements OnInit {
         //             this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
         //         }, 0);
         //     }
-       // }
+        // }
         // Else create new chat
         // else {
         //    // this._chatService.createNewChat(this.chatUser.id, this.newChat);
@@ -98,7 +94,10 @@ export class ChatContentComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
-        this.activeChat = false
+        this.activeChat = false;
+        this.fb.retrieveMessage("24").subscribe((data)=>{
+            this.chats = data
+              })
         // Subscribe to Chat Change
         // this._chatService.onChatOpenChange.subscribe(res => {
         //     this.chatMessage = '';
@@ -118,6 +117,6 @@ export class ChatContentComponent implements OnInit {
         //     this.chatUser = res;
         // });
 
-       // this.userProfile = this._chatService.userProfile;
+        // this.userProfile = this._chatService.userProfile;
     }
 }

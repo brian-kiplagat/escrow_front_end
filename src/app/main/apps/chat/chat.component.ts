@@ -14,8 +14,5 @@ export class ChatComponent implements OnInit {
    
   }
   ngOnInit():void{
-    this.fb.retrieveMessage().subscribe((data)=>{
-  console.log(data)
-    })
   }
 }

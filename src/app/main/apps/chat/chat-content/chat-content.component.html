@@ -73,7 +73,7 @@
           <div class="chat-avatar">
             <span class="avatar box-shadow-1 cursor-pointer">
               <img
-                *ngIf="chatRef.senderId === chats.userId;"
+                *ngIf="chatRef.senderId === chatUser.userId;"
                 [src]="chatUser.avatar"
                 alt="avatar"
                 height="32"
