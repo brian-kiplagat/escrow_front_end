@@ -47,7 +47,7 @@ export class ChatContentComponent implements OnInit {
      * Update Chat
      */
     updateChat() {
-        this.fb.sendMessage({ tradeId: "24", senderId: 1, message: this.chatMessage });
+        this.fb.sendMessage({ tradeId: "25", senderId: 1, message: this.chatMessage });
 
         // this.newChat = {
         //     message: this.chatMessage,
@@ -95,7 +95,7 @@ export class ChatContentComponent implements OnInit {
      */
     ngOnInit(): void {
         this.activeChat = false;
-        this.fb.retrieveMessage("24").subscribe((data)=>{
+        this.fb.retrieveMessage("25").subscribe((data)=>{
             this.chats = data
               })
         // Subscribe to Chat Change

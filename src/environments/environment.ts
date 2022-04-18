@@ -7,14 +7,13 @@ export const environment = {
   hmr: false,
   apiUrl: 'http://localhost:4000',
   firebase: {
-    apiKey: "AIzaSyDMsPInM58uPksNu3E9iQ5EhnWBz67CPeQ",
-    authDomain: "scanpal-f74da.firebaseapp.com",
-    databaseURL: "https://scanpal-f74da.firebaseio.com",
-    projectId: "scanpal-f74da",
-    storageBucket: "scanpal-f74da.appspot.com",
-    messagingSenderId: "702443834173",
-    appId: "1:702443834173:web:eea09b202c6abcb5da1354",
-    measurementId: "G-9MVD7S5CEC"
+    apiKey: "AIzaSyAnpvBPEoonlhyLu6g-pNnNlfyGdnzjOpI",
+    authDomain: "chatapp-3b35b.firebaseapp.com",
+    projectId: "chatapp-3b35b",
+    storageBucket: "chatapp-3b35b.appspot.com",
+    messagingSenderId: "194667117409",
+    appId: "1:194667117409:web:adfb6485c28202dfb8a320",
+    measurementId: "G-1PJXY4Z7CR"
   }
 };
 
