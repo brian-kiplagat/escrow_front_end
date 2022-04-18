@@ -2,16 +2,20 @@
 <!-- Main chat area -->
 <section class="chat-app-window">
   <!-- To load Conversation -->
-  <div class="start-chat-area" [ngClass]="{ 'd-none': activeChat === true }">
+  <!-- <div class="start-chat-area" [ngClass]="{ 'd-none': startConvo === true }">
     <div class="mb-1 start-chat-icon">
       <i data-feather="message-square"></i>
     </div>
     <h4 class="sidebar-toggle start-chat-text" (click)="toggleSidebar('chat-sidebar')">Start Conversation</h4>
-  </div>
+  </div> -->
+     <!-- [ngClass]="{ 'd-none': startConvo !== true }"
+    *ngIf="startConvo === true" -->
   <!--/ To load Conversation -->
 
   <!-- Active Chat -->
-  <div class="active-chat" [ngClass]="{ 'd-none': activeChat !== true }" *ngIf="activeChat === true">
+  <div class="active-chat"
+
+   >
     <!-- Chat Header -->
     <div class="chat-navbar">
       <header class="chat-header">
@@ -63,8 +67,8 @@
       <div class="chats">
         <div
           class="chat"
-          *ngFor="let chatRef of chats.chat"
-          [ngClass]="{ 'chat-left': chatRef.senderId === chats.userId }"
+          *ngFor="let chatRef of chats"
+          [ngClass]="{ 'chat-left': chatRef.senderId === chatUser.userId }"
         >
           <div class="chat-avatar">
             <span class="avatar box-shadow-1 cursor-pointer">
