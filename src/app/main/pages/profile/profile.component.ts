@@ -64,7 +64,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    console.log( this.fb.user)
     this.fb.getProfile().subscribe((data)=>{
       this.userData = data['user_data'][0]
       this.feeds = data['feedback_data']

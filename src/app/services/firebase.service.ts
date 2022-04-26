@@ -3,13 +3,11 @@ import { initializeApp } from 'firebase/app';
 import { environment } from 'environments/environment';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import {Router} from '@angular/router';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { BehaviorSubject,Subject } from "rxjs";
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import {addDoc,doc, updateDoc,  Firestore, collectionData,setDoc,arrayUnion } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Injectable({
   providedIn: 'root'
@@ -18,12 +16,10 @@ export class FirebaseService {
 
   app = initializeApp(environment.firebase);
    db = getFirestore(this.app);
-   auth1 = getAuth(this.app);
    signuperror:string =''
    loginerror:string = ''
    signuperrorChange: Subject<string> = new Subject<string>();
    loginerrorChange: Subject<string> = new Subject<string>();
-   public user = this.auth1.currentUser
    
 
 
@@ -36,12 +32,12 @@ export class FirebaseService {
         });
   }
   // public methods
-  login(email: string, password: string):void {
-    this.auth.signInWithEmailAndPassword(email,password).then(()=>{
-      this.router.navigate(['/dashboard/overview']);
-    }).catch((err)=>{
-        this.loginerrorChange.next("user not found, please check email or password");
-      console.log(err.message)
+  login(email: string, password: string) {
+    return this.http.post('https://api.supabeta.com/api/coin/v1/loginUser', {
+      "email":email,
+      "password":password
+    }).subscribe((data)=>{
+      console.log(data)
     })
   
   }
@@ -53,20 +49,14 @@ export class FirebaseService {
    
   }
    //create new user then login
-  registration(email:string, password:string):void {
-
-    this.auth.createUserWithEmailAndPassword(email, password).then((userData) => {
-      console.log(userData.user)
-      if (userData.user) {
-        this.login(email, password)
-        this.router.navigate(['/'])
-        this.createWallet(email)
-      }
-      console.log(userData.user)
-    }).catch((err)=>{
-        this.signuperrorChange.next('user already exists');
-      console.log(err.message)
-    })}
+  registration(email:string, password:string){
+    return this.http.post('https://api.supabeta.com/api/coin/v1/registerUser', {
+      "email":email,
+      "password":password
+    }).subscribe((data)=>{
+      console.log(data)
+    })
+    }
     // create wallet
     createWallet(email:string){
       var data: any = new FormData();
