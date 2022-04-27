@@ -57,45 +57,25 @@ export class FirebaseService {
       console.log(data)
     })
   }
-   headerDict = {
-    'Access-Control-Allow-Origin':'*',
+  headerDict = {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Accept': 'application/json'
+
   }
-  
-   requestOptions = {                                                                                                                                                                                 
-    headers: new Headers(this.headerDict), 
- 
-  };
-  public body={
-    email:"ochiengwarren12@gmail.com",
-    password:"Waru11124"
-  }
-  data = JSON.stringify(this.body);
    //create new user then login
-  registration(email:string, password:string){
-    return  fetch(
-      'https://api.supabeta.com/api/coin/v1/registerUser',
-      {
-        body: JSON.stringify(this.body),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        mode: 'no-cors'
-      }
-    )
-    //  this.http.post('https://api.supabeta.com/api/coin/v1/registerUser', {
-    //   headers: new Headers(this.headerDict), 
-    //   body:{
-    //     "email":email,
-    //     "password":password
-    //   }
-    // }).subscribe((data)=>{
-    //   console.log(data)
-    // })
-    }
+  registration(email: string, password: string) {
+    const requestOptions = {
+      headers: new HttpHeaders(this.headerDict),
+    };
+    this.http.post('https://api.supabeta.com/api/coin/v1/registerUser', {
+      "email": email,
+      "password": password
+    }, requestOptions).subscribe((data:any) => {
+      if (data.responseCode ==200) {
+        this.router.navigate(['dashboard/overview']);
+        }
+        console.log(data)
+      })}
 
     //get user by email
     getUser(){
