@@ -19,6 +19,7 @@ export class AuthResetPasswordV2Component implements OnInit {
   public confPasswordTextType: boolean;
   public resetPasswordForm: FormGroup;
   public submitted = false;
+  public loading = false;
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -74,9 +75,10 @@ export class AuthResetPasswordV2Component implements OnInit {
    */
   onSubmit() {
     this.submitted = true;
-
+    this.loading = true;
     // stop here if form is invalid
     if (this.resetPasswordForm.invalid) {
+      this.loading = false;
       return;
     }
   }

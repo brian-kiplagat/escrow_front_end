@@ -4,10 +4,8 @@ import { environment } from 'environments/environment';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import {Router} from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { BehaviorSubject,Subject } from "rxjs";
+import { Subject } from "rxjs";
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Injectable({
   providedIn: 'root'
@@ -20,10 +18,10 @@ export class FirebaseService {
    loginerror:string = ''
    signuperrorChange: Subject<string> = new Subject<string>();
    loginerrorChange: Subject<string> = new Subject<string>();
-   
 
 
-  constructor(private router:Router, public auth: AngularFireAuth,private http: HttpClient,private firestore:AngularFirestore) { 
+
+  constructor(private router:Router, public auth: AngularFireAuth,private http: HttpClient,private firestore:AngularFirestore) {
       this.signuperrorChange.subscribe((value) => {
             this.signuperror = value
         });
@@ -33,24 +31,24 @@ export class FirebaseService {
   }
   // public methods
   login(email: string, password: string) {
-    return this.http.post('https://api.supabeta.com/api/coin/v1/loginUser', {
+    return this.http.post('https://api.coinpes.cash/api/coin/v1/loginUser', {
       "email":email,
       "password":password
     }).subscribe((data)=>{
       console.log(data)
     })
-  
+
   }
 
  async logout() {
     await this.auth.signOut().then(()=>{
       this.router.navigate(['/pages/login']);
     })
-   
+
   }
    //create new user then login
   registration(email:string, password:string){
-    return this.http.post('https://api.supabeta.com/api/coin/v1/registerUser', {
+    return this.http.post('https://api.coinpes.cash/api/coin/v1/registerUser', {
       "email":email,
       "password":password
     }).subscribe((data)=>{
@@ -79,7 +77,7 @@ return this.http.post('https://coinlif.com/api/coin/create.php', data).subscribe
   // retrieve list of feeds
   async retrieve(colletion : string) {
     const feedsCol = collection(this.db, colletion);
-    
+
     const feedsSnapshot = await getDocs(feedsCol);
     return feedsSnapshot.docs;}
 
@@ -103,7 +101,7 @@ return this.http.post('https://coinlif.com/api/coin/create.php', data).subscribe
        data.append("allowed_countries", "KE");
        data.append("vpn", "0");
        data.append("amount", "");
-       
+
 
 
      return this.http.post('https://coinlif.com/api/coin/getOffers.php', data)
@@ -179,7 +177,7 @@ async sendMessage(data){
    senderId:data.senderId,
    message:data.message
  })
-  
+
 }
 //retrieve all messages
 retrieveMessage(docId){
@@ -187,5 +185,5 @@ let users =this.firestore.collection('trades').doc(docId).collection("chats").va
 console.log(users)
 return users
 }
-  
+
 }
