@@ -91,6 +91,7 @@ export class EcommerceShopComponent implements OnInit {
               this.currency = Object.keys(listnew)
                 console.log(this.currency)
             })
+          
             
         // Subscribe to ProductList change
         this._ecommerceService.onProductListChange.subscribe((res) => {

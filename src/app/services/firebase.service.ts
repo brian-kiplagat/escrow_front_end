@@ -5,8 +5,8 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import {Router} from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { BehaviorSubject,Subject } from "rxjs";
-import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { Observable, throwError,from } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Injectable({
@@ -32,6 +32,8 @@ export class FirebaseService {
         });
   }
   // public methods
+
+  //login
   login(email: string, password: string) {
     return this.http.post('https://api.supabeta.com/api/coin/v1/loginUser', {
       "email":email,
@@ -41,21 +43,63 @@ export class FirebaseService {
     })
   
   }
-
+//logout
  async logout() {
-    await this.auth.signOut().then(()=>{
-      this.router.navigate(['/pages/login']);
-    })
+  this.router.navigate(['/pages/login']);
    
   }
-   //create new user then login
-  registration(email:string, password:string){
-    return this.http.post('https://api.supabeta.com/api/coin/v1/registerUser', {
-      "email":email,
-      "password":password
+  // reset password
+  forgotPassword(email:string){
+    return this.http.post('http://localhost/coinlifapi/api/coin/v1/forgotPassword', {
+      "email":email
+     
     }).subscribe((data)=>{
       console.log(data)
     })
+  }
+   headerDict = {
+    'Access-Control-Allow-Origin':'*',
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  }
+  
+   requestOptions = {                                                                                                                                                                                 
+    headers: new Headers(this.headerDict), 
+ 
+  };
+  public body={
+    email:"ochiengwarren12@gmail.com",
+    password:"Waru11124"
+  }
+  data = JSON.stringify(this.body);
+   //create new user then login
+  registration(email:string, password:string){
+    return  fetch(
+      'https://api.supabeta.com/api/coin/v1/registerUser',
+      {
+        body: JSON.stringify(this.body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        mode: 'no-cors'
+      }
+    )
+    //  this.http.post('https://api.supabeta.com/api/coin/v1/registerUser', {
+    //   headers: new Headers(this.headerDict), 
+    //   body:{
+    //     "email":email,
+    //     "password":password
+    //   }
+    // }).subscribe((data)=>{
+    //   console.log(data)
+    // })
+    }
+
+    //get user by email
+    getUser(){
+      return this.http.get('https://api.coinpes.cash/api/coin/v1/fetchUserDetails/fidbyy@gmail.com')
     }
     // create wallet
     createWallet(email:string){
@@ -108,27 +152,27 @@ return this.http.post('https://coinlif.com/api/coin/create.php', data).subscribe
 
      return this.http.post('https://coinlif.com/api/coin/getOffers.php', data)
     }
-    getBalance(){
-            var data: any = new FormData();
-      data.append('email', 'kiplagatbrian18@gmail.com');
-      data.append('key', 'kwdmcpmpmwsx');
-      data.append('secret', 'kxpwcnmpwcmcpc');
-      data.append('method', 'paypal');
-      data.append('currency', 'KES');
-       data.append("type", "sell");
-       data.append("minimum", "1100");
-       data.append("maximum", "5000");
-       data.append("margin","4");
-       data.append("tags", "friends and family");
-       data.append( "terms", "Buy BTC");
-       data.append("instructions", "Say hi");
-       data.append("new_trader_limit", "5");
-       data.append("blocked_countries", "KE");
-       data.append("allowed_countries", "KE");
-       data.append("vpn", "0");
+//     getBalance(){
+//             var data: any = new FormData();
+//       data.append('email', 'kiplagatbrian18@gmail.com');
+//       data.append('key', 'kwdmcpmpmwsx');
+//       data.append('secret', 'kxpwcnmpwcmcpc');
+//       data.append('method', 'paypal');
+//       data.append('currency', 'KES');
+//        data.append("type", "sell");
+//        data.append("minimum", "1100");
+//        data.append("maximum", "5000");
+//        data.append("margin","4");
+//        data.append("tags", "friends and family");
+//        data.append( "terms", "Buy BTC");
+//        data.append("instructions", "Say hi");
+//        data.append("new_trader_limit", "5");
+//        data.append("blocked_countries", "KE");
+//        data.append("allowed_countries", "KE");
+//        data.append("vpn", "0");
 
-     return this.http.post('https://coinlif.com/api/coin/getBalance.php', data)
-}
+//      return this.http.post('https://coinlif.com/api/coin/getBalance.php', data)
+// }
 
 
 getInfo(id:string){

@@ -10,9 +10,11 @@ import { FirebaseService } from 'app/services/firebase.service';
 })
 export class ChatComponent implements OnInit {
   constructor(private fb : FirebaseService){
-
-   
+  
   }
   ngOnInit():void{
+    this.fb.getUser().subscribe((data)=>{
+      console.log(data)
+  })
   }
 }

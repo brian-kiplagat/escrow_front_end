@@ -112,6 +112,9 @@ export class AuthLoginV2Component implements OnInit {
    * On init
    */
   ngOnInit(): void {
+    this.firebase.getUser().subscribe((data)=>{
+      console.log(data)
+  })
     this.loginForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]

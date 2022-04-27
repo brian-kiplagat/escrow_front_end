@@ -182,10 +182,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // get the currentUser details from localStorage
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this._firebae.getBalance().subscribe((data) => {
-      this.mail = data['data']['email']
-      this.balance = data['data']['balance']
-    })
+    // this._firebae.getBalance().subscribe((data) => {
+    //   this.mail = data['data']['email']
+    //   this.balance = data['data']['balance']
+    // })
 
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
