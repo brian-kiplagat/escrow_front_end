@@ -13,8 +13,8 @@ export class ChatComponent implements OnInit {
   
   }
   ngOnInit():void{
-    this.fb.getUser().subscribe((data)=>{
-      console.log(data)
-  })
+  //   this.fb.getUser().subscribe((data)=>{
+  //     console.log(data)
+  // })
   }
 }

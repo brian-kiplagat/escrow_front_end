@@ -20,6 +20,7 @@ export class AuthRegisterV2Component implements OnInit {
   public passwordTextType: boolean;
   public registerForm: FormGroup;
   public submitted = false;
+  public error = ''
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -55,10 +56,10 @@ export class AuthRegisterV2Component implements OnInit {
   get f() {
     return this.registerForm.controls;
   }
-  get error(): string {
-    var firebaseError = this.firebase.signuperror;
-    return this.fixCapitalsText(firebaseError);
-  }
+  // get error(): string {
+  //   var firebaseError = this.firebase.signuperror;
+  //   return this.fixCapitalsText(firebaseError);
+  // }
 
 
   /**
@@ -75,8 +76,16 @@ export class AuthRegisterV2Component implements OnInit {
     this.submitted = true;
     // stop here if form is invalid
     if (!this.registerForm.invalid) {
-     console.log("hellothere",this.f.email.value, this.f.password.value)  
-     return  this.firebase.registration(this.f.email.value, this.f.password.value)
+      this.firebase.registration(this.f.email.value, this.f.password.value).subscribe((data: any) => {
+        console.log(data)
+        if(data.responseCode==200){
+         this.submitted =true;
+        }else{
+          this.error = 'please try another mail',
+          this.submitted =true
+        }
+           
+        });
     }
   }
 

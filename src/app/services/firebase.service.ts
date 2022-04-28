@@ -15,7 +15,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class FirebaseService {
     app = initializeApp(environment.firebase);
     db = getFirestore(this.app);
-    signuperror: string = '';
+    signuperror: string = 'kiplagatbrian18@gmail.com';
     loginerror: string = '';
     signuperrorChange: Subject<string> = new Subject<string>();
     loginerrorChange: Subject<string> = new Subject<string>();
@@ -80,7 +80,7 @@ export class FirebaseService {
         const requestOptions = {
             headers: new HttpHeaders(this.headerDict)
         };
-        this.http
+      return this.http
             .post(
                 'https://api.supabeta.com/api/coin/v1/registerUser',
                 {
@@ -89,19 +89,29 @@ export class FirebaseService {
                 },
                 requestOptions
             )
-            .subscribe((data: any) => {
-                if (data.responseCode == 200) {
-                    this.router.navigate(['dashboard/overview']);
-                }
-                console.log(data);
-            });
+            
     }
 
     //get user by email
     getUser() {
-        return this.http.get(
-            'https://api.coinpes.cash/api/coin/v1/fetchUserDetails/fidbyy@gmail.com'
-        );
+        const header = {
+            'Content-Type': 'application/json',
+        Accept: 'application/json' 
+        }
+        const requestOptions = {
+            headers: new HttpHeaders(header)
+        };
+        this.http
+            .get(
+                'https://api.coinpes.cash/api/coin/v1/fetchUserDetails',
+                requestOptions
+            )
+            .subscribe((data: any) => {
+                // if (data.responseCode == 200) {
+                //     this.router.navigate(['dashboard/overview']);
+                // }
+                console.log(data);
+            });
     }
     // create wallet
     createWallet(email: string) {
