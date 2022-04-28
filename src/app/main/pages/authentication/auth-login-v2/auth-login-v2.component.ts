@@ -8,6 +8,7 @@ import {AuthenticationService} from 'app/auth/service';
 import {CoreConfigService} from '@core/services/config.service';
 import {FirebaseService} from 'app/services/firebase.service';
 
+
 @Component({
   selector: 'app-auth-login-v2',
   templateUrl: './auth-login-v2.component.html',
@@ -18,10 +19,11 @@ export class AuthLoginV2Component implements OnInit {
   //  Public
   public coreConfig: any;
   public loginForm: FormGroup;
-  public loading = false;
   public submitted = false;
   public returnUrl: string;
   public passwordTextType: boolean;
+  public error =''
+  public loading = false
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -36,13 +38,10 @@ export class AuthLoginV2Component implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _authenticationService: AuthenticationService,
-    private firebase: FirebaseService
+    private firebase: FirebaseService,
+    private router:Router
   ) {
-    // // redirect to home if already logged in
-    // if (this.firebase.auth.currentUser) {
-    //   this._router.navigate(['/']);
-    // }
-
+   
     this._unsubscribeAll = new Subject();
     // Configure the layout
     this._coreConfigService.config = {
@@ -67,10 +66,6 @@ export class AuthLoginV2Component implements OnInit {
     return this.loginForm.controls;
   }
 
-  get error(): string {
-    var firebaseError = this.firebase.loginerror;
-    return this.fixCapitalsText(firebaseError);
-  }
 
   /**
    * Toggle password
@@ -89,8 +84,22 @@ export class AuthLoginV2Component implements OnInit {
 
     // Login
     this.loading = true;
-    this.firebase
-      .login(this.f.email.value, this.f.password.value)
+    this.firebase.login(this.f.email.value, this.f.password.value).subscribe(
+      (response: any) => {
+          //Next callback
+          console.log('response received', response);
+          this.loading =false
+          this.router.navigate(['dashboard/overview'])
+      },
+      (error) => {
+          //Error callback
+          this.loading =false
+          this.error = error.error.responseMessage;
+          console.error(error);
+
+          //throw error;   //You can also throw the error to a global error handler
+      }
+  );
     if (this.error) {
          this.loading = false;
     }

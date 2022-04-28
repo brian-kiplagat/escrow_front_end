@@ -46,7 +46,7 @@ export class FirebaseService {
         };
         return this.http
             .post(
-                'https://api.supabeta.com/api/coin/v1/registerUser',
+                'https://api.supabeta.com/api/coin/v1/loginUser',
                 {
                     email: email,
                     password: password

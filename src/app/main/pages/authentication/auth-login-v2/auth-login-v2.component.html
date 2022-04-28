@@ -24,22 +24,20 @@
     <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
         <h2 class="card-title font-weight-bold mb-1">Welcome to CoinPes! 👋</h2>
-        <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
-        <!-- <ngb-alert [type]="'primary'" [dismissible]="false">
+        <p class="card-text mb-2">Please sign-in to your account to start buying and selling BTC with escrow</p>
+        <ngb-alert [type]="'primary'" [dismissible]="false">
           <div class="alert-body font-small-2">
             <p>
-              <small class="mr-50"><span class="font-weight-bold">Admin:</span> admin@demo.com | admin</small>
+              <small class="mr-50"><span class="font-weight-bold">Very Important:</span> Please check that you are visiting https://coinpes.com/</small>
             </p>
-            <p>
-              <small class="mr-50"><span class="font-weight-bold">Client:</span> client@demo.com | client</small>
-            </p>
+
           </div>
           <span
             class="feather icon-help-circle auth-help-icon font-medium-3"
             placement="left"
-            ngbTooltip="This is just for role based JWT authorization demo purpose"
+            ngbTooltip="Protect yourself from phishing and hacking. You must confirm that youre logging in from the correct website. Our official domain is coinpes.com and not any other."
           ></span>
-        </ngb-alert> -->
+        </ngb-alert>
 
         <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
           <div class="alert-body">
@@ -55,7 +53,7 @@
               formControlName="email"
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-              placeholder="admin@demo.com"
+              placeholder="john@example.com"
               aria-describedby="login-email"
               autofocus=""
               tabindex="1"
@@ -103,12 +101,12 @@
           </div>
           <div class="form-group">
             <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" id="remember-me" type="checkbox" tabindex="3" />
+              <input class="custom-control-input" checked disabled id="remember-me" type="checkbox" tabindex="3" />
               <label class="custom-control-label" for="remember-me"> Remember Me</label>
             </div>
           </div>
           <button [disabled]="loading" class="btn btn-primary btn-block" tabindex="4" rippleEffect>
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Sign in
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>log in
           </button>
         </form>
         <p class="text-center mt-2">
