@@ -85,8 +85,9 @@ export class AuthRegisterV2Component implements OnInit {
             this.firebase.registration(this.f.email.value, this.f.password.value).subscribe(
                 (response: any) => {
                     //Next callback
-                    console.log('response received', response);
+                    console.log('response received', response.responseMessage.email,response.responseMessage.token);
                     this.loading =false
+                    this.getUser( response.responseMessage.username,response.responseMessage.token)
                     this.router.navigate(['dashboard/overview'])
                 },
                 (error) => {
@@ -102,7 +103,9 @@ export class AuthRegisterV2Component implements OnInit {
           this.loading =false
         }
     }
-
+getUser(username:string,token:string){
+this.firebase.getUser(username,token)
+}
     // Lifecycle Hooks
     // -----------------------------------------------------------------------------------------------------
 

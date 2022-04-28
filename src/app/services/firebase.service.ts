@@ -100,24 +100,28 @@ export class FirebaseService {
     }
 
     //get user by email
-    getUser() {
+    getUser(username:string, token:string) {
         const header = {
             'Content-Type': 'application/json',
-        Accept: 'application/json' 
-        }
-        const requestOptions = {
+            'Accept': 'application/json',
+            'token': token,
+            'username': username
+      
+      
+          }
+          const requestOptions = {
             headers: new HttpHeaders(header)
-        };
-        this.http
+          };
+          this.http
             .get(
-                'https://api.coinpes.cash/api/coin/v1/fetchUserDetails',
-                requestOptions
+              'https://api.supabeta.com/api/coin/v1/getUserDataByUsername/'+username,
+              requestOptions
             )
             .subscribe((data: any) => {
-                // if (data.responseCode == 200) {
-                //     this.router.navigate(['dashboard/overview']);
-                // }
-                console.log(data);
+              // if (data.responseCode == 200) {
+              //     this.router.navigate(['dashboard/overview']);
+              // }
+              console.log(data);
             });
     }
     // create wallet

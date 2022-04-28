@@ -687,11 +687,6 @@ export class EcommerceComponent implements OnInit {
   ngOnInit(): void {
     // get the currentUser details from localStorage
     // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.fb.getUser()
-    // Get the dashboard service data
-    this._dashboardService.onApiDataChanged.subscribe(response => {
-      this.data = response;
-    });
   }
 
   /**
