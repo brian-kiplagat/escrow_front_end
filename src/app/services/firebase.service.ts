@@ -4,9 +4,9 @@ import { environment } from 'environments/environment';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, from } from 'rxjs';
+
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {BehaviorSubject, Subject, Observable, throwError, from } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Injectable({
@@ -44,21 +44,16 @@ export class FirebaseService {
         const requestOptions = {
             headers: new HttpHeaders(this.headerDict)
         };
-        this.http
+        return this.http
             .post(
-                'https://api.supabeta.com/api/coin/v1/loginUser',
+                'https://api.supabeta.com/api/coin/v1/registerUser',
                 {
                     email: email,
                     password: password
                 },
                 requestOptions
             )
-            .subscribe((data: any) => {
-                if (data.responseCode == 200) {
-                    this.router.navigate(['dashboard/overview']);
-                }
-                console.log(data);
-            });
+          
     }
     //logout
     async logout() {
@@ -74,13 +69,25 @@ export class FirebaseService {
                 console.log(data);
             });
     }
-
+    private handleError(error: HttpErrorResponse) {
+        if (error.status === 0) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.error('An error occurred:', error.error);
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong.
+          console.error(
+            `Backend returned code ${error.status}, body was: `, error.error);
+        }
+        // Return an observable with a user-facing error message.
+        return throwError(() => new Error('Something bad happened; please try again later.'));
+      }
     //create new user then login
     registration(email: string, password: string) {
         const requestOptions = {
             headers: new HttpHeaders(this.headerDict)
         };
-      return this.http
+       return this.http
             .post(
                 'https://api.supabeta.com/api/coin/v1/registerUser',
                 {
