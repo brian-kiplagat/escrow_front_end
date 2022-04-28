@@ -17,7 +17,9 @@ export class FirebaseService {
     db = getFirestore(this.app);
     signuperror: string = 'kiplagatbrian18@gmail.com';
     loginerror: string = '';
+    userData:any={}
     signuperrorChange: Subject<string> = new Subject<string>();
+    userDataChange:Subject<any>=new Subject<any>()
     loginerrorChange: Subject<string> = new Subject<string>();
     headerDict = {
         'Content-Type': 'application/json',
@@ -36,6 +38,9 @@ export class FirebaseService {
         this.loginerrorChange.subscribe((value) => {
             this.loginerror = value;
         });
+        this.userDataChange.subscribe((value)=>{
+            this.userData = value
+        })
     }
     // public methods
 
@@ -119,9 +124,11 @@ export class FirebaseService {
             )
             .subscribe((data: any) => {
               // if (data.responseCode == 200) {
-              //     this.router.navigate(['dashboard/overview']);
+              //     this.router.navigate(['dashboard/overview'])
+
               // }
-              console.log(data);
+              console.log(data.responseMessage.user_data[0]);
+              this.userDataChange.next(data.responseMessage.user_data[0]);
             });
     }
     // create wallet
