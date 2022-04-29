@@ -89,12 +89,12 @@
 
     <div class="row match-height">
       <!-- TRADES CARD -->
-      <div class="col-lg-4 col-md-6 col-12">
+      <div class="col-lg-4 col-md-6 col-12" >
         <div class="card card-apply-job card-transaction">
           <div class="card-body">
 
             <!-- ONE ELEMENT -->
-            <div>
+            <div  *ngFor="let trade of tradeData">
               <ngb-alert [type]="'primary'" [dismissible]="false">
                 <div class="alert-body">Trade marked as PAID </div>
               </ngb-alert>
@@ -139,52 +139,7 @@
             <hr>
             </div>
             <!-- ONE ELEMENT -->
-            <!-- ONE ELEMENT -->
-            <div>
-              <ngb-alert [type]="'primary'" [dismissible]="false">
-                <div class="alert-body">Trade marked as PAID </div>
-              </ngb-alert>
-              <div class="d-flex justify-content-between align-items-center mb-1">
-                <div class="media">
-                  <div class="avatar mr-1">
-                    <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42"/>
-                  </div>
-                  <div class="media-body">
-                    <h5 class="mb-0">Bank transfer</h5>
-                    <small class="text-muted">User2453</small>
 
-                  </div>
-
-                </div>
-                <div class="badge badge-pill badge-light-primary">BUY</div>
-
-              </div>
-              <div class="transaction-item">
-                <div class="media">
-                  <div class="avatar bg-light-primary rounded">
-                    <div class="avatar-content">
-                      <i data-feather="pocket" class="avatar-icon font-medium-3"></i>
-                    </div>
-                  </div>
-                  <div class="media-body">
-                    <h6 class="transaction-title">400 EUR</h6>
-                    <small>0.00565 BTC</small>
-                  </div>
-                </div>
-                <button type="button" class="btn btn-outline-primary" rippleEffect>VIEW</button>
-              </div>
-              <div class="apply-job-package bg-light-warning rounded">
-                <div>
-                  <sup class="text-body"><small> <i data-feather="shield"
-                                                    class="avatar-icon font-medium-3"></i></small></sup>
-                  <h2 class="d-inline mr-25">DISPUTE</h2>
-                  <sub class="text-body"><small>open</small></sub>
-                </div>
-                <div class="badge badge-pill badge-light-primary">2hrs Ago</div>
-              </div>
-              <hr>
-            </div>
-            <!-- ONE ELEMENT -->
           </div>
 
         </div>
@@ -204,7 +159,7 @@
           <div class="card-body">
 
             <!-- ONE ELEMENT -->
-            <div>
+            <div *ngFor="let trade of offerData">
               <div class="d-flex justify-content-between align-items-center mb-1">
                 <div class="media">
 
@@ -261,64 +216,7 @@
               <hr>
             </div>
             <!-- ONE ELEMENT -->
-            <!-- ONE ELEMENT -->
-            <div>
-              <div class="d-flex justify-content-between align-items-center mb-1">
-                <div class="media">
 
-                  <div class="avatar mr-2 bg-light-primary rounded">
-                    <div class="avatar-content">
-                      <i data-feather="copy" class="avatar-icon font-medium-3"></i>
-                    </div>
-                  </div>
-                  <div class="media-body" >
-                    <h5 class="mb-0">Bank transfer</h5>
-                    <small class="text-muted">EUR</small>
-
-                  </div>
-
-                </div>
-                <div class="badge badge-pill badge-light-primary" placement="left"
-                     ngbTooltip="Blocked Countries: DE, AR, CA, US"> <i data-feather="alert-circle" class="font-medium-5"></i></div>
-
-              </div>
-              <div class="transaction-item">
-                <div class="media">
-                  <div class="custom-control custom-switch custom-control-inline">
-                    <input type="checkbox" class="custom-control-input" checked id="sw1"/>
-                    <label class="custom-control-label" for="sw1"></label>
-                  </div>
-                  <div class="media-body" style="margin-left: -10px">
-                    <core-touchspin class="transaction-title" id='' [numberValue]="5" [iconChevron]="true"></core-touchspin>
-                    <small>Rate</small>
-                  </div>
-                </div>
-                <button type="button" class="btn btn-outline-primary" rippleEffect>EDIT</button>
-              </div>
-              <form action="javascript:void(0);" class="form">
-                <div class="row">
-
-                  <div class="col-sm-6 col-12">
-                    <div class="form-group mb-2">
-                      <label for="payment-expiry">Minimum(KES)</label>
-                      <input type="number" id="payment-expiry" class="form-control form-control-sm" placeholder="Amount"size="3" value="2000"/>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-12">
-                    <div class="form-group mb-2 ">
-                      <label for="payment-cvv">Maximum(KES)</label>
-                      <input type="number" id="payment-cvv" class="form-control form-control-sm" placeholder="Amount" size="3" value="10000"/>
-                    </div>
-                  </div>
-
-                </div>
-              </form>
-              <ngb-alert [type]="'primary'" [dismissible]="false">
-                <div class="alert-body">This offer was deauthorized. Contact support to reactivate this.</div>
-              </ngb-alert>
-              <hr>
-            </div>
-            <!-- ONE ELEMENT -->
 
           </div>
 

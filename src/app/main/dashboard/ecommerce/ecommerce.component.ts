@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreTranslationService } from '@core/services/translation.service';
 import { colors } from 'app/colors.const';
+import { Router } from '@angular/router';
 
 
 import { locale as english } from 'app/main/dashboard/i18n/en';
@@ -63,6 +64,8 @@ export class EcommerceComponent implements OnInit {
   public wallet = ''
   public joined = ''
   public currentUser:any ={}
+  public tradeData:any =[]
+  public offerData:any =[]
 
   /**
    * Constructor
@@ -74,7 +77,8 @@ export class EcommerceComponent implements OnInit {
   constructor(
     private _coreConfigService: CoreConfigService,
     private _coreTranslationService: CoreTranslationService,
-    public fb: FirebaseService
+    public fb: FirebaseService,
+    private router:Router
 
   ) {
 
@@ -683,7 +687,11 @@ export class EcommerceComponent implements OnInit {
    this.fb.getUser(this.user.username,this.user.token).subscribe((data: any) => {
     console.log(data.responseMessage);
     this.currentUser =data.responseMessage?.user_data[0];
-   
+    this.tradeData = data.responseMessage?.trade_data;
+   this.offerData =  data.responseMessage?.offer_data
+  },(error)=>{
+    console.log(error)
+    this.router.navigate(['/'])
   });
 
   
