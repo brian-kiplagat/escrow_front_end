@@ -2,11 +2,8 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreTranslationService } from '@core/services/translation.service';
-
-import { User } from 'app/auth/models';
 import { colors } from 'app/colors.const';
-import { AuthenticationService } from 'app/auth/service';
-import { DashboardService } from 'app/main/dashboard/dashboard.service';
+
 
 import { locale as english } from 'app/main/dashboard/i18n/en';
 import { locale as french } from 'app/main/dashboard/i18n/fr';
@@ -36,7 +33,6 @@ export class EcommerceComponent implements OnInit {
 
   // Public
   public data: any;
-  public currentUser: User;
   public isAdmin: boolean;
   public isClient: boolean;
   public statisticsBar;
@@ -76,15 +72,11 @@ export class EcommerceComponent implements OnInit {
    * @param {CoreTranslationService} _coreTranslationService
    */
   constructor(
-    private _authenticationService: AuthenticationService,
-    private _dashboardService: DashboardService,
     private _coreConfigService: CoreConfigService,
     private _coreTranslationService: CoreTranslationService,
     public fb: FirebaseService
 
   ) {
-    this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
-
 
     this._coreTranslationService.translate(english, french, german, portuguese);
     // Statistics Bar Chart
@@ -687,8 +679,12 @@ export class EcommerceComponent implements OnInit {
   ngOnInit(): void {
     // get the currentUser details from localStorage
     // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  
   }
-
+  get currentUser(): any {
+    var firebaseUser = this.fb.userData;
+    return firebaseUser
+  }
   /**
    * After View Init
    */

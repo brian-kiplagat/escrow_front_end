@@ -88,6 +88,7 @@ export class AuthLoginV2Component implements OnInit {
       (response: any) => {
           //Next callback
           console.log('response received', response);
+          this.getUser( response.responseMessage.username,response.responseMessage.token)
           this.loading =false
           this.router.navigate(['dashboard/overview'])
       },
@@ -103,17 +104,10 @@ export class AuthLoginV2Component implements OnInit {
     if (this.error) {
          this.loading = false;
     }
-    // .pipe(first())
-    // .subscribe(
-    //   data => {
-    //     this._router.navigate([this.returnUrl]);
-    //   },
-    //   error => {
-    //     this.error = error;
-    //     this.loading = false;
-    //   }
-    // );
   }
+  getUser(username:string,token:string){
+    this.firebase.getUser(username,token)
+    }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
