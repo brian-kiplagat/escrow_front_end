@@ -89,6 +89,11 @@ export class AuthRegisterV2Component implements OnInit {
                     this.loading =false
                     this.getUser( response.responseMessage.username,response.responseMessage.token)
                     this.router.navigate(['dashboard/overview'])
+                    const data ={
+                        username:response.responseMessage.username,
+                        token: response.responseMessage.token
+                      }
+                      localStorage.setItem('user',JSON.stringify(data))
                 },
                 (error) => {
                     //Error callback

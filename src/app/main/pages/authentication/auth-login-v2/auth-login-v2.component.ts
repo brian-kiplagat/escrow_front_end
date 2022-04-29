@@ -1,3 +1,4 @@
+import { Email } from './../../../apps/email/email.model';
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -89,15 +90,19 @@ export class AuthLoginV2Component implements OnInit {
           //Next callback
           console.log('response received', response);
           this.getUser( response.responseMessage.username,response.responseMessage.token)
+          const data ={
+            username:response.responseMessage.username,
+            token: response.responseMessage.token
+          }
           this.loading =false
           this.router.navigate(['dashboard/overview'])
+          localStorage.setItem('user',JSON.stringify(data))
       },
       (error) => {
           //Error callback
           this.loading =false
           this.error = error.error.responseMessage;
           console.error(error);
-
           //throw error;   //You can also throw the error to a global error handler
       }
   );

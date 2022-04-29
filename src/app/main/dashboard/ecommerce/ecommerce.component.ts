@@ -35,6 +35,7 @@ export class EcommerceComponent implements OnInit {
   public data: any;
   public isAdmin: boolean;
   public isClient: boolean;
+  public user:any ={};
   public statisticsBar;
   public statisticsLine;
   public revenueReportChartoptions;
@@ -59,10 +60,9 @@ export class EcommerceComponent implements OnInit {
   private $earningsStrokeColor2 = '#28c76f66';
   private $earningsStrokeColor3 = '#28c76f33';
   public balance = 0
-  public email = ''
   public wallet = ''
   public joined = ''
-  public username = ''
+  public currentUser:any ={}
 
   /**
    * Constructor
@@ -678,12 +678,23 @@ export class EcommerceComponent implements OnInit {
    */
   ngOnInit(): void {
     // get the currentUser details from localStorage
-    // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(localStorage.getItem('user'));
+   console.log(this.user)
+   this.fb.getUser(this.user.username,this.user.token).subscribe((data: any) => {
+    console.log(data.responseMessage);
+    this.currentUser =data.responseMessage?.user_data[0];
+   
+  });
+
   
   }
-  get currentUser(): any {
-    var firebaseUser = this.fb.userData;
-    return firebaseUser
+  // get localUser(): any {
+  //   var firebaseUser:any = this.fb.userData?.user_data[0];
+  //   return firebaseUser
+  // }
+
+  getEmail(){
+    return  localStorage.getItem('user')
   }
   /**
    * After View Init

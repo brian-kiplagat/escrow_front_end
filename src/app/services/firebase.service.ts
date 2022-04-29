@@ -74,19 +74,7 @@ export class FirebaseService {
                 console.log(data);
             });
     }
-    private handleError(error: HttpErrorResponse) {
-        if (error.status === 0) {
-          // A client-side or network error occurred. Handle it accordingly.
-          console.error('An error occurred:', error.error);
-        } else {
-          // The backend returned an unsuccessful response code.
-          // The response body may contain clues as to what went wrong.
-          console.error(
-            `Backend returned code ${error.status}, body was: `, error.error);
-        }
-        // Return an observable with a user-facing error message.
-        return throwError(() => new Error('Something bad happened; please try again later.'));
-      }
+
     //create new user then login
     registration(email: string, password: string) {
         const requestOptions = {
@@ -117,19 +105,12 @@ export class FirebaseService {
           const requestOptions = {
             headers: new HttpHeaders(header)
           };
-          this.http
+         return  this.http
             .get(
               'https://api.supabeta.com/api/coin/v1/getUserDataByUsername/'+username,
               requestOptions
             )
-            .subscribe((data: any) => {
-              // if (data.responseCode == 200) {
-              //     this.router.navigate(['dashboard/overview'])
-
-              // }
-              console.log(data.responseMessage.user_data[0]);
-              this.userDataChange.next(data.responseMessage.user_data[0]);
-            });
+           
     }
     // create wallet
     createWallet(email: string) {
