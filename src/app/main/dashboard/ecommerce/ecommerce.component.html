@@ -110,7 +110,7 @@
                 </div>
 
               </div>
-              <div class="badge badge-pill badge-light-primary">BUY</div>
+              <div class="badge badge-pill badge-light-primary">{{trade.type}}</div>
 
             </div>
             <div class="transaction-item">
@@ -132,7 +132,7 @@
                 <sup class="text-body"><small> <i data-feather="shield"
                                                   class="avatar-icon font-medium-3"></i></small></sup>
                 <h2 class="d-inline mr-25">DISPUTE</h2>
-                <sub class="text-body"><small>open</small></sub>
+                <sub class="text-body"><small>{{trade.status}}</small></sub>
               </div>
               <div class="badge badge-pill badge-light-primary">2hr Ago</div>
             </div>
@@ -186,7 +186,7 @@
                     <label class="custom-control-label" for="sw1"></label>
                   </div>
                   <div class="media-body" style="margin-left: -10px">
-                    <core-touchspin class="transaction-title" id='' [numberValue]="5" [iconChevron]="true"></core-touchspin>
+                    <core-touchspin class="transaction-title" id='' [numberValue]="offer.margin" [iconChevron]="true"></core-touchspin>
                     <small>Rate</small>
                   </div>
                 </div>
@@ -197,14 +197,14 @@
 
                   <div class="col-sm-6 col-12">
                     <div class="form-group mb-2">
-                      <label for="payment-expiry">Minimum(KES)</label>
-                      <input type="number" id="payment-expiry" class="form-control form-control-sm" placeholder="Amount"size="3" value="{{offer.maximum}}"/>
+                      <label for="payment-expiry">Minimum({{offer.currency}})</label>
+                      <input type="number" id="payment-expiry" class="form-control form-control-sm" placeholder="Amount"size="3" value="{{offer.minimum}}"/>
                     </div>
                   </div>
                   <div class="col-sm-6 col-12">
                     <div class="form-group mb-2 ">
-                      <label for="payment-cvv">Maximum(KES)</label>
-                      <input type="number" id="payment-cvv" class="form-control form-control-sm" placeholder="Amount" size="3" value="{{offer.minimum}}"/>
+                      <label for="payment-cvv">Maximum({{offer.currency}})</label>
+                      <input type="number" id="payment-cvv" class="form-control form-control-sm" placeholder="Amount" size="3" value="{{offer.maximum}}"/>
                     </div>
                   </div>
 
