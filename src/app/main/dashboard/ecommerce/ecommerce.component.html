@@ -105,7 +105,7 @@
                 </div>
                 <div class="media-body">
                   <h5 class="mb-0">Bank transfer</h5>
-                  <small class="text-muted">User2453</small>
+                  <small class="text-muted">{{trade.seller}}</small>
 
                 </div>
 
@@ -121,7 +121,7 @@
                   </div>
                 </div>
                 <div class="media-body">
-                  <h6 class="transaction-title">400 EUR</h6>
+                  <h6 class="transaction-title">{{trade.price}} EUR</h6>
                   <small>0.00565 BTC</small>
                 </div>
               </div>
@@ -159,7 +159,7 @@
           <div class="card-body">
 
             <!-- ONE ELEMENT -->
-            <div *ngFor="let trade of offerData">
+            <div *ngFor="let offer of offerData">
               <div class="d-flex justify-content-between align-items-center mb-1">
                 <div class="media">
 
@@ -169,8 +169,8 @@
                     </div>
                   </div>
                   <div class="media-body" >
-                    <h5 class="mb-0">Bank transfer</h5>
-                    <small class="text-muted">EUR</small>
+                    <h5 class="mb-0">{{offer.method}}</h5>
+                    <small class="text-muted">{{offer.currency}}</small>
 
                   </div>
 
@@ -198,13 +198,13 @@
                   <div class="col-sm-6 col-12">
                     <div class="form-group mb-2">
                       <label for="payment-expiry">Minimum(KES)</label>
-                      <input type="number" id="payment-expiry" class="form-control form-control-sm" placeholder="Amount"size="3" value="2000"/>
+                      <input type="number" id="payment-expiry" class="form-control form-control-sm" placeholder="Amount"size="3" value="{{offer.maximum}}"/>
                     </div>
                   </div>
                   <div class="col-sm-6 col-12">
                     <div class="form-group mb-2 ">
                       <label for="payment-cvv">Maximum(KES)</label>
-                      <input type="number" id="payment-cvv" class="form-control form-control-sm" placeholder="Amount" size="3" value="10000"/>
+                      <input type="number" id="payment-cvv" class="form-control form-control-sm" placeholder="Amount" size="3" value="{{offer.minimum}}"/>
                     </div>
                   </div>
 
