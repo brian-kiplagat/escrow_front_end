@@ -12,10 +12,8 @@ import { CoreConfigService } from '@core/services/config.service';
 import { CoreMediaService } from '@core/services/media.service';
 import { FirebaseService } from 'app/services/firebase.service';
 
-import { User } from 'app/auth/models';
-
-import { coreConfig } from 'app/app-config';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-navbar',
@@ -31,7 +29,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public currentSkin: string;
   public prevSkin: string;
 
-  public currentUser: User;
+  public currentUser: any={};
 
   public languageOptions: any;
   public navigation: any;
@@ -86,7 +84,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _mediaObserver: MediaObserver,
     public _translateService: TranslateService,
     
-    private _firebae :FirebaseService
+    private _firebae :FirebaseService,
+    private router:Router
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
@@ -181,11 +180,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     // get the currentUser details from localStorage
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    // this._firebae.getBalance().subscribe((data) => {
-    //   this.mail = data['data']['email']
-    //   this.balance = data['data']['balance']
-    // })
+    this.currentUser = JSON.parse(localStorage.getItem('user'));
+  
+    this._firebae.getUser(this.currentUser.username,this.currentUser.token).subscribe((data: any) => {
+     console.log(data.responseMessage);
+     this.currentUser =data.responseMessage?.user_data[0];
+
+   },(error)=>{
+     console.log(error)
+     this.router.navigate(['/'])
+   });
 
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
