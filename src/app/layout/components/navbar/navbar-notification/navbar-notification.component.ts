@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { NotificationsService } from 'app/layout/components/navbar/navbar-notification/notifications.service';
 
+
 // Interface
 interface notification {
   messages: [];

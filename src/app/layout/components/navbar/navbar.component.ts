@@ -183,7 +183,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.currentUser = JSON.parse(localStorage.getItem('user'));
   
     this._firebae.getUser(this.currentUser.username,this.currentUser.token).subscribe((data: any) => {
-     console.log(data.responseMessage);
      this.currentUser =data.responseMessage?.user_data[0];
 
    },(error)=>{

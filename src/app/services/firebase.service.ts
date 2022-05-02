@@ -9,6 +9,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import {BehaviorSubject, Subject, Observable, throwError, from } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import clipboard from 'clipboardy';
 @Injectable({
     providedIn: 'root'
 })
@@ -112,18 +113,29 @@ export class FirebaseService {
             )
            
     }
-    // create wallet
-    createWallet(email: string) {
-        var data: any = new FormData();
-        data.append('email', email);
-        data.append('key', 'kwdmcpmpmwsx');
-        data.append('secret', 'kxpwcnmpwcmcpc');
-
-        return this.http.post('https://coinlif.com/api/coin/create.php', data).subscribe((data) => {
-            console.log(data);
-        });
+    // get notifications
+    getNotifications(username:string,email:string, token:string) {
+        const header = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'token': token,
+            'username': username,
+            'email':email
+      
+          }
+          const requestOptions = {
+            headers: new HttpHeaders(header)
+          };
+         return  this.http
+            .get(
+              'https://api.coinpes.cash/api/coin/v1/fetchNotifications/',
+              requestOptions
+            )
+           
     }
-
+copyText(){
+    clipboard.writeSync('there you go');
+}
     // get applications
     async getApplications(collectionName: string) {
         const citiesCol = collection(this.db, collectionName);

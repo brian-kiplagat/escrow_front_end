@@ -11,6 +11,7 @@ import { locale as french } from 'app/main/dashboard/i18n/fr';
 import { locale as german } from 'app/main/dashboard/i18n/de';
 import { locale as portuguese } from 'app/main/dashboard/i18n/pt';
 import { FirebaseService } from 'app/services/firebase.service';
+import clipboard from 'clipboardy';
 
 @Component({
   selector: 'app-ecommerce',
@@ -683,9 +684,8 @@ export class EcommerceComponent implements OnInit {
   ngOnInit(): void {
     // get the currentUser details from localStorage
     this.user = JSON.parse(localStorage.getItem('user'));
-   console.log(this.user)
+
    this.fb.getUser(this.user.username,this.user.token).subscribe((data: any) => {
-    console.log(data.responseMessage);
     this.currentUser =data.responseMessage?.user_data[0];
     this.tradeData = data.responseMessage?.trade_data;
    this.offerData =  data.responseMessage?.offer_data
@@ -736,5 +736,8 @@ export class EcommerceComponent implements OnInit {
         }, 500);
       }
     });
+  }
+  copy(text){
+    clipboard.write(text);
   }
 }
