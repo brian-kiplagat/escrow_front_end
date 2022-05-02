@@ -67,6 +67,7 @@ export class EcommerceComponent implements OnInit {
   public currentUser:any ={}
   public tradeData:any =[]
   public offerData:any =[]
+  public fiat:any =0
 
   /**
    * Constructor
@@ -689,6 +690,7 @@ export class EcommerceComponent implements OnInit {
     this.currentUser =data.responseMessage?.user_data[0];
     this.tradeData = data.responseMessage?.trade_data;
    this.offerData =  data.responseMessage?.offer_data
+   this.fiat = data.responseMessage?.fiat
   },(error)=>{
     console.log(error)
     this.router.navigate(['/'])
@@ -737,7 +739,7 @@ export class EcommerceComponent implements OnInit {
       }
     });
   }
-  copy(text){
+  copy(text:any){
     clipboard.write(text);
   }
 }
