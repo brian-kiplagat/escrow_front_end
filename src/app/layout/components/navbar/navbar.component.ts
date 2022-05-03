@@ -36,6 +36,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public selectedLanguage: any;
   public mail = '';
   public balance = 0;
+  public fiat:number = 0
 
   @HostBinding('class.fixed-top')
   public isFixed = false;
@@ -184,6 +185,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   
     this._firebae.getUser(this.currentUser.username,this.currentUser.token).subscribe((data: any) => {
      this.currentUser =data.responseMessage?.user_data[0];
+     this.fiat = data.responseMessage?.fiat
 
    },(error)=>{
      console.log(error)
