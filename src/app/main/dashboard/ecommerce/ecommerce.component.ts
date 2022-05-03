@@ -740,6 +740,6 @@ export class EcommerceComponent implements OnInit {
     });
   }
   copy(text:any){
-    clipboard.write(text);
+    clipboard.write('https://coinpes.com/offer/trade'+text);
   }
 }
