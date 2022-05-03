@@ -9,7 +9,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import {BehaviorSubject, Subject, Observable, throwError, from } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import clipboard from 'clipboardy';
 @Injectable({
     providedIn: 'root'
 })
@@ -133,14 +132,24 @@ export class FirebaseService {
             )
            
     }
-copyText(){
-    clipboard.writeSync('there you go');
-}
     // get applications
-    async getApplications(collectionName: string) {
-        const citiesCol = collection(this.db, collectionName);
-        const citySnapshot = await getDocs(citiesCol);
-        return citySnapshot.docs;
+     createOffer(token:string,username:string,formData: any) {
+        const header = {
+            'Content-Type': 'application/json',
+            "Accept": '*/*',
+            "token": token,
+            "username": username,
+      
+          }
+          const body = JSON.stringify(formData)
+          const requestOptions = {
+            headers: new HttpHeaders(header)
+          };
+         return this.http
+            .post(
+              'https://api.coinpes.cash/api/coin/v1/createOffer',formData,
+              requestOptions
+            )
     }
     // retrieve list of feeds
     async retrieve(colletion: string) {
@@ -173,27 +182,7 @@ copyText(){
 
         return this.http.post('https://coinlif.com/api/coin/getOffers.php', data);
     }
-    //     getBalance(){
-    //             var data: any = new FormData();
-    //       data.append('email', 'kiplagatbrian18@gmail.com');
-    //       data.append('key', 'kwdmcpmpmwsx');
-    //       data.append('secret', 'kxpwcnmpwcmcpc');
-    //       data.append('method', 'paypal');
-    //       data.append('currency', 'KES');
-    //        data.append("type", "sell");
-    //        data.append("minimum", "1100");
-    //        data.append("maximum", "5000");
-    //        data.append("margin","4");
-    //        data.append("tags", "friends and family");
-    //        data.append( "terms", "Buy BTC");
-    //        data.append("instructions", "Say hi");
-    //        data.append("new_trader_limit", "5");
-    //        data.append("blocked_countries", "KE");
-    //        data.append("allowed_countries", "KE");
-    //        data.append("vpn", "0");
 
-    //      return this.http.post('https://coinlif.com/api/coin/getBalance.php', data)
-    // }
 
     getInfo(id: string) {
         var data: any = new FormData();
@@ -248,4 +237,24 @@ copyText(){
         console.log(users);
         return users;
     }
+    async postData(token:string,username:string,formData: any) {
+        // Default options are marked with *
+        const response = await fetch('https://api.coinpes.cash/api/coin/v1/createOffer', {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+         // credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: '*/*',
+            token: token,
+            username: username,
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          //redirect: 'follow', // manual, *follow, error
+          //referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+          body: JSON.stringify(formData) // body data type must match "Content-Type" header
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+      }
+      
 }

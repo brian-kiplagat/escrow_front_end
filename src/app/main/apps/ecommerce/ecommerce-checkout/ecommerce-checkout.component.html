@@ -89,6 +89,7 @@
                                             >
                                             </ng-select>
                                             <!--/ Basic Multi select -->
+
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -517,11 +518,23 @@
                                         [multiple]="true"
                                         [maxSelectedItems]="50"
                                        
-                                        formControlName="selectMultiLimitedSelected"
+                                        formControlName="allowedCountries"
+                                        *ngIf="allowCountires"
                                        
                                      >
-                                        <ng-option *ngFor="let car of countries" [value]="car.id">{{car.name}}  ({{car.iso}})</ng-option>
+                                        <ng-option *ngFor="let car of countries" [value]="car.name">{{car.name}}  ({{car.iso}})</ng-option>
                                      </ng-select>
+                                     <ng-select
+                                     #selectMultiLimited
+                                         [multiple]="true"
+                                         [maxSelectedItems]="50"
+                                        
+                                         formControlName="blockedCountries"
+                                         *ngIf="blockCountires"
+                                        
+                                      >
+                                         <ng-option *ngFor="let car of countries" [value]="car.name">{{car.name}}  ({{car.iso}})</ng-option>
+                                      </ng-select>
                                   
 
                             
