@@ -6,7 +6,7 @@
         <div class="card card-congratulation-medal">
           <div class="card-body">
             <h5>{{currentUser.username}}🎉 </h5>
-            <p class="card-text font-small-3">{{currentUser.balance}}BTC</p>
+            <p class="card-text font-small-3">{{currentUser.balance}} BTC</p>
             <h3 class="mb-75 mt-2 pt-50">
               <a href="javascript:void(0);">{{fiat}} {{currentUser.currency}}</a>
             </h3>
@@ -96,7 +96,7 @@
             <!-- ONE ELEMENT -->
             <div  *ngFor="let trade of tradeData">
               <ngb-alert [type]="'primary'" [dismissible]="false">
-                <div class="alert-body">Trade marked as PAID </div>
+                <div class="alert-body">Trade marked as {{trade.status}}</div>
               </ngb-alert>
             <div class="d-flex justify-content-between align-items-center mb-1">
               <div class="media">
@@ -105,7 +105,7 @@
                 </div>
                 <div class="media-body">
                   <h5 class="mb-0">Bank transfer</h5>
-                  <small class="text-muted">{{trade.seller}}</small>
+                  <small class="text-muted">{{trade.username}}</small>
 
                 </div>
 
@@ -121,13 +121,13 @@
                   </div>
                 </div>
                 <div class="media-body">
-                  <h6 class="transaction-title">{{trade.fiat_amount_original}} EUR</h6>
-                  <small>0.00565 BTC</small>
+                  <h6 class="transaction-title">{{trade.fiat_amount_original}} {{trade.currency}}</h6>
+                  <small>{{trade.btc_amount_with_margin}} BTC</small>
                 </div>
               </div>
               <button type="button" class="btn btn-outline-primary" rippleEffect >VIEW</button>
             </div>
-            <div class="apply-job-package bg-light-warning rounded">
+            <div class="apply-job-package bg-light-warning rounded" *ngIf="trade.moderator_flag !='NA'">
               <div>
                 <sup class="text-body"><small> <i data-feather="shield"
                                                   class="avatar-icon font-medium-3"></i></small></sup>
