@@ -30,7 +30,6 @@ export class NavbarNotificationComponent implements OnInit {
    
     this.fb.getNotifications(user.username,user.token).subscribe((data:any)=>{
       this.notifications =data.responseMessage
-      console.log(this.notifications)
     },(err)=>{
       console.log(err)
     })

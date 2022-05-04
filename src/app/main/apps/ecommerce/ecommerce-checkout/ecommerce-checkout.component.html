@@ -1,6 +1,11 @@
 <div class="content-wrapper container-xxl p-0">
     
     <div class="content-body">
+        <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="errorMessage">
+            <div class="alert-body">
+              <p>{{ errorMessage }}</p>
+            </div>
+          </ngb-alert>
         <div class="bs-stepper checkout-tab-steps" id="checkoutStepper">
             <div class="bs-stepper-content">
                 <!-- Checkout Place order starts -->
@@ -406,7 +411,7 @@
                                            
                                             formControlName="minimumTrades"
                                             placeholder="Patner should have done this number of trades"
-                                            required
+                                         
                                         />
                                         <span
                                             *ngIf="submitted && f2.minimumTrades.errors"
@@ -432,7 +437,7 @@
                                             [class.error]="submitted && f2.limitusers.errors"
                                             placeholder="Restrict new users to trade a maximum amount"
                                             formControlName="limitusers"
-                                            required
+                                            
                                         />
                                       
                                     </div>

@@ -188,10 +188,9 @@ export class EcommerceCheckoutComponent implements OnInit {
         this.form3 = this._formBuilder.group({
             // username: ['', [Validators.required]],
             partnerOptions: [''],
-            minimumTrades: ['', Validators.required],
-            limitusers: ['', Validators.required],
+            minimumTrades: [''],
+            limitusers: ['',Validators.required],
             limitCountries: ['none'],
-            selectMultiLimitedSelected: [[]],
             allowedCountries:[[]],
             blockedCountries:[[]]
         });
@@ -207,8 +206,6 @@ export class EcommerceCheckoutComponent implements OnInit {
         });
     }
     onSubmit() {
-      console.log(this.user)
-      const unixTime = 1210981217;
       const key =uuidv4()+Math.round(new Date().getTime() / 1000).toString(); 
         this._fb.createOffer(this.user.token,this.user.username,{
           
@@ -225,14 +222,15 @@ export class EcommerceCheckoutComponent implements OnInit {
             "terms": this.form2.value.terms,
             "instructions": this.form2.value.instructions,
             "new_trader_limit": this.form3.value.limitusers,
-            "blocked_countries":  this.form3.value.blockedCountries,
-            "allowed_countries": this.form3.value.allowedCountries,
+            "blocked_countries":  !this.form3.value.blockedCountries?"N/A":this.form3.value.blockedCountries,
+            "allowed_countries": !this.form3.value.allowedCountries?"N/A":this.form3.value.allowedCountries,
             "vpn": "0"
         
         }).subscribe((data)=>{
          this.router.navigate(['/dashboard/overview'])
         },(err)=>{
-          console.log(err)
+            this.errorMessage =err.error.responseMessage
+          console.log(err.error)
         })
         this.submitted = true;
     }
