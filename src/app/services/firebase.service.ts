@@ -145,12 +145,38 @@ export class FirebaseService {
           const requestOptions = {
             headers: new HttpHeaders(header)
           };
+          console.log(token,username,formData)
          return this.http
             .post(
-              'https://api.coinpes.cash/api/coin/v1/createOffer',formData,
-              requestOptions
+              'https://api.supabeta.com/api/coin/v1/createOffer',formData,
+              {headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                "Accept": '*/*',
+                "token": token,
+                "username": username,
+              })}
             )
     }
+        // get notifications
+        getCurrency(username:string, token:string) {
+            const header = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'token': token,
+                'username': username,
+               
+          
+              }
+              const requestOptions = {
+                headers: new HttpHeaders(header)
+              };
+             return  this.http
+                .get(
+                  'https://api.supabeta.com/api/coin/v1/getCurrency',
+                  requestOptions
+                )
+               
+        }
     // retrieve list of feeds
     async retrieve(colletion: string) {
         const feedsCol = collection(this.db, colletion);

@@ -64,8 +64,8 @@
                                         <div class="form-group">
                                             <!-- Basic Multi select -->
                                             <ng-select
-                                                [items]="selectBasic"
-                                                bindLabel="name"
+                                                [items]="methods"
+                                                bindLabel="method"
                                                 [loading]="selectBasicLoading"
                                                 formControlName="paymentMethod"
                                                 [class.error]="submitted &&f.paymentMethod.errors"
@@ -81,8 +81,8 @@
                                         <div class="form-group">
                                             <!-- Basic Multi select -->
                                             <ng-select
-                                                [items]="currency"
-                                                bindLabel="name"
+                                                [items]="currencies"
+                                                bindLabel="currency"
                                                 [loading]="selectBasicLoading"
                                                 formControlName="currency"
                                                 [class.error]="submitted &&f.currency.errors"
@@ -529,7 +529,7 @@
                                          [multiple]="true"
                                          [maxSelectedItems]="50"
                                         
-                                         formControlName="blockedCountries"
+                                         formControlName=""
                                          *ngIf="blockCountires"
                                         
                                       >

@@ -56,6 +56,7 @@
     "feather-icons": "4.28.0",
     "firebase": "^9.6.8",
     "flatpickr": "4.6.9",
+    "generate-api-key": "^1.0.0",
     "hammerjs": "2.0.8",
     "katex": "0.13.11",
     "lodash": "4.17.21",

@@ -3,6 +3,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import Stepper from 'bs-stepper';
 import { FirebaseService } from '../../../../services/firebase.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { v4 as uuidv4 } from 'uuid';
+
 
 @Component({
     selector: 'app-ecommerce-checkout',
@@ -48,6 +51,10 @@ export class EcommerceCheckoutComponent implements OnInit {
     public allowCountires:Boolean =true;
     public blockCountires:Boolean =false;
     public user:any ={}
+    public errorMessage:string=''
+    public currencies =[]
+    public methods =[]
+
     /**
      *  Constructor
      *
@@ -55,7 +62,8 @@ export class EcommerceCheckoutComponent implements OnInit {
      */
     constructor(
         private _fb: FirebaseService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private router:Router
     ) {}
 
     // Public Methods
@@ -125,7 +133,7 @@ export class EcommerceCheckoutComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      this.user = localStorage.getItem('user')
+      this.user =JSON.parse(localStorage.getItem('user'))
         this._fb.getOffers().subscribe((data) => {
             this.offers = data['data']['payload'];
         });
@@ -136,12 +144,23 @@ export class EcommerceCheckoutComponent implements OnInit {
         this._fb.getExchange().subscribe((data) => {
             let listnew = data['data']['rates'];
             this.currency = Object.keys(listnew);
+            console.log(listnew)
          
         });
+
         this._fb.getCountries().subscribe((data) => {
             this.countries = data['payload'];
             
         });
+        this._fb.getCurrency(this.user.username,this.user.token).subscribe((data:any)=>{
+          this.currencies =data.responseMessage.currencies
+          //this.currency = Object.keys(listNew);
+          //this.methods = data.responsemessage.methods
+          this.methods = data.responseMessage.methods
+          console.log( this.methods)
+        },(error)=>{
+          console.log(error)
+        })
         //initialize form
         this.checkoutForm = this._formBuilder.group({
             // username: ['', [Validators.required]],
@@ -173,8 +192,8 @@ export class EcommerceCheckoutComponent implements OnInit {
             limitusers: ['', Validators.required],
             limitCountries: ['none'],
             selectMultiLimitedSelected: [[]],
-            allowedCountries:[[]],
-            blockedCountries:[[]]
+            allowedCountries:[[""]],
+            blockedCountries:[[""]]
         });
         this.form3.controls['allowedCountries'].disable();
         this.form3.controls['blockedCountries'].disable();
@@ -188,24 +207,30 @@ export class EcommerceCheckoutComponent implements OnInit {
         });
     }
     onSubmit() {
+      console.log(this.user)
+      const unixTime = 1210981217;
+      const key =uuidv4()+Math.round(new Date().getTime() / 1000).toString(); 
         this._fb.createOffer(this.user.token,this.user.username,{
-            requestId: '12345679979',
-            method: this.checkoutForm.value.paymentMethod,
-            currency: this.checkoutForm.value.currency,
-            type: this.checkoutForm.value.todo,
-            min: this.form2.value.minimum,
-            max: this.form2.value.maximum,
-            margin: this.form2.value.offerRate,
-            tags:  this.form2.value.selectMultiLimitedSelected,
-            label:  this.form2.value.label,
-            terms: this.form2.value.terms,
-            instructions: this.form2.value.instructions,
-            new_trader_limit: this.form3.value.limitusers,
-            blocked_countries:  this.form3.value.blockCountries,
-            allowed_countries: this.form3.value.allowedCountries,
-            vpn: '0'
+          
+            "requestId":key,
+            "method": this.checkoutForm.value.paymentMethod,
+            "currency":  this.checkoutForm.value.currency,
+            "type":  this.checkoutForm.value.todo,
+            "min": "4000",
+            "max": "9000",
+            "margin": "2",
+            "tags":
+                "friends and family",
+            "label": "tes",
+            "terms": "sfdfsdf",
+            "instructions": "say mee",
+            "new_trader_limit": "4",
+            "blocked_countries": "KE",
+            "allowed_countries": "KE",
+            "vpn": "0"
+        
         }).subscribe((data)=>{
-          console.log(data)
+         this.router.navigate(['/dashboard/overview'])
         },(err)=>{
           console.log(err)
         })
