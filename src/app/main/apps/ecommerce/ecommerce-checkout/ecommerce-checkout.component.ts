@@ -138,8 +138,8 @@ export class EcommerceCheckoutComponent implements OnInit {
             this.offers = data['data']['payload'];
         });
 
-        this._fb.getTags().subscribe((data) => {
-            this.tags = data['payload'];
+        this._fb.getTags(this.user.username,this.user.token).subscribe((data) => {
+           console.log(data)
         });
         this._fb.getExchange().subscribe((data) => {
             let listnew = data['data']['rates'];
@@ -192,8 +192,8 @@ export class EcommerceCheckoutComponent implements OnInit {
             limitusers: ['', Validators.required],
             limitCountries: ['none'],
             selectMultiLimitedSelected: [[]],
-            allowedCountries:[[""]],
-            blockedCountries:[[""]]
+            allowedCountries:[[]],
+            blockedCountries:[[]]
         });
         this.form3.controls['allowedCountries'].disable();
         this.form3.controls['blockedCountries'].disable();
@@ -216,17 +216,17 @@ export class EcommerceCheckoutComponent implements OnInit {
             "method": this.checkoutForm.value.paymentMethod,
             "currency":  this.checkoutForm.value.currency,
             "type":  this.checkoutForm.value.todo,
-            "min": "4000",
-            "max": "9000",
-            "margin": "2",
+            "min": this.form2.value.minimum,
+            "max": this.form2.value.maximum,
+            "margin": this.form2.value.offerRate,
             "tags":
                 "friends and family",
-            "label": "tes",
-            "terms": "sfdfsdf",
-            "instructions": "say mee",
-            "new_trader_limit": "4",
-            "blocked_countries": "KE",
-            "allowed_countries": "KE",
+            "label": this.form2.value.label,
+            "terms": this.form2.value.terms,
+            "instructions": this.form2.value.instructions,
+            "new_trader_limit": this.form3.value.limitusers,
+            "blocked_countries":  this.form3.value.blockedCountries,
+            "allowed_countries": this.form3.value.allowedCountries,
             "vpn": "0"
         
         }).subscribe((data)=>{

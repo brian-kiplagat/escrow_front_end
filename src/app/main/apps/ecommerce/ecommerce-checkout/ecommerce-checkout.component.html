@@ -66,6 +66,7 @@
                                             <ng-select
                                                 [items]="methods"
                                                 bindLabel="method"
+                                                bindValue="method"
                                                 [loading]="selectBasicLoading"
                                                 formControlName="paymentMethod"
                                                 [class.error]="submitted &&f.paymentMethod.errors"
@@ -83,6 +84,7 @@
                                             <ng-select
                                                 [items]="currencies"
                                                 bindLabel="currency"
+                                                bindValue="currency"
                                                 [loading]="selectBasicLoading"
                                                 formControlName="currency"
                                                 [class.error]="submitted &&f.currency.errors"
@@ -218,6 +220,7 @@
                                           [multiple]="true"
                                           [maxSelectedItems]="3"
                                           bindLabel="tag"
+                                          bindValue="tag"
                                           formControlName="selectMultiLimitedSelected"
                                       >
                                           <ng-template
@@ -529,7 +532,7 @@
                                          [multiple]="true"
                                          [maxSelectedItems]="50"
                                         
-                                         formControlName=""
+                                         formControlName="blockedCountries"
                                          *ngIf="blockCountires"
                                         
                                       >

@@ -177,6 +177,25 @@ export class FirebaseService {
                 )
                
         }
+// get offer tags
+        getTags(username:string, token:string) {
+            const header = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'token': token,
+                'username': username,
+               
+          
+              }
+              const requestOptions = {
+                headers: new HttpHeaders(header)
+              };
+             return  this.http
+                .get(
+                  'https://api.supabeta.com/api/coin/v1/getTags',
+                  requestOptions
+                )
+        }
     // retrieve list of feeds
     async retrieve(colletion: string) {
         const feedsCol = collection(this.db, colletion);
@@ -221,13 +240,7 @@ export class FirebaseService {
     getExchange() {
         return this.http.get('https://api.coinbase.com/v2/exchange-rates?currency=BTC');
     }
-    getTags() {
-        var data: any = new FormData();
-        data.append('key', 'kwdmcpmpmwsx');
-        data.append('secret', 'kxpwcnmpwcmcpc');
-
-        return this.http.post('https://coinlif.com/api/coin/getTags.php', data);
-    }
+ 
     getCountries() {
         var data: any = new FormData();
         data.append('key', 'kwdmcpmpmwsx');
