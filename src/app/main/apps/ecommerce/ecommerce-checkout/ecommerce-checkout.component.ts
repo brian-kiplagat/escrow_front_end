@@ -182,8 +182,16 @@ export class EcommerceCheckoutComponent implements OnInit {
                     Validators.maxLength(25)
                 ])
             ],
-            terms: ['', Validators.required],
-            instructions: ['', Validators.required]
+            terms: ['',Validators.compose([
+                Validators.required,
+                // Validators.minLength(3),
+                Validators.maxLength(180)
+            ])],
+            instructions: ['', Validators.compose([
+                Validators.required,
+                // Validators.minLength(3),
+                Validators.maxLength(400)
+            ])]
         });
         this.form3 = this._formBuilder.group({
             // username: ['', [Validators.required]],

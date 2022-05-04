@@ -248,9 +248,10 @@
                                               *ngIf="f1.offerRate.errors.required"
                                               >This field is required!</small
                                           >
+                                          
                                       </span>
                                       <span
-                                      *ngIf=" f1.offerRate.value<5"
+                                      *ngIf="f1.offerRate.value<-5&&f1.offerRate.touched"
                                       class="invalid-form"
                                   >
                                       <small
@@ -357,6 +358,11 @@
                                               *ngIf="f1.terms.errors.required"
                                               >This field is required!</small
                                           >
+                                          <small
+                                              class="form-text text-danger"
+                                              *ngIf="f1.label.errors.maxLength"
+                                              >maximum of 180 characters!!</small
+                                          >
                                       </span>
                                   </div>
                               </div>
@@ -380,6 +386,11 @@
                                               class="form-text text-danger"
                                               *ngIf="f1.instructions.errors.required"
                                               >This field is required!</small
+                                          >
+                                          <small
+                                              class="form-text text-danger"
+                                              *ngIf="f1.label.errors.maxLength"
+                                              >maximum of 400 characters!!</small
                                           >
                                       </span>
                                   </div>
