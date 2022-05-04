@@ -536,6 +536,17 @@
                                             formControlName="limitusers"
                                             
                                         />
+                                        <span
+                                        *ngIf="submitted &&  f2.limitusers.errors"
+                                        class="invalid-form"
+                                    >
+                                        <small
+                                            class="form-text text-danger"
+                                            *ngIf=" f2.limitusers.errors.required"
+                                            >This field is required!</small
+                                        >
+                                   
+                                    </span>
                                       
                                     </div>
                                 </div>
