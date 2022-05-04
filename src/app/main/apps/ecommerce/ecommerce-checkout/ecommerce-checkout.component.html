@@ -251,16 +251,27 @@
                                           
                                       </span>
                                       <span
-                                      *ngIf="f1.offerRate.value<-5&&f1.offerRate.value>80&&f1.offerRate.touched"
+                                      *ngIf="f1.offerRate.value<-5&&f1.offerRate.touched"
                                       class="invalid-form"
                                   >
                                       <small
                                           class="form-text text-danger"
                                          
-                                          >value cannot be less than negative 5 or more than 80</small
+                                          >value cannot be less than negative 5</small
                                       >
                                       
                                   </span>
+                                  <span
+                                  *ngIf="f1.offerRate.value>80&&f1.offerRate.touched"
+                                  class="invalid-form"
+                              >
+                                  <small
+                                      class="form-text text-danger"
+                                     
+                                      >value cannot be less than 80</small
+                                  >
+                                  
+                              </span>
                                   </div>
                               </div>
                              
