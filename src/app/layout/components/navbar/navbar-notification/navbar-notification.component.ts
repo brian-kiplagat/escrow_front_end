@@ -1,6 +1,5 @@
+import { FirebaseService } from 'app/services/firebase.service';
 import { Component, OnInit } from '@angular/core';
-
-import { NotificationsService } from 'app/layout/components/navbar/navbar-notification/notifications.service';
 
 
 // Interface
@@ -16,13 +15,9 @@ interface notification {
 })
 export class NavbarNotificationComponent implements OnInit {
   // Public
-  public notifications: notification;
+  public notifications: any[]=[];
 
-  /**
-   *
-   * @param {NotificationsService} _notificationsService
-   */
-  constructor(private _notificationsService: NotificationsService) {}
+  constructor(private fb:FirebaseService) {}
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
@@ -31,8 +26,13 @@ export class NavbarNotificationComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this._notificationsService.onApiDataChange.subscribe(res => {
-      this.notifications = res;
-    });
+    let user:any = JSON.parse(localStorage.getItem('user'))
+   
+    this.fb.getNotifications(user.username,user.token).subscribe((data:any)=>{
+      this.notifications =data.responseMessage
+      console.log(this.notifications)
+    },(err)=>{
+      console.log(err)
+    })
   }
 }

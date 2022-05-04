@@ -38,7 +38,7 @@ export class NotificationsService {
   /**
    * Get Notifications Data
    */
-  getNotificationsData(username:string,token:string): Promise<any[]> {
+  getNotificationsData(username:string,token:string) {
     const header = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -49,16 +49,6 @@ export class NotificationsService {
     const requestOptions = {
       headers: new HttpHeaders(header)
     };
-    return new Promise((resolve, reject) => {
-      this._httpClient.get('https://api.supabeta.com/api/coin/v1/fetchNotifications',requestOptions).subscribe((response: any) => {
-        this.apiData = response.responseMessage;
-        this.onApiDataChange.next(this.apiData);
-        console.log(this.apiData)
-        resolve(this.apiData);
-      }, (error)=>{
-        console.log(error)
-        reject
-      });
-    });
+    return this._httpClient.get('https://api.supabeta.com/api/coin/v1/fetchNotifications',requestOptions)
   }
 }

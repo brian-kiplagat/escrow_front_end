@@ -2,7 +2,7 @@
   <a class="nav-link" ngbDropdownToggle id="navbarNotificationDropdown"
     ><i class="ficon" data-feather="bell"></i
     ><span class="badge badge-pill badge-danger badge-up">{{
-      notifications.messages?.length + notifications.systemMessages?.length
+      notifications?.length
     }}</span></a
   >
   <ul
@@ -15,7 +15,7 @@
       <div class="dropdown-header d-flex">
         <h4 class="notification-title mb-0 mr-auto">Notifications</h4>
         <div class="badge badge-pill badge-light-primary">
-          {{ notifications.messages?.length + notifications.systemMessages?.length }} New
+          {{ notifications?.length }} New
         </div>
       </div>
     </li>
@@ -23,7 +23,7 @@
 
     <!-- Notifications content -->
     <li class="scrollable-container media-list" [perfectScrollbar]>
-      <a class="d-flex" href="javascript:void(0)" *ngFor="let message of notifications.messages">
+      <a class="d-flex" href="javascript:void(0)" *ngFor="let message of notifications">
         <div class="media d-flex align-items-start">
           <div class="media-left">
             <div class="avatar">

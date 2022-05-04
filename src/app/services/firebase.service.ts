@@ -113,13 +113,13 @@ export class FirebaseService {
            
     }
     // get notifications
-    getNotifications(username:string,email:string, token:string) {
+    getNotifications(username:string, token:string) {
         const header = {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             'token': token,
             'username': username,
-            'email':email
+            
       
           }
           const requestOptions = {
@@ -127,7 +127,7 @@ export class FirebaseService {
           };
          return  this.http
             .get(
-              'https://api.coinpes.cash/api/coin/v1/fetchNotifications/',
+              'https://api.supabeta.com/api/coin/v1/fetchNotifications',
               requestOptions
             )
            
@@ -157,7 +157,7 @@ export class FirebaseService {
               })}
             )
     }
-        // get notifications
+        // get currencies
         getCurrency(username:string, token:string) {
             const header = {
                 'Content-Type': 'application/json',
