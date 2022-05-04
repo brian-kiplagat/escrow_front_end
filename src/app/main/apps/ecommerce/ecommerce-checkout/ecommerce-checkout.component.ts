@@ -178,18 +178,18 @@ export class EcommerceCheckoutComponent implements OnInit {
                 '',
                 Validators.compose([
                     Validators.required,
-                    // Validators.minLength(3),
+                    Validators.minLength(4),
                     Validators.maxLength(25)
                 ])
             ],
             terms: ['',Validators.compose([
                 Validators.required,
-                // Validators.minLength(3),
+                 Validators.minLength(4),
                 Validators.maxLength(180)
             ])],
             instructions: ['', Validators.compose([
                 Validators.required,
-                // Validators.minLength(3),
+                 Validators.minLength(4),
                 Validators.maxLength(400)
             ])]
         });
