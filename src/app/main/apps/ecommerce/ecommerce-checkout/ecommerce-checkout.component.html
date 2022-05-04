@@ -463,8 +463,8 @@
                                         <input
                                             type="radio"
                                             id="customColorRadio3"
-                                            value="required"
-                                            formControlName="partnerOptions"
+                                            value="true"
+                                            formControlName="idverification"
                                             class="custom-control-input"
                                         />
                                         <label
@@ -480,8 +480,8 @@
                                         <input
                                             type="radio"
                                             id="customColorRadio4"
-                                            value="notrequired"
-                                            formControlName="partnerOptions"
+                                            value="true"
+                                            formControlName="fullname"
                                             class="custom-control-input"
                                         />
                                         <label
@@ -536,17 +536,7 @@
                                             formControlName="limitusers"
                                             
                                         />
-                                        <span
-                                        *ngIf="submitted &&  f2.limitusers.errors"
-                                        class="invalid-form"
-                                    >
-                                        <small
-                                            class="form-text text-danger"
-                                            *ngIf=" f2.limitusers.errors.required"
-                                            >This field is required!</small
-                                        >
-                                   
-                                    </span>
+                                      
                                       
                                     </div>
                                 </div>
@@ -664,7 +654,7 @@
                                     type="submit"
                                     class="btn btn-primary btn-block"
                                     rippleEffect
-                                    (click)="validateNextStep(form3)"
+                                    (click)="onSubmit()"
                                 >
                                     <span [data-feather]="'plus'" [class]="'mr-25'"></span
                                     >CREATE OFFER

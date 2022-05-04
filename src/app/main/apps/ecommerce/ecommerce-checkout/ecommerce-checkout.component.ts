@@ -73,7 +73,7 @@ export class EcommerceCheckoutComponent implements OnInit {
      * Stepper Next
      */
     nextStep() {
-        this.form3.valid ? this.onSubmit() : this.checkoutStepper.next();
+       this.checkoutStepper.next();
     }
 
     /**
@@ -195,9 +195,11 @@ export class EcommerceCheckoutComponent implements OnInit {
         });
         this.form3 = this._formBuilder.group({
             // username: ['', [Validators.required]],
-            partnerOptions: [''],
+            idverification: [''],
             minimumTrades: [''],
-            limitusers: ['',Validators.required],
+            limitusers: [''],
+            fullname: [''],
+
             limitCountries: ['none'],
             allowedCountries:[[]],
             blockedCountries:[[]]
@@ -229,11 +231,15 @@ export class EcommerceCheckoutComponent implements OnInit {
             "label": this.form2.value.label,
             "terms": this.form2.value.terms,
             "instructions": this.form2.value.instructions,
-            "new_trader_limit": this.form3.value.limitusers,
+            "new_trader_limit": !this.form3.value.limitusers?"N/A":this.form3.value.limitusers,
             "blocked_countries":  !this.form3.value.blockedCountries?"N/A":this.form3.value.blockedCountries,
             "allowed_countries": !this.form3.value.allowedCountries?"N/A":this.form3.value.allowedCountries,
-            "vpn": "0"
-        
+            "vpn": "0",
+            "id_verification":!this.form3.value.idverification?"false":this.form3.value.idverification,
+            "full_name":!this.form3.value.fullname?"false":this.form3.value.fullname,
+            "min_trades":!this.form3.value.minimumTrades?"N/A":this.form3.value.minimumTrades,
+            "new_user_limit": !this.form3.value.limitusers?"N/A":this.form3.value.limitusers
+            
         }).subscribe((data)=>{
          this.router.navigate(['/dashboard/overview'])
         },(err)=>{
