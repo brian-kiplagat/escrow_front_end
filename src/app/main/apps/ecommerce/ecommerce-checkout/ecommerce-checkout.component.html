@@ -249,6 +249,17 @@
                                               >This field is required!</small
                                           >
                                       </span>
+                                      <span
+                                      *ngIf=" f1.offerRate.value<5"
+                                      class="invalid-form"
+                                  >
+                                      <small
+                                          class="form-text text-danger"
+                                         
+                                          >value cannot be less than 5</small
+                                      >
+                                      
+                                  </span>
                                   </div>
                               </div>
                              
