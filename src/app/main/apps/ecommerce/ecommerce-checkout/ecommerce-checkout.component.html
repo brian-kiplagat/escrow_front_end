@@ -114,7 +114,13 @@
                                                 *ngIf="f.currency.errors.required"
                                                 >This field is required!</small
                                             >
+                                            <small
+                                            class="form-text text-danger"
+                                            *ngIf="f.currency.value>f.currency.value"
+                                            >This field is required!</small
+                                        >
                                         </span>
+                                        
                                             <!--/ Basic Multi select -->
 
                                         </div>
@@ -171,6 +177,18 @@
                                               *ngIf="f1.minimum.errors.required"
                                               >This field is required!</small
                                           >
+                                          
+                                      </span>
+                                      <span
+                                          *ngIf=" f1.minimum.value>f1.maximum.value"
+                                          class="invalid-form"
+                                      >
+                                          <small
+                                              class="form-text text-danger"
+                                             
+                                              >Minimum cannot be greate than maximum!</small
+                                          >
+                                          
                                       </span>
                                   </div>
                               </div>
@@ -195,6 +213,17 @@
                                               *ngIf="f1.maximum.errors.required"
                                               >This field is required!</small
                                           >
+                                      </span>
+                                      <span
+                                          *ngIf=" f1.minimum.value>f1.maximum.value"
+                                          class="invalid-form"
+                                      >
+                                          <small
+                                              class="form-text text-danger"
+                                             
+                                              >Minimum cannot be greate than maximum!</small
+                                          >
+                                          
                                       </span>
                                   </div>
                               </div>
