@@ -29,6 +29,12 @@ export class EcommerceShopComponent implements OnInit {
     public currency:any[] = []
     public currencies =[]
     public methods =[]
+   
+    public filters ={
+         currency:"",
+         method:"",
+        amount :""
+    }
 
     /**
      *
@@ -117,5 +123,15 @@ export class EcommerceShopComponent implements OnInit {
             product.isInCart = this.cartList.findIndex((p) => p.productId === product.id) > -1;
         });
 
+    }
+    //filter offers
+    filterOffers(){
+        let user =JSON.parse(localStorage.getItem('user'))
+        this._fb
+            .getOffers(user.username,user.token).subscribe((data:any)=>{
+                this.offers = data.responseMessage
+                console.log(data)
+            })
+            console.log("method",this.filters.method,"currency",this.filters.currency,"amount",this.filters.amount)
     }
 }

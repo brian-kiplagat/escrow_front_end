@@ -121,30 +121,5 @@ export class EcommerceWishlistComponent implements OnInit {
             product.isInWishlist = this.wishlist.findIndex((p) => p.productId === product.id) > -1;
             product.isInCart = this.cartList.findIndex((p) => p.productId === product.id) > -1;
         });
-
-        // content header
-        this.contentHeader = {
-            headerTitle: 'Shop',
-            actionButton: true,
-            breadcrumb: {
-                type: '',
-                links: [
-                    {
-                        name: 'Home',
-                        isLink: true,
-                        link: '/'
-                    },
-                    {
-                        name: 'eCommerce',
-                        isLink: true,
-                        link: '/'
-                    },
-                    {
-                        name: 'Shop',
-                        isLink: false
-                    }
-                ]
-            }
-        };
     }
 }

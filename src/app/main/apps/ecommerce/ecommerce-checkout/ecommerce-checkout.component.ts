@@ -135,8 +135,9 @@ export class EcommerceCheckoutComponent implements OnInit {
       this.user =JSON.parse(localStorage.getItem('user'))
        
 
-        this._fb.getTags(this.user.username,this.user.token).subscribe((data) => {
+        this._fb.getTags(this.user.username,this.user.token).subscribe((data:any) => {
            console.log(data)
+           this.tags = data.responseMessage
         });
         this._fb.getExchange().subscribe((data) => {
             let listnew = data['data']['rates'];
@@ -170,7 +171,7 @@ export class EcommerceCheckoutComponent implements OnInit {
             minimum: ['', Validators.required],
             maximum: ['', Validators.required],
             offerRate: ['', Validators.required],
-            selectMultiLimitedSelected: [[]],
+            tags: [[]],
             label: [
                 '',
                 Validators.compose([
@@ -223,8 +224,7 @@ export class EcommerceCheckoutComponent implements OnInit {
             "min": this.form2.value.minimum,
             "max": this.form2.value.maximum,
             "margin": this.form2.value.offerRate,
-            "tags":
-                "friends and family",
+            "tags":!this.form2.value.tags? "friends and family":this.form2.value.tags,
             "label": this.form2.value.label,
             "terms": this.form2.value.terms,
             "instructions": this.form2.value.instructions,
