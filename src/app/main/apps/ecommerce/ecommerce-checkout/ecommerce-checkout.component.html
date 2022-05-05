@@ -190,6 +190,17 @@
                                           >
                                           
                                       </span>
+                                      <span
+                                      *ngIf=" f1.minimum.value<10&&f1.minimum.touched"
+                                      class="invalid-form"
+                                  >
+                                      <small
+                                          class="form-text text-danger"
+                                         
+                                          >Minimum cannot be less than 10 USD</small
+                                      >
+                                      
+                                  </span>
                                   </div>
                               </div>
                               <div class="col-md-6 col-sm-12">
