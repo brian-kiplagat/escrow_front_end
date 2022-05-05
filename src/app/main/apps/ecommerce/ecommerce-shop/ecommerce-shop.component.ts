@@ -27,6 +27,8 @@ export class EcommerceShopComponent implements OnInit {
     public selectBasicLoading = false;
     public offers = []
     public currency:any[] = []
+    public currencies =[]
+    public methods =[]
 
     /**
      *
@@ -80,6 +82,7 @@ export class EcommerceShopComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
+        let user =JSON.parse(localStorage.getItem('user'))
         this._fb
             .getOffers().subscribe((data)=>{
                 this.offers = data['data']['payload']
@@ -91,6 +94,15 @@ export class EcommerceShopComponent implements OnInit {
               this.currency = Object.keys(listnew)
                 console.log(this.currency)
             })
+            this._fb.getCurrency(user.username,user.token).subscribe((data:any)=>{
+                this.currencies =data.responseMessage.currencies
+                //this.currency = Object.keys(listNew);
+                //this.methods = data.responsemessage.methods
+                this.methods = data.responseMessage.methods
+                console.log( this.methods)
+              },(error)=>{
+                console.log(error)
+              })
           
             
         // Subscribe to ProductList change
