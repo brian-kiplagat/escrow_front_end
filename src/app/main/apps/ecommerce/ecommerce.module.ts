@@ -65,8 +65,7 @@ const routes: Routes = [
     data: { animation: 'EcommerceCheckoutComponent' }
   },
   {
-    path: 'details',
-    redirectTo: '/apps/e-commerce/details/27', //Redirection
+    path: 'details/:id',
     data: { animation: 'EcommerceDetailsComponent' }
   }
 ];

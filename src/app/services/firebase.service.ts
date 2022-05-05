@@ -205,7 +205,7 @@ export class FirebaseService {
     }
 
     // get offers
-    getOffers(username:string,token:string) {
+    getOffers(username:string,token:string,type:string) {
         const header = {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -214,12 +214,15 @@ export class FirebaseService {
            
       
           }
+          const body={
+            "type":type
+          }
           const requestOptions = {
             headers: new HttpHeaders(header)
           };
          return  this.http
-            .get(
-              'https://api.supabeta.com/api/coin/v1/getOffers',
+            .post(
+              'https://api.supabeta.com/api/coin/v1/getOffers',body,
               requestOptions
             )
     }

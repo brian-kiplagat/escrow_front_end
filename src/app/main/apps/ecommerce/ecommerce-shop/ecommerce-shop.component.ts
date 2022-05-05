@@ -90,7 +90,7 @@ export class EcommerceShopComponent implements OnInit {
     ngOnInit(): void {
         let user =JSON.parse(localStorage.getItem('user'))
         this._fb
-            .getOffers(user.username,user.token).subscribe((data:any)=>{
+            .getOffers(user.username,user.token,"buy").subscribe((data:any)=>{
                 this.offers = data.responseMessage
                 console.log(data)
             })
@@ -128,7 +128,7 @@ export class EcommerceShopComponent implements OnInit {
     filterOffers(){
         let user =JSON.parse(localStorage.getItem('user'))
         this._fb
-            .getOffers(user.username,user.token).subscribe((data:any)=>{
+            .getOffers(user.username,user.token,"buy").subscribe((data:any)=>{
                 this.offers = data.responseMessage
                 console.log(data)
             })
