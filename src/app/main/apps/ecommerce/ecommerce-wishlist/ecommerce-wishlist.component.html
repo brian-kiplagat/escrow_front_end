@@ -29,7 +29,7 @@
 
                     <div class="form-group">
                       <!-- Basic Multi select -->
-                      <ng-select [items]="methods" bindLabel="method" bindValue="method" [loading]="selectBasicLoading"> </ng-select>
+                      <ng-select [items]="methods" bindLabel="method" bindValue="method" [(ngModel)]="filters.method" [loading]="selectBasicLoading"> </ng-select>
                       <!--/ Basic Multi select -->
                     </div>
                   </div>
@@ -38,7 +38,7 @@
 
                     <div class="form-group">
                       <!-- Select Multi with group -->
-                      <input type="text" id="last-name-column" class="form-control" placeholder="Amount" />
+                      <input type="text" id="last-name-column" class="form-control" placeholder="Amount"[(ngModel)]="amount" />
                    
                       <!--/ Select Multi with group -->
                     </div>
@@ -48,13 +48,13 @@
 
                     <div class="form-group">
                       <!-- Basic Multi select -->
-                      <ng-select [items]="currencies" bindLabel="currency" bindValue="currency" [loading]="selectBasicLoading"> </ng-select>
+                      <ng-select [items]="currencies" bindLabel="currency" bindValue="currency" [(ngModel)]="filters.currency" [loading]="selectBasicLoading"> </ng-select>
                       <!--/ Basic Multi select -->
                     </div>
                   </div>
                   
                   <div class="col-12">
-                    <button type="button" class="btn btn-primary btn-block" rippleEffect>
+                    <button type="button" class="btn btn-primary btn-block"  (click)="filterOffers()" rippleEffect>
                       <span [data-feather]="'search'" [class]="'mr-25'"></span>FIND OFFERS
                     </button>
                   </div>
@@ -105,12 +105,12 @@
                 <li class="price-detail">
                   <div class="detail-title">
                     <div class="badge badge-pill badge-light-secondary">Photo ID Required</div>
-                    <div class="badge badge-pill badge-light-secondary">Friends and family</div>
+                    <div class="badge badge-pill badge-light-secondary">{{offer.tags}}</div>
                     <div class="badge badge-pill badge-light-secondary">Goods and Services</div>
                     <div class="badge badge-pill badge-light-secondary">No third party</div>
-                    <div class="badge badge-pill badge-light-warning">This offer doesn't allow VPN</div>
+                    <div class="badge badge-pill badge-light-warning" *ngIf="offer.vpn ==1">This offer doesn't allow VPN</div>
                   </div>
-                  <div class="detail-amt discount-amt text-success">Limits: {{offer.minimum}}-{{offer.maximum}} EUR
+                  <div class="detail-amt discount-amt text-success">Limits: {{offer.minimum}}-{{offer.maximum}} {{offer.currency}}
                   </div>
                 </li>
 
@@ -121,13 +121,13 @@
                 <li class="price-detail">
                   <div class="detail-title detail-total"></div>
                   <div class="detail-amt font-weight-bolder">
-                       <a [routerLink]="'/offers/bitcoin/details/' + offer.id">
+                       <a [routerLink]="'/offers/bitcoin/details/' + offer.idd">
                         <button
                             type="button"
                             class="btn btn-primary btn-block btn-next place-order"
                             rippleEffect
                         >
-                            <span [data-feather]="'home'" [class]="'mr-25 text-capitalize'"></span>{{offer.type}} BTC
+                            <span [data-feather]="'dollar-sign'" [class]="'mr-25 text-capitalize'"></span>{{offer.type}} BTC
                         </button>
                     </a>
 

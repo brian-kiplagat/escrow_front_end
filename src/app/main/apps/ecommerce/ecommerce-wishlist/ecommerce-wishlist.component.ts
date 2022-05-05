@@ -30,6 +30,12 @@ export class EcommerceWishlistComponent implements OnInit {
     public currency:any[] = []
     public currencies =[]
     public methods =[]
+    public   amount =0
+    public filters ={
+         currency:"",
+         method:"",
+      
+    }
 
 
 
@@ -122,4 +128,30 @@ export class EcommerceWishlistComponent implements OnInit {
             product.isInCart = this.cartList.findIndex((p) => p.productId === product.id) > -1;
         });
     }
+        //filter offers
+        filterOffers(){
+            let user =JSON.parse(localStorage.getItem('user'))
+            this._fb
+                .getOffers(user.username,user.token,"sell").subscribe((data:any)=>{
+                    this.offers = data.responseMessage
+                   
+                    this.offers=data.responseMessage.filter((item:any) =>{
+                        
+                        if(this.amount!=0&&this.amount < Number(item.minimum)|| this.amount > Number(item.maximum)){
+                            
+                            return false
+                        }
+                        if(this.filters.currency&& item.currency != this.filters.currency){
+                            return false
+                        }
+                        if(this.filters.method&& item.method != this.filters.method){
+                            return false
+                        }
+                        return true;
+                      });
+                      
+                      console.log(this.offers)
+                })
+              
+        }
 }

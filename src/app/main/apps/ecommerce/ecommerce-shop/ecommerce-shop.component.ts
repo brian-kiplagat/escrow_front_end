@@ -149,6 +149,6 @@ export class EcommerceShopComponent implements OnInit {
                   
                   console.log(this.offers)
             })
-            console.log("method",this.filters.method,"currency",this.filters.currency,"amount",this.amount)
+          
     }
 }
