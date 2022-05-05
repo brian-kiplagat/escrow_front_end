@@ -171,7 +171,7 @@ export class EcommerceCheckoutComponent implements OnInit {
             minimum: ['', Validators.required],
             maximum: ['', Validators.required],
             offerRate: ['', Validators.required],
-            tags: [[]],
+            tags: [[], Validators.required],
             label: [
                 '',
                 Validators.compose([
@@ -224,7 +224,7 @@ export class EcommerceCheckoutComponent implements OnInit {
             "min": this.form2.value.minimum,
             "max": this.form2.value.maximum,
             "margin": this.form2.value.offerRate,
-            "tags":!this.form2.value.tags? "friends and family":this.form2.value.tags[0],
+            "tags":this.form2.value.tags[0],
             "label": this.form2.value.label,
             "terms": this.form2.value.terms,
             "instructions": this.form2.value.instructions,

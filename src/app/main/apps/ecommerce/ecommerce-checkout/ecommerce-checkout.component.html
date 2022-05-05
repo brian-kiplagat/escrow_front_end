@@ -314,7 +314,17 @@
                                               >
                                           </ng-template>
                                       </ng-select>
-
+                                      <span
+                                      *ngIf="submitted && f1.label.errors"
+                                      class="invalid-form"
+                                  >
+                                      <small
+                                          class="form-text text-danger"
+                                          *ngIf="f1.tags.errors.required"
+                                          >This field is required!</small
+                                      >
+                                   
+                                  </span>
                               
                                       <!-- Multi select with limited number of selections -->
                                   </div>
