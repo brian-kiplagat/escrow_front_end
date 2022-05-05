@@ -228,13 +228,24 @@ export class FirebaseService {
     }
 
 
-    getInfo(id: string) {
-        var data: any = new FormData();
-        data.append('id', '36');
-        data.append('key', 'kwdmcpmpmwsx');
-        data.append('secret', 'kxpwcnmpwcmcpc');
-
-        return this.http.post('https://coinlif.com/api/coin/getOfferInfo.php', data);
+    getInfo(username:string,token:string,id: string) {
+        const header = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'token': token,
+            'username': username,
+           
+      
+          }
+         const requesturl ='https://api.supabeta.com/api/coin/v1/getOfferInfo/'+id
+          const requestOptions = {
+            headers: new HttpHeaders(header)
+          };
+         return  this.http
+            .get(
+                requesturl ,
+              requestOptions
+            )
     }
     getExchange() {
         return this.http.get('https://api.coinbase.com/v2/exchange-rates?currency=BTC');

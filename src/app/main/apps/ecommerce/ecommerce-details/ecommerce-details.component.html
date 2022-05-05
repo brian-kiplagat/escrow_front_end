@@ -8,11 +8,11 @@
           <div class="row my-2">
             <div class="col-12 ">
               <h4 class="text-capitalize">{{offer.type}} Bitcoin with {{offer.method}}({{offer.currency}}) — {{offer.label}}</h4>
-              <span class="card-text item-company">By <a href="javascript:void(0)" class="company-name">{{offer.username}}</a></span>
+              <span class="card-text item-company">By <a href="javascript:void(0)" class="company-name">{{offer.offer_username}}</a></span>
 
               <div style="margin-top: 10px" class="detail-title">
                 <div class="badge badge-pill badge-light-secondary">Photo ID Required</div>
-                <div class="badge badge-pill badge-light-secondary">Friends and family</div>
+                <div class="badge badge-pill badge-light-secondary">{{offer.tags}}</div>
                 <div class="badge badge-pill badge-light-secondary">Goods and Services</div>
                 <div class="badge badge-pill badge-light-secondary">No third party</div>
 
@@ -25,7 +25,7 @@
                       <div class="row">
                         <ngb-alert [type]="'danger'" [dismissible]="false">
 
-                          <div class="alert-body">
+                          <div class="alert-body" *ngIf="offer.vpn ==1">
                             This offer does not allow VPN/TOR or other anonymous usages. Deactivate your VPN first</div>
                         </ngb-alert>
                         <div class="col-sm-6 col-12">
@@ -51,7 +51,7 @@
 
                         <div class="col-12">
                           <button type="button" class="btn btn-primary btn-block" rippleEffect>
-                            <span [data-feather]="'shield'" [class]="'mr-25 text-capitalize'"></span>{{offer.type}}  BITCOIN
+                            <span [data-feather]="'shield'" [class]="'mr-25 text-capitalize'"></span>{{offer.type|uppercase}}  BITCOIN
                           </button>
                         </div>
                       </div>
@@ -61,7 +61,7 @@
               </div>
 
               <p class="card-text">Rate - <span class="text-success">{{offer.margin}}% Above market Price</span></p>
-              <p class="card-text">{{offer.type}} limits - <span class="text-success">{{offer.minimum}}-{{offer.maximum}} KES</span></p>
+              <p class="card-text">{{offer.type}} limits - <span class="text-success">{{offer.minimum}}-{{offer.maximum}} {{offer.currency}}</span></p>
               <p class="card-text">Escrow Fee - <span class="text-success">0%</span></p>
               <p class="card-text">Trade time limit - <span class="text-success">30 min</span></p>
 
@@ -75,10 +75,10 @@
                 <h6>About this {{offer.type}}er</h6>
 
                 <ul class="product-features list-unstyled">
-                  <li><i data-feather="check"></i> <span>ID Verified</span></li>
-                  <li><i data-feather="check"></i> <span>Phone Verified</span></li>
-                  <li><i data-feather="check"></i> <span>Email Verified</span></li>
-                  <li><i data-feather="check"></i> <span>Address Verified</span></li>
+                  <li><i data-feather="check" *ngIf="offer.user_data?.id_verified"></i> <span>ID Verified</span></li>
+                  <li><i data-feather="check"  *ngIf="offer.user_data?.phone_verified"></i> <span>Phone Verified</span></li>
+                  <li><i data-feather="check" *ngIf="offer.user_data?.email_verified"></i> <span>Email Verified</span></li>
+                  <li><i data-feather="check"  *ngIf="offer.user_data?.address_verified"></i> <span>Address Verified</span></li>
 
                 </ul>
 

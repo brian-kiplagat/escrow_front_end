@@ -21,7 +21,7 @@ export class EcommerceDetailsComponent implements OnInit {
   public wishlist;
   public cartList;
   public relatedProducts;
-  public offer;
+  public offer:any={};
   public offers = []
 
   // Swiper
@@ -98,23 +98,13 @@ export class EcommerceDetailsComponent implements OnInit {
    */
   ngOnInit(): void {
     let user =JSON.parse(localStorage.getItem('user'))
-    this._fb
-    .getOffers(user.username,user.token,"buy").subscribe((data) => {
-        this.offers = data['data']['payload']
-      console.log(this.offers)
-      const routeParams = this.route.snapshot.paramMap;    
-      const productIdFromRoute = routeParams.get('id');
-      console.log(productIdFromRoute)
-        this.offer = this.offers.find(product => product.id === productIdFromRoute);
-    console.log(this.offer)
-    })
     const routeParams = this.route.snapshot.paramMap;    
     const productIdFromRoute = routeParams.get('id');
     console.log(productIdFromRoute)
     this._fb
-    .getInfo(productIdFromRoute).subscribe((data) => {
-        let info= data
-        console.log(info)
+    .getInfo(user.username,user.token,productIdFromRoute).subscribe((data:any) => {
+        this.offer =data.responseMessage.data
+        console.log(data.responseMessage.data)
     })
  
   
@@ -134,34 +124,5 @@ export class EcommerceDetailsComponent implements OnInit {
     this.product.isInWishlist = this.wishlist.findIndex(p => p.productId === this.product.id) > -1;
     this.product.isInCart = this.cartList.findIndex(p => p.productId === this.product.id) > -1;
 
-    // content header
-    this.contentHeader = {
-      headerTitle: 'Product Details',
-      actionButton: true,
-      breadcrumb: {
-        type: '',
-        links: [
-          {
-            name: 'Home',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'eCommerce',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'Shop',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'Details',
-            isLink: false
-          }
-        ]
-      }
-    };
   }
 }
