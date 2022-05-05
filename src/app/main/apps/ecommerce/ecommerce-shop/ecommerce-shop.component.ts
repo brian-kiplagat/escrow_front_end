@@ -84,15 +84,9 @@ export class EcommerceShopComponent implements OnInit {
     ngOnInit(): void {
         let user =JSON.parse(localStorage.getItem('user'))
         this._fb
-            .getOffers().subscribe((data)=>{
-                this.offers = data['data']['payload']
-                console.log(this.offers)
-            })
-            this._fb.getExchange().subscribe((data)=>{
-
-                let listnew = data['data']['rates']
-              this.currency = Object.keys(listnew)
-                console.log(this.currency)
+            .getOffers(user.username,user.token).subscribe((data:any)=>{
+                this.offers = data.responseMessage
+                console.log(data)
             })
             this._fb.getCurrency(user.username,user.token).subscribe((data:any)=>{
                 this.currencies =data.responseMessage.currencies
@@ -123,29 +117,5 @@ export class EcommerceShopComponent implements OnInit {
             product.isInCart = this.cartList.findIndex((p) => p.productId === product.id) > -1;
         });
 
-        // content header
-        this.contentHeader = {
-            headerTitle: 'Shop',
-            actionButton: true,
-            breadcrumb: {
-                type: '',
-                links: [
-                    {
-                        name: 'Home',
-                        isLink: true,
-                        link: '/'
-                    },
-                    {
-                        name: 'eCommerce',
-                        isLink: true,
-                        link: '/'
-                    },
-                    {
-                        name: 'Shop',
-                        isLink: false
-                    }
-                ]
-            }
-        };
     }
 }

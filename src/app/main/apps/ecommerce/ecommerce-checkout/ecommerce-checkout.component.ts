@@ -35,7 +35,6 @@ export class EcommerceCheckoutComponent implements OnInit {
         stateVar: ''
     };
     public selectBasicLoading = false;
-    public offers = [];
     public currency: any[] = [];
     public countries: any[] = [];
     public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
@@ -134,9 +133,7 @@ export class EcommerceCheckoutComponent implements OnInit {
 
     ngOnInit(): void {
       this.user =JSON.parse(localStorage.getItem('user'))
-        this._fb.getOffers().subscribe((data) => {
-            this.offers = data['data']['payload'];
-        });
+       
 
         this._fb.getTags(this.user.username,this.user.token).subscribe((data) => {
            console.log(data)

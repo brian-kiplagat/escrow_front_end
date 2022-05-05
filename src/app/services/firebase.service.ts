@@ -205,27 +205,23 @@ export class FirebaseService {
     }
 
     // get offers
-    getOffers() {
-        var data: any = new FormData();
-        data.append('email', 'kiplagatbrian18@gmail.com');
-        data.append('key', 'kwdmcpmpmwsx');
-        data.append('secret', 'kxpwcnmpwcmcpc');
-        data.append('method', 'paypal');
-        data.append('currency', 'KES');
-        data.append('type', 'sell');
-        data.append('minimum', '1100');
-        data.append('maximum', '5000');
-        data.append('margin', '4');
-        data.append('tags', 'friends and family');
-        data.append('terms', 'Buy BTC');
-        data.append('instructions', 'Say hi');
-        data.append('new_trader_limit', '5');
-        data.append('blocked_countries', 'KE');
-        data.append('allowed_countries', 'KE');
-        data.append('vpn', '0');
-        data.append('amount', '');
-
-        return this.http.post('https://coinlif.com/api/coin/getOffers.php', data);
+    getOffers(username:string,token:string) {
+        const header = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'token': token,
+            'username': username,
+           
+      
+          }
+          const requestOptions = {
+            headers: new HttpHeaders(header)
+          };
+         return  this.http
+            .get(
+              'https://api.supabeta.com/api/coin/v1/getOffers',
+              requestOptions
+            )
     }
 
 

@@ -97,8 +97,9 @@ export class EcommerceDetailsComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+    let user =JSON.parse(localStorage.getItem('user'))
     this._fb
-    .getOffers().subscribe((data) => {
+    .getOffers(user.username,user.token).subscribe((data) => {
         this.offers = data['data']['payload']
       console.log(this.offers)
       const routeParams = this.route.snapshot.paramMap;    

@@ -84,9 +84,10 @@ export class EcommerceWishlistComponent implements OnInit {
     ngOnInit(): void {
         let user =JSON.parse(localStorage.getItem('user'))
         this._fb
-            .getOffers().subscribe((data) => {
-                this.offers = data['data']['payload']
-                console.log(this.offers)
+            .getOffers(user.username,user.token).subscribe((data:any) => {
+                // this.offers = data['data']['payload']
+                this.offers = data.responseMessage
+                console.log(data)
             })
             this._fb.getExchange().subscribe((data)=>{
 
