@@ -29,11 +29,11 @@ export class EcommerceShopComponent implements OnInit {
     public currency:any[] = []
     public currencies =[]
     public methods =[]
-   
+   public   amount =""
     public filters ={
          currency:"",
          method:"",
-        amount :""
+      
     }
 
     /**
@@ -130,8 +130,16 @@ export class EcommerceShopComponent implements OnInit {
         this._fb
             .getOffers(user.username,user.token,"buy").subscribe((data:any)=>{
                 this.offers = data.responseMessage
-                console.log(data)
+               
+                this.offers=data.responseMessage.filter((item:any) =>{
+                    for (var key in this.filters) {
+                      if (item[key] === undefined || item[key] != this.filters[key])
+                        return false;
+                    }
+                    return true;
+                  });
+                  console.log(this.offers)
             })
-            console.log("method",this.filters.method,"currency",this.filters.currency,"amount",this.filters.amount)
+            console.log("method",this.filters.method,"currency",this.filters.currency,"amount",this.amount)
     }
 }
