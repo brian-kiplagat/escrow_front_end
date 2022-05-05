@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
+import { ItemsList } from '@ng-select/ng-select/lib/items-list';
 
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
 import { FirebaseService } from '../../../../services/firebase.service';
@@ -29,7 +30,7 @@ export class EcommerceShopComponent implements OnInit {
     public currency:any[] = []
     public currencies =[]
     public methods =[]
-   public   amount =""
+   public   amount =0
     public filters ={
          currency:"",
          method:"",
@@ -132,12 +133,20 @@ export class EcommerceShopComponent implements OnInit {
                 this.offers = data.responseMessage
                
                 this.offers=data.responseMessage.filter((item:any) =>{
-                    for (var key in this.filters) {
-                      if (item[key] === undefined || item[key] != this.filters[key])
-                        return false;
+                    
+                    if(this.amount!=0&&this.amount < Number(item.minimum)|| this.amount > Number(item.maximum)){
+                        
+                        return false
+                    }
+                    if(this.filters.currency&& item.currency != this.filters.currency){
+                        return false
+                    }
+                    if(this.filters.method&& item.method != this.filters.method){
+                        return false
                     }
                     return true;
                   });
+                  
                   console.log(this.offers)
             })
             console.log("method",this.filters.method,"currency",this.filters.currency,"amount",this.amount)
