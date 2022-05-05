@@ -139,12 +139,7 @@ export class EcommerceCheckoutComponent implements OnInit {
            console.log(data)
            this.tags = data.responseMessage
         });
-        this._fb.getExchange().subscribe((data) => {
-            let listnew = data['data']['rates'];
-            this.currency = Object.keys(listnew);
-            console.log(listnew)
-         
-        });
+     
 
         this._fb.getCountries().subscribe((data) => {
             this.countries = data['payload'];

@@ -227,7 +227,7 @@ export class FirebaseService {
             )
     }
 
-
+//get offerinformation 
     getInfo(username:string,token:string,id: string) {
         const header = {
             'Content-Type': 'application/json',
@@ -247,9 +247,36 @@ export class FirebaseService {
               requestOptions
             )
     }
-    getExchange() {
-        return this.http.get('https://api.coinbase.com/v2/exchange-rates?currency=BTC');
+   //open trade
+   openTrade(username:string,token:string,offer:any){
+    console.log(offer)
+    const header = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'token': token,
+      'username': username,
+     
+
     }
+    const body={   
+      "requestId":offer.requestId,
+      "email":"logged_in_user_john@example.com",
+      "offer_id":"offer.id",
+      "amount_fiat":"value_of_first_input",
+      "rate":"offer.rate",
+      "min":offer.minimum,
+      "max":offer.maximum
+  }
+    const requestOptions = {
+      headers: new HttpHeaders(header)
+    };
+   
+   return  this.http
+      .post(
+        'https://api.supabeta.com/api/coin/v1/openTrade',body,
+        requestOptions
+      )
+   }
  
     getCountries() {
         var data: any = new FormData();
@@ -286,24 +313,5 @@ export class FirebaseService {
         console.log(users);
         return users;
     }
-    async postData(token:string,username:string,formData: any) {
-        // Default options are marked with *
-        const response = await fetch('https://api.coinpes.cash/api/coin/v1/createOffer', {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          mode: 'cors', // no-cors, *cors, same-origin
-         // credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: '*/*',
-            token: token,
-            username: username,
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          //redirect: 'follow', // manual, *follow, error
-          //referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-          body: JSON.stringify(formData) // body data type must match "Content-Type" header
-        });
-        return response.json(); // parses JSON response into native JavaScript objects
-      }
       
 }
