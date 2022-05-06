@@ -1,9 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
-
-import { ChatService } from 'app/main/apps/chat/chat.service';
 import { FirebaseService } from 'app/services/firebase.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-chat-content',
@@ -16,7 +15,7 @@ export class ChatContentComponent implements OnInit {
 
     // Public
     public activeChat: Boolean;
-    public chats:any = [ ];
+    public chats: any = [];
     public chatUser = {
         fullName: 'ochieng Warren',
         userId: 1,
@@ -27,6 +26,10 @@ export class ChatContentComponent implements OnInit {
     public chatMessage = '';
     public newChat;
     public startConvo: Boolean = true;
+    public user:any={}
+    public currentUser:any ={}
+    public tradeData:any ={}
+    public trade:any ={}
 
     /**
      * Constructor
@@ -35,9 +38,10 @@ export class ChatContentComponent implements OnInit {
      * @param {CoreSidebarService} _coreSidebarService
      */
     constructor(
-        private _chatService: ChatService,
         private _coreSidebarService: CoreSidebarService,
-        private fb: FirebaseService
+        private fb: FirebaseService,
+        private route: ActivatedRoute,
+        private router: Router
     ) {}
 
     // Public Methods
@@ -47,35 +51,13 @@ export class ChatContentComponent implements OnInit {
      * Update Chat
      */
     updateChat() {
-        this.fb.sendMessage({ tradeId: "25", senderId: 1, message: this.chatMessage });
+        let user = JSON.parse(localStorage.getItem('user'));
 
-        // this.newChat = {
-        //     message: this.chatMessage,
-        //     time: Math.floor(Date.now()/1000),//Unix timestamp
-        //     senderId: this.userProfile.id//Userid or username
-        // };
-        // console.log(this.chatMessage);
-        // console.log(this.newChat)
-        // If chat data is available (update chat)
-        // if (this.chats.chat) {
-        //     if (this.newChat.message !== '') {
-        //         this.chats.chat.push(this.newChat);
-        //         this._chatService.updateChat(this.chats);
-        //         this.chatMessage = '';//Reset the input to an empty value
-        //         this.chats.chat.push({
-        //             message: 'lol that is kind of sus',
-        //             time: 'Mon Dec 10 2018 07:46:43 GMT+0000 (GMT)',
-        //             senderId: 1
-        //         });//Send a sample bot reply..might use this to show replies/incoming message
-        //         setTimeout(() => {
-        //             this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
-        //         }, 0);
-        //     }
-        // }
-        // Else create new chat
-        // else {
-        //    // this._chatService.createNewChat(this.chatUser.id, this.newChat);
-        // }
+        this.fb.sendMessage({
+            tradeId: this.trade.id,
+            senderId: user.username,
+            message: this.chatMessage
+        });
     }
 
     /**
@@ -94,29 +76,24 @@ export class ChatContentComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
-        this.activeChat = false;
-        this.fb.retrieveMessage("25").subscribe((data)=>{
-            this.chats = data
-              })
-        // Subscribe to Chat Change
-        // this._chatService.onChatOpenChange.subscribe(res => {
-        //     this.chatMessage = '';
-        //     this.activeChat = res;
-        //     setTimeout(() => {
-        //         this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
-        //     }, 0);
-        // });
-
-        // Subscribe to Selected Chat Change
-        // this._chatService.onSelectedChatChange.subscribe(res => {
-        //     this.chats = res;
-        // });
-
-        // Subscribe to Selected Chat User Change
-        // this._chatService.onSelectedChatUserChange.subscribe(res => {
-        //     this.chatUser = res;
-        // });
-
-        // this.userProfile = this._chatService.userProfile;
+       
+        this.user = JSON.parse(localStorage.getItem('user'));
+    const routeParams = this.route.snapshot.paramMap;    
+    const productIdFromRoute = routeParams.get('id');
+    this.fb.getUser(this.user.username,this.user.token).subscribe((data: any) => {
+     this.currentUser =data.responseMessage?.user_data[0];
+     this.tradeData = data.responseMessage?.trade_data;
+    this.trade = this.tradeData.find(product => product.id == productIdFromRoute);
+    console.log(this.trade)
+    this.fb.retrieveMessage(this.trade.id).subscribe((data:any) => {
+        this.chats = data;
+        console.log(data)
+    });
+   },(error)=>{
+     console.log(error)
+     this.router.navigate(['dashboard'])
+   });
+   this.activeChat = false;
+ 
     }
 }

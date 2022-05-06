@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import {BehaviorSubject, Subject, Observable, throwError, from } from 'rxjs';
+import { BehaviorSubject, Subject, Observable, throwError, from } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Injectable({
@@ -17,9 +17,9 @@ export class FirebaseService {
     db = getFirestore(this.app);
     signuperror: string = 'kiplagatbrian18@gmail.com';
     loginerror: string = '';
-    userData:any={}
+    userData: any = {};
     signuperrorChange: Subject<string> = new Subject<string>();
-    userDataChange:Subject<any>=new Subject<any>()
+    userDataChange: Subject<any> = new Subject<any>();
     loginerrorChange: Subject<string> = new Subject<string>();
     headerDict = {
         'Content-Type': 'application/json',
@@ -38,9 +38,9 @@ export class FirebaseService {
         this.loginerrorChange.subscribe((value) => {
             this.loginerror = value;
         });
-        this.userDataChange.subscribe((value)=>{
-            this.userData = value
-        })
+        this.userDataChange.subscribe((value) => {
+            this.userData = value;
+        });
     }
     // public methods
 
@@ -49,16 +49,14 @@ export class FirebaseService {
         const requestOptions = {
             headers: new HttpHeaders(this.headerDict)
         };
-        return this.http
-            .post(
-                'https://api.supabeta.com/api/coin/v1/loginUser',
-                {
-                    email: email,
-                    password: password
-                },
-                requestOptions
-            )
-          
+        return this.http.post(
+            'https://api.supabeta.com/api/coin/v1/loginUser',
+            {
+                email: email,
+                password: password
+            },
+            requestOptions
+        );
     }
     //logout
     async logout() {
@@ -80,122 +78,96 @@ export class FirebaseService {
         const requestOptions = {
             headers: new HttpHeaders(this.headerDict)
         };
-       return this.http
-            .post(
-                'https://api.supabeta.com/api/coin/v1/registerUser',
-                {
-                    email: email,
-                    password: password
-                },
-                requestOptions
-            )
-            
+        return this.http.post(
+            'https://api.supabeta.com/api/coin/v1/registerUser',
+            {
+                email: email,
+                password: password
+            },
+            requestOptions
+        );
     }
 
     //get user by email
-    getUser(username:string, token:string) {
+    getUser(username: string, token: string) {
         const header = {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'token': token,
-            'username': username
-      
-      
-          }
-          const requestOptions = {
+            Accept: 'application/json',
+            token: token,
+            username: username
+        };
+        const requestOptions = {
             headers: new HttpHeaders(header)
-          };
-         return  this.http
-            .get(
-              'https://api.supabeta.com/api/coin/v1/getUserDataByUsername/'+username,
-              requestOptions
-            )
-           
+        };
+        return this.http.get(
+            'https://api.supabeta.com/api/coin/v1/getUserDataByUsername/' + username,
+            requestOptions
+        );
     }
     // get notifications
-    getNotifications(username:string, token:string) {
+    getNotifications(username: string, token: string) {
         const header = {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'token': token,
-            'username': username,
-            
-      
-          }
-          const requestOptions = {
+            Accept: 'application/json',
+            token: token,
+            username: username
+        };
+        const requestOptions = {
             headers: new HttpHeaders(header)
-          };
-         return  this.http
-            .get(
-              'https://api.supabeta.com/api/coin/v1/fetchNotifications',
-              requestOptions
-            )
-           
+        };
+        return this.http.get(
+            'https://api.supabeta.com/api/coin/v1/fetchNotifications',
+            requestOptions
+        );
     }
     // get applications
-     createOffer(token:string,username:string,formData: any) {
+    createOffer(token: string, username: string, formData: any) {
         const header = {
             'Content-Type': 'application/json',
-            "Accept": '*/*',
-            "token": token,
-            "username": username,
-      
-          }
-          const body = JSON.stringify(formData)
-          const requestOptions = {
+            Accept: '*/*',
+            token: token,
+            username: username
+        };
+        const body = JSON.stringify(formData);
+        const requestOptions = {
             headers: new HttpHeaders(header)
-          };
-          console.log(token,username,formData)
-         return this.http
-            .post(
-              'https://api.supabeta.com/api/coin/v1/createOffer',formData,
-              {headers: new HttpHeaders({
+        };
+        console.log(token, username, formData);
+        return this.http.post('https://api.supabeta.com/api/coin/v1/createOffer', formData, {
+            headers: new HttpHeaders({
                 'Content-Type': 'application/json',
-                "Accept": '*/*',
-                "token": token,
-                "username": username,
-              })}
-            )
+                Accept: '*/*',
+                token: token,
+                username: username
+            })
+        });
     }
-        // get currencies
-        getCurrency(username:string, token:string) {
-            const header = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'token': token,
-                'username': username,
-               
-          
-              }
-              const requestOptions = {
-                headers: new HttpHeaders(header)
-              };
-             return  this.http
-                .get(
-                  'https://api.supabeta.com/api/coin/v1/getCurrency',
-                  requestOptions
-                )
-               
-        }
-// get offer tags
-        getTags(username:string, token:string) {
-            const header = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'token': token,
-                'username': username,
-               
-          
-              }
-              const requestOptions = {
-                headers: new HttpHeaders(header)
-              };
-             return  this.http
-                .get(
-                  'https://api.supabeta.com/api/coin/v1/getTags',
-                  requestOptions
-                )
-        }
+    // get currencies
+    getCurrency(username: string, token: string) {
+        const header = {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            token: token,
+            username: username
+        };
+        const requestOptions = {
+            headers: new HttpHeaders(header)
+        };
+        return this.http.get('https://api.supabeta.com/api/coin/v1/getCurrency', requestOptions);
+    }
+    // get offer tags
+    getTags(username: string, token: string) {
+        const header = {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            token: token,
+            username: username
+        };
+        const requestOptions = {
+            headers: new HttpHeaders(header)
+        };
+        return this.http.get('https://api.supabeta.com/api/coin/v1/getTags', requestOptions);
+    }
     // retrieve list of feeds
     async retrieve(colletion: string) {
         const feedsCol = collection(this.db, colletion);
@@ -205,71 +177,61 @@ export class FirebaseService {
     }
 
     // get offers
-    getOffers(username:string,token:string,type:string) {
+    getOffers(username: string, token: string, type: string) {
         const header = {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'token': token,
-            'username': username,
-           
-      
-          }
-          const body={
-            "type":type
-          }
-          const requestOptions = {
+            Accept: 'application/json',
+            token: token,
+            username: username
+        };
+        const body = {
+            type: type
+        };
+        const requestOptions = {
             headers: new HttpHeaders(header)
-          };
-         return  this.http
-            .post(
-              'https://api.supabeta.com/api/coin/v1/getOffers',body,
-              requestOptions
-            )
+        };
+        return this.http.post(
+            'https://api.supabeta.com/api/coin/v1/getOffers',
+            body,
+            requestOptions
+        );
     }
 
-//get offerinformation 
-    getInfo(username:string,token:string,id: string) {
+    //get offerinformation
+    getInfo(username: string, token: string, id: string) {
         const header = {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'token': token,
-            'username': username,
-           
-      
-          }
-         const requesturl ='https://api.supabeta.com/api/coin/v1/getOfferInfo/'+id
-          const requestOptions = {
+            Accept: 'application/json',
+            token: token,
+            username: username
+        };
+        const requesturl = 'https://api.supabeta.com/api/coin/v1/getOfferInfo/' + id;
+        const requestOptions = {
             headers: new HttpHeaders(header)
-          };
-         return  this.http
-            .get(
-                requesturl ,
-              requestOptions
-            )
+        };
+        return this.http.get(requesturl, requestOptions);
     }
-   //open trade
-   openTrade(username:string,token:string,data:any){
-    const header = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'token': token,
-      'username': username,
-     
+    //open trade
+    openTrade(username: string, token: string, data: any) {
+        const header = {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            token: token,
+            username: username
+        };
 
+        console.log(data);
+        const requestOptions = {
+            headers: new HttpHeaders(header)
+        };
+
+        return this.http.post(
+            'https://api.supabeta.com/api/coin/v1/openTrade',
+            data,
+            requestOptions
+        );
     }
 
-    console.log(data)
-    const requestOptions = {
-      headers: new HttpHeaders(header)
-    };
-   
-   return  this.http
-      .post(
-        'https://api.supabeta.com/api/coin/v1/openTrade',data,
-        requestOptions
-      )
-   }
- 
     getCountries() {
         var data: any = new FormData();
         data.append('key', 'kwdmcpmpmwsx');
@@ -289,21 +251,21 @@ export class FirebaseService {
     //chat logic
     createChat() {}
     //send message
-    async sendMessage(data) {
-        this.firestore.collection('trades').doc(data.tradeId).collection('chats').add({
+    async sendMessage(data: any) {
+        console.log(data);
+        this.firestore.collection('trades').doc(data.tradeId.toString()).collection('chats').add({
             senderId: data.senderId,
-            message: data.message
+            message: data.message,
+            time: Date.now()
         });
     }
     //retrieve all messages
-    retrieveMessage(docId) {
-        let users = this.firestore
+    retrieveMessage(docId: string) {
+      let messages = this.firestore
             .collection('trades')
-            .doc(docId)
-            .collection('chats')
-            .valueChanges();
-        console.log(users);
-        return users;
+            .doc(docId.toString())
+            .collection('chats', (ref) => ref.orderBy('time')).valueChanges();
+   
+        return messages;
     }
-      
 }
