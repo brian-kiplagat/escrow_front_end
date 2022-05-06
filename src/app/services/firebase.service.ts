@@ -248,8 +248,7 @@ export class FirebaseService {
             )
     }
    //open trade
-   openTrade(username:string,token:string,offer:any){
-    console.log(offer)
+   openTrade(username:string,token:string,data:any){
     const header = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -258,22 +257,15 @@ export class FirebaseService {
      
 
     }
-    const body={   
-      "requestId":offer.requestId,
-      "email":"logged_in_user_john@example.com",
-      "offer_id":"offer.id",
-      "amount_fiat":"value_of_first_input",
-      "rate":"offer.rate",
-      "min":offer.minimum,
-      "max":offer.maximum
-  }
+
+    console.log(data)
     const requestOptions = {
       headers: new HttpHeaders(header)
     };
    
    return  this.http
       .post(
-        'https://api.supabeta.com/api/coin/v1/openTrade',body,
+        'https://api.supabeta.com/api/coin/v1/openTrade',data,
         requestOptions
       )
    }

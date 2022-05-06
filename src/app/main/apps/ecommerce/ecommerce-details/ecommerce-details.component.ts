@@ -22,6 +22,9 @@ export class EcommerceDetailsComponent implements OnInit {
     public relatedProducts;
     public offer: any = {};
     public offers = [];
+    public oldoffer:any ={}
+    public buyamount =""
+    public currentUser:any ={}
 
     // Swiper
     public swiperResponsive: SwiperConfigInterface = {
@@ -108,10 +111,32 @@ export class EcommerceDetailsComponent implements OnInit {
             this.offer = data.responseMessage.data;
             console.log(data.responseMessage.data);
         });
+    
     }
     openTrade() {
+        //get user and token from local stroge
         let user = JSON.parse(localStorage.getItem('user'));
-        this._fb.openTrade(user.username, user.token, this.offer).subscribe(
+        this._fb.getUser(user.username,user.token).subscribe((data:any)=>{
+            this.currentUser=data.responseMessage.user_data[0]
+             //get current loggedin user
+        this._fb
+        .getOffers(user.username,user.token,this.offer.type).subscribe((data:any) => {
+            this.offers = data.responseMessage 
+          const routeParams = this.route.snapshot.paramMap;    
+          const productIdFromRoute = routeParams.get('id');
+            this.oldoffer = this.offers.find(product => product.idd == productIdFromRoute);
+            const body={   
+                "requestId":this.oldoffer.requestId,
+                "email":this.currentUser.email,
+                "offer_id":this.oldoffer.idd,
+                "amount_fiat":this.buyamount,
+                "rate":this.oldoffer.margin,
+                "min":this.offer.minimum,
+                "max":this.offer.maximum
+            }
+              //formulate request body
+
+        this._fb.openTrade(user.username, user.token,body).subscribe(
             (data: any) => {
                 console.log(data);
             },
@@ -119,5 +144,11 @@ export class EcommerceDetailsComponent implements OnInit {
                 console.log(error);
             }
         );
+            
+
+        })
+        })
+       
+      
     }
 }
