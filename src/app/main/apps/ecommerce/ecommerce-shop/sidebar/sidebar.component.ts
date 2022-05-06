@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation,Input } from '@angular/core';
+import { FirebaseService } from 'app/services/firebase.service';
 
 @Component({
   selector: 'ecommerce-sidebar',
@@ -10,8 +11,15 @@ export class EcommerceSidebarComponent implements OnInit {
   @Input()methods:any
   // Public
   public sliderPriceValue = [1, 100];
+  public tags:any[]=[]
 
-  constructor() {}
+  constructor(private fb:FirebaseService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let user =JSON.parse(localStorage.getItem('user'))
+    this.fb.getTags(user.username,user.token).subscribe((data:any)=>{
+      console.log("here are the tags",data)
+      this.tags = data.responseMessage
+    })
+  }
 }

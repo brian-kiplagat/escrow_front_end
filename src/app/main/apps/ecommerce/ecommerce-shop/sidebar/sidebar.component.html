@@ -67,33 +67,12 @@
     <div class="brands">
       <h6 class="filter-title">Offer Tags</h6>
       <ul class="list-unstyled brand-list">
-        <li>
+        <li  *ngFor="let tag of tags">
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="productBrand1" />
-            <label class="custom-control-label" for="productBrand1">Cash in Person</label>
+            <input type="checkbox" class="custom-control-input" id="{{tag.id}}" />
+            <label class="custom-control-label" for="{{tag.id}}">{{tag.tag}}</label>
           </div>
           <span>746</span>
-        </li>
-        <li>
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="productBrand2" checked />
-            <label class="custom-control-label" for="productBrand2">Cash Only</label>
-          </div>
-          <span>633</span>
-        </li>
-        <li>
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="productBrand3" />
-            <label class="custom-control-label" for="productBrand3">e-codes Accepted</label>
-          </div>
-          <span>591</span>
-        </li>
-        <li>
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="productBrand4" />
-            <label class="custom-control-label" for="productBrand4">external payment</label>
-          </div>
-          <span>530</span>
         </li>
       </ul>
     </div>
