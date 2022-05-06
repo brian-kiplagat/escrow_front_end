@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { first } from 'rxjs/operators';
 
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
@@ -17,6 +17,7 @@ export class ChatSidebarComponent implements OnInit {
   public chats;
   public selectedIndex = null;
   public userProfile;
+  @Input()trade:any;
 
   /**
    * Constructor

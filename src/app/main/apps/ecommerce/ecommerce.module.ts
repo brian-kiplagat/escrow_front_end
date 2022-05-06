@@ -64,10 +64,7 @@ const routes: Routes = [
     },
     data: { animation: 'EcommerceCheckoutComponent' }
   },
-  {
-    path: 'details/:id',
-    data: { animation: 'EcommerceDetailsComponent' }
-  }
+ 
 ];
 
 @NgModule({

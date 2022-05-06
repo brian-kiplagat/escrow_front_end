@@ -691,6 +691,7 @@ export class EcommerceComponent implements OnInit {
     this.tradeData = data.responseMessage?.trade_data;
    this.offerData =  data.responseMessage?.offer_data
    this.fiat = data.responseMessage?.fiat
+   console.log(this.tradeData)
   },(error)=>{
     console.log(error)
     this.router.navigate(['/'])

@@ -125,7 +125,7 @@
                   <small>{{trade.btc_amount_with_margin}} BTC</small>
                 </div>
               </div>
-              <button type="button" class="btn btn-outline-primary" rippleEffect >VIEW</button>
+              <button type="button" class="btn btn-outline-primary"[routerLink]="'/offers/chat/room/'+trade.id" rippleEffect >VIEW</button>
             </div>
             <div class="apply-job-package bg-light-warning rounded" *ngIf="trade.moderator_flag !='NA'">
               <div>

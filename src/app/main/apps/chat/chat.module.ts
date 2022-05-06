@@ -18,7 +18,7 @@ import { ChatService } from 'app/main/apps/chat/chat.service';
 // routing
 const routes: Routes = [
   {
-    path: '',
+    path: 'room/:id',
     component: ChatComponent,
    
     data: { animation: 'chat' }
