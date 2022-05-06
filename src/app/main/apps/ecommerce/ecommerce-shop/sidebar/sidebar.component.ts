@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation,Input } from '@angular/core';
 
 @Component({
   selector: 'ecommerce-sidebar',
@@ -7,6 +7,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class EcommerceSidebarComponent implements OnInit {
+  @Input()methods:any
   // Public
   public sliderPriceValue = [1, 100];
 
