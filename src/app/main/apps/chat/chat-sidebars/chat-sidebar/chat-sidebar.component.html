@@ -8,7 +8,7 @@
         </button>
         <div class="meetup-header d-flex align-items-center">
             <div class="my-auto">
-                <h4 class="card-title mb-25">{{trade.fiat_amount_original}} {{trade.currency}}</h4>
+                <h4 class="card-title mb-25">{{trade.fiat_amount_original|currency}} {{trade.currency}}</h4>
                 <p class="card-text mb-0">{{trade.btc_amount_with_margin}} BTC</p>
             </div>
         </div>
@@ -21,10 +21,10 @@
         <!-- App Design Card -->
         <div class="card card-app-design">
             <div class="card-body">
-                <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
+                <div class="badge badge-light-primary">Created at{{trade.created_at|date}}</div>
                 <h4 class="card-title mt-1 mb-75 pt-25">Trade Started</h4>
                 <p class="font-small-2">
-                    Send {{trade.currency}} {{trade.fiat_amount_original}} {{trade.currency}} using Bank transfer, {{trade.btc_amount_with_margin}} BTC will be added to your Coinlif wallet
+                    Send {{trade.currency}} {{trade.fiat_amount_original|currency}} {{trade.currency}} using Bank transfer, {{trade.btc_amount_with_margin}} BTC will be added to your Coinlif wallet
                 </p>
                 <div class="design-group mb-2 pt-50" >
                     <h6 class="section-label" >Expires in:</h6>
@@ -42,7 +42,7 @@
                 <div class="design-group mb-2 pt-50">
                     <h6 class="section-label">Details</h6>
                     <div class="badge badge-light-warning mr-1"  ngbTooltip="Send this to support in case you have complaints regarding this trade" placement="bottom">Trade id: {{trade.id}}</div>
-                    <div class="badge badge-light-primary">Rate: {{trade.price}} {{trade.currency}}/BTC</div>
+                    <div class="badge badge-light-primary">Rate: {{trade.price| number : '1.1-2'}} {{trade.currency}}/BTC</div>
                 </div>
 
                 <h4 class="card-title">Quick Tutorial</h4>
