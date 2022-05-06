@@ -8,7 +8,7 @@
         </button>
         <div class="meetup-header d-flex align-items-center">
             <div class="my-auto">
-                <h4 class="card-title mb-25">{{trade.price}} {{trade.currency}}</h4>
+                <h4 class="card-title mb-25">{{trade.fiat_amount_original}} {{trade.currency}}</h4>
                 <p class="card-text mb-0">{{trade.btc_amount_with_margin}} BTC</p>
             </div>
         </div>
@@ -24,7 +24,7 @@
                 <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
                 <h4 class="card-title mt-1 mb-75 pt-25">Trade Started</h4>
                 <p class="font-small-2">
-                    Send {{trade.currency}} {{trade.fiat_amount_original}}using Bank transfer, {{trade.btc_amount_with_margin}} BTC will be added to your Coinlif wallet
+                    Send {{trade.currency}} {{trade.fiat_amount_original}} {{trade.currency}} using Bank transfer, {{trade.btc_amount_with_margin}} BTC will be added to your Coinlif wallet
                 </p>
                 <div class="design-group mb-2 pt-50" >
                     <h6 class="section-label" >Expires in:</h6>
@@ -41,8 +41,8 @@
                 <button type="button" rippleEffect class="btn btn-outline-warning btn-block" ngbTooltip="This will cancel this trade and return BTC from our escrow | trust account back to the seller. If you had sent any amount, for your safety, we require you to ask for refund first before cancelling" placement="bottom" >CANCEL TRADE</button>
                 <div class="design-group mb-2 pt-50">
                     <h6 class="section-label">Details</h6>
-                    <div class="badge badge-light-warning mr-1"  ngbTooltip="Send this to support in case you have complaints regarding this trade" placement="bottom">Trade id: 93488njsnc</div>
-                    <div class="badge badge-light-primary">Rate: 4,890,270 {{trade.currency}}/BTC</div>
+                    <div class="badge badge-light-warning mr-1"  ngbTooltip="Send this to support in case you have complaints regarding this trade" placement="bottom">Trade id: {{trade.id}}</div>
+                    <div class="badge badge-light-primary">Rate: {{trade.price}} {{trade.currency}}/BTC</div>
                 </div>
 
                 <h4 class="card-title">Quick Tutorial</h4>
@@ -116,53 +116,7 @@
                     </li>
 
                 </ul>
-                <div class="card-body">
-                    <div class="align-top">
-                      <!--ONE ELEMENT-->
-                      <div>
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                          <div class="media">
-                            <div class="avatar mr-1">
-                              <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42"/>
-                            </div>
-                            <div class="media-body">
-                              <h5 class="mb-0">User28893</h5>
-                              <small class="text-muted">400 EUR</small>
-     
-                            </div>
-     
-                          </div>
-                          <div class="badge badge-pill badge-light-primary">BUY</div>
-                        </div>
-                        <button type="button" class="btn btn-outline-primary btn-block" rippleEffect>VIEW TRADE</button>
-                        <hr>
-                      </div>
-                      <!--ONE ELEMENT-->
-     
-                      <!--ONE ELEMENT-->
-                      <div>
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                          <div class="media">
-                            <div class="avatar mr-1">
-                              <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42"/>
-                            </div>
-                            <div class="media-body">
-                              <h5 class="mb-0">User28893</h5>
-                              <small class="text-muted">400 EUR</small>
-     
-                            </div>
-     
-                          </div>
-                          <div class="badge badge-pill badge-light-primary">BUY</div>
-                        </div>
-                        <button type="button" class="btn btn-outline-primary btn-block" rippleEffect>VIEW TRADE</button>
-                        <hr>
-                      </div>
-                      <!--ONE ELEMENT-->
-     
-                    </div>
-     
-                  </div>
+               
 
             </div>
         </div>

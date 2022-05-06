@@ -85,6 +85,7 @@ export class ChatContentComponent implements OnInit {
      this.tradeData = data.responseMessage?.trade_data;
     this.trade = this.tradeData.find(product => product.id == productIdFromRoute);
     console.log(this.trade)
+    
     this.fb.retrieveMessage(this.trade.id).subscribe((data:any) => {
         this.chats = data;
         console.log(data)
