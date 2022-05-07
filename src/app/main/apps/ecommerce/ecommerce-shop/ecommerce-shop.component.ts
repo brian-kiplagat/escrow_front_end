@@ -28,6 +28,7 @@ export class EcommerceShopComponent implements OnInit {
     public offers = []
     public currency:any[] = []
     public currencies =[]
+    public type:string="buy"
     public methods =[]
    public   amount =0
     public filters ={
@@ -124,7 +125,7 @@ export class EcommerceShopComponent implements OnInit {
         });
 
     }
-    //filter offers
+    //filter offers by input
     filterOffers(){
         let user =JSON.parse(localStorage.getItem('user'))
         this._fb
@@ -149,5 +150,41 @@ export class EcommerceShopComponent implements OnInit {
                   console.log(this.offers)
             })
           
+    }
+
+    // filter offers by price range
+    onNotify(value:number){
+        console.log('hello',value)
+         let user =JSON.parse(localStorage.getItem('user'))
+    this._fb
+        .getOffers(user.username,user.token,this.type).subscribe((data:any)=>{
+            this.offers = data.responseMessage
+         
+           console.log(this.offers,value)
+            this.offers=data.responseMessage.filter((item:any) =>{
+
+                
+                if(value ==1){
+                    
+                    return true
+                }
+                if(value ==2&&10 > Number(item.minimum)){
+                  return false
+              }
+                if(value ==3&&10 > Number(item.minimum)|| 100 > Number(item.maximum)){
+                    return false
+                }
+                if(value ==4&&100 < Number(item.minimum)|| 500 > Number(item.maximum)){
+                    return false
+                }
+                if(value ==5&&500 < Number(item.maximum)){
+                  return false
+              }
+                return true;
+              });
+              
+              console.log(this.offers)
+        })
+      
     }
 }

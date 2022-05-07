@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation,Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation,Input,Output,EventEmitter } from '@angular/core';
 import { FirebaseService } from 'app/services/firebase.service';
 
 @Component({
@@ -8,12 +8,17 @@ import { FirebaseService } from 'app/services/firebase.service';
   encapsulation: ViewEncapsulation.None
 })
 export class EcommerceSidebarComponent implements OnInit {
-  @Input()methods:any
+  @Input()type:string  | undefined;
+  @Output()notify= new EventEmitter<string>()
   // Public
   public sliderPriceValue = [1, 100];
   public tags:any[]=[]
+  public offers:any[]=[]
 
   constructor(private fb:FirebaseService) {}
+  testInput(){
+    console.log(this.type)
+  }
 
   ngOnInit(): void {
     let user =JSON.parse(localStorage.getItem('user'))
@@ -22,4 +27,9 @@ export class EcommerceSidebarComponent implements OnInit {
       this.tags = data.responseMessage
     })
   }
+   //filter offers
+   filterOffersByRange(e:any){
+     this.notify.emit(e.target.value)
+   
+}
 }

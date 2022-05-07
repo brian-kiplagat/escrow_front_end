@@ -31,6 +31,7 @@ export class EcommerceWishlistComponent implements OnInit {
     public currencies =[]
     public methods =[]
     public   amount =0
+    public type:string ="sell"
     public filters ={
          currency:"",
          method:"",
@@ -118,10 +119,45 @@ export class EcommerceWishlistComponent implements OnInit {
         this._ecommerceService.onCartListChange.subscribe((res) => (this.cartList = res));
 
         // update product is in Wishlist & is in CartList : Boolean
-        this.products.forEach((product) => {
-            product.isInWishlist = this.wishlist.findIndex((p) => p.productId === product.id) > -1;
-            product.isInCart = this.cartList.findIndex((p) => p.productId === product.id) > -1;
+        this.products.forEach((product:any) => {
+            product.isInWishlist = this.wishlist.findIndex((p:any) => p.productId === product.id) > -1;
+            product.isInCart = this.cartList.findIndex((p:any) => p.productId === product.id) > -1;
         });
+
+    }
+    onNotify(value:number){
+        console.log('hello',value)
+         let user =JSON.parse(localStorage.getItem('user'))
+    this._fb
+        .getOffers(user.username,user.token,this.type).subscribe((data:any)=>{
+            this.offers = data.responseMessage
+         
+           console.log(this.offers,value)
+            this.offers=data.responseMessage.filter((item:any) =>{
+
+                
+                if(value ==1){
+                    
+                    return true
+                }
+                if(value ==2&&10 > Number(item.minimum)){
+                  return false
+              }
+                if(value ==3&&10 > Number(item.minimum)|| 100 > Number(item.maximum)){
+                    return false
+                }
+                if(value ==4&&100 < Number(item.minimum)|| 500 > Number(item.maximum)){
+                    return false
+                }
+                if(value ==5&&500 < Number(item.maximum)){
+                  return false
+              }
+                return true;
+              });
+              
+              console.log(this.offers)
+        })
+      
     }
         //filter offers
         filterOffers(){
