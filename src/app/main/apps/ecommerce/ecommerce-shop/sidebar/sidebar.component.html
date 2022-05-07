@@ -54,10 +54,11 @@
           [behaviour]="'drag'"
           [tooltips]="true"
           [min]="1"
-          [max]="100"
-          [limit]="100"
+          [max]="1000"
+          [limit]="1000"
           [step]="2"
           [(ngModel)]="sliderPriceValue"
+          (change)="sliderValue($event)"
         ></nouislider>
       </div>
     </div>
@@ -69,7 +70,7 @@
       <ul class="list-unstyled brand-list">
         <li  *ngFor="let tag of tags">
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="{{tag.id}}" />
+            <input type="checkbox" class="custom-control-input" id="{{tag.id}}" value="{{tag.tag}}" (change)="tagValue($event)"/>
             <label class="custom-control-label" for="{{tag.id}}">{{tag.tag}}</label>
           </div>
          
@@ -138,7 +139,7 @@
 
     <!-- Clear Filters Starts -->
     <div id="clear-filters">
-      <button type="button" class="btn btn-block btn-primary" rippleEffect (click)="testInput()">Clear All Filters</button>
+      <button type="button" class="btn btn-block btn-primary" rippleEffect>Clear All Filters</button>
     </div>
     <!-- Clear Filters Ends -->
   </div>

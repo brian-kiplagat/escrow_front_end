@@ -10,15 +10,15 @@ import { FirebaseService } from 'app/services/firebase.service';
 export class EcommerceSidebarComponent implements OnInit {
   @Input()type:string  | undefined;
   @Output()notify= new EventEmitter<string>()
+  @Output()sliderChange= new EventEmitter<any>()
+  @Output()tagChange =new EventEmitter<string>()
   // Public
-  public sliderPriceValue = [1, 100];
+  public sliderPriceValue = [1, 1000];
   public tags:any[]=[]
   public offers:any[]=[]
 
   constructor(private fb:FirebaseService) {}
-  testInput(){
-    console.log(this.type)
-  }
+
 
   ngOnInit(): void {
     let user =JSON.parse(localStorage.getItem('user'))
@@ -31,5 +31,13 @@ export class EcommerceSidebarComponent implements OnInit {
    filterOffersByRange(e:any){
      this.notify.emit(e.target.value)
    
+}
+//notify slider
+sliderValue(e:any){
+this.sliderChange.emit(e)
+}
+//tag value
+tagValue(e:any){
+this.tagChange.emit(e.target.value)
 }
 }

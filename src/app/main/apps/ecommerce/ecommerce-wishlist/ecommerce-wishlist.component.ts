@@ -126,38 +126,57 @@ export class EcommerceWishlistComponent implements OnInit {
 
     }
     onNotify(value:number){
-        console.log('hello',value)
          let user =JSON.parse(localStorage.getItem('user'))
     this._fb
         .getOffers(user.username,user.token,this.type).subscribe((data:any)=>{
             this.offers = data.responseMessage
          
-           console.log(this.offers,value)
+           console.log(value)
             this.offers=data.responseMessage.filter((item:any) =>{
 
                 
                 if(value ==1){
                     
                     return true
-                }
-                if(value ==2&&10 > Number(item.minimum)){
-                  return false
-              }
-                if(value ==3&&10 > Number(item.minimum)|| 100 > Number(item.maximum)){
+                }else if(value ==2&&10 < Number(item.minimum)){
+                    return false
+                }else if(value ==3&&10 < Number(item.minimum)&& 100 < Number(item.maximum)){
                     return false
                 }
-                if(value ==4&&100 < Number(item.minimum)|| 500 > Number(item.maximum)){
+                else if(value ==4&&100 < Number(item.minimum)&& 500 < Number(item.maximum)){
                     return false
                 }
-                if(value ==5&&500 < Number(item.maximum)){
+              
+               else if(value ==5&&500 >Number(item.minimum)){
                   return false
-              }
+              }else{
                 return true;
+              }
+                
               });
               
               console.log(this.offers)
         })
       
+    }
+    onSliderChange(value:any){
+        let user =JSON.parse(localStorage.getItem('user'))
+        this._fb
+            .getOffers(user.username,user.token,this.type).subscribe((data:any)=>{
+                this.offers = data.responseMessage
+             
+               console.log(this.offers,value)
+                this.offers=data.responseMessage.filter((item:any) =>{
+
+                    if(value&&value[0] < Number(item.minimum)&& value[1] > Number(item.maximum)){
+                        return true
+                    }
+                  
+                    return false;
+                  });
+                  
+                  console.log(this.offers)
+            })
     }
         //filter offers
         filterOffers(){

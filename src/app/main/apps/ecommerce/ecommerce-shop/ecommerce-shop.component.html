@@ -4,7 +4,7 @@
     <div class="sidebar">
       <core-sidebar class="sidebar-shop" id="ecommerce-sidebar-toggler" name="ecommerce-sidebar"
         collapsibleSidebar="bs-gt-lg" overlayClass="body-content-overlay">
-        <ecommerce-sidebar [type]="type" (notify)="onNotify($event)"></ecommerce-sidebar>
+        <ecommerce-sidebar [type]="type" (notify)="onNotify($event)" (sliderChange)="onSliderChange($event)" (tagChange)="onTagChange($event)"></ecommerce-sidebar>
       </core-sidebar>
     </div>
   </div>
