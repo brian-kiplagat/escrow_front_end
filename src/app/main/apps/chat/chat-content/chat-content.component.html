@@ -65,18 +65,18 @@
     <!-- User Chat messages -->
     <div class="user-chats" [perfectScrollbar] #scrollMe [scrollTop]="scrolltop">
       <div class="chats">
-        <ngb-alert [type]="'success'" [dismissible]="false" >
+        <ngb-alert [type]="'primary'" [dismissible]="false" >
           <div class="card">
             <div class="alert-body">
-              <p>You’re selling {{trade.btc_amount_with_margin}} BTC
+              <p class="text-body-heading">You’re selling {{trade.btc_amount_with_margin}} BTC
                 ({{trade.fiat_amount_with_margin}} {{trade.currency}}) for {{trade.fiat_original}} {{trade.currency}}
                 via {{trade.currency}}. Your funds are being securely held in escrow.
               </p>
-              <p>1. Share your {{trade.currency}} details and the account holder’s name with your trade partner</p>
-              <p>2. Your trade partner will make their payment</p>
-              <p>3. Wait for your trade partner to mark the trade as "Paid"</p>
-              <p>4. Confirm that you’ve received your payment</p>
-              <p>5. Release the BTC to your trade partner</p>
+              <p class="text-black-50">1. Share your {{trade.currency}} details and the account holder’s name with your trade partner</p>
+              <p class="text-black-50">2. Your trade partner will make their payment</p>
+              <p class="text-black-50">3. Wait for your trade partner to mark the trade as "Paid"</p>
+              <p class="text-black-50">4. Confirm that you’ve received your payment</p>
+              <p class="text-black-50">5. Release the BTC to your trade partner</p>
             </div>
           </div>
 

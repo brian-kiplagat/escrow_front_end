@@ -86,12 +86,13 @@ export class ChatContentComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');
 
-    if (this.trade.buyer == this.user.email) {
+    if (this.trade.buyer == this.user.email) {//Here i try to check if the logged in user is the buyer,,,,but i cant seem to access the users email
+      console.log('Logged in user is the buyer')
+
       //Logged in user is the buyer
-      console.log(this.user.email)
     } else {
       //Logged in user is the seller
-      console.log(this.user.email)
+      console.log('Logged in user is the seller')
     }
 
     this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
@@ -99,6 +100,7 @@ export class ChatContentComponent implements OnInit {
       this.tradeData = data.responseMessage?.trade_data;
       this.trade = this.tradeData.find(product => product.id == productIdFromRoute);
       console.log(this.trade)
+    //  console.log(this.currentUser)
 
       this.fb.retrieveMessage(this.trade.id).subscribe((data: any) => {
         this.chats = data;
