@@ -111,12 +111,12 @@
     <!-- User Chat messages -->
 
     <!-- Submit Chat form -->
-    <form class="chat-app-form" action="javascript:void(0);">
+    <form class="chat-app-form" action="javascript:void(0);" autocomplete="off">
       <div class="input-group input-group-merge mr-1 form-send-message">
 
         <input
           type="text"
-          autocomplete="false"
+          autocomplete="off"
           class="form-control message"
           placeholder="Type your message"
           [(ngModel)]="chatMessage"

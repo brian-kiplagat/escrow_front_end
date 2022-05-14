@@ -65,13 +65,13 @@ export class ChatContentComponent implements OnInit {
 
 
     });
-    this.chats.chat.push(this.newChat);
-    this._chatService.updateChat(this.chats);
-    console.log(this.chatMessage)
     this.chatMessage = '';//Reset the input to an empty value
     setTimeout(() => {
       this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
     }, 0);
+
+    console.log(this.chatMessage)
+
   }
 
   /**
