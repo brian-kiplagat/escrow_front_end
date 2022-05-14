@@ -4,61 +4,61 @@ import { CoreMenu } from '@core/types';
 
 export const menu: CoreMenu[] = [
   {
-    id: 'apps',
+    id: 'apps_1',
     type: 'item',
     title: 'Dashboard',
     translate: 'MENU.APPS.SECTION',
-    icon: 'package',
+    icon: 'user',
     url: "dashboard/overview"
   },
   {
-    id: 'apps',
+    id: 'apps_2',
     type: 'item',
     title: 'Buy Bitcoin',
     translate: 'MENU.APPS.SECTION',
-    icon: 'package',
+    icon: 'dollar-sign',
     url: "offers/bitcoin/buy"
   },
   {
-    id: 'apps',
+    id: 'apps_3',
     type: 'item',
     title: 'Sell Bitcoin',
     translate: 'MENU.APPS.SECTION',
-    icon: 'package',
+    icon: 'dollar-sign',
     url:"offers/bitcoin/sell"
 
   },
   {
-    id: 'apps',
+    id: 'apps_4',
     type: 'item',
     title: 'Create an Offer',
     translate: 'MENU.APPS.SECTION',
-    icon: 'package',
+    icon: 'plus-circle',
     url: "offers/bitcoin/create"
   },
-  // {
-  //   id: 'apps',
-  //   type: 'item',
-  //   title: 'My Balance',
-  //   translate: 'MENU.APPS.SECTION',
-  //   icon: 'package',
-  //   url: "apps/invoice/list"
-  // },
-  // {
-  //   id: 'apps',
-  //   type: 'item',
-  //   title: 'Send|Receive',
-  //   translate: 'MENU.APPS.SECTION',
-  //   icon: 'package',
-  //   url: "pages/pricing"
-  // },
-  // {
-  //   id: 'apps',
-  //   type: 'item',
-  //   title: 'Contact Support',
-  //   translate: 'MENU.APPS.SECTION',
-  //   icon: 'package',
-  //   url: "apps/invoice/edit"
-  // },
+  {
+    id: 'apps_5',
+    type: 'item',
+    title: 'My Wallet',
+    translate: 'MENU.APPS.SECTION',
+    icon: 'pocket',
+    url: "pages/account-settings"
+  },
+  {
+    id: 'apps_6',
+    type: 'item',
+    title: 'My Records',
+    translate: 'MENU.APPS.SECTION',
+    icon: 'file-text',
+    url: "tables/table"
+  },
+  {
+    id: 'apps_7',
+    type: 'item',
+    title: 'Contact Support',
+    translate: 'MENU.APPS.SECTION',
+    icon: 'phone-call',
+    url: "pages/faq"
+  }
 
 ];
