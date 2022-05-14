@@ -8,14 +8,14 @@
     </div>
     <h4 class="sidebar-toggle start-chat-text" (click)="toggleSidebar('chat-sidebar')">Start Conversation</h4>
   </div> -->
-     <!-- [ngClass]="{ 'd-none': startConvo !== true }"
-    *ngIf="startConvo === true" -->
+  <!-- [ngClass]="{ 'd-none': startConvo !== true }"
+ *ngIf="startConvo === true" -->
   <!--/ To load Conversation -->
 
   <!-- Active Chat -->
   <div class="active-chat"
 
-   >
+  >
     <!-- Chat Header -->
     <div class="chat-navbar">
       <header class="chat-header">
@@ -27,7 +27,7 @@
             class="btn avatar avatar-border user-profile-toggle bg-transparent m-0 mr-1 p-0"
             (click)="toggleSidebar('chat-active-sidebar')"
           >
-            <img [src]="chatUser.avatar" alt="avatar" height="36" width="36" />
+            <img [src]="chatUser.avatar" alt="avatar" height="36" width="36"/>
             <span
               [ngClass]="{
                 'avatar-status-offline': chatUser.status == 'offline',
@@ -65,15 +65,33 @@
     <!-- User Chat messages -->
     <div class="user-chats" [perfectScrollbar] #scrollMe [scrollTop]="scrolltop">
       <div class="chats">
+        <ngb-alert [type]="'primary'" [dismissible]="false" >
+          <div class="card">
+            <div class="alert-body">
+              <p class="text-body-heading">You’re selling {{trade.btc_amount_with_margin}} BTC
+                ({{trade.fiat_amount_with_margin}} {{trade.currency}}) for {{trade.fiat_original}} {{trade.currency}}
+                via {{trade.currency}}. Your funds are being securely held in escrow.
+              </p>
+              <p class="text-black-50">1. Share your {{trade.currency}} details and the account holder’s name with your trade partner</p>
+              <p class="text-black-50">2. Your trade partner will make their payment</p>
+              <p class="text-black-50">3. Wait for your trade partner to mark the trade as "Paid"</p>
+              <p class="text-black-50">4. Confirm that you’ve received your payment</p>
+              <p class="text-black-50">5. Release the BTC to your trade partner</p>
+            </div>
+          </div>
+
+        </ngb-alert>
+
+
         <div
           class="chat"
           *ngFor="let chatRef of chats"
           [ngClass]="{ 'chat-left':chatRef.senderId != user.username }"
         >
-          <div class="chat-avatar">
+          <div class="chat-avatar" *ngIf="chatRef.senderId != user.username;">
             <span class="avatar box-shadow-1 cursor-pointer">
               <img
-                *ngIf="chatRef.senderId != user.username;"
+
                 [src]="chatUser.avatar"
                 alt="avatar"
                 height="32"
@@ -108,8 +126,8 @@
           <span class="input-group-text">
             <label for="attach-doc" class="attachment-icon mb-0">
               <i data-feather="image" class="cursor-pointer lighten-2 text-secondary"></i>
-              <input type="file" id="attach-doc" hidden /> </label
-          ></span>
+              <input type="file" id="attach-doc" hidden/> </label
+            ></span>
         </div>
       </div>
       <button type="button" class="btn btn-primary send" (click)="updateChat()" rippleEffect>

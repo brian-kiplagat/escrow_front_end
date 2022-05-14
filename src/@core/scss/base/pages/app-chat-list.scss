@@ -54,7 +54,7 @@ $chat-widget-height: 390px;
     }
     .chat-body {
       display: block;
-      margin: 10px 30px 0 0;
+      margin: 10px 0px 0 0;
       overflow: hidden;
       .chat-content {
         float: right;
@@ -65,7 +65,7 @@ $chat-widget-height: 390px;
         @include gradient-directional(map-get($primary-color, 'base'), map-get($primary-color, 'lighten-2'), 80deg);
         border-radius: $border-radius;
         box-shadow: 0 4px 8px 0 rgba($black, 0.12);
-        max-width: 75%;
+        max-width: 90%;
         p {
           margin: 0;
         }
@@ -86,6 +86,7 @@ $chat-widget-height: 390px;
         }
       }
     }
+
   }
   // Chat form of user area
   .chat-app-form {
