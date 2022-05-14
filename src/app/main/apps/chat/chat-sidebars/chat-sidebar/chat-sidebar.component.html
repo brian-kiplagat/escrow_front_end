@@ -21,10 +21,10 @@
         <!-- App Design Card -->
         <div class="card card-app-design">
             <div class="card-body">
-                <div class="badge badge-light-primary">Created at{{trade.created_at|date}}</div>
+                <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
                 <h4 class="card-title mt-1 mb-75 pt-25">Trade Started</h4>
                 <p class="font-small-2">
-                    Send {{trade.currency}} {{trade.fiat_amount_original|currency}} {{trade.currency}} using Bank transfer, {{trade.btc_amount_with_margin}} BTC will be added to your Coinlif wallet
+                    Send {{trade.currency}} {{trade.fiat_amount_original}} {{trade.currency}} using  {{trade.method}} , {{trade.btc_amount_with_margin}} BTC will be added to your Coinpes wallet
                 </p>
                 <div class="design-group mb-2 pt-50" >
                     <h6 class="section-label" >Expires in:</h6>
@@ -62,10 +62,10 @@
                         <span class="timeline-point timeline-point-secondary timeline-point-indicator"></span>
                         <div class="timeline-event">
                             <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                <h6>Send 400 EUR</h6>
+                                <h6>Send {{trade.fiat_amount_original | number : '1.2-2'}} {{trade.currency}}</h6>
 
                             </div>
-                            <p>Send the exact amount to the seller. Dont send any other amount</p>
+                            <p>Send this exact amount in {{trade.currency}} to the seller via {{trade.currency}}</p>
 
                         </div>
                     </li>
@@ -87,7 +87,7 @@
                             <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
                                 <h6 class="mb-50">Seller will release Bitcoin</h6>
                             </div>
-                            <p>The seller will check on your payment and release BTC to your wallet. </p>
+                            <p>The seller will check on your payment and release  {{trade.btc_amount_with_margin}} BTC to your wallet. </p>
                             <hr/>
                             <div class="media align-items-center">
                                 <div class="avatar">
@@ -116,7 +116,7 @@
                     </li>
 
                 </ul>
-               
+
 
             </div>
         </div>

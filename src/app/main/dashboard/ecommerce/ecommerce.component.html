@@ -28,20 +28,20 @@
           </div>
           <div class="card-body statistics-body">
             <div class="row">
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0"  [routerLink]="'/offers/bitcoin/buy'">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
                       <i data-feather="dollar-sign" class="avatar-icon"></i>
                     </div>
                   </div>
-                  <div class="media-body my-auto">
+                  <div class="media-body my-auto" >
                     <h4 class="font-weight-bolder mb-0">BUY</h4>
                     <p class="card-text font-small-3 mb-0">BTC</p>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0" [routerLink]="'/offers/bitcoin/sell'">
                 <div class="media">
                   <div class="avatar bg-light-info mr-2">
                     <div class="avatar-content">
@@ -54,7 +54,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-sm-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-sm-0" [routerLink]="'/pages/account-settings'">
                 <div class="media">
                   <div class="avatar bg-light-danger mr-2">
                     <div class="avatar-content">
@@ -67,7 +67,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3">
+              <div class="col-sm-6 col-xl-3" [routerLink]="'/offers/bitcoin/buy'">
                 <div class="media">
                   <div class="avatar bg-light-success mr-2">
                     <div class="avatar-content">
@@ -96,7 +96,7 @@
             <!-- ONE ELEMENT -->
             <div  *ngFor="let trade of tradeData">
               <ngb-alert [type]="'primary'" [dismissible]="false">
-                <div class="alert-body">Trade {{trade.status}}</div>
+                <div class="alert-body">TRADE {{trade.status}}</div>
               </ngb-alert>
             <div class="d-flex justify-content-between align-items-center mb-1">
               <div class="media">
