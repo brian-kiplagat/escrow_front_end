@@ -4,6 +4,7 @@ import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.ser
 import {FirebaseService} from 'app/services/firebase.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {user} from "@angular/fire/auth";
+import {ChatService} from "../chat.service";
 
 @Component({
   selector: 'app-chat-content',
@@ -32,6 +33,7 @@ export class ChatContentComponent implements OnInit {
   public tradeData: any = {}
   public trade: any = {}
   public chat_instruction;
+  public uname;
 
   /**
    * Constructor
@@ -39,7 +41,7 @@ export class ChatContentComponent implements OnInit {
    * @param {ChatService} _chatService
    * @param {CoreSidebarService} _coreSidebarService
    */
-  constructor(
+  constructor(private _chatService: ChatService,
     private _coreSidebarService: CoreSidebarService,
     private fb: FirebaseService,
     private route: ActivatedRoute,
@@ -60,7 +62,16 @@ export class ChatContentComponent implements OnInit {
       tradeId: this.trade.id,
       senderId: user.username,
       message: this.chatMessage
+
+
     });
+    this.chats.chat.push(this.newChat);
+    this._chatService.updateChat(this.chats);
+    console.log(this.chatMessage)
+    this.chatMessage = '';//Reset the input to an empty value
+    setTimeout(() => {
+      this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
+    }, 0);
   }
 
   /**
@@ -101,6 +112,12 @@ export class ChatContentComponent implements OnInit {
       this.trade = this.tradeData.find(product => product.id == productIdFromRoute);
       console.log(this.trade)
     //  console.log(this.currentUser)
+      if (this.trade.username == this.user.username){//Show other username for logged in party
+        this.uname = this.user.username
+      }else {
+
+        this.uname = this.trade.username
+      }
 
       this.fb.retrieveMessage(this.trade.id).subscribe((data: any) => {
         this.chats = data;

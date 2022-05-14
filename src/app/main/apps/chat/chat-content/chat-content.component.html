@@ -37,7 +37,7 @@
               }"
             ></span>
           </button>
-          <h6 class="mb-0">{{ trade.username }}</h6>
+          <h6 class="mb-0">{{ uname }}</h6>
         </div>
         <div class="d-flex align-items-center">
 
@@ -69,10 +69,10 @@
           <div class="card">
             <div class="alert-body">
               <p class="text-body-heading">You’re selling {{trade.btc_amount_with_margin}} BTC
-                ({{trade.fiat_amount_with_margin}} {{trade.currency}}) for {{trade.fiat_original}} {{trade.currency}}
-                via {{trade.currency}}. Your funds are being securely held in escrow.
+                ({{trade.fiat_amount_with_margin | number : '1.2-2'}} {{trade.currency }}) for {{trade.fiat_amount_original | number : '1.2-2'}} {{trade.currency}}
+                via {{trade.method | titlecase}}. Your funds are being securely held in escrow.
               </p>
-              <p class="text-black-50">1. Share your {{trade.currency}} details and the account holder’s name with your trade partner</p>
+              <p class="text-black-50">1. Share your {{trade.method | titlecase}} details and the account holder’s name with your trade partner</p>
               <p class="text-black-50">2. Your trade partner will make their payment</p>
               <p class="text-black-50">3. Wait for your trade partner to mark the trade as "Paid"</p>
               <p class="text-black-50">4. Confirm that you’ve received your payment</p>
@@ -116,6 +116,7 @@
 
         <input
           type="text"
+          autocomplete="false"
           class="form-control message"
           placeholder="Type your message"
           [(ngModel)]="chatMessage"

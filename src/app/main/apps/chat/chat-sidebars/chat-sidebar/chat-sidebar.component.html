@@ -8,7 +8,7 @@
         </button>
         <div class="meetup-header d-flex align-items-center">
             <div class="my-auto">
-                <h4 class="card-title mb-25">{{trade.fiat_amount_original|currency}} {{trade.currency}}</h4>
+                <h4 class="card-title mb-25">{{trade.fiat_amount_original| number : '1.2-2'}} {{trade.currency}}</h4>
                 <p class="card-text mb-0">{{trade.btc_amount_with_margin}} BTC</p>
             </div>
         </div>
@@ -24,7 +24,7 @@
                 <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
                 <h4 class="card-title mt-1 mb-75 pt-25">Trade Started</h4>
                 <p class="font-small-2">
-                    Send {{trade.currency}} {{trade.fiat_amount_original}} {{trade.currency}} using  {{trade.method}} , {{trade.btc_amount_with_margin}} BTC will be added to your Coinpes wallet
+                    Send {{trade.currency}} {{trade.fiat_amount_original}} {{trade.currency}} using  {{trade.method | titlecase}}, {{trade.btc_amount_with_margin}} BTC will be added to your Coinpes wallet
                 </p>
                 <div class="design-group mb-2 pt-50" >
                     <h6 class="section-label" >Expires in:</h6>
