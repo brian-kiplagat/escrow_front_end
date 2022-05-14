@@ -81,7 +81,16 @@
           </div>
 
         </ngb-alert>
+        <ngb-alert [type]="'primary'" [dismissible]="false" >
+          <div class="card">
+            <div class="alert-body">
+              <p class="text-body-heading">Follow these instructions from your trade patner</p>
+              <p class="text-black-50">{{trade.instructions}}</p>
 
+            </div>
+          </div>
+
+        </ngb-alert>
 
         <div
           class="chat"

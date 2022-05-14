@@ -112,7 +112,7 @@ export class ChatContentComponent implements OnInit {
       this.trade = this.tradeData.find(product => product.id == productIdFromRoute);
       console.log(this.trade)
     //  console.log(this.currentUser)
-      if (this.trade.username == this.user.username){//Show other username for logged in party
+      if (this.trade.username === this.user.username){//Show other username for logged in party
         this.uname = this.user.username
       }else {
 
