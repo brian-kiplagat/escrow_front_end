@@ -50,7 +50,7 @@ export class FirebaseService {
             headers: new HttpHeaders(this.headerDict)
         };
         return this.http.post(
-            'https://api.supabeta.com/api/coin/v1/loginUser',
+            'https://api.coinlif.com/api/coin/v1/loginUser',
             {
                 email: email,
                 password: password
@@ -79,7 +79,7 @@ export class FirebaseService {
             headers: new HttpHeaders(this.headerDict)
         };
         return this.http.post(
-            'https://api.supabeta.com/api/coin/v1/registerUser',
+            'https://api.coinlif.com/api/coin/v1/registerUser',
             {
                 email: email,
                 password: password
@@ -100,7 +100,7 @@ export class FirebaseService {
             headers: new HttpHeaders(header)
         };
         return this.http.get(
-            'https://api.supabeta.com/api/coin/v1/getUserDataByUsername/' + username,
+            'https://api.coinlif.com/api/coin/v1/getUserDataByUsername/' + username,
             requestOptions
         );
     }
@@ -116,7 +116,7 @@ export class FirebaseService {
             headers: new HttpHeaders(header)
         };
         return this.http.get(
-            'https://api.supabeta.com/api/coin/v1/fetchNotifications',
+            'https://api.coinlif.com/api/coin/v1/fetchNotifications',
             requestOptions
         );
     }
@@ -133,7 +133,7 @@ export class FirebaseService {
             headers: new HttpHeaders(header)
         };
         console.log(token, username, formData);
-        return this.http.post('https://api.supabeta.com/api/coin/v1/createOffer', formData, {
+        return this.http.post('https://api.coinlif.com/api/coin/v1/createOffer', formData, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 Accept: '*/*',
@@ -153,7 +153,7 @@ export class FirebaseService {
         const requestOptions = {
             headers: new HttpHeaders(header)
         };
-        return this.http.get('https://api.supabeta.com/api/coin/v1/getCurrency', requestOptions);
+        return this.http.get('https://api.coinlif.com/api/coin/v1/getCurrency', requestOptions);
     }
     // get offer tags
     getTags(username: string, token: string) {
@@ -166,7 +166,7 @@ export class FirebaseService {
         const requestOptions = {
             headers: new HttpHeaders(header)
         };
-        return this.http.get('https://api.supabeta.com/api/coin/v1/getTags', requestOptions);
+        return this.http.get('https://api.coinlif.com/api/coin/v1/getTags', requestOptions);
     }
     // retrieve list of feeds
     async retrieve(colletion: string) {
@@ -191,7 +191,7 @@ export class FirebaseService {
             headers: new HttpHeaders(header)
         };
         return this.http.post(
-            'https://api.supabeta.com/api/coin/v1/getOffers',
+            'https://api.coinlif.com/api/coin/v1/getOffers',
             body,
             requestOptions
         );
@@ -205,7 +205,7 @@ export class FirebaseService {
             token: token,
             username: username
         };
-        const requesturl = 'https://api.supabeta.com/api/coin/v1/getOfferInfo/' + id;
+        const requesturl = 'https://api.coinlif.com/api/coin/v1/getOfferInfo/' + id;
         const requestOptions = {
             headers: new HttpHeaders(header)
         };
@@ -226,7 +226,7 @@ export class FirebaseService {
         };
 
         return this.http.post(
-            'https://api.supabeta.com/api/coin/v1/openTrade',
+            'https://api.coinlif.com/api/coin/v1/openTrade',
             data,
             requestOptions
         );
@@ -265,7 +265,7 @@ export class FirebaseService {
             .collection('trades')
             .doc(docId.toString())
             .collection('chats', (ref) => ref.orderBy('time')).valueChanges();
-   
+
         return messages;
     }
 }
