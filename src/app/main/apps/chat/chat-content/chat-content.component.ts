@@ -87,7 +87,7 @@ export class ChatContentComponent implements OnInit {
     const productIdFromRoute = routeParams.get('id');
 
     if (this.trade.buyer == this.user.email) {//Here i try to check if the logged in user is the buyer,,,,but i cant seem to access the users email
-      console.log('Logged in user is the buyer')
+      console.log('Logged in user is buyer')
 
       //Logged in user is the buyer
     } else {
