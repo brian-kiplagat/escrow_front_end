@@ -697,7 +697,7 @@ export class EcommerceComponent implements OnInit {
     this.router.navigate(['/'])
   });
 
-  
+
   }
   // get localUser(): any {
   //   var firebaseUser:any = this.fb.userData?.user_data[0];
@@ -741,6 +741,6 @@ export class EcommerceComponent implements OnInit {
     });
   }
   copy(text:any){
-    clipboard.write('https://coinpes.com/offer/trade/'+text);
+    clipboard.write('https://coinpes.com/offers/bitcoin/details/'+text);
   }
 }
