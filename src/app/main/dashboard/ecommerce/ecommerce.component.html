@@ -135,7 +135,12 @@
               </div>
               <button type="button" class="btn btn-outline-primary"[routerLink]="'/offers/chat/room/'+trade.id" rippleEffect >VIEW</button>
             </div>
-            <div class="apply-job-package bg-light-warning rounded" *ngIf="trade.moderator_flag !='NA'">
+            <div class="apply-job-package bg-light-warning rounded" *ngIf="trade.moderator_flag !='NA'" ngbTooltip = "This dispute was started. Each user must prove that they have fulfilled their end of the deal. A moderator will shortly message you via your trade chat. Provide the moderator with as much information and evidence as you can, which could be any of the following:
+Transaction receipt,
+Screenshot of payment confirmation,
+Video or screen recording of payment being made,
+Proof of ownership receipts online and offline in transactions involving gift cards,
+Any additional proof as determined by the moderator. The moderator will then assess all the evidence given by both parties and award the escrow to the correct fair party" placement = "top">
               <div>
                 <sup class="text-body"><small> <i data-feather="shield"
                                                   class="avatar-icon font-medium-3"></i></small></sup>
@@ -171,16 +176,16 @@
               <div class="d-flex justify-content-between align-items-center mb-1">
                 <div class="media">
 
-                  <div class="avatar mr-2 bg-light-primary rounded"  placement="left"
+                  <div class="avatar mr-2 bg-light-primary rounded"  placement="right"
                        ngbTooltip= "Click here to copy this offer link, share it with your clients to open a trade with this offer" rippleEffect (click)="copy(offer.requestId)">
                     <div class="avatar-content" >
                       <i data-feather="copy" class="avatar-icon font-medium-3"></i>
                     </div>
                   </div>
                   <div class="media-body" >
-                    <h5 class="mb-0" placement="left"
+                    <h5 class="mb-0" placement="right"
                         ngbTooltip="You have chosen to transact this trade with {{offer.method}}. This means you must use {{offer.method}} to transact this trade and not any other." >{{offer.method}}</h5>
-                    <small class="text-muted" placement="left"
+                    <small class="text-muted" placement="right"
                            ngbTooltip="This is a {{offer.type | titlecase}} Offer. You have chosen to transact this trade with {{offer.currency}} as the currency" >{{offer.type | titlecase}} - {{offer.currency}}</small>
 
                   </div>
