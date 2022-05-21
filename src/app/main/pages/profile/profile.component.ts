@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { ProfileService } from 'app/main/pages/profile/profile.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -31,6 +32,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   registration_date: "2022-04-01 13:14:34",
   status: 1}
   public feeds:any[]=[]
+  public currentUser:any ={}
+  public user:any ={}
 
   // private
   private _unsubscribeAll: Subject<any>;
@@ -40,7 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    *
    * @param {PricingService} _pricingService
    */
-  constructor(private _pricingService: ProfileService, private sanitizer: DomSanitizer, private fb:FirebaseService) {
+  constructor(private _pricingService: ProfileService, private sanitizer: DomSanitizer, private fb:FirebaseService,private router:Router) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -64,12 +67,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    this.fb.getProfile().subscribe((data)=>{
-      this.userData = data['user_data'][0]
-      this.feeds = data['feedback_data']
-      console.log(this.feeds)
-    })
-    
+    // get the currentUser details from localStorage
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.fb.getUser(this.user.username,this.user.token).subscribe((data: any) => {
+      this.currentUser =data.responseMessage?.user_data[0];
+      console.log(data)
+    },(error)=>{
+      console.log(error)
+      this.router.navigate(['/'])
+    });
+
     this._pricingService.onPricingChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       this.data = response;
     });
@@ -99,6 +106,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     };
   }
+  getEmail(){
+    return  localStorage.getItem('user')
+  }
+
 
   /**
    * On destroy

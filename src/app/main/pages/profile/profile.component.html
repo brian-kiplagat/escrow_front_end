@@ -15,12 +15,12 @@
               <!-- profile picture -->
               <div class="profile-img-container d-flex align-items-center">
                 <div class="profile-img">
-                  <img [src]="data.profileData.header.avatar" class="rounded img-fluid" alt="Card image" />
+                  <img [src]="currentUser.profile_link" class="rounded img-fluid" alt="Card image" />
                 </div>
                 <!-- profile title -->
                 <div class="profile-title ml-3">
-                  <h2 class="text-white">{{ data.profileData.header.username }}</h2>
-                  <p class="text-white">{{ data.profileData.header.designation }}</p>
+                  <h2 class="text-white">CoinPes</h2>
+                  <p class="text-white">{{ currentUser.username }}</p>
                 </div>
               </div>
             </div>
@@ -47,24 +47,20 @@
                   <div class="profile-tabs d-flex justify-content-between flex-wrap mt-1 mt-md-0">
                     <ul class="nav nav-pills mb-0">
                       <li class="nav-item">
-                        <a class="nav-link font-weight-bold active" href="javascript:void(0)">
+                        <a class="nav-link font-weight-bold active" rippleEffect href="javascript:void(0)">
                           <span class="d-none d-md-block">Trust</span>
-                          <i data-feather="rss" class="d-block d-md-none"></i>
+                          <i data-feather="user-plus" class="d-block d-md-none"></i>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="javascript:void(0)">
-                          <span class="d-none d-md-block">Block</span>
-                          <i data-feather="info" class="d-block d-md-none"></i>
+                        <a class="nav-link font-weight-bold"  href="javascript:void(0)">
+                          <span class="d-none d-md-block" >Block</span>
+                          <i data-feather="user-x" class="d-block d-md-none"></i>
                         </a>
                       </li>
-                   
+
                     </ul>
-                    <!-- edit button -->
-                    <button class="btn btn-primary" rippleEffect>
-                      <i data-feather="edit" class="d-block d-md-none"></i>
-                      <span class="font-weight-bold d-none d-md-block">Edit</span>
-                    </button>
+
                   </div>
                 </div>
                 <!--/ collapse  -->
@@ -86,23 +82,27 @@
               <div class="card-body">
                 <h5 class="mb-75">About</h5>
                 <p class="card-text">
-                  {{ userData.about}}
+                  {{ currentUser.about}}
                 </p>
                 <div class="mt-2">
                   <h5 class="mb-75">Joined:</h5>
-                  <p class="card-text">{{userData.registration_date |date }}</p>
+                  <p class="card-text">{{currentUser.apiRegistrationDate |date }}</p>
                 </div>
                 <div class="mt-2">
                   <h5 class="mb-75">Lives:</h5>
-                  <p class="card-text">{{ userData.geolocation}}</p>
+                  <p class="card-text">{{ currentUser.geolocation}}</p>
                 </div>
                 <div class="mt-2">
-                  <h5 class="mb-75">Email:</h5>
-                  <p class="card-text">{{ email }}</p>
+                  <h5 class="mb-75">Previous Trades:</h5>
+                  <p class="card-text">NA</p>
                 </div>
                 <div class="mt-2">
-                  <h5 class="mb-50">Website:</h5>
-                  <p class="card-text mb-0">{{ data.profileData.userAbout.website }}</p>
+                  <h5 class="mb-50">Has Blocked:</h5>
+                  <p class="card-text mb-0">0 People</p>
+                </div>
+                <div class="mt-2">
+                  <h5 class="mb-50">Blocked By:</h5>
+                  <p class="card-text mb-0">0 People</p>
                 </div>
               </div>
             </div>
@@ -111,7 +111,7 @@
             <!-- twitter feed card -->
             <div class="card">
               <div class="card-body">
-                <h5>Twitter Feeds</h5>
+                <h5>Feedbacks</h5>
                 <!-- twitter feed -->
                 <div class="profile-twitter-feed mt-2" *ngFor="let feed of feeds">
                   <div class="d-flex justify-content-start align-items-center mb-1">
