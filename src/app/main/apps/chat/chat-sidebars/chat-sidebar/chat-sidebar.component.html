@@ -22,23 +22,12 @@
         <div class="card card-app-design">
             <div class="card-body">
                 <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
-                <h4 class="card-title mt-1 mb-75 pt-25">Trade Started</h4>
+                <h4 class="card-title mt-1 mb-75 pt-25">Trade Completed</h4>
                 <p class="font-small-2">
-                    Send {{trade.currency}} {{trade.fiat_amount_original}} {{trade.currency}} using  {{trade.method | titlecase}}, {{trade.btc_amount_with_margin}} BTC will be added to your Coinpes wallet
+                   You Sent {{trade.currency}} {{trade.fiat_amount_original}} {{trade.currency}} using  {{trade.method | titlecase}}, {{trade.btc_amount_with_margin}} BTC will be added to your Coinpes wallet
                 </p>
-                <div class="design-group mb-2 pt-50" >
-                    <h6 class="section-label" >Expires in:</h6>
-                    <div class="badge badge-light-warning mr-1" ngbTooltip="You have this amount of time left to send the money and click I'VE PAID to confirm the payment" placement="right">30:00:00</div>
 
-                </div>
-                <button type="button" rippleEffect class="btn btn-primary btn-block" ngbTooltip="After sending the payment, Click this button, this will confirm that you have sent. If you don't confirm, the trade will be cancelled automatically after 30 minutes and BTC will be returned from our escrow | trust account back to the seller." placement="bottom" >
-                    <div >
-                       <h2 class="d-inline mr-25 text-white">I'VE PAID</h2>
-                        <sub class="text-body"><small class="text-white">Confirm payment</small></sub>
-                    </div>
-                </button>
-
-                <button type="button" rippleEffect class="btn btn-outline-warning btn-block" ngbTooltip="This will cancel this trade and return BTC from our escrow | trust account back to the seller. If you had sent any amount, for your safety, we require you to ask for refund first before cancelling" placement="bottom" >CANCEL TRADE</button>
+                <button type="button" rippleEffect class="btn btn-outline-warning btn-block" ngbTooltip="This will REPORT this trade " placement="bottom" >REPORT TRADE</button>
                 <div class="design-group mb-2 pt-50">
                     <h6 class="section-label">Details</h6>
                     <div class="badge badge-light-warning mr-1"  ngbTooltip="Send this to support in case you have complaints regarding this trade" placement="bottom">Trade id: {{trade.id}}</div>
