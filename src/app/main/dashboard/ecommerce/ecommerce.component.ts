@@ -16,12 +16,7 @@ import {locale as german} from 'app/main/dashboard/i18n/de';
 import {locale as portuguese} from 'app/main/dashboard/i18n/pt';
 import {FirebaseService} from 'app/services/firebase.service';
 import clipboard from 'clipboardy';
-import { cloneDeep } from 'lodash';
 import { ToastrService, GlobalConfig } from 'ngx-toastr';
-
-import { CustomToastrComponent } from 'app/main/extensions/toastr/custom-toastr/custom-toastr.component';
-import * as snippet from 'app/main/extensions/toastr/toastr.snippetcode';
-
 
 
 @Component({
@@ -35,7 +30,6 @@ import * as snippet from 'app/main/extensions/toastr/toastr.snippetcode';
 export class EcommerceComponent implements OnInit {
 
   public user: any = {};
-  private toastRef: any;
   private options: GlobalConfig;
   public balance = 0
   public wallet = ''
@@ -111,6 +105,7 @@ export class EcommerceComponent implements OnInit {
    */
   ngAfterViewInit() {
     // Subscribe to core config changes
+
     this._coreConfigService.getConfig().subscribe(config => {
       // If Menu Collapsed Changes
       if (

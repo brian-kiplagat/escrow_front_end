@@ -1,9 +1,13 @@
-import { Component, OnInit,Input } from '@angular/core';
-import { first } from 'rxjs/operators';
+import {Component, OnInit, Input} from '@angular/core';
+import {first} from 'rxjs/operators';
 
-import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
+import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
 
-import { ChatService } from 'app/main/apps/chat/chat.service';
+import {ChatService} from 'app/main/apps/chat/chat.service';
+
+import clipboard from 'clipboardy';
+import { ToastrService, GlobalConfig } from 'ngx-toastr';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -17,7 +21,10 @@ export class ChatSidebarComponent implements OnInit {
   public chats;
   public selectedIndex = null;
   public userProfile;
-  @Input()trade:any;
+  private options: GlobalConfig;
+  public status = 'Started';
+
+  @Input() trade: any;
 
   /**
    * Constructor
@@ -25,7 +32,9 @@ export class ChatSidebarComponent implements OnInit {
    * @param {ChatService} _chatService
    * @param {CoreSidebarService} _coreSidebarService
    */
-  constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService) {}
+  constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
+    this.options = this.toastr.toastrConfig;
+  }
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -67,6 +76,7 @@ export class ChatSidebarComponent implements OnInit {
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
+
 
   /**
    * On init
@@ -114,4 +124,56 @@ export class ChatSidebarComponent implements OnInit {
     this.openChat(1);//1
 
   }
+
+  mark_paid(text: any) {
+    Swal.fire ({
+      title: 'Are you sure?',
+      text: "You must ensure that you have sent the money first before clicking this button. Providing wrong information or coinlocking will cause your account to be banned",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#7367F0',
+      cancelButtonColor: '#E42728',
+      confirmButtonText: 'Yes, ive sent it',
+      customClass: {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-danger ml-1'
+      }
+    }).then(function (result) {
+      if (result.value) {
+
+        return fetch('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
+          .then(function (response) {
+            console.log(response);
+            if (!response.ok) {
+
+              throw new Error(response.statusText);
+            }else{
+
+              Swal.fire({
+                title: 'Trade Marked as Paid',
+                text: 'The seller will check on your payment and send the BTC shortly',
+                icon: 'success',
+                customClass: {
+                  confirmButton: 'btn btn-success'
+                }
+              });
+            }
+            return response.json();
+          })
+          .catch(function (error) {
+            Swal.fire({
+              title: 'Ops',
+              text: 'An error happened please try again',
+              icon: 'error',
+              customClass: {
+                confirmButton: 'btn btn-success'
+              }
+            });
+          });
+
+      }
+    });
+
+  }
+
 }
