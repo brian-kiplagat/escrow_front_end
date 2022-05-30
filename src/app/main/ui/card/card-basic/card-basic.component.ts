@@ -18,24 +18,15 @@ export class CardBasicComponent implements OnInit {
    */
   ngOnInit() {
     this.contentHeader = {
-      headerTitle: 'Basic Card',
+      headerTitle: 'My wallet',
       actionButton: true,
       breadcrumb: {
         type: '',
         links: [
           {
-            name: 'Home',
+            name: 'Send and Receive BTC',
             isLink: true,
             link: '/'
-          },
-          {
-            name: 'Card',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'Basic Card',
-            isLink: false
           }
         ]
       }

@@ -42,7 +42,7 @@ export const menu: CoreMenu[] = [
     title: 'My Wallet',
     translate: 'MENU.APPS.SECTION',
     icon: 'pocket',
-    url: "pages/account-settings"
+    url: "ui/card/card-basic"
   },
   {
     id: 'apps_6',
