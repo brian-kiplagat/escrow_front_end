@@ -28,6 +28,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public user: any = {}
   public currentUser: any = {}
   public tg_identifier
+  public telegram_bool = false
   // private
   private _unsubscribeAll: Subject<any>;
 
@@ -90,7 +91,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._accountSettingsService.onSettingsChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       this.data = response;
-      this.avatarImage = this.data.accountSetting.general.avatar;
+      this.avatarImage = 'this.data.accountSetting.general.avatar';
     });
     // get the currentUser details from localStorage
     // localStorage.getItem('user')
@@ -99,6 +100,11 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       this.currentUser = data.responseMessage?.user_data[0];
       this.avatarImage = this.currentUser.profile_link;
       this.tg_identifier = this.currentUser.tg_hash_identifier;
+      if (this.currentUser.tg_id ==  'NA'){
+        this.telegram_bool = false;
+      }else{
+        this.telegram_bool = true;
+      }
 
       //console.log(data)
     }, (error) => {

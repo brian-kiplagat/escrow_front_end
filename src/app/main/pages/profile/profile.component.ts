@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public currentUser:any ={}
   public user:any ={}
 
+
   // private
   private _unsubscribeAll: Subject<any>;
 

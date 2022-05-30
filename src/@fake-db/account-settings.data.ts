@@ -2,10 +2,10 @@ export class accountSettingsFakeData {
   public static data = {
     accountSetting: {
       general: {
-        avatar: 'assets/images/portrait/small/avatar-s-11.jpg',
-        username: 'johndoe',
+        avatar: 'assets/images/avatars/avatar.webp',
+        username: 'johnDoe123',
         fullName: 'John Doe',
-        email: 'granger007@hogward.com',
+        email: 'someon@example.com',
         company: 'IBM Technology'
       },
       info: {
