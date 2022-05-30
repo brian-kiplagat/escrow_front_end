@@ -65,24 +65,12 @@
                               class="form-control"
                               id="account-username"
                               name="username"
+                              value="{{currentUser.username}}"
                               placeholder="Username"
                             />
                           </div>
                         </div>
-                        <div class="col-12 col-sm-6">
-                          <div class="form-group">
-                            <label for="account-name">Phone</label>
-                            <input
-                              type="text"
-                              [(ngModel)]="data.accountSetting.general.fullName"
-                              class="form-control"
-                              id="account-name"
-                              name="name"
-                              typeof="phone"
-                              placeholder="Phone"
-                            />
-                          </div>
-                        </div>
+
                         <div class="col-12 col-sm-6">
                           <div class="form-group">
                             <label for="account-e-mail">Preferred currency</label>
@@ -92,22 +80,12 @@
                               class="form-control"
                               id="account-e-mail"
                               name="email"
+                              value="{{currentUser.currency}}"
                               placeholder="Currency"
                             />
                           </div>
                         </div>
-                        <div class="col-12 col-sm-6">
-                          <div class="form-group">
-                            <label for="account-company">Bio</label>
-                            <input
-                              type="text"
-                              [(ngModel)]="data.accountSetting.general.company"
-                              class="form-control"
-                              id="account-company"
-                              name="company"
-                              placeholder="Company name"/>
-                          </div>
-                        </div>
+
                         <div class="col-12">
                           <div class="form-group">
                             <label for="accountTextarea">Bio</label>
@@ -118,6 +96,7 @@
                               name="accountTextarea"
                               rows="4"
                               placeholder="Your Bio data here..."
+                              value="{{currentUser.about}}"
                             ></textarea>
                           </div>
                         </div>
@@ -149,7 +128,7 @@
                 href="#account-vertical-password"
                 aria-expanded="false"
               >
-                <i data-feather="lock" class="font-medium-3 mr-1"></i>
+                <i data-feather="shield" class="font-medium-3 mr-1"></i>
                 <span class="font-weight-bold">Security</span>
               </a>
               <ng-template ngbNavContent>

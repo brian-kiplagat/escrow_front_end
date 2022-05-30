@@ -19,24 +19,15 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     // content header
     this.contentHeader = {
-      headerTitle: 'Bootstrap Tables',
+      headerTitle: 'My Records',
       actionButton: true,
       breadcrumb: {
         type: '',
         links: [
           {
-            name: 'Home',
+            name: 'All Transactions',
             isLink: true,
             link: '/'
-          },
-          {
-            name: 'Table',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'Bootstrap Tables',
-            isLink: false
           }
         ]
       }
