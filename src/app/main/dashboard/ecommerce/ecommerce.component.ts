@@ -16,6 +16,12 @@ import {locale as german} from 'app/main/dashboard/i18n/de';
 import {locale as portuguese} from 'app/main/dashboard/i18n/pt';
 import {FirebaseService} from 'app/services/firebase.service';
 import clipboard from 'clipboardy';
+import { cloneDeep } from 'lodash';
+import { ToastrService, GlobalConfig } from 'ngx-toastr';
+
+import { CustomToastrComponent } from 'app/main/extensions/toastr/custom-toastr/custom-toastr.component';
+import * as snippet from 'app/main/extensions/toastr/toastr.snippetcode';
+
 
 
 @Component({
@@ -29,7 +35,8 @@ import clipboard from 'clipboardy';
 export class EcommerceComponent implements OnInit {
 
   public user: any = {};
-
+  private toastRef: any;
+  private options: GlobalConfig;
   public balance = 0
   public wallet = ''
   public joined = ''
@@ -49,11 +56,12 @@ export class EcommerceComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     private _coreTranslationService: CoreTranslationService,
     public fb: FirebaseService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
 
     this._coreTranslationService.translate(english, french, german, portuguese);
-
+    this.options = this.toastr.toastrConfig;
   }
 
   // Lifecycle Hooks
@@ -118,6 +126,12 @@ export class EcommerceComponent implements OnInit {
 
   copy(text: any) {
     clipboard.write('https://coinpes.com/offers/bitcoin/details/' + text);
+    // Success
+    this.toastr.success('👋 You just copied your offer link. Share this link to get clients to open trades which are secured by escrow and guided by moderators 24-7', 'Great!', {
+      toastClass: 'toast ngx-toastr',
+      timeOut: 5000,
+      closeButton: true
+    });
   }
 
 

@@ -1,10 +1,13 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewEncapsulation} from '@angular/core';
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { FlatpickrOptions } from 'ng2-flatpickr';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {FlatpickrOptions} from 'ng2-flatpickr';
 
-import { AccountSettingsService } from 'app/main/pages/account-settings/account-settings.service';
+import {AccountSettingsService} from 'app/main/pages/account-settings/account-settings.service';
+import {FirebaseService} from "../../../services/firebase.service";
+import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-account-settings',
   templateUrl: './account-settings.component.html',
@@ -22,7 +25,9 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public passwordTextTypeNew = false;
   public passwordTextTypeRetype = false;
   public avatarImage: string;
-
+  public user: any = {}
+  public currentUser: any = {}
+  public tg_identifier
   // private
   private _unsubscribeAll: Subject<any>;
 
@@ -31,7 +36,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
    *
    * @param {AccountSettingsService} _accountSettingsService
    */
-  constructor(private _accountSettingsService: AccountSettingsService) {
+  constructor(private _accountSettingsService: AccountSettingsService, private fb: FirebaseService, private router: Router) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -87,7 +92,19 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       this.data = response;
       this.avatarImage = this.data.accountSetting.general.avatar;
     });
+    // get the currentUser details from localStorage
+    // localStorage.getItem('user')
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
+      this.currentUser = data.responseMessage?.user_data[0];
+      this.avatarImage = this.currentUser.profile_link;
+      this.tg_identifier = this.currentUser.tg_hash_identifier;
 
+      //console.log(data)
+    }, (error) => {
+      console.log(error)
+      this.router.navigate(['/'])
+    });
     // content header
     this.contentHeader = {
       headerTitle: 'Account Settings',
@@ -121,5 +138,11 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  openLink() {
+    const link = 'https://t.me/CoinPesBot?start=' + this.tg_identifier
+    window.open(link, "_blank") || window.location.replace(link);
+
   }
 }
