@@ -12,9 +12,12 @@
             <h3 class="mb-75 mt-2 pt-50">
               <a href="javascript:void(0);">{{fiat}} {{currentUser.currency}}</a>
             </h3>
-            <button type="button"  [routerLink]="'/offers/bitcoin/buy'" class="btn btn-primary" rippleEffect>MY WALLET</button>
+            <button type="button" [routerLink]="'/offers/bitcoin/buy'" class="btn btn-primary" rippleEffect>MY WALLET
+            </button>
             <ngb-alert style="margin-top: 10px" [type]="'primary'" [dismissible]="false">
-              <div class="alert-body" ngbTooltip ="This is your BTC Wallet address. Use this address to deposit Bitcoin (BTC). Only send BTC tokens from the Bitcoin network. If you send other currencies from other networks you may not recover the deposit." placement = "top">{{currentUser.wallet}}</div>
+              <div class="alert-body"
+                   ngbTooltip="This is your BTC Wallet address. Use this address to deposit Bitcoin (BTC). Only send BTC tokens from the Bitcoin network. If you send other currencies from other networks you may not recover the deposit."
+                   placement="top">{{currentUser.wallet}}</div>
             </ngb-alert>
             <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic"/>
           </div>
@@ -36,14 +39,14 @@
           </div>
           <div class="card-body statistics-body">
             <div class="row">
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0"  [routerLink]="'/offers/bitcoin/buy'">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0" [routerLink]="'/offers/bitcoin/buy'">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
                       <i data-feather="dollar-sign" class="avatar-icon"></i>
                     </div>
                   </div>
-                  <div class="media-body my-auto" >
+                  <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">BUY</h4>
                     <p class="card-text font-small-3 mb-0">BTC</p>
                   </div>
@@ -66,7 +69,7 @@
                 <div class="media">
                   <div class="avatar bg-light-danger mr-2">
                     <div class="avatar-content">
-                      <i data-feather="box" class="avatar-icon"></i>
+                      <i data-feather="shield" class="avatar-icon"></i>
                     </div>
                   </div>
                   <div class="media-body my-auto">
@@ -97,59 +100,62 @@
 
     <div class="row match-height">
       <!-- TRADES CARD -->
-      <div class="col-lg-4 col-md-6 col-12" >
+      <div class="col-lg-4 col-md-6 col-12">
         <div class="card card-apply-job card-transaction">
           <div class="card-body">
 
             <!-- ONE ELEMENT -->
-            <div  *ngFor="let trade of tradeData">
+            <div *ngFor="let trade of tradeData">
               <ngb-alert [type]="'primary'" [dismissible]="false">
                 <div class="alert-body">TRADE {{trade.status}}</div>
               </ngb-alert>
-            <div class="d-flex justify-content-between align-items-center mb-1">
-              <div class="media">
-                <div class="avatar mr-1">
-                  <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42"/>
-                </div>
-                <div class="media-body">
-                  <h5 class="mb-0">{{trade.method | titlecase}}</h5>
-                  <small class="text-muted">{{trade.username}}</small>
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="media">
+                  <div class="avatar mr-1">
+                    <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42"/>
+                  </div>
+                  <div class="media-body">
+                    <h5 class="mb-0">{{trade.method | titlecase}}</h5>
+                    <small class="text-muted" *ngIf="trade" (onCreate)="checkType(trade)">{{trade.username}}</small>
+
+                  </div>
 
                 </div>
+                <div class="badge badge-pill badge-light-primary">{{trade.type}}</div>
 
               </div>
-              <div class="badge badge-pill badge-light-primary">{{trade.type}}</div>
-
-            </div>
-            <div class="transaction-item">
-              <div class="media">
-                <div class="avatar bg-light-primary rounded">
-                  <div class="avatar-content">
-                    <i data-feather="pocket" class="avatar-icon font-medium-3"></i>
+              <div class="transaction-item">
+                <div class="media">
+                  <div class="avatar bg-light-primary rounded">
+                    <div class="avatar-content">
+                      <i data-feather="pocket" class="avatar-icon font-medium-3"></i>
+                    </div>
+                  </div>
+                  <div class="media-body">
+                    <h6 class="transaction-title">{{trade.fiat_amount_original}} {{trade.currency}}</h6>
+                    <small>{{trade.btc_amount_with_margin}} BTC</small>
                   </div>
                 </div>
-                <div class="media-body">
-                  <h6 class="transaction-title">{{trade.fiat_amount_original}} {{trade.currency}}</h6>
-                  <small>{{trade.btc_amount_with_margin}} BTC</small>
-                </div>
+                <button type="button" class="btn btn-outline-primary" [routerLink]="'/offers/chat/room/'+trade.id"
+                        rippleEffect>VIEW
+                </button>
               </div>
-              <button type="button" class="btn btn-outline-primary"[routerLink]="'/offers/chat/room/'+trade.id" rippleEffect >VIEW</button>
-            </div>
-            <div class="apply-job-package bg-light-warning rounded" *ngIf="trade.moderator_flag !='NA'" ngbTooltip = "This dispute was started. Each user must prove that they have fulfilled their end of the deal. A moderator will shortly message you via your trade chat. Provide the moderator with as much information and evidence as you can, which could be any of the following:
+              <div class="apply-job-package bg-light-warning rounded" *ngIf="trade.moderator_flag !='NA'" ngbTooltip="This dispute was started. Each user must prove that they have fulfilled their end of the deal. A moderator will shortly message you via your trade chat. Provide the moderator with as much information and evidence as you can, which could be any of the following:
 Transaction receipt,
 Screenshot of payment confirmation,
 Video or screen recording of payment being made,
 Proof of ownership receipts online and offline in transactions involving gift cards,
-Any additional proof as determined by the moderator. The moderator will then assess all the evidence given by both parties and award the escrow to the correct fair party" placement = "top">
-              <div>
-                <sup class="text-body"><small> <i data-feather="shield"
-                                                  class="avatar-icon font-medium-3"></i></small></sup>
-                <h2 class="d-inline mr-25">DISPUTE</h2>
-                <sub class="text-body"><small>{{trade.status}}</small></sub>
+Any additional proof as determined by the moderator. The moderator will then assess all the evidence given by both parties and award the escrow to the correct fair party"
+                   placement="top">
+                <div>
+                  <sup class="text-body"><small> <i data-feather="shield"
+                                                    class="avatar-icon font-medium-3"></i></small></sup>
+                  <h2 class="d-inline mr-25">DISPUTE</h2>
+                  <sub class="text-body"><small>{{trade.status}}</small></sub>
+                </div>
+                <div class="badge badge-pill badge-light-primary">2hr Ago</div>
               </div>
-              <div class="badge badge-pill badge-light-primary">2hr Ago</div>
-            </div>
-            <hr>
+              <hr>
             </div>
             <!-- ONE ELEMENT -->
 
@@ -165,7 +171,7 @@ Any additional proof as determined by the moderator. The moderator will then ass
           <div class="card-header">
             <h4 class="card-title">My offers</h4>
             <div class="custom-control custom-control-primary custom-switch">
-              <input type="checkbox" checked class="custom-control-input" id="customSwitch3" />
+              <input type="checkbox" checked class="custom-control-input" id="customSwitch3"/>
               <label class="custom-control-label" for="customSwitch3"></label>
             </div>
           </div>
@@ -176,33 +182,37 @@ Any additional proof as determined by the moderator. The moderator will then ass
               <div class="d-flex justify-content-between align-items-center mb-1">
                 <div class="media">
 
-                  <div class="avatar mr-2 bg-light-primary rounded"  placement="right"
-                       ngbTooltip= "Click here to copy this offer link, share it with your clients to open a trade with this offer" rippleEffect (click)="copy(offer.requestId)">
-                    <div class="avatar-content" >
+                  <div class="avatar mr-2 bg-light-primary rounded" placement="right"
+                       ngbTooltip="Click here to copy this offer link, share it with your clients to open a trade with this offer"
+                       rippleEffect (click)="copy(offer.idd)">
+                    <div class="avatar-content">
                       <i data-feather="copy" class="avatar-icon font-medium-3"></i>
                     </div>
                   </div>
-                  <div class="media-body" >
+                  <div class="media-body">
                     <h5 class="mb-0" placement="right"
-                        ngbTooltip="You have chosen to transact this trade with {{offer.method}}. This means you must use {{offer.method}} to transact this trade and not any other." >{{offer.method}}</h5>
+                        ngbTooltip="You have chosen to transact this trade with {{offer.method}}. This means you must use {{offer.method}} to transact this trade and not any other.">{{offer.method}}</h5>
                     <small class="text-muted" placement="right"
-                           ngbTooltip="This is a {{offer.type | titlecase}} Offer. You have chosen to transact this trade with {{offer.currency}} as the currency" >{{offer.type | titlecase}} - {{offer.currency}}</small>
+                           ngbTooltip="This is a {{offer.type | titlecase}} Offer. You have chosen to transact this trade with {{offer.currency}} as the currency">{{offer.type | titlecase}}
+                      - {{offer.currency}}</small>
 
                   </div>
 
                 </div>
                 <div class="badge badge-pill badge-light-primary" placement="left"
-                     ngbTooltip="Blocked Countries: DE, AR, CA, US"> <i data-feather="alert-circle" class="font-medium-5"></i></div>
+                     ngbTooltip="Blocked Countries: DE, AR, CA, US"><i data-feather="alert-circle"
+                                                                       class="font-medium-5"></i></div>
 
               </div>
               <div class="transaction-item">
                 <div class="media">
-                  <div class="custom-control custom-switch custom-control-inline" >
+                  <div class="custom-control custom-switch custom-control-inline">
                     <input type="checkbox" class="custom-control-input" checked id="{{offer.id}}"/>
                     <label class="custom-control-label" for="sw1"></label>
                   </div>
                   <div class="media-body" style="margin-left: -10px">
-                    <core-touchspin class="transaction-title" id='' [numberValue]="+offer.margin" [iconChevron]="true"></core-touchspin>
+                    <core-touchspin class="transaction-title" id='' [numberValue]="+offer.margin"
+                                    [iconChevron]="true"></core-touchspin>
                     <small>Rate</small>
                   </div>
                 </div>
@@ -214,20 +224,24 @@ Any additional proof as determined by the moderator. The moderator will then ass
                   <div class="col-sm-6 col-6">
                     <div class="form-group mb-2">
                       <label for="payment-expiry">Minimum({{offer.currency}})</label>
-                      <input type="number" id="payment-expiry" class="form-control form-control-sm" placeholder="Amount"size="3" value="{{offer.minimum}}"/>
+                      <input type="number" id="payment-expiry" class="form-control form-control-sm" placeholder="Amount"
+                             size="3" value="{{offer.minimum}}"/>
                     </div>
                   </div>
                   <div class="col-sm-6 col-6">
                     <div class="form-group mb-2 ">
                       <label for="payment-cvv">Maximum({{offer.currency}})</label>
-                      <input type="number" id="payment-cvv" class="form-control form-control-sm" placeholder="Amount" size="3" value="{{offer.maximum}}"/>
+                      <input type="number" id="payment-cvv" class="form-control form-control-sm" placeholder="Amount"
+                             size="3" value="{{offer.maximum}}"/>
                     </div>
                   </div>
 
                 </div>
               </form>
               <ngb-alert [type]="'primary'" [dismissible]="false">
-                <div class="alert-body" *ngIf="offer.deauth!=0">This offer was deauthorized. Contact support to reactivate this.</div>
+                <div class="alert-body" *ngIf="offer.deauth!=0">This offer was deauthorized. Contact support to
+                  reactivate this.
+                </div>
               </ngb-alert>
               <hr>
             </div>
