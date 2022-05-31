@@ -6,7 +6,6 @@ import {
 
 import {CoreConfigService} from '@core/services/config.service';
 import {CoreTranslationService} from '@core/services/translation.service';
-import {colors} from 'app/colors.const';
 import {Router} from '@angular/router';
 
 

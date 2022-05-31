@@ -5,10 +5,11 @@ import { CardAdvanceModule } from 'app/main/ui/card/card-advance/card-advance.mo
 import { CardAnalyticsModule } from 'app/main/ui/card/card-analytics/card-analytics.module';
 import { CardBasicModule } from 'app/main/ui/card/card-basic/card-basic.module';
 import { CardStatisticsModule } from 'app/main/ui/card/card-statistics/card-statistics.module';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [],
-  imports: [CardActionsModule, CardStatisticsModule, CardAnalyticsModule, CardBasicModule, CardAdvanceModule],
+  imports: [CommonModule,CardActionsModule, CardStatisticsModule, CardAnalyticsModule, CardBasicModule, CardAdvanceModule],
   providers: []
 })
 export class CardModule {}

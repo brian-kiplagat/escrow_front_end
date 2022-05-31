@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+
+import {FirebaseService} from "../../../../services/firebase.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-basic-card',
@@ -7,8 +13,13 @@ import { Component, OnInit } from '@angular/core';
 export class CardBasicComponent implements OnInit {
   // public
   public contentHeader: object;
+  public user: any = {}
+  public currentUser: any = {}
+  public withdrawal_tx: any = []
+  public deposit_tx: any = []
 
-  constructor() {}
+  constructor(private fb: FirebaseService, private router: Router) {
+  }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
@@ -31,5 +42,16 @@ export class CardBasicComponent implements OnInit {
         ]
       }
     };
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
+      this.currentUser = data.responseMessage?.user_data[0]
+      this.deposit_tx = data.responseMessage?.deposit_tx
+      this.withdrawal_tx = data.responseMessage?.withdrawal_tx
+    }, (error) => {
+      console.log(error)
+      this.router.navigate(['/'])
+    });
+
+
   }
 }
