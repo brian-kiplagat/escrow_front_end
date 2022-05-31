@@ -45,14 +45,6 @@ export const menu: CoreMenu[] = [
     url: "ui/card/card-basic"
   },
   {
-    id: 'apps_6',
-    type: 'item',
-    title: 'My Records',
-    translate: 'MENU.APPS.SECTION',
-    icon: 'file-text',
-    url: "tables/table"
-  },
-  {
     id: 'apps_7',
     type: 'item',
     title: 'Contact Support',
