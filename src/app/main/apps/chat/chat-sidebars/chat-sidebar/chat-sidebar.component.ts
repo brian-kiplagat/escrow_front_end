@@ -120,15 +120,16 @@ export class ChatSidebarComponent implements OnInit {
     this._chatService.onUserProfileChange.subscribe(response => {
       this.userProfile = response;
     });
-    //Load up chat interface to the template....pass a chat id to pull up message...contact data is aailable .../@fake-db/chat.data.ts
+    //Load up chat interface to the template....pass a chat id to pull up message...contact data is available .../@fake-db/chat.data.ts
     this.openChat(1);//1
 
   }
 
+
   mark_paid(text: any) {
     Swal.fire ({
       title: 'Are you sure?',
-      text: "You must ensure that you have sent the money first before clicking this button. Providing wrong information or coinlocking will cause your account to be banned",
+      text: "You must ensure that you have sent the money first before clicking this button. Providing false information or coinlocking will cause your account to be banned",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#7367F0',
@@ -157,6 +158,7 @@ export class ChatSidebarComponent implements OnInit {
                   confirmButton: 'btn btn-success'
                 }
               });
+              location.reload();
             }
             return response.json();
           })
@@ -173,7 +175,96 @@ export class ChatSidebarComponent implements OnInit {
 
       }
     });
-
   }
 
+  cancel_trade(id) {
+    Swal.fire ({
+      title: 'Are you sure?',
+      text: "If you cancel the trade, well return the escrow amount back to the seller. Otherwise if you had made a payment and have any problem, click back and start a dispute.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#7367F0',
+      cancelButtonColor: '#E42728',
+      cancelButtonText: "Back",
+      confirmButtonText: 'Yes, cancel it',
+      customClass: {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-danger ml-1'
+      }
+    }).then(function (result) {
+      if (result.value) {
+
+        return fetch('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
+          .then(function (response) {
+            console.log(response);
+            if (!response.ok) {
+
+              throw new Error(response.statusText);
+            }else{
+
+              Swal.fire({
+                title: 'Trade Cancelled',
+                text: 'If still want to trade with this partner you must open another trade',
+                icon: 'success',
+                customClass: {
+                  confirmButton: 'btn btn-success'
+                }
+              });
+            }
+            return response.json();
+          })
+          .catch(function (error) {
+            Swal.fire({
+              title: 'Ops',
+              text: 'An error happened please try again',
+              icon: 'error',
+              customClass: {
+                confirmButton: 'btn btn-success'
+              }
+            });
+          });
+
+      }
+    });
+  }
+
+  open_dispute(id) {
+    Swal.mixin({
+      input: 'text',
+      confirmButtonText: 'Next &rarr;',
+      showCancelButton: true,
+      progressSteps: ['1', '2'],
+      customClass: {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-danger ml-1'
+      }
+    })
+      .queue([
+        {
+          title: 'Reason',
+          text: 'Enter a brief explanation'
+        },
+        {
+          title: 'Explain',
+          text: 'Tell us briefly what happened'
+        },
+
+      ])
+      .then(function (result) {
+        if ((<HTMLInputElement>result).value) {
+          console.log((<HTMLInputElement>result).value);
+          let reason = (<HTMLInputElement>result).value[0]
+          let explanation = (<HTMLInputElement>result).value[1]
+          console.log(reason + ": " + explanation)
+          Swal.fire({
+            title: 'DISPUTE OPEN',
+            html: 'Provide the moderator with as much information and evidence as you can. Check your email for details on how to win. Well be joining you shortly to help you',
+            confirmButtonText: 'OKAY',
+            customClass: { confirmButton: 'btn btn-primary' }
+          })
+
+        }
+      });
+
+  }
 }
