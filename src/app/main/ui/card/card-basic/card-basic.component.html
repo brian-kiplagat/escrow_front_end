@@ -3,6 +3,110 @@
     <!-- content-header component -->
     <app-content-header [contentHeader]="contentHeader"></app-content-header>
 
+    <div class="row match-height">
+
+
+      <!-- Developer Meetup Card -->
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="card card-developer-meetup">
+          <div class="bg-light-primary rounded-top text-center">
+            <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl={{address}}" alt="Meeting Pic" height="170" />
+          </div>
+          <div class="card-body">
+            <div class="meetup-header d-flex align-items-center">
+              <div class="meetup-day">
+                <h6 class="mb-0">THU</h6>
+                <h3 class="mb-0">24</h3>
+              </div>
+              <div class="my-auto">
+                <h4 class="card-title mb-25">Receive BTC</h4>
+                <p class="card-text mb-0">{{address}}</p>
+              </div>
+            </div>
+            <div class="">
+              <button type="button" class="btn btn-primary btn-block" rippleEffect (click)="copy_address()">COPY ADDRESS</button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <!--/ Developer Meetup Card -->
+      <!-- Payment Card -->
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="card card-payment">
+          <div class="card-header">
+            <h4 class="card-title">SEND BTC</h4>
+            <h4 class="card-title text-primary">{{fiat}} {{currency}} </h4>
+          </div>
+          <div class="card-body">
+            <form action="javascript:void(0);" class="form">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group mb-2">
+                    <label for="payment-card-number">BTC Address</label>
+                    <input
+                      type="number"
+                      id="payment-card-number"
+                      class="form-control"
+                      placeholder="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                  <div class="form-group mb-2">
+                    <label for="payment-expiry">Amount</label>
+                    <input type="number" id="payment-expiry" class="form-control" placeholder="{{currency}}" />
+                  </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                  <div class="form-group mb-2">
+                    <label for="payment-cvv">OTP</label>
+                    <input type="number" id="payment-cvv" class="form-control" placeholder="12356" />
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <button type="button" class="btn btn-primary btn-block" rippleEffect>SEND BTC</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!--/ Payment Card -->
+
+
+      <!-- Apply Job Card -->
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="card card-apply-job">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <div class="media">
+                <div class="avatar mr-1">
+                  <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42" />
+                </div>
+                <div class="media-body">
+                  <h5 class="mb-0">Mittie Evans</h5>
+                  <small class="text-muted">Tech support</small>
+                </div>
+              </div>
+              <div class="badge badge-pill badge-light-primary">alert</div>
+            </div>
+            <h5 class="apply-job-title">Why do i need to confirm the address when sending?</h5>
+            <p class="card-text mb-2">
+              Due to the irreversible nature of cryptocurrency protocols, transactions can't be reversed once initiated. While Coinpes Wallet gives you complete custodian control over your digital assets, this also means that we're not able to recover any funds sent to an incorrect address. We strongly suggest that you double check addresses before sending
+            </p>
+
+          </div>
+        </div>
+      </div>
+      <!--/ Apply Job Card -->
+
+
+
+
+    </div>
 
     <section>
       <!-- Table Basic -->
