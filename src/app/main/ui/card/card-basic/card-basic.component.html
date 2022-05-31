@@ -44,7 +44,7 @@
               <div class="row">
                 <div class="col-12">
                   <div class="form-group mb-2">
-                    <label for="payment-card-number">BTC Address</label>
+                    <label for="payment-card-number" ngbTooltip="Enter your address here, be sure to confirm its correct" placement="top">BTC Address</label>
                     <input
                       type="number"
                       id="payment-card-number"
@@ -55,13 +55,13 @@
                 </div>
                 <div class="col-sm-6 col-12">
                   <div class="form-group mb-2">
-                    <label for="payment-expiry">Amount</label>
+                    <label for="payment-expiry" ngbTooltip="Enter your amount in {{currency}}." placement="top">Amount</label>
                     <input type="number" id="payment-expiry" class="form-control" placeholder="{{currency}}" />
                   </div>
                 </div>
                 <div class="col-sm-6 col-12">
                   <div class="form-group mb-2">
-                    <label for="payment-cvv">OTP</label>
+                    <label for="payment-cvv" ngbTooltip="Enter the code from your Authy or Google Authenticator" placement="top">OTP</label>
                     <input type="number" id="payment-cvv" class="form-control" placeholder="12356" />
                   </div>
                 </div>
