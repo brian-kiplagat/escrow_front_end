@@ -34,7 +34,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public feeds:any[]=[]
   public currentUser:any ={}
   public user:any ={}
-
+  public has_blocked;
+  public blocked_by;
 
   // private
   private _unsubscribeAll: Subject<any>;
@@ -72,6 +73,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.fb.getUser(this.user.username,this.user.token).subscribe((data: any) => {
       this.currentUser =data.responseMessage?.user_data[0];
+      this.has_blocked = data.responseMessage?.has_blocked.length
+      this.blocked_by = data.responseMessage?.blocked_by.length
       console.log(data)
     },(error)=>{
       console.log(error)
@@ -89,16 +92,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       breadcrumb: {
         type: '',
         links: [
-          {
-            name: 'Home',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'Pages',
-            isLink: true,
-            link: '/'
-          },
+
           {
             name: 'Profile',
             isLink: false
@@ -119,5 +113,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  block() {
+
   }
 }

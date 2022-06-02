@@ -53,7 +53,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link font-weight-bold"  href="javascript:void(0)">
+                        <a class="button nav-link font-weight-bold"  (click)="block()" href="javascript:void(0)">
                           <span class="d-none d-md-block" >Block</span>
                           <i data-feather="user-x" class="d-block d-md-none"></i>
                         </a>
@@ -98,11 +98,11 @@
                 </div>
                 <div class="mt-2">
                   <h5 class="mb-50">Has Blocked:</h5>
-                  <p class="card-text mb-0">0 People</p>
+                  <p class="card-text mb-0">{{has_blocked}} People</p>
                 </div>
                 <div class="mt-2">
                   <h5 class="mb-50">Blocked By:</h5>
-                  <p class="card-text mb-0">0 People</p>
+                  <p class="card-text mb-0">{{blocked_by}} People</p>
                 </div>
               </div>
             </div>
