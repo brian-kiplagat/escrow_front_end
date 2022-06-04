@@ -12,13 +12,9 @@
             <h3 class="mb-75 mt-2 pt-50">
               <a href="javascript:void(0);">{{fiat}} {{currentUser.currency}}</a>
             </h3>
-            <button type="button" [routerLink]="'/offers/bitcoin/buy'" class="btn btn-primary" rippleEffect>MY WALLET
+            <button type="button" [routerLink]="'/ui/card/card-basic'" class="btn btn-primary" rippleEffect>MY WALLET
             </button>
-            <ngb-alert style="margin-top: 10px" [type]="'primary'" [dismissible]="false">
-              <div class="alert-body"
-                   ngbTooltip="This is your BTC Wallet address. Use this address to deposit Bitcoin (BTC). Only send BTC tokens from the Bitcoin network. If you send other currencies from other networks you may not recover the deposit."
-                   placement="top">{{currentUser.wallet}}</div>
-            </ngb-alert>
+
             <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic"/>
           </div>
 
