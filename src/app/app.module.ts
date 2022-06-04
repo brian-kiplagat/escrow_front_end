@@ -84,7 +84,7 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'pages/login' //Error 404 - Page not found
+    redirectTo: 'pages/miscellaneous/error' //Error 404 - Page not found
   }
 ];
 

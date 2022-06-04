@@ -14,13 +14,10 @@
           </div>
           <div class="card-body">
             <div class="meetup-header d-flex align-items-center">
-              <div class="meetup-day">
-                <h6 class="mb-0">THU</h6>
-                <h3 class="mb-0">24</h3>
-              </div>
-              <div class="my-auto">
+
+              <div class="my-auto" ngbTooltip = "Send Bitcoin (BTC) to this address to add funds to your account." placement="top">
                 <h4 class="card-title mb-25">Receive BTC</h4>
-                <p class="card-text mb-0">{{address}}</p>
+                <p class="card-text mb-0" >{{address}}</p>
               </div>
             </div>
             <div class="">
@@ -37,7 +34,7 @@
         <div class="card card-payment">
           <div class="card-header">
             <h4 class="card-title">SEND BTC</h4>
-            <h4 class="card-title text-primary">{{fiat}} {{currency}} </h4>
+            <h4 class="card-title text-primary" ngbTooltip = "This is your current balance in {{currency}}. You can change how we display your balance from the account settings menu." placement="top">{{fiat}} {{currency}} </h4>
           </div>
           <div class="card-body">
             <form action="javascript:void(0);" class="form">

@@ -1,6 +1,6 @@
 <!-- Bookmarked Icons -->
 <ul class="nav navbar-nav bookmark-icons">
- 
+
 </ul>
 <!-- Bookmarked Icons -->
 
@@ -8,7 +8,54 @@
   <li class="nav-item d-none d-lg-block">
     <!-- Bookmark Icon -->
     <a class="nav-link bookmark-star" (click)="toggleBookmarkPopup()"   [routerLink]="'offers/bitcoin/sell'">Sell Bitcoin <span [data-feather]="'arrow-up'"
-        [class]="'ficon text-warning'"></span></a>
+                                                                                                                                [class]="'ficon text-warning'"></span></a>
+    <!--/ Bookmark Icon -->
+
+    <!-- Bookmark Pop-up -->
+    <!-- <div class="bookmark-input search-input" [class.show]="openBookmarkRef">
+      <ul class="search-list search-list-bookmark show" [perfectScrollbar]>
+        <ng-container *ngIf="bookmarkText !== ''; else defaultBookmarks">
+          <li class="auto-suggestion"
+            *ngFor="let page of pages | filter: bookmarkText:'title' | slice: 0:6; let i = index"
+            [ngClass]="{ current_item: i === activeIndex }">
+            <a class="d-flex align-items-center justify-content-between w-100" [routerLink]="page.link"
+              (click)="$event.stopPropagation(); $event.preventDefault(); closeBookmark(); removeOverlay()">
+              <div class="d-flex justify-content-start align-items-center">
+                <i class="feather icon-{{ page.icon }} mr-75"></i>
+                <span>{{ page.title }}</span>
+              </div>
+              <button type="button" class="btn p-0"
+                (click)="$event.stopPropagation(); $event.preventDefault(); toggleBookmark(page.id)">
+                <i class="feather icon-star" [class.text-warning]="page.isBookmarked"></i>
+              </button>
+            </a>
+          </li>
+        </ng-container>
+        <ng-template #defaultBookmarks>
+          <ng-container *ngFor="let page of pages | filter: bookmarkText:'title'; let i = index">
+            <li class="auto-suggestion" *ngIf="page.isBookmarked" [ngClass]="{ current_item: i === activeIndex }">
+              <a class="d-flex align-items-center justify-content-between w-100" [routerLink]="page.link"
+                (click)="$event.stopPropagation(); $event.preventDefault(); closeBookmark(); removeOverlay()">
+                <div class="d-flex justify-content-start align-items-center">
+                  <i class="feather icon-{{ page.icon }} mr-75"></i>
+                  <span>{{ page.title }}</span>
+                </div>
+                <button type="button" class="btn p-0"
+                  (click)="$event.stopPropagation(); $event.preventDefault(); toggleBookmark(page.id)">
+                  <i class="feather icon-star" [class.text-warning]="page.isBookmarked"></i>
+                </button>
+              </a>
+            </li>
+          </ng-container>
+        </ng-template>
+      </ul>
+    </div> -->
+    <!--/ Bookmark Pop-up -->
+  </li>
+  <li class="nav-item d-none d-lg-block">
+    <!-- Bookmark Icon -->
+    <a class="nav-link bookmark-star" (click)="toggleBookmarkPopup()"   [routerLink]="'ui/card/card-basic'">My wallet<span [data-feather]="'pocket'"
+                                                                                                                                [class]="'ficon text-warning'"></span></a>
     <!--/ Bookmark Icon -->
 
     <!-- Bookmark Pop-up -->

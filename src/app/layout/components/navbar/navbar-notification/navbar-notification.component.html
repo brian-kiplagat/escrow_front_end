@@ -1,8 +1,8 @@
 <li ngbDropdown class="nav-item dropdown-notification mr-25">
   <a class="nav-link" ngbDropdownToggle id="navbarNotificationDropdown"
-    ><i class="ficon" data-feather="bell"></i
-    ><span class="badge badge-pill badge-danger badge-up">{{
-      notifications?.length
+  ><i class="ficon" data-feather="bell"></i
+  ><span class="badge badge-pill badge-danger badge-up">{{
+    notifications?.length
     }}</span></a
   >
   <ul
@@ -24,11 +24,11 @@
     <!-- Notifications content -->
     <li class="scrollable-container media-list" [perfectScrollbar]>
       <a class="d-flex" href="javascript:void(0)" *ngFor="let message of notifications">
-        <div class="media d-flex align-items-start">
+        <div class="media d-flex align-items-start" [routerLink]="'/'+ message.resource_path">
           <div class="media-left">
             <div
               class="avatar bg-light-success"
-             
+
             >
               <div class="avatar-content"><i class="avatar-icon" [data-feather]="'bell'"></i></div>
             </div>
@@ -37,7 +37,8 @@
             <p class="media-heading" [innerHTML]="message.heading"></p>
             <small class="notification-text">{{ message.text }}</small>
           </div>
-        </div></a
+        </div>
+      </a
       >
 
     </li>
