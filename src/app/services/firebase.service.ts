@@ -232,13 +232,7 @@ export class FirebaseService {
         );
     }
 
-    getCountries() {
-        var data: any = new FormData();
-        data.append('key', 'kwdmcpmpmwsx');
-        data.append('secret', 'kxpwcnmpwcmcpc');
 
-        return this.http.post('https://coinlif.com/api/coin/getCurrency.php', data);
-    }
     getProfile() {
         var data: any = new FormData();
         data.append('username', 'MurderouLlipa455');

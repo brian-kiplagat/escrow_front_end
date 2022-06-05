@@ -480,11 +480,11 @@
                 >
                   <ul class="other-payment-options list-unstyled">
                     <li class="py-50">
-                      <div class="custom-control custom-radio">
+                      <div class="custom-control custom-checkbox">
                         <input
-                          type="radio"
+                          type="checkbox"
                           id="customColorRadio3"
-                          value="true"
+                          value="unchecked"
                           formControlName="idverification"
                           class="custom-control-input"
                         />
@@ -497,11 +497,11 @@
                       </div>
                     </li>
                     <li class="py-50">
-                      <div class="custom-control custom-radio">
+                      <div class="custom-control custom-checkbox">
                         <input
-                          type="radio"
+                          type="checkbox"
                           id="customColorRadio4"
-                          value="true"
+                          value="unchecked"
                           formControlName="fullname"
                           class="custom-control-input"
                         />
@@ -510,6 +510,23 @@
                           for="customColorRadio4"
                         >
                           Require partner to show their full name</label
+                        >
+                      </div>
+                    </li>
+                    <li class="py-50">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          id="vpn"
+                          value="unchecked"
+                          formControlName="vpn"
+                          class="custom-control-input"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="vpn"
+                        >
+                          Don't allow VPN/Anonymisers</label
                         >
                       </div>
                     </li>
@@ -573,6 +590,7 @@
                           class="form-control"
                           [class.error]="submitted && f2.limitusers.errors"
                           placeholder="Restrict user based on blocks"
+                          formControlName="limit_block"
 
 
                         />
