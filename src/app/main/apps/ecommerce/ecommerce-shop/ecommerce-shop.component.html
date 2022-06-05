@@ -34,12 +34,12 @@
                     </div>
                   </div>
                   <div class="col-sm-6 col-12">
-                    <label>I want to buy</label>
+                    <label>I want to trade</label>
 
                     <div class="form-group">
                       <!-- Select Multi with group -->
                       <input type="text" id="last-name-column" class="form-control" placeholder="Amount"  [(ngModel)]="amount"/>
-                   
+
                       <!--/ Select Multi with group -->
                     </div>
 
@@ -53,7 +53,7 @@
                       <!--/ Basic Multi select -->
                     </div>
                   </div>
-                 
+
                   <div class="col-12">
                     <button type="button" class="btn btn-primary btn-block" rippleEffect (click)="filterOffers()">
                       <span [data-feather]="'search'" [class]="'mr-25'" ></span>FIND OFFERS
@@ -101,23 +101,23 @@
             <div class="price-details" style="margin-bottom: -1px">
               <ul class="list-unstyled">
                 <li class="price-detail">
-                  <div class="detail-title">Fast Trades</div>
+                  <div class="detail-title">{{offer.label}}</div>
                   <div class="detail-title detail-total">45,598 EUR</div>
                 </li>
                 <li class="price-detail">
                   <div class="detail-title">
                     <div class="badge badge-pill badge-light-secondary">Photo ID Required</div>
                     <div class="badge badge-pill badge-light-secondary">{{offer.tags}}</div>
-                    <div class="badge badge-pill badge-light-warning" *ngIf="offer.vpn ==1">This offer doesn't allow VPN</div>
+                    <div class="badge badge-pill badge-light-warning" *ngIf="offer.vpn == 1">This offer doesn't allow VPN</div>
                   </div>
-                  <div class="detail-amt discount-amt text-success">Limits: {{offer.minimum}}-{{offer.maximum}}{{offer.currency}}
+                  <div class="detail-amt discount-amt text-success">Limits: {{offer.minimum | number : '1.0-0' }}-{{offer.maximum | number : '1.0-0'}} {{offer.currency}}
                   </div>
                 </li>
 
               </ul>
 
               <ul class="list-unstyled">
-              
+
                 <li class="price-detail">
                   <div class="detail-title detail-total"></div>
                   <div class="detail-amt font-weight-bolder">

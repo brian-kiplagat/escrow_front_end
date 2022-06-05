@@ -22,12 +22,18 @@
                   <div class="card">
 
                     <div class="card-body">
-                      <div class="row">
-                        <ngb-alert [type]="'danger'" [dismissible]="false">
+                      <ngb-alert [type]="'danger'" [dismissible]="false">
 
-                          <div class="alert-body" *ngIf="offer.vpn ==1">
-                            This offer does not allow VPN/TOR or other anonymous usages. Deactivate your VPN first</div>
-                        </ngb-alert>
+                        <div class="alert-body" *ngIf="offer.vpn ==1">
+                          This offer does not allow VPN/TOR or other anonymous usages. Deactivate your VPN first</div>
+                      </ngb-alert>
+                      <ngb-alert [type]="'danger'" [dismissible]="false">
+
+                        <div class="alert-body" *ngIf="err">
+                          {{err}}</div>
+                      </ngb-alert>
+                      <div class="row">
+
                         <div class="col-sm-6 col-12">
                           <label>I want to buy</label>
 
@@ -51,7 +57,7 @@
 
                         <div class="col-12">
                           <button type="button" class="btn btn-primary btn-block" (click)="openTrade()" rippleEffect>
-                            <span [data-feather]="'shield'" [class]="'mr-25 text-capitalize'" ></span>{{offer.type|uppercase}}  BITCOIN
+                            <span [data-feather]="'shield'" [class]="'mr-25 text-capitalize'" ></span>{{offer.type| uppercase}}  BITCOIN
                           </button>
                         </div>
                       </div>
@@ -60,8 +66,8 @@
                 </div>
               </div>
 
-              <p class="card-text">Rate - <span class="text-success">{{offer.margin}}% Above market Price</span></p>
-              <p class="card-text">{{offer.type}} limits - <span class="text-success">{{offer.minimum}}-{{offer.maximum}} {{offer.currency}}</span></p>
+              <p class="card-text">Rate - <span class="text-success">{{offer.margin}}% above market price</span></p>
+              <p class="card-text">{{offer.type}} limits - <span class="text-success">{{offer.minimum | number : '1.2-2'}}-{{offer.maximum  | number : '1.2-2'}} {{offer.currency}}</span></p>
               <p class="card-text">Escrow Fee - <span class="text-success">0%</span></p>
               <p class="card-text">Trade time limit - <span class="text-success">30 min</span></p>
 
