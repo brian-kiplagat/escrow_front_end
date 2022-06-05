@@ -73,11 +73,6 @@ const appRoutes: Routes = [
 
   },
   {
-    path: 'charts-and-maps',
-    loadChildren: () => import('./main/charts-and-maps/charts-and-maps.module').then(m => m.ChartsAndMapsModule),
-
-  },
-  {
     path: '',
     redirectTo: 'pages/login',
     pathMatch: 'full'

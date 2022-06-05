@@ -1,4 +1,3 @@
-import { Email } from './../../../apps/email/email.model';
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -42,7 +41,7 @@ export class AuthLoginV2Component implements OnInit {
     private firebase: FirebaseService,
     private router:Router
   ) {
-   
+
     this._unsubscribeAll = new Subject();
     // Configure the layout
     this._coreConfigService.config = {

@@ -25,18 +25,16 @@
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
         <h2 class="card-title font-weight-bold mb-1">Welcome to CoinPes! 👋</h2>
         <p class="card-text mb-2">Please sign-in to your account to start buying and selling BTC with escrow</p>
-        <ngb-alert [type]="'primary'" [dismissible]="false">
+        <ngb-alert [type]="'primary'" [dismissible]="false" placement="top"
+                   ngbTooltip="Protect yourself from phishing and hacking. You must confirm that you are logging in from the our official domain - coinpes.com and not any other."
+        >
           <div class="alert-body font-small-2">
             <p>
               <small class="mr-50"><span class="font-weight-bold">Very Important:</span> Please check that you are visiting https://coinpes.com/</small>
             </p>
 
           </div>
-          <span
-            class="feather icon-help-circle auth-help-icon font-medium-3"
-            placement="left"
-            ngbTooltip="Protect yourself from phishing and hacking. You must confirm that youre logging in from the correct website. Our official domain is coinpes.com and not any other."
-          ></span>
+
         </ngb-alert>
 
         <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
