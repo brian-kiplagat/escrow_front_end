@@ -30,7 +30,7 @@ export class ChatSidebarComponent implements OnInit {
    * @param {ChatService} _chatService
    * @param {CoreSidebarService} _coreSidebarService
    */
-  constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService, private router: Router) {
+  constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
     this.options = this.toastr.toastrConfig;
   }
   // Public Methods
@@ -218,7 +218,7 @@ export class ChatSidebarComponent implements OnInit {
                 }
               });
             }
-            window.location.href="/dashboard/overview";
+            //window.location.href="/dashboard/overview";
             return response.json();
           })
           .catch(function (error) {
@@ -272,6 +272,11 @@ export class ChatSidebarComponent implements OnInit {
 
         }
       });
+
+  }
+
+  view_offer(idd: any) {
+    window.location.href = '/offers/bitcoin/details/'+idd
 
   }
 }
