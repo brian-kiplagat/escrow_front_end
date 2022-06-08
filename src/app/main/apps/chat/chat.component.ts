@@ -14,6 +14,7 @@ export class ChatComponent implements OnInit {
   public currentUser: any = {}
   public tradeData: any = {}
   public trade: any = {}
+  public buyer: boolean;
 
   constructor(private fb: FirebaseService, private route: ActivatedRoute, private router: Router) {
 
@@ -37,6 +38,7 @@ export class ChatComponent implements OnInit {
       console.log(error)
       this.router.navigate(['dashboard'])
     });
+
 
 
   }

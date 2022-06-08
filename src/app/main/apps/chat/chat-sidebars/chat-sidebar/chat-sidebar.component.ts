@@ -24,6 +24,7 @@ export class ChatSidebarComponent implements OnInit {
   public user:any ={}
 
   @Input() trade: any;
+  @Input() buyer:any;
   /**
    * Constructor
    *

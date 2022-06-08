@@ -34,6 +34,7 @@ export class ChatContentComponent implements OnInit {
   public trade: any = {}
   public chat_instruction;
   public uname;
+  public buyer: boolean;
 
   /**
    * Constructor
@@ -97,23 +98,24 @@ export class ChatContentComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');
 
-    if (this.trade.buyer == this.user.email) {//Here i try to check if the logged in user is the buyer,,,,but i cant seem to access the users email
-      console.log('Logged in user is buyer')
-
-      //Logged in user is the buyer
-    } else {
-      //Logged in user is the seller
-      console.log('Logged in user is the seller')
-    }
-
     this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];
       this.tradeData = data.responseMessage?.trade_data;
       this.trade = this.tradeData.find(product => product.id == productIdFromRoute);
       console.log(this.trade)
-    //  console.log(this.currentUser)
+      if (this.trade.buyer == this.currentUser.email) {
+        console.log('Logged in user is buyer')
+        this.buyer = true;
+
+        //Logged in user is the buyer
+      } else if (this.trade.seller == this.currentUser.email){
+        //Logged in user is the seller
+        console.log('Logged in user is the seller')
+        this.buyer = false;
+      }
+      //  console.log(this.currentUser)
       if (this.trade.username === this.user.username){//Show other username for logged in party
-        this.uname = this.user.username
+        this.uname = this.user.cusername
       }else {
 
         this.uname = this.trade.username
