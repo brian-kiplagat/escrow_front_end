@@ -32,6 +32,16 @@
           using  {{trade.method | titlecase}}. Its now the sellers turn to send {{trade.btc_amount_with_margin}} BTC to
           your Coinpes wallet
         </p>
+        <p class="font-small-2" *ngIf="trade.status == 'PAID'">
+          You sent {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
+          using  {{trade.method | titlecase}}. Its now the sellers turn to send {{trade.btc_amount_with_margin}} BTC to
+          your Coinpes wallet
+        </p>
+        <p class="font-small-2" *ngIf="trade.status == 'CANCELLED_BUYER'">
+          Trade cancelled by buyer: {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
+          using  {{trade.method | titlecase}}. To trade again open another trade {{trade.btc_amount_with_margin}} BTC to
+          your Coinpes wallet
+        </p>
         <div class="design-group mb-2 pt-50" *ngIf="trade.status == 'OPENED'">
           <h6 class="section-label">Expires in:</h6>
           <div class="badge badge-light-warning mr-1"

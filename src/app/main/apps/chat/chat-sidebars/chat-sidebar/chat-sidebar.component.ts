@@ -4,6 +4,7 @@ import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.ser
 import {ChatService} from 'app/main/apps/chat/chat.service';
 import { ToastrService, GlobalConfig } from 'ngx-toastr';
 import Swal from "sweetalert2";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -29,7 +30,7 @@ export class ChatSidebarComponent implements OnInit {
    * @param {ChatService} _chatService
    * @param {CoreSidebarService} _coreSidebarService
    */
-  constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
+  constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService, private router: Router) {
     this.options = this.toastr.toastrConfig;
   }
   // Public Methods
@@ -217,7 +218,7 @@ export class ChatSidebarComponent implements OnInit {
                 }
               });
             }
-            location.reload()
+            window.location.href="/dashboard/overview";
             return response.json();
           })
           .catch(function (error) {
