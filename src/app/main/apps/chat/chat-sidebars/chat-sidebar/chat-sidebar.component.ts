@@ -1,11 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {first} from 'rxjs/operators';
-
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
-
 import {ChatService} from 'app/main/apps/chat/chat.service';
-
-import clipboard from 'clipboardy';
 import { ToastrService, GlobalConfig } from 'ngx-toastr';
 import Swal from "sweetalert2";
 
@@ -23,9 +19,10 @@ export class ChatSidebarComponent implements OnInit {
   public userProfile;
   private options: GlobalConfig;
   public status = 'Started';
+  public currentUser:any ={}
+  public user:any ={}
 
   @Input() trade: any;
-
   /**
    * Constructor
    *
@@ -35,10 +32,8 @@ export class ChatSidebarComponent implements OnInit {
   constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
     this.options = this.toastr.toastrConfig;
   }
-
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
-
   /**
    * Open Chat
    *
@@ -55,7 +50,6 @@ export class ChatSidebarComponent implements OnInit {
       }
     });
   }
-
   /**
    * Toggle Sidebar
    *
@@ -64,7 +58,6 @@ export class ChatSidebarComponent implements OnInit {
   toggleSidebar(name) {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
-
   /**
    * Set Index
    *
@@ -73,11 +66,8 @@ export class ChatSidebarComponent implements OnInit {
   setIndex(index: number) {
     this.selectedIndex = index;
   }
-
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
-
-
   /**
    * On init
    */
@@ -124,9 +114,7 @@ export class ChatSidebarComponent implements OnInit {
     this.openChat(1);//1
 
   }
-
-
-  mark_paid(text: any) {
+  mark_paid(id: any) {
     Swal.fire ({
       title: 'Are you sure?',
       text: "You must ensure that you have sent the money first before clicking this button. Providing false information or coinlocking will cause your account to be banned",
@@ -141,8 +129,17 @@ export class ChatSidebarComponent implements OnInit {
       }
     }).then(function (result) {
       if (result.value) {
-
-        return fetch('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
+        let user =  JSON.parse(localStorage.getItem('user'))
+        const headerDict = {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          token:user.token,
+          username: user.username
+        }
+        const requestOptions = {
+          headers: new Headers(headerDict),
+        };
+        return fetch('https://api.coinlif.com/api/coin/v1/markPaid/'+id,requestOptions)
           .then(function (response) {
             console.log(response);
             if (!response.ok) {
@@ -158,7 +155,7 @@ export class ChatSidebarComponent implements OnInit {
                   confirmButton: 'btn btn-success'
                 }
               });
-              location.reload();
+             location.reload();
             }
             return response.json();
           })
@@ -176,7 +173,6 @@ export class ChatSidebarComponent implements OnInit {
       }
     });
   }
-
   cancel_trade(id) {
     Swal.fire ({
       title: 'Are you sure?',
@@ -193,8 +189,18 @@ export class ChatSidebarComponent implements OnInit {
       }
     }).then(function (result) {
       if (result.value) {
+        let user =  JSON.parse(localStorage.getItem('user'))
+        const headerDict = {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          token: user.token,
+          username:  user.username
+        }
 
-        return fetch('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
+        const requestOptions = {
+          headers: new Headers(headerDict),
+        };
+        return fetch('https://api.coinlif.com/api/coin/v1/cancelTrade/'+id,requestOptions)
           .then(function (response) {
             console.log(response);
             if (!response.ok) {
@@ -211,6 +217,7 @@ export class ChatSidebarComponent implements OnInit {
                 }
               });
             }
+            location.reload()
             return response.json();
           })
           .catch(function (error) {
@@ -227,7 +234,6 @@ export class ChatSidebarComponent implements OnInit {
       }
     });
   }
-
   open_dispute(id) {
     Swal.mixin({
       input: 'text',
