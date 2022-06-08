@@ -19,12 +19,12 @@ export class ChatSidebarComponent implements OnInit {
   public selectedIndex = null;
   public userProfile;
   private options: GlobalConfig;
-  public status = 'Started';
-  public currentUser:any ={}
   public user:any ={}
+  public storage: any;
 
   @Input() trade: any;
-  @Input() buyer:any;
+  @Input() currentUser: any;
+
   /**
    * Constructor
    *
@@ -75,6 +75,7 @@ export class ChatSidebarComponent implements OnInit {
    */
   ngOnInit(): void {
     // Subscribe to contacts
+    this.storage = JSON.parse(localStorage.getItem('user'));
     this._chatService.onContactsChange.subscribe(res => {
       this.contacts = res;
     });

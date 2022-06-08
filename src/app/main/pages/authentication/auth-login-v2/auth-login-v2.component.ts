@@ -91,7 +91,8 @@ export class AuthLoginV2Component implements OnInit {
           this.getUser( response.responseMessage.username,response.responseMessage.token)
           const data ={
             username:response.responseMessage.username,
-            token: response.responseMessage.token
+            token: response.responseMessage.token,
+            email: response.responseMessage.email
           }
           this.loading =false
           this.router.navigate(['dashboard/overview'])

@@ -23,29 +23,26 @@
       <div class="card-body">
         <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
         <h4 class="card-title mt-1 mb-75 pt-25">Trade {{trade.status}}</h4>
-        <p class="font-small-2" *ngIf="trade.status == 'OPENED'  && trade.buyer == currentUser.email">
+        <p class="font-small-2" *ngIf="trade.status == 'OPENED'  && trade.buyer == storage.email">
           Send {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
-          using  {{trade.method | titlecase}}
-          , {{trade.btc_amount_with_margin}} BTC will be added to your Coinpes wallet
+          using  {{trade.method | titlecase}}, {{trade.btc_amount_with_margin}} BTC will be added to your Coinpes wallet
         </p>
-        <p class="font-small-2" *ngIf="trade.status == 'OPENED'  && trade.buyer != currentUser.email">
+        <p class="font-small-2" *ngIf="trade.status == 'OPENED'  && trade.buyer != storage.email">
           Provide your details and wait for the buyer to Send {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}.
           After you receive it, {{trade.btc_amount_with_margin}}  Send BTC will be added to your Coinpes wallet
         </p>
-        <p class="font-small-2" *ngIf="trade.status == 'PAID' && trade.buyer == currentUser.email "
+        <p class="font-small-2" *ngIf="trade.status == 'PAID' && trade.buyer == storage.email"
            ngbTooltip='You have sent the payment. Now wait for the seller to send you the Bitcoin. If the seller refuses or you have a problem, Open a dispute and well come in to help you'
            placement='bottom'>
           You sent {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}. Its now the sellers turn to send {{trade.btc_amount_with_margin}} BTC
         </p>
-        <p class="font-small-2" *ngIf="trade.status == 'PAID' && trade.buyer != currentUser.email"
+        <p class="font-small-2" *ngIf="trade.status == 'PAID' && trade.seller == storage.email"
            ngbTooltip='If no payment was sent or you have a problem, Open a dispute and well come in to help you'
            placement='bottom'>
           The buyer has marked the trade as paid. Confirm if you have received the payment and release the BTC
         </p>
-
-
 
         <div *ngIf="trade.status == 'CANCELLED_BUYER'">
           <p class="font-small-2">
@@ -68,7 +65,7 @@
           </div>
 
         </div>
-        <button *ngIf="trade.status == 'OPENED' && trade.buyer == currentUser.email" type="button" (click)="mark_paid(trade.id)" rippleEffect
+        <button *ngIf="trade.status == 'OPENED' && trade.buyer == storage.email" type="button" (click)="mark_paid(trade.id)" rippleEffect
                 class="btn btn-primary btn-block"
                 ngbTooltip="After sending the payment, Click this button, this will confirm that you have sent. If you don't confirm, the trade will be cancelled automatically after 30 minutes and BTC will be returned from our escrow | trust account back to the seller."
                 placement="bottom">
@@ -78,7 +75,7 @@
           </div>
         </button>
 
-        <button *ngIf="(trade.status == 'OPENED'|| trade.status == 'PAID')&&trade.buyer == this.currentUser.email" type="button"
+        <button *ngIf="(trade.status == 'OPENED'|| trade.status == 'PAID') && trade.buyer == storage.email" type="button"
                 (click)="cancel_trade(trade.id)" rippleEffect class="btn btn-outline-warning btn-block"
                 ngbTooltip="Do not cancel this trade if you had sent any amount, if you cancel this trade after sending money you may loose the BTC because we will return return this escrow to the seller. For your safety, we require you to ask for refund first before cancelling. If you feel you have a problem with the seller, Click DISPUTE NOW and well join in to help you"
                 placement="bottom">CANCEL TRADE

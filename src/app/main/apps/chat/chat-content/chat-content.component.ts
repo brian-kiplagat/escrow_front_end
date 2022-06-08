@@ -104,13 +104,13 @@ export class ChatContentComponent implements OnInit {
       this.trade = this.tradeData.find(product => product.id == productIdFromRoute);
       console.log(this.trade)
       if (this.trade.buyer == this.currentUser.email) {
-        console.log('Logged in user is buyer')
+        console.log( this.currentUser.email+': Logged in user is buyer')
         this.buyer = true;
 
         //Logged in user is the buyer
       } else if (this.trade.seller == this.currentUser.email){
         //Logged in user is the seller
-        console.log('Logged in user is the seller')
+        console.log( this.currentUser.email+': Logged in user is the seller')
         this.buyer = false;
       }
       //  console.log(this.currentUser)
