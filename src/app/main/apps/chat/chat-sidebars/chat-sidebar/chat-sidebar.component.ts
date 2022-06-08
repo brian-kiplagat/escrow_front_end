@@ -218,7 +218,7 @@ export class ChatSidebarComponent implements OnInit {
                 }
               });
             }
-            //window.location.href="/dashboard/overview";
+            location.reload()
             return response.json();
           })
           .catch(function (error) {
