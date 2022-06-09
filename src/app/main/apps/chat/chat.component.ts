@@ -1,6 +1,7 @@
 import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {FirebaseService} from 'app/services/firebase.service';
 import {Router, ActivatedRoute} from '@angular/router';
+import {ChatService} from "./chat.service";
 
 @Component({
   selector: 'app-chat',
@@ -16,7 +17,7 @@ export class ChatComponent implements OnInit {
   public trade: any = {}
   public buyer: boolean;
 
-  constructor(private fb: FirebaseService, private route: ActivatedRoute, private router: Router) {
+  constructor(private fb: FirebaseService, private route: ActivatedRoute, private router: Router, private chat_service: ChatService) {
 
   }
 

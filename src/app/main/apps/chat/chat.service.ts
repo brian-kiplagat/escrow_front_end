@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
-export class ChatService {
+export class ChatService{
   public contacts: any[];
   public chats: any[];
   public userProfile;
@@ -223,4 +223,6 @@ export class ChatService {
     this.userProfile = userProfileRef;
     this.onUserProfileChange.next(this.userProfile);
   }
+
+
 }

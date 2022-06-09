@@ -38,19 +38,11 @@ export class ChatContentComponent implements OnInit {
   public buyer: boolean;
   public patner_data: any;
 
-
-  /**
-   * Constructor
-   *
-   * @param {ChatService} _chatService
-   * @param {CoreSidebarService} _coreSidebarService
-   */
   constructor(private _chatService: ChatService,
               private _coreSidebarService: CoreSidebarService,
               private fb: FirebaseService,
               private route: ActivatedRoute,
-              private router: Router,
-              private http: HttpClient,
+              private router: Router
   ) {
   }
 

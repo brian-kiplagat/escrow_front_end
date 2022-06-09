@@ -11,6 +11,8 @@ import {Router} from "@angular/router";
   templateUrl: './chat-sidebar.component.html'
 })
 export class ChatSidebarComponent implements OnInit {
+  @Input() trade: any;
+  @Input() currentUser: any;
   // Public
   public contacts;
   public chatUsers;
@@ -22,8 +24,7 @@ export class ChatSidebarComponent implements OnInit {
   public user:any ={}
   public storage: any;
 
-  @Input() trade: any;
-  @Input() currentUser: any;
+
 
   /**
    * Constructor
