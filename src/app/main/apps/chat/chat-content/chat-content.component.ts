@@ -5,6 +5,7 @@ import {FirebaseService} from 'app/services/firebase.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {user} from "@angular/fire/auth";
 import {ChatService} from "../chat.service";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-chat-content',
@@ -35,6 +36,7 @@ export class ChatContentComponent implements OnInit {
   public chat_instruction;
   public uname;
   public buyer: boolean;
+  public patner_data: any;
 
   /**
    * Constructor
@@ -43,10 +45,11 @@ export class ChatContentComponent implements OnInit {
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(private _chatService: ChatService,
-    private _coreSidebarService: CoreSidebarService,
-    private fb: FirebaseService,
-    private route: ActivatedRoute,
-    private router: Router
+              private _coreSidebarService: CoreSidebarService,
+              private fb: FirebaseService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private http: HttpClient,
   ) {
   }
 
@@ -96,29 +99,32 @@ export class ChatContentComponent implements OnInit {
 
     this.user = JSON.parse(localStorage.getItem('user'));
     const routeParams = this.route.snapshot.paramMap;
-    const productIdFromRoute = routeParams.get('id');
 
     this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];
-      this.tradeData = data.responseMessage?.trade_data;
-      this.trade = this.tradeData.find(product => product.id == productIdFromRoute);
-      console.log(this.trade)
-      if (this.trade.buyer == this.currentUser.email) {
-        console.log( this.currentUser.email+': Logged in user is buyer')
+
+      if (this.trade.buyer == this.currentUser.email) {//Logged in user is the buyer
+        console.log(this.currentUser.email + ': Logged in user is buyer')
         this.buyer = true;
+        this.fb.getUserByMail(this.trade.seller,this.user.token,this.user.username).subscribe((data: any) => {
+          this.patner_data = data.responseMessage?.[0];
+          }, (error) => {
+          console.log(error)
+          this.router.navigate(['dashboard'])
+        });
 
-        //Logged in user is the buyer
-      } else if (this.trade.seller == this.currentUser.email){
-        //Logged in user is the seller
-        console.log( this.currentUser.email+': Logged in user is the seller')
+      } else if (this.trade.seller == this.currentUser.email) {//Logged in user is the seller
+        console.log(this.currentUser.email + ': Logged in user is the seller')
         this.buyer = false;
-      }
-      //  console.log(this.currentUser)
-      if (this.trade.username === this.user.username){//Show other username for logged in party
-        this.uname = this.user.cusername
-      }else {
+        //Get the details of the buyer
+        this.fb.getUserByMail(this.trade.buyer,this.user.token,this.user.username).subscribe((data: any) => {
+          //console.log(data)
+          this.patner_data = data.responseMessage?.[0];
+        }, (error) => {
+          console.log(error)
+          // this.router.navigate(['dashboard'])
+        });
 
-        this.uname = this.trade.username
       }
 
       this.fb.retrieveMessage(this.trade.id).subscribe((data: any) => {
@@ -129,7 +135,22 @@ export class ChatContentComponent implements OnInit {
       console.log(error)
       this.router.navigate(['dashboard'])
     });
+    this.fb.getTradeByID(this.user.username, this.user.token, routeParams.get('id')).subscribe((data: any) => {
+      console.log(data)
+      this.trade = data.responseMessage?.[0];
+
+    }, (error) => {
+      console.log(error)
+      this.router.navigate(['dashboard'])
+    });
+
     this.activeChat = false;
 
   }
+
+  openLink(username: string) {
+    window.location.href = '/user/'+username
+  }
+
+
 }

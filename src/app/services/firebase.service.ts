@@ -92,7 +92,7 @@ export class FirebaseService {
     );
   }
 
-  //get user by email
+  //get user by username
   getUser(username: string, token: string) {
     const header = {
       'Content-Type': 'application/json',
@@ -105,6 +105,22 @@ export class FirebaseService {
     };
     return this.http.get(
       'https://api.coinlif.com/api/coin/v1/getUserDataByUsername/' + username,
+      requestOptions
+    );
+  }
+  //get user by mail
+  getUserByMail(email: string,token: string,username: string,) {
+    const header = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: token,
+      username: username,
+    };
+    const requestOptions = {
+      headers: new HttpHeaders(header)
+    };
+    return this.http.get(
+      'https://api.coinlif.com/api/coin/v1/getUserDataByEmail/' + email,
       requestOptions
     );
   }
