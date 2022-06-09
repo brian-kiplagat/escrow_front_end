@@ -38,6 +38,7 @@ export class ChatContentComponent implements OnInit {
   public buyer: boolean;
   public patner_data: any;
 
+
   /**
    * Constructor
    *
@@ -94,21 +95,17 @@ export class ChatContentComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-
-    this.chat_instruction = 'Hello world'
-
     this.user = JSON.parse(localStorage.getItem('user'));
     const routeParams = this.route.snapshot.paramMap;
-
     this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];
 
       if (this.trade.buyer == this.currentUser.email) {//Logged in user is the buyer
         console.log(this.currentUser.email + ': Logged in user is buyer')
         this.buyer = true;
-        this.fb.getUserByMail(this.trade.seller,this.user.token,this.user.username).subscribe((data: any) => {
+        this.fb.getUserByMail(this.trade.seller, this.user.token, this.user.username).subscribe((data: any) => {
           this.patner_data = data.responseMessage?.[0];
-          }, (error) => {
+        }, (error) => {
           console.log(error)
           this.router.navigate(['dashboard'])
         });
@@ -117,7 +114,7 @@ export class ChatContentComponent implements OnInit {
         console.log(this.currentUser.email + ': Logged in user is the seller')
         this.buyer = false;
         //Get the details of the buyer
-        this.fb.getUserByMail(this.trade.buyer,this.user.token,this.user.username).subscribe((data: any) => {
+        this.fb.getUserByMail(this.trade.buyer, this.user.token, this.user.username).subscribe((data: any) => {
           //console.log(data)
           this.patner_data = data.responseMessage?.[0];
         }, (error) => {
@@ -136,11 +133,10 @@ export class ChatContentComponent implements OnInit {
       this.router.navigate(['dashboard'])
     });
     this.fb.getTradeByID(this.user.username, this.user.token, routeParams.get('id')).subscribe((data: any) => {
-      console.log(data)
       this.trade = data.responseMessage?.[0];
-
+      console.log(data)
     }, (error) => {
-      console.log(error)
+      console.log('trade error' + error)
       this.router.navigate(['dashboard'])
     });
 
@@ -149,7 +145,7 @@ export class ChatContentComponent implements OnInit {
   }
 
   openLink(username: string) {
-    window.location.href = '/user/'+username
+    window.location.href = '/user/' + username
   }
 
 

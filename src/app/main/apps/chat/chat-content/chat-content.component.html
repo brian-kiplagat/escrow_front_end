@@ -65,10 +65,10 @@
     <!-- User Chat messages -->
     <div class="user-chats" [perfectScrollbar] #scrollMe [scrollTop]="scrolltop">
       <div class="chats">
-        <ngb-alert [type]="'primary'" [dismissible]="false" >
+        <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf = "trade.seller == currentUser.email" >
           <div class="card">
-            <div class="alert-body">
-              <p class="text-body-heading">You’re selling {{trade.btc_amount_with_margin}} BTC
+            <div class="alert-body" >
+              <p class="text-body-heading" >You’re selling {{trade.btc_amount_with_margin}} BTC
                 ({{trade.fiat_amount_with_margin | number : '1.2-2'}} {{trade.currency }}) for {{trade.fiat_amount_original | number : '1.2-2'}} {{trade.currency}}
                 via {{trade.method | titlecase}}. Your funds are being securely held in escrow.
               </p>
@@ -79,9 +79,31 @@
               <p class="text-black-50">4. Confirm that you’ve received your payment</p>
               <p class="text-black-50">5. Release the BTC to your trade partner</p>
             </div>
+
           </div>
 
         </ngb-alert>
+        <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf = "trade.buyer == currentUser.email" >
+          <div class="card">
+            <div class="alert-body" >
+              <p class="text-body-heading" >You’re buying {{trade.btc_amount_with_margin}} BTC
+                ({{trade.fiat_amount_with_margin | number : '1.2-2'}} {{trade.currency }}) for {{trade.fiat_amount_original | number : '1.2-2'}} {{trade.currency}}
+                via {{trade.method | titlecase}}. BTC is being securely held in escrow and its safe to make payments.
+              </p>
+
+              <p class="text-black-50">1. The seller will share {{trade.method | titlecase}} details</p>
+              <p class="text-black-50">2. Follow the instructions below and send the payment</p>
+              <p class="text-black-50">3. Click "I've paid" to confirm your payment</p>
+              <p class="text-black-50">4. The seller will confirm you’r payment</p>
+              <p class="text-black-50">5. The seller will release the BTC to your wallet</p>
+            </div>
+
+          </div>
+
+        </ngb-alert>
+
+
+
         <ngb-alert [type]="'primary'" [dismissible]="false" >
           <div class="card">
             <div class="alert-body">
