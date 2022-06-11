@@ -126,7 +126,7 @@ export class FirebaseService {
   }
 
   //get packages
-  getPackages(token: string,username: string,) {
+  getPackages(token: string,username: string,email:string) {
     const header = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -137,7 +137,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      'https://api.coinlif.com/api/coin/v1/getPackages',
+      'https://api.coinlif.com/api/coin/v1/getPackages/'+email,
       requestOptions
     );
   }
@@ -287,6 +287,27 @@ export class FirebaseService {
 
     return this.http.post(
       'https://api.coinlif.com/api/coin/v1/openTrade',
+      data,
+      requestOptions
+    );
+  }
+
+  //invest trade
+  investPackage(username: string, token: string, data: any) {
+    const header = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: token,
+      username: username
+    };
+
+    console.log(data);
+    const requestOptions = {
+      headers: new HttpHeaders(header)
+    };
+
+    return this.http.post(
+      'https://api.coinlif.com/api/coin/v1/invest',
       data,
       requestOptions
     );

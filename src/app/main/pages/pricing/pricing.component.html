@@ -1,64 +1,71 @@
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body">
+
+
     <section id="pricing-plan">
       <!-- title text and switch button -->
+
       <div class="text-center">
         <h1 class="mt-5">Invest Plans</h1>
         <p class="mb-2 pb-75">
-          All plans include support. Choose the best plan to fit your
+          All plans include VIP support. Choose the best plan to fit your
           needs.
         </p>
-        <div class="d-flex align-items-center justify-content-center mb-5 pb-50">
-          <h6 class="mr-1 mb-0">Monthly</h6>
-          <div class="custom-control custom-switch">
-            <input
-              type="checkbox"
-              [checked]="Monthly"
-              [(ngModel)]="Monthly"
-              class="custom-control-input"
-              id="priceSwitch"
-              name="priceSwitch"
-            />
-            <label class="custom-control-label" for="priceSwitch"></label>
+
+        <ngb-alert [type]="'success'" [dismissible]="true" *ngIf="success">
+          <div class="alert-body">
+            <p>{{ msg }}</p>
           </div>
-          <h6 class="ml-50 mb-0">Annually</h6>
-        </div>
+        </ngb-alert>
+        <ngb-alert [type]="'danger'" [dismissible]="true" *ngIf="error">
+          <div class="alert-body">
+            <p>{{ msg }}</p>
+          </div>
+        </ngb-alert>
+
       </div>
+
+
       <!--/ title text and switch button -->
 
       <!-- pricing plan cards -->
       <div class="row pricing-card">
+
         <div class="col-12 col-sm-offset-2 col-sm-10 col-md-12 col-lg-offset-2 col-lg-10 mx-auto">
           <div class="row">
 
+
             <!-- standard plan -->
-            <div class="col-12 col-md-4" *ngFor = "let package of packages">
+            <div class="col-12 col-md-4" *ngFor="let package of packages">
               <div class="card standard-pricing popular text-center">
                 <div class="card-body">
-
-                  <img src="{{ data.pricing.standardPlan.img }}" class="mb-1" alt="svg img" />
+                  <div class="pricing-badge text-right">
+                    <div class="badge badge-pill badge-light-primary">{{package.rate}}</div>
+                  </div>
+                  <img src="{{ data.pricing.standardPlan.img }}" class="mb-1" alt="svg img"/>
                   <h3>{{ package.package }}</h3>
                   <p class="card-text">Invest</p>
                   <div class="annual-plan">
                     <div class="plan-price mt-2">
                       <sup class="font-medium-1 font-weight-bold text-primary">$ </sup>
                       <span class="pricing-standard-value font-weight-bolder text-primary">{{
-                       package.amount |  number: '1.0-0'
-                      }}</span>
+                        package.amount |  number: '1.0-0'
+                        }}</span>
 
                     </div>
+                    <br>
                     <small class="annual-pricing d-none text-muted" [ngClass]="{ 'd-block': true }"
-                      >0.6983038 BTC</small
+                    >{{package.btc}} BTC</small
                     >
                   </div>
 
-                  <button rippleEffect
+                  <button rippleEffect (click)="invest(package.id)"
                           class="btn btn-gradient-primary btn-block"
                           ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
                           placement="bottom">
                     <div>
                       <h2 class="d-inline mr-25 text-white">EARN</h2>
-                      <sub class="text-body"><small class="text-white">$500</small></sub>
+                      <sub class="text-body"><small class="text-white">${{package.return}}</small></sub>
                     </div>
                   </button>
 
@@ -79,9 +86,9 @@
           <div class="col-12 col-lg-10 col-lg-offset-3 mx-auto">
             <div class="pricing-trial-content d-flex justify-content-between">
               <div class="text-center text-md-left mt-3">
-                <h3 class="text-primary">Still not convinced? Start with a 14-day FREE trial!</h3>
-                <h5>You will get full access to with all the features for 14 days.</h5>
-                <button class="btn btn-primary mt-2 mt-lg-3" rippleEffect>Start 14-day FREE trial</button>
+                <h3 class="text-primary">Still not convinced? Start with the Beginner Packagel!</h3>
+                <h5>You will get full VIP support like the other packages.</h5>
+                <button class="btn btn-primary mt-2 mt-lg-3" rippleEffect>Start investing now</button>
               </div>
 
               <!-- image -->
@@ -94,9 +101,59 @@
           </div>
         </div>
       </div>
-      <!--/ pricing free trial -->
+      <!-- Table Basic -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header"><h4 class="card-title">Crypto Investments</h4></div>
+            <div class="card-body">
+              <p class="card-text">
+                We use institutional-grade algorithmic trading software to automate trading strategies in crypto, forex,
+                stocks and derivatives. Returns will be deposited in your trading account after one market cycle.
+              </p>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>Package</th>
+                  <th>Rate</th>
+                  <th>Deposit</th>
+                  <th>Return</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
 
-      <!-- pricing faq -->
+                <tr *ngFor="let data of investments">
+                  <td>
+                    <img
+                      src="assets/images/icons/angular.svg"
+                      class="mr-75"
+                      height="20"
+                      width="20"
+                      alt="Angular"
+                    /><span class="font-weight-bold">{{data.package}} Package</span>
+                  </td>
+                  <td>{{data.rate }}</td>
+                  <td>${{data.amount | number : '1.0-0'}}</td>
+                  <td>${{data.amount * data.rate | number : '1.0-0'}}</td>
+                  <td *ngIf="data.paid == 0"><span class="badge badge-pill badge-light-warning mr-1">Wait</span></td>
+                  <td *ngIf="data.paid == 1"><span class="badge badge-pill badge-light-success mr-1">Received</span>
+                  </td>
+
+                  <td><span class="badge badge-pill badge-light-primary mr-1">{{data.created_at | date}}</span></td>
+
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Table Basic -->
       <div class="pricing-faq">
         <h3 class="text-center">FAQ's</h3>
         <p class="text-center">Let us help answer the most common questions.</p>
