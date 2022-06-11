@@ -30,7 +30,7 @@
         <p class="font-small-2" *ngIf="trade.status == 'OPENED'  && trade.buyer != storage.email">
           Provide your details and wait for the buyer to Send {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}.
-          After you receive it, {{trade.btc_amount_with_margin}}  Send BTC will be added to your Coinpes wallet
+          After you receive it, promptly release BTC to the buyer
         </p>
         <p class="font-small-2" *ngIf="trade.status == 'PAID' && trade.buyer == storage.email"
            ngbTooltip='You have sent the payment. Now wait for the seller to send you the Bitcoin. If the seller refuses or you have a problem, Open a dispute and well come in to help you'
