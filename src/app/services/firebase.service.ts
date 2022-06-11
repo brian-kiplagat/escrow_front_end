@@ -125,6 +125,23 @@ export class FirebaseService {
     );
   }
 
+  //get packages
+  getPackages(token: string,username: string,) {
+    const header = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: token,
+      username: username,
+    };
+    const requestOptions = {
+      headers: new HttpHeaders(header)
+    };
+    return this.http.get(
+      'https://api.coinlif.com/api/coin/v1/getPackages',
+      requestOptions
+    );
+  }
+
   // get notifications
   getNotifications(username: string, token: string) {
     const header = {

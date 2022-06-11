@@ -3,9 +3,9 @@
     <section id="pricing-plan">
       <!-- title text and switch button -->
       <div class="text-center">
-        <h1 class="mt-5">Pricing Plans</h1>
+        <h1 class="mt-5">Invest Plans</h1>
         <p class="mb-2 pb-75">
-          All plans include 40+ advanced tools and features to boost your product. Choose the best plan to fit your
+          All plans include support. Choose the best plan to fit your
           needs.
         </p>
         <div class="d-flex align-items-center justify-content-center mb-5 pb-50">
@@ -30,101 +30,44 @@
       <div class="row pricing-card">
         <div class="col-12 col-sm-offset-2 col-sm-10 col-md-12 col-lg-offset-2 col-lg-10 mx-auto">
           <div class="row">
-            <!-- basic plan -->
-            <div class="col-12 col-md-4">
-              <div class="card basic-pricing text-center">
-                <div class="card-body">
-                  <img src="{{ data.pricing.basicPlan.img }}" class="mb-2 mt-5" alt="svg img" />
-                  <h3>{{ data.pricing.basicPlan.title }}</h3>
-                  <p class="card-text">{{ data.pricing.basicPlan.subtitle }}</p>
-                  <div class="annual-plan">
-                    <div class="plan-price mt-2">
-                      <sup class="font-medium-1 font-weight-bold text-primary">$ </sup>
-                      <span class="pricing-basic-value font-weight-bolder text-primary">0</span>
-                      <sub class="pricing-duration text-body font-medium-1 font-weight-bold">/month</sub>
-                    </div>
-                    <small class="annual-pricing d-none text-muted"></small>
-                  </div>
-                  <ul class="list-group list-group-circle text-left">
-                    <li class="list-group-item" *ngFor="let planBenefitsRef of data.pricing.basicPlan.planBenefits">
-                      {{ planBenefitsRef }}
-                    </li>
-                  </ul>
-                  <button class="btn btn-block btn-outline-success mt-2" rippleEffect>Your current plan</button>
-                </div>
-              </div>
-            </div>
-            <!--/ basic plan -->
 
             <!-- standard plan -->
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4" *ngFor = "let package of packages">
               <div class="card standard-pricing popular text-center">
                 <div class="card-body">
-                  <div class="pricing-badge text-right">
-                    <div class="badge badge-pill badge-light-primary">Popular</div>
-                  </div>
+
                   <img src="{{ data.pricing.standardPlan.img }}" class="mb-1" alt="svg img" />
-                  <h3>{{ data.pricing.standardPlan.title }}</h3>
-                  <p class="card-text">{{ data.pricing.standardPlan.subtitle }}</p>
+                  <h3>{{ package.package }}</h3>
+                  <p class="card-text">Invest</p>
                   <div class="annual-plan">
                     <div class="plan-price mt-2">
                       <sup class="font-medium-1 font-weight-bold text-primary">$ </sup>
                       <span class="pricing-standard-value font-weight-bolder text-primary">{{
-                        Monthly == true
-                          ? data.pricing.standardPlan.yearlyPlan.perMonth
-                          : data.pricing.standardPlan.monthlyPrice
+                       package.amount |  number: '1.0-0'
                       }}</span>
-                      <sub class="pricing-duration text-body font-medium-1 font-weight-bold">/month</sub>
+
                     </div>
-                    <small class="annual-pricing d-none text-muted" [ngClass]="{ 'd-block': Monthly === true }"
-                      >USD 480 / year</small
+                    <small class="annual-pricing d-none text-muted" [ngClass]="{ 'd-block': true }"
+                      >0.6983038 BTC</small
                     >
                   </div>
-                  <ul class="list-group list-group-circle text-left">
-                    <li class="list-group-item" *ngFor="let standardPlanRef of data.pricing.standardPlan.planBenefits">
-                      {{ standardPlanRef }}
-                    </li>
-                  </ul>
-                  <button class="btn btn-block btn-primary mt-2" rippleEffect>Upgrade</button>
+
+                  <button rippleEffect
+                          class="btn btn-gradient-primary btn-block"
+                          ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
+                          placement="bottom">
+                    <div>
+                      <h2 class="d-inline mr-25 text-white">EARN</h2>
+                      <sub class="text-body"><small class="text-white">$500</small></sub>
+                    </div>
+                  </button>
+
                 </div>
               </div>
             </div>
             <!--/ standard plan -->
 
-            <!-- enterprise plan -->
-            <div class="col-12 col-md-4">
-              <div class="card enterprise-pricing text-center">
-                <div class="card-body">
-                  <img src="{{ data.pricing.enterprisePlan.img }}" class="mb-2" alt="svg img" />
-                  <h3>{{ data.pricing.enterprisePlan.title }}</h3>
-                  <p class="card-text">{{ data.pricing.enterprisePlan.subtitle }}</p>
-                  <div class="annual-plan">
-                    <div class="plan-price mt-2">
-                      <sup class="font-medium-1 font-weight-bold text-primary">$ </sup>
-                      <span class="pricing-enterprise-value font-weight-bolder text-primary">{{
-                        Monthly == true
-                          ? data.pricing.enterprisePlan.yearlyPlan.perMonth
-                          : data.pricing.enterprisePlan.monthlyPrice
-                      }}</span>
-                      <sub class="pricing-duration text-body font-medium-1 font-weight-bold">/month</sub>
-                    </div>
-                    <small class="annual-pricing d-none text-muted" [ngClass]="{ 'd-block': Monthly === true }"
-                      >USD 960 / year</small
-                    >
-                  </div>
-                  <ul class="list-group list-group-circle text-left">
-                    <li
-                      class="list-group-item"
-                      *ngFor="let enterprisePlanRef of data.pricing.enterprisePlan.planBenefits"
-                    >
-                      {{ enterprisePlanRef }}
-                    </li>
-                  </ul>
-                  <button class="btn btn-block btn-outline-primary mt-2" rippleEffect>Upgrade</button>
-                </div>
-              </div>
-            </div>
-            <!--/ enterprise plan -->
+
           </div>
         </div>
       </div>

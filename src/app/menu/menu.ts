@@ -14,6 +14,14 @@ export const menu: CoreMenu[] = [
   {
     id: 'apps_2',
     type: 'item',
+    title: 'Invest Bitcoin',
+    translate: 'MENU.APPS.SECTION',
+    icon: 'bar-chart',
+    url: "pages/pricing"
+  },
+  {
+    id: 'apps_2',
+    type: 'item',
     title: 'Buy Bitcoin',
     translate: 'MENU.APPS.SECTION',
     icon: 'dollar-sign',
