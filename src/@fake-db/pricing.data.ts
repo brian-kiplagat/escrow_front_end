@@ -57,19 +57,22 @@ export class PricingFakeData {
       },
       qandA: [
         {
-          question: 'Does my subscription automatically renew?',
-          ans:
-            'Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.'
+          question: 'What is staking?',
+          ans: 'Like a lot of things in crypto, staking can be a complicated idea or a simple one depending on how many levels of understanding you want to unlock. For a lot of traders and investors, knowing that staking is a way of earning rewards for holding certain cryptocurrencies is the key takeaway. But even if you’re just looking to earn some staking rewards, it’s useful to understand at least a little bit about how and why it works the way it does'
         },
         {
-          question: 'Can I store the item on an intranet so everyone has access?',
+          question: 'How does staking work?',
           ans:
-            'Tiramisu marshmallow dessert halvah bonbon cake gingerbread. Jelly beans chocolate pie powder. Dessert pudding chocolate cake bonbon bear claw cotton candy cheesecake. Biscuit fruitcake macaroon carrot cake. Chocolate cake bear claw muffin chupa chups pudding.'
+            'If a cryptocurrency you own allows staking — current options include Tezos, Cosmos, and now Ethereum (via the new ETH2 upgrade) — you can “stake” some of your holdings and earn a percentage-rate reward over time. This usually happens via a “staking pool” which you can think of as being similar to an interest-bearing savings account. 
+
+The reason your crypto earns rewards while staked is because the blockchain puts it to work. Cryptocurrencies that allow staking use a “consensus mechanism” called Proof of Stake, which is the way they ensure that all transactions are verified and secured without a bank or payment processor in the middle. Your crypto, if you choose to stake it, becomes part of that process. 
+
+(Get all the info you need to understand the transition to ETH2 in our guide to all things Ethereum.)'
         },
         {
-          question: 'Am I allowed to modify the item that I purchased?',
+          question: 'Do I need to stake again after yield?',
           ans:
-            'Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan. Carrot cake marshmallow pastry. Bonbon biscuit pastry topping toffee dessert gummies. Topping apple pie pie croissant cotton candy dessert tiramisu.'
+            'Yes you do.'
         }
       ]
     }
