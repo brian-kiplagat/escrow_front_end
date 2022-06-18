@@ -168,6 +168,7 @@ export class EcommerceCheckoutComponent implements OnInit {
           Validators.maxLength(25)
         ])
       ],
+      
       terms: ['', Validators.compose([
         Validators.required,
         Validators.minLength(4),

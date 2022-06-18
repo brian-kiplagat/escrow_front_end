@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 
@@ -23,6 +24,7 @@ export class EcommerceDetailsComponent implements OnInit {
   public buyamount = ""
   public currentUser: any = {}
   public err = "";
+  public form: FormGroup;
 
   /**
    * Constructor
@@ -33,7 +35,8 @@ export class EcommerceDetailsComponent implements OnInit {
     private _ecommerceService: EcommerceService,
     private route: ActivatedRoute,
     private _fb: FirebaseService,
-    private router: Router
+    private router: Router,
+    private _formBuilder: FormBuilder
   ) {
   }
 
@@ -42,9 +45,13 @@ export class EcommerceDetailsComponent implements OnInit {
 
   /**
    * Toggle Wishlist
-   *
-   * @param product
+   * @param form
+   
    */
+   // convenience getter for easy access to form fields
+   get f() {
+    return this.form.controls;
+  }
   toggleWishlist(product) {
     if (product.isInWishlist === true) {
       this._ecommerceService.removeFromWishlist(product.id).then((res) => {
@@ -82,6 +89,32 @@ export class EcommerceDetailsComponent implements OnInit {
     this._fb.getInfo(user.username, user.token, productIdFromRoute).subscribe((data: any) => {
       this.offer = data.responseMessage.data;
       console.log(data.responseMessage.data);
+    });
+    this.form = this._formBuilder.group({
+      // username: ['', [Validators.required]],
+      minimum: ['', Validators.required],
+      maximum: ['', Validators.required],
+      offerRate: ['', Validators.required],
+      tags: [[], Validators.required],
+      label: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(25)
+        ])
+      ],
+      
+      terms: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(180)
+      ])],
+      instructions: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(400)
+      ])]
     });
 
   }

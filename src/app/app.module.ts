@@ -33,6 +33,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 
+
 const appRoutes: Routes = [
   {
     path: 'dashboard',
@@ -46,6 +47,10 @@ const appRoutes: Routes = [
   {
     path: 'pages',
     loadChildren: () => import('./main/pages/pages.module').then(m => m.PagesModule)
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
   },
   {
     path: 'ui',

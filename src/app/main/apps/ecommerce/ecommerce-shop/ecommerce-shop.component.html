@@ -1,75 +1,113 @@
 <div class="content-wrapper container-xxl overflow-hidden p-0">
-  <!-- Sidebar filters  -->
-  <div class="sidebar-detached sidebar-left">
-    <div class="sidebar">
-      <core-sidebar class="sidebar-shop" id="ecommerce-sidebar-toggler" name="ecommerce-sidebar"
-        collapsibleSidebar="bs-gt-lg" overlayClass="body-content-overlay">
-        <ecommerce-sidebar [type]="type" (notify)="onNotify($event)" (sliderChange)="onSliderChange($event)" (tagChange)="onTagChange($event)"></ecommerce-sidebar>
-      </core-sidebar>
-    </div>
-  </div>
-  <!--/ Sidebar filters -->
-
-  <div class="content-detached content-right">
-    <div class="content-body">
-      <div class="align-items-center">
-        <h2>Buy Bitcoin (BTC)</h2><br>
-        <p>With bank transfers, online wallets, gift cards, and over 350 other payment methods securely with escrow - buyer protection</p>
-      </div>
-      <!-- Multiple Select start -->
-      <section class="multiple-select">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-6 col-12">
-                    <label>Pay Via</label>
-
-                    <div class="form-group">
-                      <!-- Basic Multi select -->
-                      <ng-select [items]="methods" bindLabel="method"   bindValue="method" [(ngModel)]="filters.method" [loading]="selectBasicLoading"> </ng-select>
-                      <!--/ Basic Multi select -->
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-12">
-                    <label>I want to trade</label>
-
-                    <div class="form-group">
-                      <!-- Select Multi with group -->
-                      <input type="text" id="last-name-column" class="form-control" placeholder="Amount"  [(ngModel)]="amount"/>
-
-                      <!--/ Select Multi with group -->
-                    </div>
-
-                  </div>
-                  <div class="col-sm-6 col-12">
-                    <label>Preffered currency</label>
-
-                    <div class="form-group">
-                      <!-- Basic Multi select -->
-                      <ng-select [items]="currencies" bindLabel="currency"   bindValue="currency"  [(ngModel)]="filters.currency" [loading]="selectBasicLoading"> </ng-select>
-                      <!--/ Basic Multi select -->
-                    </div>
-                  </div>
-
-                  <div class="col-12">
-                    <button type="button" class="btn btn-primary btn-block" rippleEffect (click)="filterOffers()">
-                      <span [data-feather]="'search'" [class]="'mr-25'" ></span>FIND OFFERS
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <!-- Sidebar filters  -->
+    <div class="sidebar-detached sidebar-left">
+        <div class="sidebar">
+            <core-sidebar
+                class="sidebar-shop"
+                id="ecommerce-sidebar-toggler"
+                name="ecommerce-sidebar"
+                collapsibleSidebar="bs-gt-lg"
+                overlayClass="body-content-overlay"
+            >
+                <ecommerce-sidebar
+                    [type]="type"
+                    (notify)="onNotify($event)"
+                    (sliderChange)="onSliderChange($event)"
+                    (tagChange)="onTagChange($event)"
+                ></ecommerce-sidebar>
+            </core-sidebar>
         </div>
-      </section>
-      <!-- Multiple Select end -->
-      <!-- E-commerce Head Section Starts -->
+    </div>
+    <!--/ Sidebar filters -->
 
-      <!-- E-commerce Products Starts -->
-      <!-- <section id="ecommerce-products" [ngClass]="gridViewRef === true ? 'list-view' : 'grid-view'">
+    <div class="content-detached content-right">
+        <div class="content-body">
+            <div class="align-items-center">
+                <h2>Buy Bitcoin (BTC)</h2>
+                <br />
+                <p>
+                    With bank transfers, online wallets, gift cards, and over 350 other payment
+                    methods securely with escrow - buyer protection
+                </p>
+            </div>
+            <!-- Multiple Select start -->
+            <section class="multiple-select">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6 col-12">
+                                        <label>Pay Via</label>
+
+                                        <div class="form-group">
+                                            <!-- Basic Multi select -->
+                                            <ng-select
+                                                [items]="methods"
+                                                bindLabel="method"
+                                                bindValue="method"
+                                                [(ngModel)]="filters.method"
+                                                [loading]="selectBasicLoading"
+                                            >
+                                            </ng-select>
+                                            <!--/ Basic Multi select -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-12">
+                                        <label>I want to trade</label>
+
+                                        <div class="form-group">
+                                            <!-- Select Multi with group -->
+                                            <input
+                                                type="text"
+                                                id="last-name-column"
+                                                class="form-control"
+                                                placeholder="Amount"
+                                                [(ngModel)]="amount"
+                                            />
+
+                                            <!--/ Select Multi with group -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-12">
+                                        <label>Preffered currency</label>
+
+                                        <div class="form-group">
+                                            <!-- Basic Multi select -->
+                                            <ng-select
+                                                [items]="currencies"
+                                                bindLabel="currency"
+                                                bindValue="currency"
+                                                [(ngModel)]="filters.currency"
+                                                [loading]="selectBasicLoading"
+                                            >
+                                            </ng-select>
+                                            <!--/ Basic Multi select -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button
+                                            type="button"
+                                            class="btn btn-primary btn-block"
+                                            rippleEffect
+                                            (click)="filterOffers()"
+                                        >
+                                            <span [data-feather]="'search'" [class]="'mr-25'"></span
+                                            >FIND OFFERS
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Multiple Select end -->
+            <!-- E-commerce Head Section Starts -->
+
+            <!-- E-commerce Products Starts -->
+            <!-- <section id="ecommerce-products" [ngClass]="gridViewRef === true ? 'list-view' : 'grid-view'">
         <app-ecommerce-item
           class="card ecommerce-card"
           [product]="product"
@@ -80,93 +118,140 @@
           "
         ></app-ecommerce-item>
       </section> -->
-      <div class="checkout-options">
-        <div style="margin-bottom:6px;" class="card" *ngFor="
-        let offer of offers
-          | filter: searchText:'name'
-          | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
-      ">
-
-          <div class="card-body" style="margin-bottom: -30px;">
-
-            <div style="margin-bottom: -10px;" class="coupons input-group input-group-merge">
-              <span class=" form-control input-group-text text-primary" id="username">{{offer.username}}</span>
-
-              <div class="input-group-append">
-                <span class="input-group-text text-primary" id="selling-price">{{offer.margin}}%</span>
-              </div>
-
-            </div>
-            <hr />
-            <div class="price-details" style="margin-bottom: -1px">
-              <ul class="list-unstyled">
-                <li class="price-detail">
-                  <div class="detail-title">{{offer.label}}</div>
-                  <div class="detail-title detail-total">45,598 EUR</div>
-                </li>
-                <li class="price-detail">
-                  <div class="detail-title">
-                    <div class="badge badge-pill badge-light-secondary">Photo ID Required</div>
-                    <div class="badge badge-pill badge-light-secondary">{{offer.tags}}</div>
-                    <div class="badge badge-pill badge-light-warning" *ngIf="offer.vpn == 1">This offer doesn't allow VPN</div>
-                  </div>
-                  <div class="detail-amt discount-amt text-success">Limits: {{offer.minimum | number : '1.0-0' }}-{{offer.maximum | number : '1.0-0'}} {{offer.currency}}
-                  </div>
-                </li>
-
-              </ul>
-
-              <ul class="list-unstyled">
-
-                <li class="price-detail">
-                  <div class="detail-title detail-total"></div>
-                  <div class="detail-amt font-weight-bolder">
-                       <a [routerLink]="'/offers/bitcoin/details/' + offer.idd">
-                        <button
-                            type="button"
-                            class="btn btn-primary btn-block btn-next place-order"
-                            rippleEffect
+            <div class="checkout-options">
+                <div
+                    style="margin-bottom: 6px"
+                    class="card"
+                    *ngFor="
+                        let offer of offers
+                            | filter: searchText:'name'
+                            | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
+                    "
+                >
+                    <div class="card-body" style="margin-bottom: -30px">
+                        <div
+                            style="margin-bottom: -10px"
+                            class="coupons input-group input-group-merge"
                         >
-                            <span [data-feather]="'dollar-sign'" [class]="'mr-25 text-capitalize'"></span>{{offer.type  | uppercase}} BTC
-                        </button>
-                    </a>
+                            <span
+                                class="form-control input-group-text text-primary"
+                                id="username"
+                                >{{ offer.username }}</span
+                            >
 
-                  </div>
-                </li>
-              </ul>
+                            <div class="input-group-append">
+                                <span class="input-group-text text-primary" id="selling-price"
+                                    >{{ offer.margin }}%</span
+                                >
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="price-details" style="margin-bottom: -1px">
+                            <ul class="list-unstyled">
+                                <li class="price-detail">
+                                    <div class="detail-title">{{ offer.label }}</div>
+                                    <div class="detail-title detail-total">45,598 EUR</div>
+                                </li>
+                                <li class="price-detail">
+                                    <div class="detail-title">
+                                        <div class="badge badge-pill badge-light-secondary">
+                                            Photo ID Required
+                                        </div>
+                                        <div class="badge badge-pill badge-light-secondary">
+                                            {{ offer.tags }}
+                                        </div>
+                                        <div
+                                            class="badge badge-pill badge-light-warning"
+                                            *ngIf="offer.vpn == 1"
+                                        >
+                                            This offer doesn't allow VPN
+                                        </div>
+                                    </div>
+                                    <div class="detail-amt discount-amt text-success">
+                                        Limits: {{ offer.minimum | number: '1.0-0' }}-{{
+                                            offer.maximum | number: '1.0-0'
+                                        }}
+                                        {{ offer.currency }}
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <ul class="list-unstyled">
+                                <li class="price-detail">
+                                    <div class="detail-title detail-total"></div>
+                                    <div class="detail-amt font-weight-bolder">
+                                        <a [routerLink]="'/offers/bitcoin/details/' + offer.idd">
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary btn-block btn-next place-order"
+                                                rippleEffect
+                                            >
+                                                <span
+                                                    [data-feather]="'dollar-sign'"
+                                                    [class]="'mr-25 text-capitalize'"
+                                                ></span
+                                                >{{ offer.type | uppercase }} BTC
+                                            </button>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Checkout Place Order Right ends -->
             </div>
-          </div>
-        </div>
-        <!-- Checkout Place Order Right ends -->
-      </div>
 
-      <!-- E-commerce Products Ends -->
+            <!-- E-commerce Products Ends -->
 
-      <!-- E-commerce Pagination Starts -->
-      <section id="ecommerce-pagination">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="d-flex justify-content-center">
-              <ngb-pagination [collectionSize]="(products | filter: searchText:'name').length" [(page)]="page"
-                [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
-                <!-- Custom pagination icons -->
-                <ng-template ngbPaginationPrevious><span [data-feather]="'chevron-left'" [class]="'font-weight-bolder'"
-                    [size]="18"></span>
-                </ng-template>
-                <ng-template ngbPaginationFirst><span [data-feather]="'chevrons-left'" [class]="'font-weight-bolder'"
-                    [size]="18"></span>
-                </ng-template>
-                <ng-template ngbPaginationNext><span [data-feather]="'chevron-right'" [class]="'font-weight-bolder'"
-                    [size]="18"></span></ng-template>
-                <ng-template ngbPaginationLast><span [data-feather]="'chevrons-right'" [class]="'font-weight-bolder'"
-                    [size]="18"></span>
-                </ng-template>
-              </ngb-pagination>
-            </div>
-          </div>
+            <!-- E-commerce Pagination Starts -->
+            <section id="ecommerce-pagination">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="d-flex justify-content-center">
+                            <ngb-pagination
+                                [collectionSize]="(products | filter: searchText:'name').length"
+                                [(page)]="page"
+                                [maxSize]="5"
+                                [rotate]="true"
+                                [ellipses]="false"
+                                [boundaryLinks]="true"
+                            >
+                                <!-- Custom pagination icons -->
+                                <ng-template ngbPaginationPrevious
+                                    ><span
+                                        [data-feather]="'chevron-left'"
+                                        [class]="'font-weight-bolder'"
+                                        [size]="18"
+                                    ></span>
+                                </ng-template>
+                                <ng-template ngbPaginationFirst
+                                    ><span
+                                        [data-feather]="'chevrons-left'"
+                                        [class]="'font-weight-bolder'"
+                                        [size]="18"
+                                    ></span>
+                                </ng-template>
+                                <ng-template ngbPaginationNext
+                                    ><span
+                                        [data-feather]="'chevron-right'"
+                                        [class]="'font-weight-bolder'"
+                                        [size]="18"
+                                    ></span
+                                ></ng-template>
+                                <ng-template ngbPaginationLast
+                                    ><span
+                                        [data-feather]="'chevrons-right'"
+                                        [class]="'font-weight-bolder'"
+                                        [size]="18"
+                                    ></span>
+                                </ng-template>
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- E-commerce Pagination Ends -->
         </div>
-      </section>
-      <!-- E-commerce Pagination Ends -->
     </div>
-  </div>
 </div>
