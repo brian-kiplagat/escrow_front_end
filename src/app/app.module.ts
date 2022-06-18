@@ -32,6 +32,7 @@ import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const appRoutes: Routes = [
@@ -49,8 +50,8 @@ const appRoutes: Routes = [
     loadChildren: () => import('./main/pages/pages.module').then(m => m.PagesModule)
   },
   {
-    path: 'user',
-    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+    path: 'users',
+    loadChildren: () => import('./main/profile/profile.module').then(m => m.ProfileModule)
   },
   {
     path: 'ui',
@@ -78,6 +79,11 @@ const appRoutes: Routes = [
 
   },
   {
+    path: 'users/:id',
+    component:ProfileComponent,
+    pathMatch: 'full'
+  },
+  {
     path: '',
     redirectTo: 'pages/login',
     pathMatch: 'full'
@@ -94,7 +100,8 @@ const appRoutes: Routes = [
     ContextMenuComponent,
     BasicCustomContextMenuComponent,
     AnimatedCustomContextMenuComponent,
-    SubMenuCustomContextMenuComponent
+    SubMenuCustomContextMenuComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
