@@ -101,7 +101,7 @@
         aria-labelledby="navbarUserDropdown"
         class="dropdown-menu dropdown-menu-right"
       >
-        <a ngbDropdownItem [routerLink]="'/users/'+currentUser.id"
+        <a ngbDropdownItem [routerLink]="'/users/'+currentUser.username"
         ><span [data-feather]="'user'" [class]="'mr-50'"></span> Profile</a
         ><a ngbDropdownItem [routerLink]="['pages/account-settings']"
       ><span [data-feather]="'settings'" [class]="'mr-50'"></span> Settings</a

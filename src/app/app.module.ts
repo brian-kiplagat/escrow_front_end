@@ -6,6 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from '@fake-db/fake-db.service';
+import { CommonModule } from '@angular/common';
 
 import 'hammerjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -32,7 +33,10 @@ import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileService } from 'app/main/pages/profile/profile.service';
+import { AuthGuard } from 'app/auth/helpers';
+import { ProfileComponent } from './main/pages/profile/ProfileComponent';
+
 
 
 const appRoutes: Routes = [
@@ -48,10 +52,6 @@ const appRoutes: Routes = [
   {
     path: 'pages',
     loadChildren: () => import('./main/pages/pages.module').then(m => m.PagesModule)
-  },
-  {
-    path: 'users',
-    loadChildren: () => import('./main/profile/profile.module').then(m => m.ProfileModule)
   },
   {
     path: 'ui',
@@ -81,7 +81,10 @@ const appRoutes: Routes = [
   {
     path: 'users/:id',
     component:ProfileComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    resolve: {
+      profile: ProfileService
+    }
   },
   {
     path: '',
@@ -107,6 +110,8 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ContentHeaderModule,
+    CommonModule,
     HttpClientInMemoryWebApiModule.forRoot(FakeDbService, {
       delay: 0,
       passThruUnknownUrl: true
@@ -133,11 +138,13 @@ const appRoutes: Routes = [
   ],
 
   providers: [
+    ProfileService
     //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // ! IMPORTANT: Provider used to create fake backend, comment while using real API
    // fakeBackendProvider
+  
   ],
   entryComponents: [BasicCustomContextMenuComponent, AnimatedCustomContextMenuComponent],
   bootstrap: [AppComponent]

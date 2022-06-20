@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FirebaseService } from 'app/services/firebase.service';
-
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 import { ProfileService } from 'app/main/pages/profile/profile.service';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
+
 
 @Component({
   selector: 'app-profile',
@@ -17,23 +16,26 @@ import {Router} from "@angular/router";
 export class ProfileComponent implements OnInit, OnDestroy {
   // public
   public contentHeader: object;
+
   public data: any;
   public toggleMenu = true;
   public Monthly = false;
   public toggleNavbarRef = false;
   public loadMoreRef = false;
-  email:string =''
-  public userData:any={about: "No about yet",
-  active: 1,
-  feed_neg: 0,
-  feed_pos: 0,
-  geolocation: "none",
-  ip: "none",
-  registration_date: "2022-04-01 13:14:34",
-  status: 1}
-  public feeds:any[]=[]
-  public currentUser:any ={}
-  public user:any ={}
+  email: string = '';
+  public userData: any = {
+    about: "No about yet",
+    active: 1,
+    feed_neg: 0,
+    feed_pos: 0,
+    geolocation: "none",
+    ip: "none",
+    registration_date: "2022-04-01 13:14:34",
+    status: 1
+  };
+  public feeds: any[] = [];
+  public currentUser: any = {};
+  public user: any = {};
   public has_blocked;
   public blocked_by;
 
@@ -45,13 +47,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
    *
    * @param {PricingService} _pricingService
    */
-  constructor(private _pricingService: ProfileService, private sanitizer: DomSanitizer, private fb:FirebaseService,private router:Router) {
+  constructor(private _pricingService: ProfileService, private sanitizer: DomSanitizer, private fb: FirebaseService, private router: Router) {
     this._unsubscribeAll = new Subject();
   }
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
-
   /**
    * Load More
    */
@@ -64,21 +65,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
-
   /**
    * On init
    */
   ngOnInit(): void {
     // get the currentUser details from localStorage
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.fb.getUser(this.user.username,this.user.token).subscribe((data: any) => {
-      this.currentUser =data.responseMessage?.user_data[0];
-      this.has_blocked = data.responseMessage?.has_blocked.length
-      this.blocked_by = data.responseMessage?.blocked_by.length
-      console.log(data)
-    },(error)=>{
-      console.log(error)
-      this.router.navigate(['/'])
+    this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
+      this.currentUser = data.responseMessage?.user_data[0];
+      this.has_blocked = data.responseMessage?.has_blocked.length;
+      this.blocked_by = data.responseMessage?.blocked_by.length;
+      console.log(data);
+    }, (error) => {
+      console.log(error);
+      this.router.navigate(['/']);
     });
 
     this._pricingService.onPricingChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
@@ -92,7 +92,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       breadcrumb: {
         type: '',
         links: [
-
           {
             name: 'Profile',
             isLink: false
@@ -101,8 +100,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     };
   }
-  getEmail(){
-    return  localStorage.getItem('user')
+  getEmail() {
+    return localStorage.getItem('user');
   }
 
 
@@ -116,6 +115,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   block() {
-
   }
 }

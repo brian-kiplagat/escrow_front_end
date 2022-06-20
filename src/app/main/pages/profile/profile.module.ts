@@ -7,14 +7,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuard } from 'app/auth/helpers';
 import { CoreCommonModule } from '@core/common.module';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
-
 import { ProfileService } from 'app/main/pages/profile/profile.service';
-import { ProfileComponent } from 'app/main/pages/profile/profile.component';
+
 
 const routes: Routes = [
   {
     path: 'profile',
-    component: ProfileComponent,
     //canActivate: [AuthGuard],
     resolve: {
       profile: ProfileService
@@ -23,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProfileComponent],
+  declarations: [],
   imports: [CommonModule, RouterModule.forChild(routes), NgbModule, CoreCommonModule, ContentHeaderModule],
 
   providers: [ProfileService]
