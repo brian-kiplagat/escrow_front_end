@@ -7,6 +7,7 @@ import {EcommerceService} from 'app/main/apps/ecommerce/ecommerce.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FirebaseService} from '../../../../services/firebase.service';
 import {v4 as uuidv4} from 'uuid';
+
 @Component({
   selector: 'app-ecommerce-details',
   templateUrl: './ecommerce-details.component.html',
@@ -17,7 +18,7 @@ import {v4 as uuidv4} from 'uuid';
 export class EcommerceDetailsComponent implements OnInit {
   // public
   public contentHeader: object;
-
+  public submitted = false;
   public offer: any = {};
   public offers = [];
   public oldoffer: any = {}
@@ -92,71 +93,59 @@ export class EcommerceDetailsComponent implements OnInit {
     });
     this.form = this._formBuilder.group({
       // username: ['', [Validators.required]],
-      minimum: ['', Validators.required],
-      maximum: ['', Validators.required],
-      offerRate: ['', Validators.required],
-      tags: [[], Validators.required],
-      label: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(25)
-        ])
-      ],
-      
-      terms: ['', Validators.compose([
+      minimum: ['', Validators.required],     
+      amount: ['', Validators.compose([
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(180)
       ])],
-      instructions: ['', Validators.compose([
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(400)
-      ])]
     });
 
   }
 
-  openTrade() {
+  openTrade(form:any) {
     //get user and token from local stroge
     let user = JSON.parse(localStorage.getItem('user'));
-    this._fb.getUser(user.username, user.token).subscribe((data: any) => {
-      this.currentUser = data.responseMessage.user_data[0]
-      //get current loggedin user
-      this._fb
-        .getOffers(user.username, user.token, this.offer.type).subscribe((data: any) => {
-        this.offers = data.responseMessage
-        const routeParams = this.route.snapshot.paramMap;
-        const productIdFromRoute = routeParams.get('id');
-        this.oldoffer = this.offers.find(product => product.idd == productIdFromRoute);
-        const body = {
-          "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
-          "email": this.currentUser.email,
-          "offer_id": this.oldoffer.idd,
-          "amount_fiat": this.buyamount,
-          "rate": this.oldoffer.margin,
-          "min": this.offer.minimum,
-          "max": this.offer.maximum
-        }
-        //formulate request body
-
-        this._fb.openTrade(user.username, user.token, body).subscribe(
-          (data: any) => {
-            console.log(data);
-            this.router.navigate(['/offers/chat/room/'+data.responseMessage.trade_id])
-
-          },
-          (error) => {
-            console.log(error);
-            this.err = error.error.responseMessage
+    this.submitted = true;
+    if (form.valid) {
+      this._fb.getUser(user.username, user.token).subscribe((data: any) => {
+        this.currentUser = data.responseMessage.user_data[0]
+        //get current loggedin user
+        this._fb
+          .getOffers(user.username, user.token, this.offer.type).subscribe((data: any) => {
+          this.offers = data.responseMessage
+          const routeParams = this.route.snapshot.paramMap;
+          const productIdFromRoute = routeParams.get('id');
+          this.oldoffer = this.offers.find(product => product.idd == productIdFromRoute);
+          const body = {
+            "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+            "email": this.currentUser.email,
+            "offer_id": this.oldoffer.idd,
+            "amount_fiat": this.buyamount,
+            "rate": this.oldoffer.margin,
+            "min": this.offer.minimum,
+            "max": this.offer.maximum
           }
-        );
-
-
+          //formulate request body
+  
+          this._fb.openTrade(user.username, user.token, body).subscribe(
+            (data: any) => {
+              console.log(data);
+              this.router.navigate(['/offers/chat/room/'+data.responseMessage.trade_id])
+  
+            },
+            (error) => {
+              console.log(error);
+              this.err = error.error.responseMessage
+            }
+          );
+  
+  
+        })
       })
-    })
+      this.submitted = false;
+    }
+
 
 
   }

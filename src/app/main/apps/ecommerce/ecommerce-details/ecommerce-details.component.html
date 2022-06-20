@@ -1,180 +1,315 @@
 <div class="content-wrapper container-xxl p-0">
-  <div class="content-body">
-    <!-- app e-commerce details start -->
-    <section class="app-ecommerce-details">
-      <div class="card">
-        <!-- Product Details starts -->
-        <div class="card-body">
-          <div class="row my-2">
-            <div class="col-12 ">
-              <h4 class="text-capitalize">{{offer.type}} Bitcoin with {{offer.method}}({{offer.currency}}) — {{offer.label}}</h4>
-              <span class="card-text item-company">By <a href="javascript:void(0)" class="company-name">{{offer.offer_username}}</a></span>
-
-              <div style="margin-top: 10px" class="detail-title">
-                <div class="badge badge-pill badge-light-secondary">Photo ID Required</div>
-                <div class="badge badge-pill badge-light-secondary">{{offer.tags}}</div>
-                <div class="badge badge-pill badge-light-secondary">Goods and Services</div>
-                <div class="badge badge-pill badge-light-secondary">No third party</div>
-
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-
-                    <div class="card-body">
-                      <ngb-alert [type]="'danger'" [dismissible]="false">
-
-                        <div class="alert-body" *ngIf="offer.vpn ==1">
-                          This offer does not allow VPN/TOR or other anonymous usages. Deactivate your VPN first</div>
-                      </ngb-alert>
-                      <ngb-alert [type]="'danger'" [dismissible]="false">
-
-                        <div class="alert-body" *ngIf="err">
-                          {{err}}</div>
-                      </ngb-alert>
-                      <div class="row">
-
-                        <div class="col-sm-6 col-12">
-                          <label>I want to buy</label>
-
-                          <div class="form-group">
-                            <!-- Select Multi with group -->
-                            <input type="text" id="buy-amount" class="form-control" placeholder="Amount" [(ngModel)]="buyamount" />
-
-                            <!--/ Select Multi with group -->
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-12">
-                          <label>And receive</label>
-
-                          <div class="form-group">
-                            <!-- Select Multi with group -->
-                            <input type="text" id="receive-amount" class="form-control" placeholder="Amount" />
-
-                            <!--/ Select Multi with group -->
-                          </div>
-                        </div>
-
+    <div class="content-body">
+        <!-- app e-commerce details start -->
+        <section class="app-ecommerce-details">
+            <div class="card">
+                <!-- Product Details starts -->
+                <div class="card-body">
+                    <div class="row my-2">
                         <div class="col-12">
-                          <button type="button" class="btn btn-primary btn-block" (click)="openTrade()" rippleEffect>
-                            <span [data-feather]="'shield'" [class]="'mr-25 text-capitalize'" ></span>{{offer.type| uppercase}}  BITCOIN
-                          </button>
+                            <h4 class="text-capitalize">
+                                {{ offer.type }} Bitcoin with {{ offer.method }}({{
+                                    offer.currency
+                                }}) — {{ offer.label }}
+                            </h4>
+                            <span class="card-text item-company"
+                                >By
+                                <a
+                                    href="javascript:void(0)"
+                                    class="company-name"
+                                    [routerLink]="'/users/' + offer.offer_username"
+                                    >{{ offer.offer_username }}</a
+                                ></span
+                            >
+
+                            <div style="margin-top: 10px" class="detail-title">
+                                <div class="badge badge-pill badge-light-secondary">
+                                    Photo ID Required
+                                </div>
+                                <div class="badge badge-pill badge-light-secondary">
+                                    {{ offer.tags }}
+                                </div>
+                                <div class="badge badge-pill badge-light-secondary">
+                                    Goods and Services
+                                </div>
+                                <div class="badge badge-pill badge-light-secondary">
+                                    No third party
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <ngb-alert [type]="'danger'" [dismissible]="false">
+                                                <div class="alert-body" *ngIf="offer.vpn == 1">
+                                                    This offer does not allow VPN/TOR or other
+                                                    anonymous usages. Deactivate your VPN first
+                                                </div>
+                                            </ngb-alert>
+                                            <ngb-alert [type]="'danger'" [dismissible]="false">
+                                                <div class="alert-body" *ngIf="err">
+                                                    {{ err }}
+                                                </div>
+                                            </ngb-alert>
+                                            <form
+                                                class="auth-register-form mt-2"
+                                                [formGroup]="form"
+                                            >
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-12">
+                                                        <label>I want to buy</label>
+
+                                                        <div class="form-group">
+                                                            <!-- Select Multi with group -->
+                                                            <input
+                                                                type="text"
+                                                                id="buy-amount"
+                                                                class="form-control"
+                                                                placeholder="Amount"
+                                                                [class.error]="
+                                                                    submitted && f.amount.errors
+                                                                "
+                                                                formControlName="amount"
+                                                            />
+                                                            <span
+                                                                *ngIf="
+                                                                    submitted && f.amount.errors
+                                                                "
+                                                                class="invalid-form"
+                                                            >
+                                                                <small
+                                                                    class="form-text text-danger"
+                                                                    *ngIf="
+                                                                        f.amount.errors.required
+                                                                    "
+                                                                    >This field is required!</small
+                                                                >
+                                                            </span>
+                                                            <span
+                                                            *ngIf="f.amount.value<offer.minimum&&f.amount.value>offer.maximum&&f.amount.touched"
+                                                            class="invalid-form"
+                                                          >
+                                                                      <small
+                                                                        class="form-text text-danger"
+                                    
+                                                                      >value must be between offer maximum and offer minimum</small
+                                                                      >
+                                    
+                                                                  </span>
+                                                               
+                                                              
+
+                                                            <!--/ Select Multi with group -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-12">
+                                                        <label>And receive</label>
+
+                                                        <div class="form-group">
+                                                            <!-- Select Multi with group -->
+                                                            <input
+                                                                type="text"
+                                                                id="receive-amount"
+                                                                class="form-control"
+                                                                placeholder="Amount"
+                                                            />
+
+                                                            <!--/ Select Multi with group -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <button
+                                                            type="button"
+                                                            class="btn btn-primary btn-block"
+                                                            (click)="openTrade(form)"
+                                                            rippleEffect
+                                                        >
+                                                            <span
+                                                                [data-feather]="'shield'"
+                                                                [class]="'mr-25 text-capitalize'"
+                                                            ></span
+                                                            >{{ offer.type | uppercase }} BITCOIN
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="card-text">
+                                Rate -
+                                <span class="text-success"
+                                    >{{ offer.margin }}% above market price</span
+                                >
+                            </p>
+                            <p class="card-text">
+                                {{ offer.type }} limits -
+                                <span class="text-success"
+                                    >{{ offer.minimum | number: '1.2-2' }}-{{
+                                        offer.maximum | number: '1.2-2'
+                                    }}
+                                    {{ offer.currency }}</span
+                                >
+                            </p>
+                            <p class="card-text">
+                                Escrow Fee - <span class="text-success">5%</span>
+                            </p>
+                            <p class="card-text">
+                                Trade time limit - <span class="text-success">30 min</span>
+                            </p>
+
+                            <p class="card-text">
+                                {{ offer.terms }}
+                            </p>
+
+                            <hr />
+                            <div class="product-color-options">
+                                <h6>About this {{ offer.type }}er</h6>
+
+                                <ul class="product-features list-unstyled">
+                                    <li>
+                                        <i
+                                            data-feather="check"
+                                            *ngIf="offer.user_data?.id_verified"
+                                        ></i>
+                                        <span>ID Verified</span>
+                                    </li>
+                                    <li>
+                                        <i
+                                            data-feather="check"
+                                            *ngIf="offer.user_data?.phone_verified"
+                                        ></i>
+                                        <span>Phone Verified</span>
+                                    </li>
+                                    <li>
+                                        <i
+                                            data-feather="check"
+                                            *ngIf="offer.user_data?.email_verified"
+                                        ></i>
+                                        <span>Email Verified</span>
+                                    </li>
+                                    <li>
+                                        <i
+                                            data-feather="check"
+                                            *ngIf="offer.user_data?.address_verified"
+                                        ></i>
+                                        <span>Address Verified</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="ecommerce-details-price d-flex flex-wrap mt-1">
+                                <h4 class="item-price mr-1">30</h4>
+                                <div class="rating rating-sm pl-1 border-left mb-1">
+                                    <span [data-feather]="'thumbs-up'" [class]="'mr-25'"></span>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="ecommerce-details-price d-flex flex-wrap mt-1">
+                                <h4 class="item-price mr-1">25</h4>
+                                <div class="rating rating-sm pl-1 border-left mb-1">
+                                    <span [data-feather]="'thumbs-down'" [class]="'mr-25'"></span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column flex-sm-row pt-1">
+                                <a
+                                    href="javascript:void(0)"
+                                    (click)="toggleWishlist(offer)"
+                                    class="btn btn-outline-secondary btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0"
+                                    rippleEffect
+                                >
+                                    <i
+                                        class="fa mr-50"
+                                        [ngClass]="
+                                            offer.isInWishlist === true
+                                                ? 'fa-heart text-danger'
+                                                : 'fa-heart-o'
+                                        "
+                                    ></i>
+                                    <span>Wishlist</span>
+                                </a>
+                                <div class="btn-group dropdown-icon-wrapper btn-share" ngbDropdown>
+                                    <button
+                                        ngbDropdownToggle
+                                        type="button"
+                                        class="btn btn-icon hide-arrow btn-outline-secondary"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                        rippleEffect
+                                    >
+                                        <i data-feather="share-2"></i>
+                                    </button>
+                                    <div class="dropdown-menu-right" ngbDropdownMenu>
+                                        <a ngbDropdownItem href="javascript:void(0)">
+                                            <i data-feather="facebook"></i>
+                                        </a>
+                                        <a ngbDropdownItem href="javascript:void(0)">
+                                            <i data-feather="twitter"></i>
+                                        </a>
+                                        <a ngbDropdownItem href="javascript:void(0)">
+                                            <i data-feather="youtube"></i>
+                                        </a>
+                                        <a ngbDropdownItem href="javascript:void(0)">
+                                            <i data-feather="instagram"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+                <!-- Product Details ends -->
 
-              <p class="card-text">Rate - <span class="text-success">{{offer.margin}}% above market price</span></p>
-              <p class="card-text">{{offer.type}} limits - <span class="text-success">{{offer.minimum | number : '1.2-2'}}-{{offer.maximum  | number : '1.2-2'}} {{offer.currency}}</span></p>
-              <p class="card-text">Escrow Fee - <span class="text-success">5%</span></p>
-              <p class="card-text">Trade time limit - <span class="text-success">30 min</span></p>
-
-
-              <p class="card-text">
-               {{offer.terms}}
-              </p>
-
-              <hr />
-              <div class="product-color-options">
-                <h6>About this {{offer.type}}er</h6>
-
-                <ul class="product-features list-unstyled">
-                  <li><i data-feather="check" *ngIf="offer.user_data?.id_verified"></i> <span>ID Verified</span></li>
-                  <li><i data-feather="check"  *ngIf="offer.user_data?.phone_verified"></i> <span>Phone Verified</span></li>
-                  <li><i data-feather="check" *ngIf="offer.user_data?.email_verified"></i> <span>Email Verified</span></li>
-                  <li><i data-feather="check"  *ngIf="offer.user_data?.address_verified"></i> <span>Address Verified</span></li>
-
-                </ul>
-
-              </div>
-
-              <div class="ecommerce-details-price d-flex flex-wrap mt-1">
-                <h4 class="item-price mr-1">30</h4>
-                <div class="rating rating-sm pl-1 border-left mb-1">
-                  <span [data-feather]="'thumbs-up'" [class]="'mr-25'"></span>
+                <!-- Item features starts -->
+                <div class="item-features">
+                    <div class="row text-center">
+                        <div class="col-12 col-md-4 mb-4 mb-md-0">
+                            <div class="w-75 mx-auto">
+                                <i data-feather="award"></i>
+                                <h4 class="mt-2 mb-1">Live Chat</h4>
+                                <p class="card-text">
+                                    Open the trade to chat with the seller. Be sure to keep trades
+                                    within CoinPes. Don't give out your contact and talk to sellers
+                                    on social media outside the CoinPes website, we'll be unable to
+                                    help you if something goes wrong.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 mb-4 mb-md-0">
+                            <div class="w-75 mx-auto">
+                                <i data-feather="clock"></i>
+                                <h4 class="mt-2 mb-1">30 Minute limit</h4>
+                                <p class="card-text">
+                                    When you open this secure trade, you have 30 minutes to send the
+                                    money to the seller and click 'I have paid' to activate your
+                                    buyer protection. If you don't click paid within the time limit
+                                    the trade will expire and BTC will be removed from escrow
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 mb-4 mb-md-0">
+                            <div class="w-75 mx-auto">
+                                <i data-feather="shield"></i>
+                                <h4 class="mt-2 mb-1">Secured with Escrow</h4>
+                                <p class="card-text">
+                                    With Escrow you can buy and sell crypto safely without risk. We
+                                    secure BTC on a trust account and enable you to send money to
+                                    the seller so that if you have any problem you can open a
+                                    dispute and we'll award the crypto to the right party,
+                                    Moderators are available for this trade. If you have any problem
+                                    open a dispute and we'll join in to help you.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <hr />
-              <div class="ecommerce-details-price d-flex flex-wrap mt-1">
-                <h4 class="item-price mr-1">25</h4>
-                <div class="rating rating-sm pl-1 border-left mb-1">
-                  <span [data-feather]="'thumbs-down'" [class]="'mr-25'"></span>
-                </div>
-              </div>
-
-              <div class="d-flex flex-column flex-sm-row pt-1">
-
-
-                <a href="javascript:void(0)" (click)="toggleWishlist(offer)"
-                  class="btn btn-outline-secondary btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0" rippleEffect>
-                  <i class="fa mr-50"
-                    [ngClass]="offer.isInWishlist === true ? 'fa-heart text-danger' : 'fa-heart-o'"></i>
-                  <span>Wishlist</span>
-                </a>
-                <div class="btn-group dropdown-icon-wrapper btn-share" ngbDropdown>
-                  <button ngbDropdownToggle type="button" class="btn btn-icon hide-arrow btn-outline-secondary"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" rippleEffect>
-                    <i data-feather="share-2"></i>
-                  </button>
-                  <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a ngbDropdownItem href="javascript:void(0)">
-                      <i data-feather="facebook"></i>
-                    </a>
-                    <a ngbDropdownItem href="javascript:void(0)">
-                      <i data-feather="twitter"></i>
-                    </a>
-                    <a ngbDropdownItem href="javascript:void(0)">
-                      <i data-feather="youtube"></i>
-                    </a>
-                    <a ngbDropdownItem href="javascript:void(0)">
-                      <i data-feather="instagram"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
+                <!-- Item features ends -->
             </div>
-          </div>
-        </div>
-        <!-- Product Details ends -->
-
-        <!-- Item features starts -->
-        <div class="item-features">
-          <div class="row text-center">
-            <div class="col-12 col-md-4 mb-4 mb-md-0">
-              <div class="w-75 mx-auto">
-                <i data-feather="award"></i>
-                <h4 class="mt-2 mb-1">Live Chat</h4>
-                <p class="card-text">Open the trade to chat with the seller. Be sure to keep trades within CoinPes.
-                  Don't give out your contact and talk to sellers on social media outside the CoinPes website, we'll be
-                  unable to help you if something goes wrong.</p>
-              </div>
-            </div>
-            <div class="col-12 col-md-4 mb-4 mb-md-0">
-              <div class="w-75 mx-auto">
-                <i data-feather="clock"></i>
-                <h4 class="mt-2 mb-1">30 Minute limit</h4>
-                <p class="card-text">When you open this secure trade, you have 30 minutes to send the money to the
-                  seller and click 'I have paid' to activate your buyer protection. If you don't click paid within the
-                  time limit the trade will expire and BTC will be removed from escrow</p>
-              </div>
-            </div>
-            <div class="col-12 col-md-4 mb-4 mb-md-0">
-              <div class="w-75 mx-auto">
-                <i data-feather="shield"></i>
-                <h4 class="mt-2 mb-1">Secured with Escrow</h4>
-                <p class="card-text">With Escrow you can buy and sell crypto safely without risk. We secure BTC on a
-                  trust account and enable you to send money to the seller so that if you have any problem you can open
-                  a dispute and we'll award the crypto to the right party, Moderators are available for this trade. If
-                  you have any problem open a dispute and we'll join in to help you.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Item features ends -->
-      </div>
-    </section>
-    <!-- app e-commerce details end -->
-  </div>
+        </section>
+        <!-- app e-commerce details end -->
+    </div>
 </div>

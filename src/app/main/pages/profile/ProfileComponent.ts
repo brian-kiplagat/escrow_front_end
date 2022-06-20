@@ -4,7 +4,7 @@ import { FirebaseService } from 'app/services/firebase.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ProfileService } from 'app/main/pages/profile/profile.service';
-import { Router } from "@angular/router";
+import {ActivatedRoute,  Router } from "@angular/router";
 
 
 @Component({
@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    *
    * @param {PricingService} _pricingService
    */
-  constructor(private _pricingService: ProfileService, private sanitizer: DomSanitizer, private fb: FirebaseService, private router: Router) {
+  constructor(private _pricingService: ProfileService, private route: ActivatedRoute, private sanitizer: DomSanitizer, private fb: FirebaseService, private router: Router) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -69,9 +69,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
+    const routeParams = this.route.snapshot.paramMap;
+    const userIdFromRoute = routeParams.get('id');
+    console.log(userIdFromRoute);
     // get the currentUser details from localStorage
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
+    this.fb.getUser(userIdFromRoute, this.user.token).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];
       this.has_blocked = data.responseMessage?.has_blocked.length;
       this.blocked_by = data.responseMessage?.blocked_by.length;
