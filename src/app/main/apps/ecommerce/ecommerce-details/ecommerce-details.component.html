@@ -72,32 +72,28 @@
                                                                 formControlName="amount"
                                                             />
                                                             <span
-                                                                *ngIf="
-                                                                    submitted && f.amount.errors
-                                                                "
+                                                                *ngIf="submitted && f.amount.errors"
                                                                 class="invalid-form"
                                                             >
                                                                 <small
                                                                     class="form-text text-danger"
-                                                                    *ngIf="
-                                                                        f.amount.errors.required
-                                                                    "
+                                                                    *ngIf="f.amount.errors.required"
                                                                     >This field is required!</small
                                                                 >
                                                             </span>
                                                             <span
-                                                            *ngIf="f.amount.value<offer.minimum&&f.amount.value>offer.maximum&&f.amount.touched"
-                                                            class="invalid-form"
-                                                          >
-                                                                      <small
-                                                                        class="form-text text-danger"
-                                    
-                                                                      >value must be between offer maximum and offer minimum</small
-                                                                      >
-                                    
-                                                                  </span>
-                                                               
-                                                              
+                                                                *ngIf="
+                                                                    f.amount.value <
+                                                                        offer.minimum &&
+                                                                    f.amount.touched
+                                                                "
+                                                                class="invalid-form"
+                                                            >
+                                                                <small class="form-text text-danger"
+                                                                    >value must be between offer
+                                                                    maximum and offer minimum</small
+                                                                >
+                                                            </span>
 
                                                             <!--/ Select Multi with group -->
                                                         </div>
@@ -112,7 +108,38 @@
                                                                 id="receive-amount"
                                                                 class="form-control"
                                                                 placeholder="Amount"
+                                                                [class.error]="
+                                                                    submitted &&
+                                                                    f.amounttoreceive.errors
+                                                                "
+                                                                formControlName="amounttoreceive"
                                                             />
+                                                            <span
+                                                                *ngIf="submitted && f.amounttoreceive.errors"
+                                                                class="invalid-form"
+                                                            >
+                                                                <small
+                                                                    class="form-text text-danger"
+                                                                    *ngIf="
+                                                                        f.amounttoreceive.errors
+                                                                            .required
+                                                                    "
+                                                                    >This field is required!</small
+                                                                >
+                                                            </span>
+                                                            <span
+                                                                *ngIf="
+                                                                    f.amounttoreceive.value >
+                                                                        offer.maximum &&
+                                                                    f.amounttoreceive.touched
+                                                                "
+                                                                class="invalid-form"
+                                                            >
+                                                                <small class="form-text text-danger"
+                                                                    >value must be between offer
+                                                                    maximum and offer minimum</small
+                                                                >
+                                                            </span>
 
                                                             <!--/ Select Multi with group -->
                                                         </div>

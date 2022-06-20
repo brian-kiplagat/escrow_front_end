@@ -12,6 +12,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
   templateUrl: './chat-content.component.html'
 })
 export class ChatContentComponent implements OnInit {
+  @Input() trade: any;
   // Decorator
   @ViewChild('scrollMe') scrollMe: ElementRef;
   scrolltop: number = null;
@@ -32,7 +33,6 @@ export class ChatContentComponent implements OnInit {
   public user: any = {}
   public currentUser: any = {}
   public tradeData: any = {}
-  public trade: any = {}
   public chat_instruction;
   public uname;
   public buyer: boolean;
@@ -122,13 +122,6 @@ export class ChatContentComponent implements OnInit {
       });
     }, (error) => {
       console.log(error)
-      this.router.navigate(['dashboard'])
-    });
-    this.fb.getTradeByID(this.user.username, this.user.token, routeParams.get('id')).subscribe((data: any) => {
-      this.trade = data.responseMessage?.[0];
-      console.log(data)
-    }, (error) => {
-      console.log('trade error' + error)
       this.router.navigate(['dashboard'])
     });
 

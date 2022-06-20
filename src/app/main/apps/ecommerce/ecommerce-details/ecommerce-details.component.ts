@@ -93,11 +93,9 @@ export class EcommerceDetailsComponent implements OnInit {
     });
     this.form = this._formBuilder.group({
       // username: ['', [Validators.required]],
-      minimum: ['', Validators.required],     
+      amounttoreceive: ['', Validators.required],     
       amount: ['', Validators.compose([
         Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(180)
       ])],
     });
 
@@ -121,7 +119,7 @@ export class EcommerceDetailsComponent implements OnInit {
             "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
             "email": this.currentUser.email,
             "offer_id": this.oldoffer.idd,
-            "amount_fiat": this.buyamount,
+            "amount_fiat": this.form.value.amount,
             "rate": this.oldoffer.margin,
             "min": this.offer.minimum,
             "max": this.offer.maximum

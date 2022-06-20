@@ -26,7 +26,10 @@
               }"
             ></span>
           </button>
-          <h6 class="mb-0">{{ patner_data.username}}</h6>
+          <h6 class="mb-0">
+            <a [routerLink]="'/users/' + patner_data.username"
+                                > {{  patner_data.username}}</a>
+           </h6>
         </div>
         <div class="d-flex align-items-center">
           <i class="flag-icon flag-icon-{{patner_data.geolocation | lowercase}} cursor-pointer d-sm-block d-none font-medium-2"></i>
