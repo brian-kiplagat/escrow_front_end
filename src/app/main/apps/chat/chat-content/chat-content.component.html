@@ -1,167 +1,212 @@
 <div class="body-content-overlay"></div>
 <!-- Main chat area -->
 <section class="chat-app-window">
+    <div class="active-chat">
+        <!-- Chat Header -->
+        <div class="chat-navbar">
+            <header class="chat-header">
+                <div class="d-flex align-items-center">
+                    <button
+                        class="btn sidebar-toggle d-block d-lg-none mr-1 p-0"
+                        (click)="toggleSidebar('chat-sidebar')"
+                    >
+                        <i data-feather="menu" class="font-medium-5"></i>
+                    </button>
+                    <button
+                        class="btn avatar avatar-border user-profile-toggle bg-transparent m-0 mr-1 p-0"
+                        (click)="openLink(patner_data.username)"
+                    >
+                        <img [src]="patner_data.profile_link" alt="avatar" height="36" width="36" />
+                        <span
+                            [ngClass]="{
+                                'avatar-status-offline': chatUser.status == 'offline',
+                                'avatar-status-online': chatUser.status == 'online',
+                                'avatar-status-busy': chatUser.status == 'busy',
+                                'avatar-status-away': chatUser.status == 'away'
+                            }"
+                        ></span>
+                    </button>
+                    <h6 class="mb-0">
+                        <a [routerLink]="'/users/' + patner_data.username">
+                            {{ patner_data.username }}</a
+                        >
+                    </h6>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i
+                        class="flag-icon flag-icon-{{
+                            patner_data.geolocation | lowercase
+                        }} cursor-pointer d-sm-block d-none font-medium-2"
+                    ></i>
 
-  <div class="active-chat"
-
-  >
-    <!-- Chat Header -->
-    <div class="chat-navbar">
-      <header class="chat-header">
-        <div class="d-flex align-items-center">
-          <button class="btn sidebar-toggle d-block d-lg-none mr-1 p-0" (click)="toggleSidebar('chat-sidebar')">
-            <i data-feather="menu" class="font-medium-5"></i>
-          </button>
-          <button
-            class="btn avatar avatar-border user-profile-toggle bg-transparent m-0 mr-1 p-0"
-            (click)="openLink(patner_data.username)"
-          >
-            <img [src]="patner_data.profile_link"  alt="avatar" height="36" width="36"/>
-            <span
-              [ngClass]="{
-                'avatar-status-offline': chatUser.status == 'offline',
-                'avatar-status-online': chatUser.status == 'online',
-                'avatar-status-busy': chatUser.status == 'busy',
-                'avatar-status-away': chatUser.status == 'away'
-              }"
-            ></span>
-          </button>
-          <h6 class="mb-0">
-            <a [routerLink]="'/users/' + patner_data.username"
-                                > {{  patner_data.username}}</a>
-           </h6>
+                    <div ngbDropdown>
+                        <button
+                            class="btn-icon btn btn-transparent hide-arrow btn-sm"
+                            type="button"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            ngbDropdownToggle
+                        >
+                            <i
+                                data-feather="more-vertical"
+                                id="chat-header-actions"
+                                class="font-medium-2"
+                            ></i>
+                        </button>
+                        <div
+                            ngbDropdownMenu
+                            class="dropdown-menu-right"
+                            aria-labelledby="chat-header-actions"
+                        >
+                            <a ngbDropdownItem href="javascript:void(0);">Block User</a>
+                            <a ngbDropdownItem href="javascript:void(0);">Report User</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
         </div>
-        <div class="d-flex align-items-center">
-          <i class="flag-icon flag-icon-{{patner_data.geolocation | lowercase}} cursor-pointer d-sm-block d-none font-medium-2"></i>
+        <!--/ Chat Header -->
 
-          <div ngbDropdown>
-            <button
-              class="btn-icon btn btn-transparent hide-arrow btn-sm"
-              type="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              ngbDropdownToggle
-            >
-              <i data-feather="more-vertical" id="chat-header-actions" class="font-medium-2"></i>
-            </button>
-            <div ngbDropdownMenu class="dropdown-menu-right" aria-labelledby="chat-header-actions">
-              <a ngbDropdownItem href="javascript:void(0);">Block User</a>
-              <a ngbDropdownItem href="javascript:void(0);">Report User</a>
-            </div>
-          </div>
-        </div>
-      </header>
-    </div>
-    <!--/ Chat Header -->
-
-    <!-- User Chat messages -->
-    <div class="user-chats" [perfectScrollbar] #scrollMe [scrollTop]="scrolltop">
-      <div class="chats">
-        <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf = "trade.seller == currentUser.email" >
-          <div class="card">
-            <div class="alert-body" >
-              <p class="text-body-heading" >You’re selling {{trade.btc_amount_with_margin}} BTC
-                ({{trade.fiat_amount_with_margin | number : '1.2-2'}} {{trade.currency }}) for {{trade.fiat_amount_original | number : '1.2-2'}} {{trade.currency}}
-                via {{trade.method | titlecase}}. Your funds are being securely held in escrow.
-              </p>
-
-              <p class="text-black-50">1. Share your {{trade.method | titlecase}} details and the account holder’s name with your trade partner</p>
-              <p class="text-black-50">2. Your trade partner will make their payment</p>
-              <p class="text-black-50">3. Wait for your trade partner to mark the trade as "Paid"</p>
-              <p class="text-black-50">4. Confirm that you’ve received your payment</p>
-              <p class="text-black-50">5. Release the BTC to your trade partner</p>
-            </div>
-
-          </div>
-
-        </ngb-alert>
-        <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf = "trade.buyer == currentUser.email" >
-          <div class="card">
-            <div class="alert-body" >
-              <p class="text-body-heading" >You’re buying {{trade.btc_amount_with_margin}} BTC
-                ({{trade.fiat_amount_with_margin | number : '1.2-2'}} {{trade.currency }}) for {{trade.fiat_amount_original | number : '1.2-2'}} {{trade.currency}}
-                via {{trade.method | titlecase}}. BTC is being securely held in escrow and its safe to make payments.
-              </p>
-
-              <p class="text-black-50">1. The seller will share {{trade.method | titlecase}} details</p>
-              <p class="text-black-50">2. Follow the instructions below and send the payment</p>
-              <p class="text-black-50">3. Click "I've paid" to confirm your payment</p>
-              <p class="text-black-50">4. The seller will confirm you’r payment</p>
-              <p class="text-black-50">5. The seller will release the BTC to your wallet</p>
-            </div>
-
-          </div>
-
-        </ngb-alert>
-
-
-
-        <ngb-alert [type]="'primary'" [dismissible]="false" >
-          <div class="card">
-            <div class="alert-body">
-              <p class="text-body-heading">Follow these instructions from your trade patner</p>
-              <p class="text-black-50">{{trade.instructions}}</p>
-
-            </div>
-          </div>
-
-        </ngb-alert>
-
+        <!-- User Chat messages -->
         <div
-          class="chat"
-          *ngFor="let chatRef of chats"
-          [ngClass]="{ 'chat-left':chatRef.senderId != user.username }"
+            class="user-chats overflow-scroll"
+           
+            appScrollable
+            (scrollPosition)="scrollHandler($event)"
+           
         >
-          <div class="chat-avatar" *ngIf="chatRef.senderId != user.username;">
-            <span class="avatar box-shadow-1 cursor-pointer">
-              <img
+            <div class="chats">
+                <ngb-alert
+                    [type]="'primary'"
+                    [dismissible]="false"
+                    *ngIf="trade.seller == currentUser.email"
+                >
+                    <div class="card">
+                        <div class="alert-body">
+                            <p class="text-body-heading">
+                                You’re selling {{ trade.btc_amount_with_margin }} BTC ({{
+                                    trade.fiat_amount_with_margin | number: '1.2-2'
+                                }}
+                                {{ trade.currency }}) for
+                                {{ trade.fiat_amount_original | number: '1.2-2' }}
+                                {{ trade.currency }} via {{ trade.method | titlecase }}. Your funds
+                                are being securely held in escrow.
+                            </p>
 
-                [src]="chatUser.avatar"
-                alt="avatar"
-                height="32"
-                width="32"
-              />
+                            <p class="text-black-50">
+                                1. Share your {{ trade.method | titlecase }} details and the account
+                                holder’s name with your trade partner
+                            </p>
+                            <p class="text-black-50">
+                                2. Your trade partner will make their payment
+                            </p>
+                            <p class="text-black-50">
+                                3. Wait for your trade partner to mark the trade as "Paid"
+                            </p>
+                            <p class="text-black-50">
+                                4. Confirm that you’ve received your payment
+                            </p>
+                            <p class="text-black-50">5. Release the BTC to your trade partner</p>
+                        </div>
+                    </div>
+                </ngb-alert>
+                <ngb-alert
+                    [type]="'primary'"
+                    [dismissible]="false"
+                    *ngIf="trade.buyer == currentUser.email"
+                >
+                    <div class="card">
+                        <div class="alert-body">
+                            <p class="text-body-heading">
+                                You’re buying {{ trade.btc_amount_with_margin }} BTC ({{
+                                    trade.fiat_amount_with_margin | number: '1.2-2'
+                                }}
+                                {{ trade.currency }}) for
+                                {{ trade.fiat_amount_original | number: '1.2-2' }}
+                                {{ trade.currency }} via {{ trade.method | titlecase }}. BTC is
+                                being securely held in escrow and its safe to make payments.
+                            </p>
 
-            </span>
-          </div>
-          <div class="chat-body">
-            <div class="chat-content">
-              <p>{{ chatRef.message }}</p>
+                            <p class="text-black-50">
+                                1. The seller will share {{ trade.method | titlecase }} details
+                            </p>
+                            <p class="text-black-50">
+                                2. Follow the instructions below and send the payment
+                            </p>
+                            <p class="text-black-50">
+                                3. Click "I've paid" to confirm your payment
+                            </p>
+                            <p class="text-black-50">4. The seller will confirm you’r payment</p>
+                            <p class="text-black-50">
+                                5. The seller will release the BTC to your wallet
+                            </p>
+                        </div>
+                    </div>
+                </ngb-alert>
+
+                <ngb-alert [type]="'primary'" [dismissible]="false">
+                    <div class="card">
+                        <div class="alert-body">
+                            <p class="text-body-heading">
+                                Follow these instructions from your trade patner
+                            </p>
+                            <p class="text-black-50">{{ trade.instructions }}</p>
+                        </div>
+                    </div>
+                </ngb-alert>
+
+                <div
+                    class="chat"
+                    *ngFor="let chatRef of page.data | async"
+                    [ngClass]="{ 'chat-left': chatRef.senderId != user.username }"
+                >
+                    <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
+                        <span class="avatar box-shadow-1 cursor-pointer">
+                            <img [src]="chatUser.avatar" alt="avatar" height="32" width="32" />
+                        </span>
+                    </div>
+                    <div class="chat-body">
+                        <div class="chat-content">
+                            <p>{{ chatRef.message }}</p>
+                        </div>
+
+                    </div>
+                </div>
+                <p *ngIf="page.done | async">loading..!</p>
             </div>
-          </div>
         </div>
-      </div>
+        <!-- User Chat messages -->
+
+        <!-- Submit Chat form -->
+        <form class="chat-app-form" action="javascript:void(0);" autocomplete="on">
+            <div class="input-group input-group-merge mr-1 form-send-message">
+                <input
+                    type="text"
+                    autocomplete="off"
+                    class="form-control message"
+                    placeholder="Type your message"
+                    [(ngModel)]="chatMessage"
+                    name="chat-message"
+                    (keydown.enter)="updateChat()"
+                />
+                <div class="input-group-append">
+                    <span class="input-group-text">
+                        <label for="attach-doc" class="attachment-icon mb-0">
+                            <i
+                                data-feather="image"
+                                class="cursor-pointer lighten-2 text-secondary"
+                            ></i>
+                            <input type="file" id="attach-doc" hidden /> </label
+                    ></span>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary send" (click)="updateChat()" rippleEffect>
+                <i data-feather="send" class="d-lg-none"></i>
+                <span class="d-none d-lg-block">Send</span>
+            </button>
+        </form>
+        <!--/ Submit Chat form -->
     </div>
-    <!-- User Chat messages -->
-
-    <!-- Submit Chat form -->
-    <form class="chat-app-form" action="javascript:void(0);" autocomplete="off">
-      <div class="input-group input-group-merge mr-1 form-send-message">
-
-        <input
-          type="text"
-          autocomplete="off"
-          class="form-control message"
-          placeholder="Type your message"
-          [(ngModel)]="chatMessage"
-          name="chat-message"
-          (keydown.enter)="updateChat()"
-        />
-        <div class="input-group-append">
-          <span class="input-group-text">
-            <label for="attach-doc" class="attachment-icon mb-0">
-              <i data-feather="image" class="cursor-pointer lighten-2 text-secondary"></i>
-              <input type="file" id="attach-doc" hidden/> </label
-            ></span>
-        </div>
-      </div>
-      <button type="button" class="btn btn-primary send" (click)="updateChat()" rippleEffect>
-        <i data-feather="send" class="d-lg-none"></i>
-        <span class="d-none d-lg-block">Send</span>
-      </button>
-    </form>
-    <!--/ Submit Chat form -->
-  </div>
-  <!--/ Active Chat -->
+    <!--/ Active Chat -->
 </section>
 <!--/ Main chat area -->

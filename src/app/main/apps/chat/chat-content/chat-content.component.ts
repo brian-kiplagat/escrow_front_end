@@ -3,9 +3,9 @@ import {Component, ElementRef, OnInit, ViewChild, Input} from '@angular/core';
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
 import {FirebaseService} from 'app/services/firebase.service';
 import {Router, ActivatedRoute} from '@angular/router';
-import {user} from "@angular/fire/auth";
 import {ChatService} from "../chat.service";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { Observable } from 'rxjs';
+import { PaginationService } from '../pagination.service';
 
 @Component({
   selector: 'app-chat-content',
@@ -37,36 +37,43 @@ export class ChatContentComponent implements OnInit {
   public uname;
   public buyer: boolean;
   public patner_data: any;
+  public tradeId = ""
 
   constructor(private _chatService: ChatService,
               private _coreSidebarService: CoreSidebarService,
               private fb: FirebaseService,
               private route: ActivatedRoute,
-              private router: Router
+              private router: Router,
+              public page: PaginationService
+
   ) {
   }
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
-
+  scrollHandler(e:any) {
+    // should log top or bottom
+    if (e === 'bottom') {
+      this.page.more()
+    }
+  }
   /**
    * Update Chat
    */
   updateChat() {
     let user = JSON.parse(localStorage.getItem('user'));
-
     this.fb.sendMessage({
       tradeId: this.trade.id,
       senderId: user.username,
       message: this.chatMessage
 
 
-    });
+    })
     this.chatMessage = '';//Reset the input to an empty value
     setTimeout(() => {
       this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
     }, 0);
-
+   
     console.log(this.chatMessage)
 
   }
@@ -87,13 +94,12 @@ export class ChatContentComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+
     this.user = JSON.parse(localStorage.getItem('user'));
-    const routeParams = this.route.snapshot.paramMap;
     this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];
 
       if (this.trade.buyer == this.currentUser.email) {//Logged in user is the buyer
-        console.log(this.currentUser.email + ': Logged in user is buyer')
         this.buyer = true;
         this.fb.getUserByMail(this.trade.seller, this.user.token, this.user.username).subscribe((data: any) => {
           this.patner_data = data.responseMessage?.[0];
@@ -103,7 +109,7 @@ export class ChatContentComponent implements OnInit {
         });
 
       } else if (this.trade.seller == this.currentUser.email) {//Logged in user is the seller
-        console.log(this.currentUser.email + ': Logged in user is the seller')
+       
         this.buyer = false;
         //Get the details of the buyer
         this.fb.getUserByMail(this.trade.buyer, this.user.token, this.user.username).subscribe((data: any) => {
@@ -115,16 +121,14 @@ export class ChatContentComponent implements OnInit {
         });
 
       }
-
-      this.fb.retrieveMessage(this.trade.id).subscribe((data: any) => {
-        this.chats = data;
-        console.log(data)
-      });
+     this.tradeId =this.trade.id.toString()
+      this.page.init(this.trade.id.toString(), 'time', { reverse: true, prepend: false })
     }, (error) => {
       console.log(error)
       this.router.navigate(['dashboard'])
     });
-
+    
+    
     this.activeChat = false;
 
   }

@@ -14,6 +14,8 @@ import { ChatUserSidebarComponent } from 'app/main/apps/chat/chat-sidebars/chat-
 import { ChatActiveSidebarComponent } from 'app/main/apps/chat/chat-sidebars/chat-active-sidebar/chat-active-sidebar.component';
 import { ChatComponent } from 'app/main/apps/chat/chat.component';
 import { ChatService } from 'app/main/apps/chat/chat.service';
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { ScrollableDirective } from './scrollable.directive';
 
 // routing
 const routes: Routes = [
@@ -40,7 +42,8 @@ const routes: Routes = [
     ChatContentComponent,
     ChatSidebarComponent,
     ChatUserSidebarComponent,
-    ChatActiveSidebarComponent
+    ChatActiveSidebarComponent,
+    ScrollableDirective
   ],
   imports: [
     CommonModule,
@@ -48,7 +51,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CoreCommonModule,
     PerfectScrollbarModule,
-    NgbModule
+    NgbModule,
+    InfiniteScrollModule
   ],
   providers: [ChatService]
 })
