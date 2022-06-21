@@ -97,12 +97,14 @@ export class ChatContentComponent implements OnInit {
   ngOnInit(): void {
 console.log(this.trade)
     this.user = JSON.parse(localStorage.getItem('user'));
+    console.log("partner data",this.partner_data,this.user)
+
     this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];
 
       if (this.trade.buyer == this.currentUser.email) {//Logged in user is the buyer
         this.buyer = true;
-
+        
       } else if (this.trade.seller == this.currentUser.email) {//Logged in user is the seller
        
         this.buyer = false;
@@ -110,6 +112,9 @@ console.log(this.trade)
       }
      this.tradeId =this.trade.id.toString()
       this.page.init(this.trade.id.toString(), 'time', { reverse: true, prepend: false })
+      this.fb.retrieveMessage(this.trade.id).subscribe((data: any) => {
+        this.chats = data;
+      });
     }, (error) => {
       console.log(error)
       this.router.navigate(['dashboard'])

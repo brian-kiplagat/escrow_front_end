@@ -157,7 +157,7 @@
 
                 <div
                     class="chat"
-                    *ngFor="let chatRef of page.data | async"
+                    *ngFor="let chatRef of chats"
                     [ngClass]="{ 'chat-left': chatRef.senderId != user.username }"
                 >
                     <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
