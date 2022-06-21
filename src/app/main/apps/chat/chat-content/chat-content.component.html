@@ -70,16 +70,16 @@
         <!-- User Chat messages -->
         <div
             class="user-chats overflow-scroll"
-           
+
             appScrollable
             (scrollPosition)="scrollHandler($event)"
-           
+
         >
             <div class="chats">
                 <ngb-alert
                     [type]="'primary'"
                     [dismissible]="false"
-                    *ngIf="trade.seller == currentUser.email"
+                    *ngIf="trade.seller == user.email"
                 >
                     <div class="card">
                         <div class="alert-body">
@@ -113,7 +113,7 @@
                 <ngb-alert
                     [type]="'primary'"
                     [dismissible]="false"
-                    *ngIf="trade.buyer == currentUser.email"
+                    *ngIf="trade.buyer == user.email"
                 >
                     <div class="card">
                         <div class="alert-body">
@@ -172,7 +172,7 @@
 
                     </div>
                 </div>
-                <p *ngIf="page.done | async">loading..!</p>
+
             </div>
         </div>
         <!-- User Chat messages -->

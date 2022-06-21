@@ -4,8 +4,8 @@ import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.ser
 import {FirebaseService} from 'app/services/firebase.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ChatService} from "../chat.service";
-import { Observable } from 'rxjs';
-import { PaginationService } from '../pagination.service';
+import {Observable} from 'rxjs';
+import {PaginationService} from '../pagination.service';
 
 @Component({
   selector: 'app-chat-content',
@@ -13,7 +13,7 @@ import { PaginationService } from '../pagination.service';
 })
 export class ChatContentComponent implements OnInit {
   @Input() trade: any;
-  @Input() partner_data:any;
+  @Input() partner_data: any;
   // Decorator
   @ViewChild('scrollMe') scrollMe: ElementRef;
   scrolltop: number = null;
@@ -34,10 +34,7 @@ export class ChatContentComponent implements OnInit {
   public user: any = {}
   public currentUser: any = {}
   public tradeData: any = {}
-  public chat_instruction;
-  public uname;
   public buyer: boolean;
-  public patner_data: any;
   public tradeId = ""
 
   constructor(private _chatService: ChatService,
@@ -46,18 +43,18 @@ export class ChatContentComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               public page: PaginationService
-
   ) {
   }
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
-  scrollHandler(e:any) {
+  scrollHandler(e: any) {
     // should log top or bottom
     if (e === 'bottom') {
       this.page.more()
     }
   }
+
   /**
    * Update Chat
    */
@@ -74,7 +71,7 @@ export class ChatContentComponent implements OnInit {
     setTimeout(() => {
       this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
     }, 0);
-   
+
     console.log(this.chatMessage)
 
   }
@@ -95,32 +92,15 @@ export class ChatContentComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-console.log(this.trade)
+    const routeParams = this.route.snapshot.paramMap;
     this.user = JSON.parse(localStorage.getItem('user'));
-    console.log("partner data",this.partner_data,this.user)
+    console.log("partner data", this.partner_data)
+    console.log("trade id",   routeParams.get('id'))
 
-    this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
-      this.currentUser = data.responseMessage?.user_data[0];
-
-      if (this.trade.buyer == this.currentUser.email) {//Logged in user is the buyer
-        this.buyer = true;
-        
-      } else if (this.trade.seller == this.currentUser.email) {//Logged in user is the seller
-       
-        this.buyer = false;
-
-      }
-     this.tradeId =this.trade.id.toString()
-      this.page.init(this.trade.id.toString(), 'time', { reverse: true, prepend: false })
-      this.fb.retrieveMessage(this.trade.id).subscribe((data: any) => {
-        this.chats = data;
-      });
-    }, (error) => {
-      console.log(error)
-      this.router.navigate(['dashboard'])
+    this.page.init(routeParams.get('id'), 'time', {reverse: true, prepend: false})
+    this.fb.retrieveMessage(routeParams.get('id')).subscribe((data: any) => {
+      this.chats = data;
     });
-    
-    
     this.activeChat = false;
 
   }
