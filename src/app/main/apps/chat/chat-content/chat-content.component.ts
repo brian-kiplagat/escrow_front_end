@@ -13,6 +13,7 @@ import { PaginationService } from '../pagination.service';
 })
 export class ChatContentComponent implements OnInit {
   @Input() trade: any;
+  @Input() partner_data:any;
   // Decorator
   @ViewChild('scrollMe') scrollMe: ElementRef;
   scrolltop: number = null;
@@ -101,24 +102,10 @@ console.log(this.trade)
 
       if (this.trade.buyer == this.currentUser.email) {//Logged in user is the buyer
         this.buyer = true;
-        this.fb.getUserByMail(this.trade.seller, this.user.token, this.user.username).subscribe((data: any) => {
-          this.patner_data = data.responseMessage?.[0];
-        }, (error) => {
-          console.log(error)
-          this.router.navigate(['dashboard'])
-        });
 
       } else if (this.trade.seller == this.currentUser.email) {//Logged in user is the seller
        
         this.buyer = false;
-        //Get the details of the buyer
-        this.fb.getUserByMail(this.trade.buyer, this.user.token, this.user.username).subscribe((data: any) => {
-          //console.log(data)
-          this.patner_data = data.responseMessage?.[0];
-        }, (error) => {
-          console.log(error)
-          // this.router.navigate(['dashboard'])
-        });
 
       }
      this.tradeId =this.trade.id.toString()

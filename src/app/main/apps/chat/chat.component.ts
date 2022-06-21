@@ -16,7 +16,7 @@ export class ChatComponent implements OnInit {
   public tradeData: any = {}
   public trade: any = {}
   public buyer: boolean;
-
+  public partner_data:any={}
   constructor(private fb: FirebaseService, private route: ActivatedRoute, private router: Router, private chat_service: ChatService) {
 
   }
@@ -24,11 +24,15 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
     const routeParams = this.route.snapshot.paramMap;
-  console.log(this.user)
     this.fb.getTradeByID(this.user.username, this.user.token, routeParams.get('id')).subscribe((data: any) => {
-     
+     let tradeBuyer = data.responseMessage.buyer.message
+     let tradeSeller = data.responseMessage.seller.message
+     if(this.user.username ==tradeBuyer.username){
+      this.partner_data = tradeBuyer
+     }else{
+      this.partner_data = tradeSeller
+     }
       this.trade = data.responseMessage.trade?.[0];
-      console.log(this.trade)
     }, (error) => {
       console.log(error)
       this.router.navigate(['dashboard'])
