@@ -4,7 +4,7 @@ import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.ser
 import {FirebaseService} from 'app/services/firebase.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ChatService} from "../chat.service";
-import {Observable} from 'rxjs';
+import { ToastrService, GlobalConfig } from 'ngx-toastr';
 import {PaginationService} from '../pagination.service';
 
 @Component({
@@ -42,7 +42,8 @@ export class ChatContentComponent implements OnInit {
               private fb: FirebaseService,
               private route: ActivatedRoute,
               private router: Router,
-              public page: PaginationService
+              public page: PaginationService,
+              private toastr: ToastrService
   ) {
   }
 
@@ -104,9 +105,31 @@ export class ChatContentComponent implements OnInit {
     this.activeChat = false;
 
   }
+  block(ext_username: string) {
+    let user = JSON.parse(localStorage.getItem('user'));
+    this.fb.blockNow(this.user.token, this.user.username, {
 
+      "email": user.email,
+      "please_block": ext_username,
+
+    }).subscribe((response: any) => {
+      this.toastr.success(response.responseMessage, 'Done!', {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true
+      });
+
+    }, (err) => {
+      this.toastr.success(err.error, 'Ops!', {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true
+      });
+
+    })
+  }
   openLink(username: string) {
-    window.location.href = '/user/' + username
+    window.location.href = '/users/' + username
   }
 
 

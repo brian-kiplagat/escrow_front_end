@@ -58,7 +58,7 @@
                             class="dropdown-menu-right"
                             aria-labelledby="chat-header-actions"
                         >
-                            <a ngbDropdownItem href="javascript:void(0);">Block User</a>
+                            <a ngbDropdownItem (click)="block(partner_data.username)">Block User</a>
                             <a ngbDropdownItem href="javascript:void(0);">Report User</a>
                         </div>
                     </div>
