@@ -94,7 +94,7 @@ export class ChatContentComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-
+console.log(this.trade)
     this.user = JSON.parse(localStorage.getItem('user'));
     this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];

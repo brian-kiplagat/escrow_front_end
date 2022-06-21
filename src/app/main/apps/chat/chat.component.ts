@@ -24,17 +24,11 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
     const routeParams = this.route.snapshot.paramMap;
-    this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
-      this.currentUser = data.responseMessage?.user_data[0];
-      console.log(this.currentUser)
-    }, (error) => {
-      console.log(error)
-      this.router.navigate(['dashboard'])
-    });
+  console.log(this.user)
     this.fb.getTradeByID(this.user.username, this.user.token, routeParams.get('id')).subscribe((data: any) => {
-      console.log(data)
-      this.trade = data.responseMessage?.[0];
-
+     
+      this.trade = data.responseMessage.trade?.[0];
+      console.log(this.trade)
     }, (error) => {
       console.log(error)
       this.router.navigate(['dashboard'])
