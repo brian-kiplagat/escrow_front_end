@@ -1,6 +1,16 @@
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body">
 
+    <ngb-alert [type]="'primary'" [dismissible]="true" *ngIf="success" >
+      <div class="alert-body">
+        <p>{{ msg }}</p>
+      </div>
+    </ngb-alert>
+    <ngb-alert [type]="'danger'" [dismissible]="true" *ngIf="error" >
+      <div class="alert-body">
+        <p>{{ msg }}</p>
+      </div>
+    </ngb-alert>
 
     <div id="user-profile">
       <!-- profile header -->
@@ -53,7 +63,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="button nav-link font-weight-bold"  (click)="block()" href="javascript:void(0)">
+                        <a class="button nav-link font-weight-bold"  (click)="block(external_username)" href="javascript:void(0)">
                           <span class="d-none d-md-block" >Block</span>
                           <i data-feather="user-x" class="d-block d-md-none"></i>
                         </a>
@@ -173,3 +183,4 @@
     </div>
   </div>
 </div>
+

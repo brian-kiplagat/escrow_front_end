@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { FirebaseService } from 'app/services/firebase.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { ProfileService } from 'app/main/pages/profile/profile.service';
-import {ActivatedRoute,  Router } from "@angular/router";
+import {Component, OnInit, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
+import {FirebaseService} from 'app/services/firebase.service';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {ProfileService} from 'app/main/pages/profile/profile.service';
+import {ActivatedRoute, Router} from "@angular/router";
+import {object} from "@angular/fire/database";
 
 
 @Component({
@@ -38,7 +39,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public user: any = {};
   public has_blocked;
   public blocked_by;
-
+  public external_username;
+  public msg;
+  public success = false;
+  public error = false;
   // private
   private _unsubscribeAll: Subject<any>;
 
@@ -69,12 +73,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    const routeParams = this.route.snapshot.paramMap;
-    const userIdFromRoute = routeParams.get('id');
-    console.log(userIdFromRoute);
+    this.external_username = this.route.snapshot.paramMap.get('id');
+
+    console.log(this.external_username);
     // get the currentUser details from localStorage
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.fb.getUser(userIdFromRoute, this.user.token).subscribe((data: any) => {
+    this.fb.getUserForProfile(this.external_username, this.user.token, this.user.username).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];
       this.has_blocked = data.responseMessage?.has_blocked.length;
       this.blocked_by = data.responseMessage?.blocked_by.length;
@@ -103,6 +107,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     };
   }
+
   getEmail() {
     return localStorage.getItem('user');
   }
@@ -117,6 +122,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  block() {
+  block(ext_username: string) {
+    let user = JSON.parse(localStorage.getItem('user'));
+    this.fb.blockNow(this.user.token, this.user.username, {
+
+      "email": user.email,
+      "please_block": ext_username,
+
+    }).subscribe((response: any) => {
+      this.msg = response.responseMessage
+      this.success = true;
+
+    }, (err) => {
+      this.msg = err.error.responseMessage
+      this.error = true;
+
+      console.log(err.error)
+    })
   }
 }

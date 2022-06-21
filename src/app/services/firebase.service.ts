@@ -346,4 +346,45 @@ export class FirebaseService {
 
     return messages;
   }
+  getUserForProfile(userIdFromRoute: string, token: string, username: string) {
+    const header = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: token,
+      username: username
+    };
+    const requestOptions = {
+      headers: new HttpHeaders(header)
+    };
+    return this.http.get(
+      'https://api.coinlif.com/api/coin/v1/getUserDataByUsername/' + userIdFromRoute,
+      requestOptions
+    );
+  }
+  // get applications
+  blockNow(token: string, username: string, formData: any) {
+    const header = {
+      'Content-Type': 'application/json',
+      Accept: '*/*',
+      token: token,
+      username: username
+    };
+    const body = JSON.stringify(formData);
+    const requestOptions = {
+      headers: new HttpHeaders(header)
+    };
+    console.log(token, username, formData);
+    return this.http.post('https://api.coinlif.com/api/coin/v1/blockUser', formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
+
+
+
+
 }
