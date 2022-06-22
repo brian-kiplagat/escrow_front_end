@@ -132,55 +132,51 @@
                 <span class="font-weight-bold">Security</span>
               </a>
               <ng-template ngbNavContent>
-                <div class="card">
-                  <div class="card-body">
-                    <div *ngIf="two_factor == false">
-                      <div class="card card-developer-meetup">
-                        <div class="alert alert-warning mb-50" role="alert" *ngIf="currentUser.choice_2fa =='NA' ">
-                          <h4 class="alert-heading">You currently have no 2FA. With 2FA, If a password is compromised,
-                            no intruder can access your account without the second factor. Setup 2FA with Authy or
-                            Google Authenticator immediately </h4>
-                        </div>
-
-                        <div class="card-body">
-                          <div class="meetup-header d-flex align-items-center">
-                            <div class="meetup-day">
-                              <img
-                                src="{{currentUser.qrcode}}"
-                                alt="Meeting Pic" height="170"/>
-
-                            </div>
-                            <div class="my-auto">
-                              <h4 class="card-title mb-25">Two Factor Authentication</h4>
-                              <p class="card-text mb-0">Scan the QR code in Authy or Google Authenticator and enter the
-                                code you see below.</p>
-                              <p class="card-text mb-0"> For manual setup use this code: {{currentUser.secret}}</p>
-                              <br>
-                              <form class="validate-form">
-                                <div class="">
-                                  <div class="input-group">
-                                    <input
-                                      id="2fa_otp"
-                                      type="number"
-                                      class="form-control"
-                                      placeholder="Your 2FA code"
-                                      aria-describedby="button-addon2"
-
-                                    />
-                                    <div class="input-group-append" id="button-addon2">
-                                      <button class="btn btn-outline-primary" type="button" (click)="set2FA()"
-                                              rippleEffect>Go
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-
+                <div class="alert alert-danger mb-50" role="alert">
+                  <h4 class="alert-heading">2FA bolsters security by making it difficult for intruders to gain unauthorized access to your account. Please Setup your 2FA immediately!</h4>
+                </div>
+                <br>
+                <div class="card" *ngIf="two_factor == false">
+                  <div class="card card-developer-meetup">
+                    <div class="bg-light-primary rounded-top text-center">
+                      <img src="{{currentUser.qrcode}}" alt="Meeting Pic" height="170" />
+                    </div>
+                    <div class="card-body">
+                      <div class="meetup-header d-flex align-items-center">
+                        <div class="my-auto">
+                          <h4 class="card-title mb-25">
+                            Two Factor Authentication</h4>
+                          <p class="card-text mb-0">Scan the QR code in Authy or Google Authenticator and enter the
+                            code you see below.</p>
+                          <p class="card-text mb-0"> For manual setup use this code: {{currentUser.secret}}</p>
                         </div>
                       </div>
+
+                      <form class="validate-form">
+                        <div class="">
+                          <div class="input-group">
+                            <input
+                              id="2fa_otp"
+                              type="number"
+                              class="form-control"
+                              placeholder="Your 2FA code"
+                              aria-describedby="button-addon2"
+
+                            />
+                            <div class="input-group-append" id="button-addon2">
+                              <button class="btn btn-outline-primary" type="button" (click)="set2FA()"
+                                      rippleEffect>Go
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
                     </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+
                     <div *ngIf="two_factor == true">
                       <div class="card card-developer-meetup">
                         <div class="alert alert-success mb-50" role="alert">
