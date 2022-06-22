@@ -133,13 +133,14 @@
               </a>
               <ng-template ngbNavContent>
                 <div class="alert alert-danger mb-50" *ngIf="two_factor == false" role="alert">
-                  <h4 class="alert-heading">2FA bolsters security by making it difficult for intruders to gain unauthorized access to your account. Please Setup your 2FA immediately!</h4>
+                  <h4 class="alert-heading">2FA bolsters security by making it difficult for intruders to gain
+                    unauthorized access to your account. Please Setup your 2FA immediately!</h4>
                 </div>
                 <br>
                 <div class="card" *ngIf="two_factor == false">
                   <div class="card card-developer-meetup">
                     <div class="bg-light-primary rounded-top text-center">
-                      <img src="{{currentUser.qrcode}}" alt="Meeting Pic" height="170" />
+                      <img src="{{currentUser.qrcode}}" alt="Meeting Pic" height="170"/>
                     </div>
                     <div class="card-body">
                       <div class="meetup-header d-flex align-items-center">
@@ -217,7 +218,8 @@
                                 id="accountSwitch5"
                                 (click)="change2FA('release')"
                               />
-                              <label class="custom-control-label" for="accountSwitch5">Require 2FA to Release BTC</label>
+                              <label class="custom-control-label" for="accountSwitch5">Require 2FA to Release
+                                BTC</label>
                             </div>
                           </div>
 
@@ -314,7 +316,8 @@
                           </div>
                         </div>
                         <div class="col-12">
-                          <button type="submit" class="btn btn-primary mr-1 mt-1" (click)="changePassword()" rippleEffect>Change Password
+                          <button type="submit" class="btn btn-primary mr-1 mt-1" (click)="changePassword()"
+                                  rippleEffect>Change Password
                           </button>
 
                         </div>
@@ -631,86 +634,101 @@
                 <span class="font-weight-bold">Verification</span>
               </a>
               <ng-template ngbNavContent>
-                <div class="card">
-                  <div class="card-body">
-                    <!-- form -->
-                    <form class="validate-form">
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="form-group">
-                            <label for="accountTextarea">Bio</label>
-                            <textarea
-                              [(ngModel)]="data.accountSetting.info.bio"
-                              class="form-control"
-                              id="accountTextarea"
-                              name="accountTextarea"
-                              rows="4"
-                              placeholder="Your Bio data here..."
-                            ></textarea>
-                          </div>
+
+                <div class="row match-height">
+                  <!-- User Timeline Card -->
+                  <div class="container-fluid">
+                    <div class="card card-user-timeline">
+                      <div class="card-header">
+                        <div class="d-flex align-items-center">
+                          <i data-feather="user" class="user-timeline-title-icon"></i>
+                          <h4 class="card-title">User Verification</h4>
                         </div>
-                        <div class="col-12 col-sm-6">
-                          <div class="form-group">
-                            <label for="account-birth-date">Birth date</label>
-                            <ng2-flatpickr
-                              [config]="birthDateOptions"
-                              [(ngModel)]="data.accountSetting.info.dob"
-                              id="account-birth-date"
-                              name="account-birth-date"
-                              placeholder="June 18, 2021"
-                            ></ng2-flatpickr>
-                          </div>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                          <div class="form-group">
-                            <label for="accountSelect">Country</label>
-                            <select
-                              class="form-control"
-                              [(ngModel)]="data.accountSetting.info.country"
-                              id="accountSelect"
-                              name="accountSelect"
-                            >
-                              <option>USA</option>
-                              <option>India</option>
-                              <option>Canada</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                          <div class="form-group">
-                            <label for="account-website">Website</label>
-                            <input
-                              type="text"
-                              [(ngModel)]="data.accountSetting.info.website"
-                              class="form-control"
-                              name="website"
-                              id="account-website"
-                              placeholder="Website address"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                          <div class="form-group">
-                            <label for="account-phone">Phone</label>
-                            <input
-                              type="text"
-                              [(ngModel)]="data.accountSetting.info.phone"
-                              class="form-control"
-                              id="account-phone"
-                              placeholder="Phone number"
-                              name="phone"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-12">
-                          <button type="submit" class="btn btn-primary mt-1 mr-1" rippleEffect>Save changes</button>
-                          <button type="reset" class="btn btn-outline-secondary mt-1" rippleEffect>Cancel</button>
-                        </div>
+                        <i data-feather="shield" class="font-medium-3 cursor-pointer"></i>
                       </div>
-                    </form>
-                    <!--/ form -->
+                      <div class="card-body">
+                        <ul class="timeline ml-50 mb-0">
+                          <li class="timeline-item">
+                            <span class="timeline-point timeline-point-indicator"></span>
+                            <div class="timeline-event">
+                              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <h6>Email Verified</h6>
+                                <span class="timeline-event-time mr-1">12 min ago</span>
+                              </div>
+                              <p>Invoices have been paid to the company.</p>
+                              <div class="media align-items-center">
+                                <img class="mr-1" src="assets/images/icons/json.png" alt="data.json" height="23"/>
+                                <h6 class="media-body mb-0">data.json</h6>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="timeline-item">
+                            <span class="timeline-point timeline-point-warning timeline-point-indicator"></span>
+                            <div class="timeline-event">
+                              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <h6>ID Verified</h6>
+                                <span class="timeline-event-time mr-1">45 min ago</span>
+                              </div>
+                              <p>Upload your National ID, Driving Licence or Passport</p>
+                              <div class="media align-items-center">
+                                <div class="avatar mr-50">
+                                  <img src="assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" width="38"
+                                       height="38"/>
+                                </div>
+                                <div class="media-body">
+                                  <h6 class="mb-0">John Doe (Client)</h6>
+                                  <p class="mb-0">CEO of Infibeam</p>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="timeline-item">
+                            <span class="timeline-point timeline-point-info timeline-point-indicator"></span>
+                            <div class="timeline-event">
+                              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <h6>Address Verified</h6>
+                                <span class="timeline-event-time mr-1">45 min ago</span>
+                              </div>
+                              <p>Upload your Utility Bill or Bank Statement</p>
+                              <button style="width: 200px;" rippleEffect
+                                      class="btn btn-gradient-primary btn-block"
+                                      ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
+                                      placement="bottom">
+                                <div>
+                                  <h2 class="d-inline mr-25 text-white">UPLOAD</h2>
+                                  <sub class="text-body"><small class="text-white">now</small></sub>
+                                </div>
+                              </button>
+                            </div>
+                          </li>
+                          <li class="timeline-item">
+                            <span class="timeline-point timeline-point-danger timeline-point-indicator"></span>
+                            <div class="timeline-event">
+                              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <h6>Corporate Verified</h6>
+                                <span class="timeline-event-time mr-1">45 min ago</span>
+                              </div>
+                              <p>Upload your Utility Bill or Bank Statement</p>
+                              <div class="media align-items-center">
+                                <div class="avatar mr-50">
+                                  <img src="assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" width="38"
+                                       height="38"/>
+                                </div>
+                                <div class="media-body">
+                                  <h6 class="mb-0">John Doe (Client)</h6>
+                                  <p class="mb-0">CEO of Infibeam</p>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
+                  <!--/ User Timeline Card -->
                 </div>
+
+
               </ng-template>
             </li>
 

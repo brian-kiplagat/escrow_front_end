@@ -9,6 +9,7 @@ import {FirebaseService} from "../../../services/firebase.service";
 import {Router} from "@angular/router";
 import Swal from "sweetalert2";
 import {isNumeric} from "rxjs/internal-compatibility";
+import Stepper from "bs-stepper";
 
 @Component({
   selector: 'app-account-settings',
@@ -37,7 +38,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public factor_release = false
   public reset_error= false;
   public reset_error_text;
-
+  // public
 
   // private
   private _unsubscribeAll: Subject<any>;
@@ -128,7 +129,6 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       console.log(error)
       this.router.navigate(['/dashboard/overview'])
     });
-    // content header
     this.contentHeader = {
       headerTitle: 'Account Settings',
       actionButton: true,
@@ -143,6 +143,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         ]
       }
     };
+
   }
 
   /**
