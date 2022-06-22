@@ -228,6 +228,9 @@
                     </div>
                     <!-- form -->
                     <form class="validate-form">
+                      <div class="alert alert-danger mb-50" *ngIf="reset_error == true" role="alert">
+                        <h4 class="alert-heading">{{reset_error_text}}</h4>
+                      </div>
                       <div class="row">
                         <div class="col-12 col-sm-6">
                           <div class="form-group">
@@ -257,6 +260,7 @@
                         </div>
                       </div>
                       <div class="row">
+
                         <div class="col-12 col-sm-6">
                           <div class="form-group">
                             <label for="account-new-password">New Password</label>
@@ -310,7 +314,7 @@
                           </div>
                         </div>
                         <div class="col-12">
-                          <button type="submit" class="btn btn-primary mr-1 mt-1" rippleEffect>Change Password
+                          <button type="submit" class="btn btn-primary mr-1 mt-1" (click)="changePassword()" rippleEffect>Change Password
                           </button>
 
                         </div>

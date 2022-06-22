@@ -363,18 +363,8 @@ export class FirebaseService {
   }
   // get applications
   blockNow(token: string, username: string, formData: any) {
-    const header = {
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-      token: token,
-      username: username
-    };
-    const body = JSON.stringify(formData);
-    const requestOptions = {
-      headers: new HttpHeaders(header)
-    };
-    console.log(token, username, formData);
-    return this.http.post('https://api.coinlif.com/api/coin/v1/blockUser', formData, {
+
+       return this.http.post('https://api.coinlif.com/api/coin/v1/blockUser', formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -386,12 +376,6 @@ export class FirebaseService {
 
   // get applications
   set2FAAuth(token: string, username: string, formData: any) {
-    const header = {
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-      token: token,
-      username: username
-    };
 
     return this.http.post('https://api.coinlif.com/api/coin/v1/set2FA', formData, {
       headers: new HttpHeaders({
@@ -404,13 +388,6 @@ export class FirebaseService {
   }
 
   settoogle2FA(token: string, username: string, formData: any) {
-    const header = {
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-      token: token,
-      username: username
-    };
-
     return this.http.post('https://api.coinlif.com/api/coin/v1/set2FA', formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -422,5 +399,14 @@ export class FirebaseService {
   }
 
 
-
+  setChangePaswordInApp(token, username, formData: any) {
+    return this.http.post('https://api.coinlif.com/api/coin/v1/changePasswordInApp', formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
 }

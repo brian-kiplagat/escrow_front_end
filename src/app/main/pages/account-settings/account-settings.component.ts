@@ -35,6 +35,9 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public factor_login = false
   public factor_send = false
   public factor_release = false
+  public reset_error= false;
+  public reset_error_text;
+
 
   // private
   private _unsubscribeAll: Subject<any>;
@@ -161,7 +164,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     const otp = ((document.getElementById("2fa_otp") as HTMLInputElement).value);
     console.log(otp);
     let user = JSON.parse(localStorage.getItem('user'));
-    console.log(otp)
+
     if (otp.length <= 0) {
       this.fireSwalError('OTP REQUIRED', 'Scan the QR-code with your phone by using the Authy app. A 6-digit code will appear on the app. Enter the 6-digit code into the field below the QR-code')
       return
@@ -259,15 +262,15 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         const json = await response.json(); // Get JSON value from the response
         console.log(json)
         if (response.status == 200) {
-          fireAlert('success', 'DONE', 'Set 2FA Successfully')
+          fireAlert('success', 'DONE', 'You updated your 2FA. Never share your 2FA codes. If someone asks for it please neglect and report to support')
           //Here look for way to update ui with data
         } else {
           fireAlert('error', 'Ops', json.responseMessage.msg)
         }
 
-        this.factor_login = json.responseMessage.factor_login//Update with boolean values from server
+        /*this.factor_login = json.responseMessage.factor_login//Update with boolean values from server
         this.factor_send = json.responseMessage.factor_send
-        this.factor_release = json.responseMessage.factor_release
+        this.factor_release = json.responseMessage.factor_release*/
 
       });
 
@@ -330,5 +333,38 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       });
 
 
+  }
+
+  changePassword() {
+    const old_password = ((document.getElementById("account-old-password") as HTMLInputElement).value);
+    const new_password = ((document.getElementById("account-new-password") as HTMLInputElement).value);
+    const new_password_confirm = ((document.getElementById("account-retype-new-password") as HTMLInputElement).value);
+    if (old_password.length <= 0 || new_password.length <= 0 || new_password_confirm.length <= 0) {
+      this.reset_error_text = 'Please fill in all fields'
+      this.reset_error = true
+      return
+    }
+    this.reset_error = false
+    console.log(old_password+" : "+new_password+" : "+new_password_confirm);
+    let user = JSON.parse(localStorage.getItem('user'));
+    this.fb.setChangePaswordInApp(this.user.token, this.user.username, {
+
+      "email": user.email,
+      "old_password": old_password,
+      "new_password": new_password,
+
+
+    }).subscribe((response: any) => {
+      this.fireSwalSuccess('SUCCESS', 'You changed your password. We are logging you out of all active session shortly and you will be required to log in again')
+      setTimeout(() => {
+        console.log('sleeping for 2.5 seconds');
+        // And any other code that should run only after 5s
+
+      }, 2500);
+    }, (err) => {
+
+      this.fireSwalError('Ops', err.error.responseMessage)
+      console.log(err.error)
+    })
   }
 }
