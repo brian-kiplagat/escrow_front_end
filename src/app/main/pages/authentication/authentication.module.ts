@@ -15,8 +15,13 @@ import { AuthLoginV2Component } from 'app/main/pages/authentication/auth-login-v
 
 import { AuthRegisterV2Component } from 'app/main/pages/authentication/auth-register-v2/auth-register-v2.component';
 
+import { MailVerificationV2Component} from 'app/main/pages/authentication/mail-Verification/mail-verification-v2.component';
 
 import { AuthResetPasswordV2Component } from 'app/main/pages/authentication/auth-reset-password-v2/auth-reset-password-v2.component';
+
+import { FaVerificationV2Component } from 'app/main/pages/authentication/fa-verification/fa-verification-v2.component';
+
+
 
 // routing
 const routes: Routes = [
@@ -39,12 +44,23 @@ const routes: Routes = [
   {
     path: 'authentication/forgot-password-v2',
     component: AuthForgotPasswordV2Component
+  },
+
+  {
+    path: 'authentication/email-verification',
+    component: MailVerificationV2Component
+  },
+
+  {
+    path: 'authentication/confirm-login',
+    component: FaVerificationV2Component
   }
 ];
 
 @NgModule({
   declarations: [
-
+    FaVerificationV2Component,
+    MailVerificationV2Component,
     AuthLoginV2Component,
     AuthRegisterV2Component,
     AuthForgotPasswordV2Component,

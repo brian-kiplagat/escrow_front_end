@@ -32,6 +32,10 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public two_factor: boolean
   public tg_identifier: boolean
   public telegram_bool = false
+  public factor_login = false
+  public factor_send = false
+  public factor_release = false
+
   // private
   private _unsubscribeAll: Subject<any>;
 
@@ -107,16 +111,19 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       } else {
         this.telegram_bool = true;
       }
-      if (this.currentUser.choice_2fa == 'NA') {
-        this.two_factor = false;
-      } else {
+      if (this.currentUser.choice_2fa == '2FA') {
         this.two_factor = true;
+      } else {
+        this.two_factor = false;
       }
+      this.factor_login = this.currentUser.factor_login;
+      this.factor_send = this.currentUser.factor_send;
+      this.factor_release = this.currentUser.factor_release;
 
       //console.log(data)
     }, (error) => {
       console.log(error)
-      this.router.navigate(['/'])
+      this.router.navigate(['/dashboard/overview'])
     });
     // content header
     this.contentHeader = {
@@ -125,18 +132,9 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       breadcrumb: {
         type: '',
         links: [
+
           {
-            name: 'Home',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'Pages',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'Account Settings',
+            name: 'Personalize my account',
             isLink: false
           }
         ]
@@ -163,72 +161,116 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     const otp = ((document.getElementById("2fa_otp") as HTMLInputElement).value);
     console.log(otp);
     let user = JSON.parse(localStorage.getItem('user'));
-    this.fb.set2FAAuth(this.user.token, this.user.username, {
+    console.log(otp)
+    if (otp.length <= 0) {
+      this.fireSwalError('OTP REQUIRED', 'Scan the QR-code with your phone by using the Authy app. A 6-digit code will appear on the app. Enter the 6-digit code into the field below the QR-code')
+      return
+    }
+    if (otp.length > 6) {
+      this.fireSwalError('OTP TOO LONG', 'Your 2FA code cannot be longer than 6 numbers. Get your code from Authy or Google Authenticator')
+      return
+    }
+    if (otp.length > 0 && otp.length < 6) {
+      this.fireSwalError('OTP TOO SHORT', 'Your 2FA code cannot be shorter than 6 numbers. Get your code from Authy or Google Authenticator')
+      return
+    }
+    if (otp.length > 0 && !isNumeric(parseInt(otp))) {
+      this.fireSwalError('OTP MUST BE A NUMBER', 'Your 2FA code must be a 6 digit number. Get your code from Authy or Google Authenticator')
+      return
+    } else {
+      this.fb.set2FAAuth(this.user.token, this.user.username, {
 
-      "email": user.email,
-      "otp": otp,
+        "email": user.email,
+        "otp": otp,
 
-    }).subscribe((response: any) => {
-      this.two_factor = true
+      }).subscribe((response: any) => {
+        this.two_factor = true
+        this.factor_login = true
+        this.factor_send = true
+        this.factor_release = true
+        console.log(response.responseMessage)
+        this.fireSwalSuccess('DONE', 'You are now protected with 2FA.  Even if an intruder gets past your password, that\'s no longer enough to give unauthorized access: without approval of your 2FA Code')
 
-    }, (err) => {
+      }, (err) => {
 
-      this.two_factor = true
+        this.two_factor = false
+        this.fireSwalError('Ops', err.error.responseMessage)
 
-      console.log(err.error)
-    })
+        console.log(err.error)
+      })
+
+    }
 
 
   }
 
-  change2FA(button: string) {
-    function fireSwalError(title: string, message: string) {
-      Swal.fire({
-        title: title,
-        html: message,
-        icon: 'error',
-        confirmButtonText: 'OKAY',
-        customClass: {confirmButton: 'btn btn-primary'}
-      })
-    }
+  fireSwalError(title: string, message: string) {
+    Swal.fire({
+      title: title,
+      html: message,
+      icon: 'error',
+      confirmButtonText: 'OKAY',
+      customClass: {confirmButton: 'btn btn-primary'}
+    })
+  }
 
-    function fireSwalSuccess(title: string, message: string) {
-      Swal.fire({
-        title: title,
-        html: message,
-        icon: 'success',
-        confirmButtonText: 'OKAY',
-        customClass: {confirmButton: 'btn btn-primary'}
-      })
-    }
+  fireSwalSuccess(title: string, message: string) {
+    Swal.fire({
+      title: title,
+      html: message,
+      icon: 'success',
+      confirmButtonText: 'OKAY',
+      customClass: {confirmButton: 'btn btn-primary'}
+    })
+  }
+
+  change2FA(button: string) {
+
 
     function toggle2FA(otp: string, action: string) {
-      console.log("otp: "+otp+" button: "+action)
+      console.log("otp: " + otp + " button: " + action)
       let user = JSON.parse(localStorage.getItem('user'))
-      const headerDict = {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        token: user.token,
-        username: user.username
+
+      function fireAlert(sign: any, title: string, msg: string) {
+        Swal.fire({
+          title: title,
+          html: msg,
+          icon: sign,
+          confirmButtonText: 'OKAY',
+          customClass: {confirmButton: 'btn btn-primary'}
+        })
       }
 
-      const requestOptions = {
-        headers: new Headers(headerDict),
-      };
-      return fetch('https://api.coinlif.com/api/coin/v1/cancelTrade/', requestOptions)
-        .then(function (response) {
-          console.log(response);
-          if (!response.ok) {
-            throw new Error(response.statusText);
-          } else {
-            fireSwalSuccess('2FA DEACTIVATED', '2FA is essential to web security because it immediately neutralizes the risks associated with compromised passwords. If a password is hacked, guessed, or even phished, that\'s no longer enough to give an intruder access: without approval at the second factor, a password alone is useless.')
-          }
-          //location.reload()
-          return response.json();
-        })
-        .catch(function (error) {
-          fireSwalError('Ops', 'An error occurred try again')
-        });
+      fetch('https://api.coinlif.com/api/coin/v1/toggle2FA', {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          token: user.token,
+          username: user.username
+        },
+        body: JSON.stringify({
+          "type": action,
+          "email": user.email,
+          "otp": otp
+
+        }),
+      }).then(async response => {
+        const json = await response.json(); // Get JSON value from the response
+        console.log(json)
+        if (response.status == 200) {
+          fireAlert('success', 'DONE', 'Set 2FA Successfully')
+          //Here look for way to update ui with data
+        } else {
+          fireAlert('error', 'Ops', json.responseMessage.msg)
+        }
+
+        this.factor_login = json.responseMessage.factor_login//Update with boolean values from server
+        this.factor_send = json.responseMessage.factor_send
+        this.factor_release = json.responseMessage.factor_release
+
+      });
+
     }
 
     Swal.mixin({
@@ -249,27 +291,36 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
 
       ])
       .then(function (result) {
+        function fireSwal(option: string, title: string, msg: string) {
+          Swal.fire({
+            title: title,
+            html: msg,
+            icon: 'error',
+            confirmButtonText: 'OKAY',
+            customClass: {confirmButton: 'btn btn-primary'}
+          })
+        }
+
         if ((<HTMLInputElement>result).value) {
           console.log((<HTMLInputElement>result).value);
           let otp = (<HTMLInputElement>result).value[0]
           console.log(otp)
           if (otp.length <= 0) {
-            fireSwalError('OTP REQUIRED', 'Please input the 2FA Code. Get your code from Authy or Google Authenticator to authorize this action')
+            fireSwal('error', 'OTP REQUIRED', 'Please input the 2FA Code. Get your code from Authy or Google Authenticator to authorize this action')
             return
           }
           if (otp.length > 6) {
-            fireSwalError('OTP TOO LONG', 'Your 2FA code cannot be longer than 6 numbers. Get your code from Authy or Google Authenticator')
+            fireSwal('error', 'OTP TOO LONG', 'Your 2FA code cannot be longer than 6 numbers. Get your code from Authy or Google Authenticator')
             return
           }
           if (otp.length > 0 && otp.length < 6) {
-            fireSwalError('OTP TOO SHORT', 'Your 2FA code cannot be shorter than 6 numbers. Get your code from Authy or Google Authenticator')
+            fireSwal('error', 'OTP TOO SHORT', 'Your 2FA code cannot be shorter than 6 numbers. Get your code from Authy or Google Authenticator')
             return
           }
           if (otp.length > 0 && !isNumeric(parseInt(otp))) {
-            fireSwalError('OTP MUST BE A NUMBER', 'Your 2FA code must be a 6 digit number. Get your code from Authy or Google Authenticator')
+            fireSwal('error', 'OTP MUST BE A NUMBER', 'Your 2FA code must be a 6 digit number. Get your code from Authy or Google Authenticator')
             return
-          }
-          else {
+          } else {
             toggle2FA(otp, button)
 
           }

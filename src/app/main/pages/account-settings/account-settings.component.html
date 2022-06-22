@@ -132,7 +132,7 @@
                 <span class="font-weight-bold">Security</span>
               </a>
               <ng-template ngbNavContent>
-                <div class="alert alert-danger mb-50" role="alert">
+                <div class="alert alert-danger mb-50" *ngIf="two_factor == false" role="alert">
                   <h4 class="alert-heading">2FA bolsters security by making it difficult for intruders to gain unauthorized access to your account. Please Setup your 2FA immediately!</h4>
                 </div>
                 <br>
@@ -188,7 +188,7 @@
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                [checked]="telegram_bool"
+                                [checked]="factor_login"
                                 id="accountSwitch4"
                                 (click)="change2FA('login')"
                               />
@@ -200,8 +200,9 @@
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                [checked]="data.accountSetting.notification.productUpdates"
+                                [checked]="factor_send"
                                 id="accountSwitch6"
+
                                 (click)="change2FA('send')"
                               />
                               <label class="custom-control-label" for="accountSwitch6">Require 2FA to send BTC</label>
@@ -212,7 +213,7 @@
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                [checked]="data.accountSetting.notification.blogDigest"
+                                [checked]="factor_release"
                                 id="accountSwitch5"
                                 (click)="change2FA('release')"
                               />

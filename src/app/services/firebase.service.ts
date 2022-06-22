@@ -392,12 +392,8 @@ export class FirebaseService {
       token: token,
       username: username
     };
-    const body = JSON.stringify(formData);
-    const requestOptions = {
-      headers: new HttpHeaders(header)
-    };
-    console.log(token, username, formData);
-    return this.http.post('https://api.coinlif.com/api/coin/v1/blockUser', formData, {
+
+    return this.http.post('https://api.coinlif.com/api/coin/v1/set2FA', formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -406,6 +402,25 @@ export class FirebaseService {
       })
     });
   }
+
+  settoogle2FA(token: string, username: string, formData: any) {
+    const header = {
+      'Content-Type': 'application/json',
+      Accept: '*/*',
+      token: token,
+      username: username
+    };
+
+    return this.http.post('https://api.coinlif.com/api/coin/v1/set2FA', formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
+
 
 
 }
