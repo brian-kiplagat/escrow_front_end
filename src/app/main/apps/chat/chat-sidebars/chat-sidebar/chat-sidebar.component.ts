@@ -71,6 +71,7 @@ export class ChatSidebarComponent implements OnInit {
   }
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
+  buyer_online: boolean = true;
   /**
    * On init
    */

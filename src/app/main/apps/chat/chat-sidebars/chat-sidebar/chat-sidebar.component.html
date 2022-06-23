@@ -20,28 +20,18 @@
 
     <!-- App Design Card -->
     <div class="card card-app-design">
-      <div class="card-body">
+      <div *ngIf="trade.buyer == storage.email" class="card-body">
         <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
         <h4 class="card-title mt-1 mb-75 pt-25">Trade {{trade.status}}</h4>
-        <p class="font-small-2" *ngIf="trade.status == 'OPENED'  && trade.buyer == storage.email">
+        <p class="font-small-2" *ngIf="trade.status == 'OPENED'">
           Send {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}, {{trade.btc_amount_with_margin}} BTC will be added to your Coinpes wallet
         </p>
-        <p class="font-small-2" *ngIf="trade.status == 'OPENED'  && trade.buyer != storage.email">
-          Provide your details and wait for the buyer to Send {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
-          using  {{trade.method | titlecase}}.
-          After you receive it, promptly release BTC to the buyer
-        </p>
-        <p class="font-small-2" *ngIf="trade.status == 'PAID' && trade.buyer == storage.email"
+        <p class="font-small-2" *ngIf="trade.status == 'PAID'"
            ngbTooltip='You have sent the payment. Now wait for the seller to send you the Bitcoin. If the seller refuses or you have a problem, Open a dispute and well come in to help you'
            placement='bottom'>
           You sent {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}. Its now the sellers turn to send {{trade.btc_amount_with_margin}} BTC
-        </p>
-        <p class="font-small-2" *ngIf="trade.status == 'PAID' && trade.seller == storage.email"
-           ngbTooltip='If no payment was sent or you have a problem, Open a dispute and well come in to help you'
-           placement='bottom'>
-          The buyer has marked the trade as paid. Confirm if you have received the payment and release the BTC
         </p>
 
         <div *ngIf="trade.status == 'CANCELLED_BUYER'">
@@ -65,7 +55,8 @@
           </div>
 
         </div>
-        <button *ngIf="trade.status == 'OPENED' && trade.buyer == storage.email" type="button" (click)="mark_paid(trade.id)" rippleEffect
+        <button *ngIf="trade.status == 'OPENED'" type="button"
+                (click)="mark_paid(trade.id)" rippleEffect
                 class="btn btn-primary btn-block"
                 ngbTooltip="After sending the payment, Click this button, this will confirm that you have sent. If you don't confirm, the trade will be cancelled automatically after 30 minutes and BTC will be returned from our escrow | trust account back to the seller."
                 placement="bottom">
@@ -75,7 +66,8 @@
           </div>
         </button>
 
-        <button *ngIf="(trade.status == 'OPENED'|| trade.status == 'PAID') && trade.buyer == storage.email" type="button"
+        <button *ngIf="trade.status == 'OPENED'|| trade.status == 'PAID'"
+                type="button"
                 (click)="cancel_trade(trade.id)" rippleEffect class="btn btn-outline-warning btn-block"
                 ngbTooltip="Do not cancel this trade if you had sent any amount, if you cancel this trade after sending money you may loose the BTC because we will return return this escrow to the seller. For your safety, we require you to ask for refund first before cancelling. If you feel you have a problem with the seller, Click DISPUTE NOW and well join in to help you"
                 placement="bottom">CANCEL TRADE
@@ -99,78 +91,82 @@
           <div class="badge badge-light-primary">Rate: {{trade.price| number : '1.1-2'}} {{trade.currency}}/BTC</div>
         </div>
 
-        <h4 class="card-title">Quick Tutorial</h4>
-        <ul class="timeline">
-          <li class="timeline-item">
-            <span class="timeline-point timeline-point-indicator"></span>
-            <div class="timeline-event">
-              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                <h6>Ask for payment details</h6>
 
-              </div>
-              <p>Seller will provide it in a few</p>
+      </div>
+      <div *ngIf="trade.seller == storage.email" class="card-body">
+        <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
+        <h4 class="card-title mt-1 mb-75 pt-25">Trade {{trade.status}}</h4>
+        <p class="font-small-2" *ngIf="trade.status == 'OPENED'">
+          You're  selling {{trade.btc_amount_with_margin}} BTC for {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
+          using  {{trade.method | titlecase}},  promptly provide your details to receive the money
+        </p>
+        <p class="font-small-2" *ngIf="trade.status == 'PAID'"
+           ngbTooltip='You have received the payment. Now its your turn to release the Bitcoin. If the buyer has not sent any payment or made a wrong or suspicious claim please open a dispute and well come in to help you'
+           placement='bottom'>
+          Check if you have received {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
+          using  {{trade.method | titlecase}} and release the Bitcoin.
+        </p>
+        <p class="font-small-2" *ngIf="trade.status == 'PAID'"
+           ngbTooltip='You have received the payment. Now its your turn to release the Bitcoin. If the buyer has not sent any payment or made a wrong or suspicious claim please open a dispute and well come in to help you. Look out for dishonest traders who ask for early release or use fake payment screenshots. Make sure you’ve received your money before releasing the crypto'
+           placement='bottom'>
+          Before releasing the Bitcoin, be sure to check your {{trade.method | titlecase}} balance to confirm that you’ve received your money. Once you've released your funds, the transaction is final.
+        </p>
 
-            </div>
-          </li>
-          <li class="timeline-item">
-            <span class="timeline-point timeline-point-secondary timeline-point-indicator"></span>
-            <div class="timeline-event">
-              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                <h6>Send {{trade.fiat_amount_original | number : '1.2-2'}} {{trade.currency}}</h6>
+        <div *ngIf="trade.status == 'CANCELLED_BUYER'">
+          <p class="font-small-2">
+            Trade cancelled by {{trade.cancelled}}. To trade again, open another trade so that we reserve an escrow for
+            safe payments
+          </p>
+          <p class="font-small-2">{{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}</p>
+          <p class="font-small-2">{{trade.btc_amount_with_margin}} BTC</p>
+          <button (click)="view_offer(trade.idd)" type="button" rippleEffect
+                  class="btn btn-outline-primary btn-block"
+          >VIEW OFFER
+          </button>
+        </div>
 
-              </div>
-              <p>Send this exact amount in {{trade.currency}} to the seller via {{trade.currency}}</p>
+        <div class="design-group mb-2 pt-50" *ngIf="trade.status == 'OPENED'">
+          <h6 class="section-label">Expires in:</h6>
+          <div class="badge badge-light-warning mr-1"
+               ngbTooltip="You have this amount of time left to send the money and click I'VE PAID to confirm the payment"
+               placement="right">30:00:00
+          </div>
 
-            </div>
-          </li>
-          <li class="timeline-item">
-            <span class="timeline-point timeline-point-success timeline-point-indicator"></span>
-            <div class="timeline-event">
-              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                <h6>Confirm your payment</h6>
+        </div>
+        <button *ngIf="trade.status == 'OPENED' || trade.status == 'PAID'" type="button"
+                (click)="mark_paid(trade.id)" rippleEffect
+                class="btn btn-primary btn-block"
+                ngbTooltip="After sending the payment, Click this button, this will confirm that you have sent. If you don't confirm, the trade will be cancelled automatically after 30 minutes and BTC will be returned from our escrow | trust account back to the seller."
+                placement="bottom">
+          <div>
+            <h2 class="d-inline mr-25 text-white">RELEASE</h2>
+            <sub class="text-body"><small class="text-white">Bitcoin</small></sub>
+          </div>
+        </button>
 
-              </div>
-              <p class="mb-50">Click the 'I HAVE PAID' to confirm that you have sent the money, if you
-                dont confirm the escrow trade will be automatically cancelled after 30 minutes</p>
+        <button *ngIf="trade.status == 'OPENED' && buyer_online == false"
+                type="button"
+                (click)="cancel_trade(trade.id)" rippleEffect class="btn btn-outline-warning btn-block"
+                ngbTooltip="You can only cancel this trade if the buyer has not viewed your trade for the last 5 minutes"           placement="bottom">CANCEL TRADE
+        </button>
+        <button *ngIf="trade.status == 'PAID'" type="button" (click)="open_dispute(trade.id)" rippleEffect
+                class="btn btn-gradient-warning btn-block"
+                ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
+                placement="bottom">
+          <div>
+            <h2 class="d-inline mr-25 text-white">OPEN DISPUTE</h2>
+            <sub class="text-body"><small class="text-white">NOW</small></sub>
+          </div>
+        </button>
 
-            </div>
-          </li>
-          <li class="timeline-item">
-            <span class="timeline-point timeline-point-warning timeline-point-indicator"></span>
-            <div class="timeline-event">
-              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                <h6 class="mb-50">Seller will release Bitcoin</h6>
-              </div>
-              <p>The seller will check on your payment and release  {{trade.btc_amount_with_margin}} BTC to your
-                wallet. </p>
-              <hr/>
-              <div class="media align-items-center">
-                <div class="avatar">
-                  <img src="assets/images/avatars/12-small.png" alt="avatar" height="38" width="38"/>
-                </div>
-                <div class="media-body ml-50">
-                  <h6 class="mb-0">Buyer protection</h6>
-                  <span>If you have any problem like the seller not releasing BTC after paying, Click 'DISPUTE NOW' so our moderators join in to help you</span>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="timeline-item">
-            <span class="timeline-point timeline-point-danger timeline-point-indicator"></span>
-            <div class="timeline-event">
-              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                <h6>Leave a feedback</h6>
 
-              </div>
-              <p>
-                Give your patner a feedback depending on your trade experience. This wil help other
-                traders like you better trade with this patner.
-              </p>
-
-            </div>
-          </li>
-
-        </ul>
+        <div class="design-group mb-2 pt-50">
+          <h6 class="section-label">Details</h6>
+          <div class="badge badge-light-warning mr-1"
+               ngbTooltip="Send this to support in case you have complaints regarding this trade" placement="bottom">
+            Trade id: {{trade.id}}</div>
+          <div class="badge badge-light-primary">Rate: {{trade.price| number : '1.1-2'}} {{trade.currency}}/BTC</div>
+        </div>
 
 
       </div>

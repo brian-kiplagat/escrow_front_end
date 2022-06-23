@@ -96,6 +96,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
 
       reader.onload = (event: any) => {
         this.avatarImage = event.target.result;
+        console.log(event.target.result)
       };
 
       reader.readAsDataURL(event.target.files[0]);
