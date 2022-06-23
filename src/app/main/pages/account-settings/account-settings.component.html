@@ -648,49 +648,47 @@
                       </div>
                       <div class="card-body">
                         <ul class="timeline ml-50 mb-0">
+
                           <li class="timeline-item">
                             <span class="timeline-point timeline-point-indicator"></span>
                             <div class="timeline-event">
                               <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                <h6>Email Verified</h6>
-                                <span class="timeline-event-time mr-1">12 min ago</span>
+                                <h6 *ngIf="currentUser.verified_email ==true">Email Verified</h6>
+                                <h6 *ngIf="currentUser.verified_email ==false">Verifiy Email</h6>
                               </div>
-                              <p>Invoices have been paid to the company.</p>
-                              <div class="media align-items-center">
-                                <img class="mr-1" src="assets/images/icons/json.png" alt="data.json" height="23"/>
-                                <h6 class="media-body mb-0">data.json</h6>
+                              <p *ngIf="currentUser.verified_email ==true">You verified your email</p>
+                              <p *ngIf="currentUser.verified_email ==false">Check your email or spam folder
+                                </p>
+                              <div class="media align-items-center" *ngIf="currentUser.verified_email ==true">
+                                <img class="mr-1" src="assets/images/icons/rocket.svg" alt="data.json" height="23"/>
+                                <h6 class="media-body mb-0">{{currentUser.email}}</h6>
                               </div>
+                              <button *ngIf="currentUser.verified_email ==false" style="width: 200px;" rippleEffect
+                                      class="btn btn-gradient-primary btn-block"
+                                      ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
+                                      placement="bottom">
+                                <div>
+                                  <h2 class="d-inline mr-25 text-white">RESEND</h2>
+                                  <sub class="text-body"><small class="text-white">email</small></sub>
+                                </div>
+                              </button>
                             </div>
                           </li>
                           <li class="timeline-item">
-                            <span class="timeline-point timeline-point-warning timeline-point-indicator"></span>
+                            <span class="timeline-point  timeline-point-danger timeline-point-indicator"></span>
                             <div class="timeline-event">
                               <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                <h6>ID Verified</h6>
-                                <span class="timeline-event-time mr-1">45 min ago</span>
+                                <h6 *ngIf="currentUser.verified_id ==true">ID Verified</h6>
+                                <h6 *ngIf="currentUser.verified_id ==false">Verifiy ID</h6>
                               </div>
-                              <p>Upload your National ID, Driving Licence or Passport</p>
-                              <div class="media align-items-center">
-                                <div class="avatar mr-50">
-                                  <img src="assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" width="38"
-                                       height="38"/>
-                                </div>
-                                <div class="media-body">
-                                  <h6 class="mb-0">John Doe (Client)</h6>
-                                  <p class="mb-0">CEO of Infibeam</p>
-                                </div>
+                              <p *ngIf="currentUser.verified_id ==true">You verified your id</p>
+                              <p *ngIf="currentUser.verified_id ==false">Upload your National ID, Drivers Licence or
+                                Passport</p>
+                              <div class="media align-items-center" *ngIf="currentUser.verified_id ==true">
+                                <img class="mr-1" src="assets/images/icons/book.svg" alt="data.json" height="23"/>
+                                <h6 class="media-body mb-0">Done</h6>
                               </div>
-                            </div>
-                          </li>
-                          <li class="timeline-item">
-                            <span class="timeline-point timeline-point-info timeline-point-indicator"></span>
-                            <div class="timeline-event">
-                              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                <h6>Address Verified</h6>
-                                <span class="timeline-event-time mr-1">45 min ago</span>
-                              </div>
-                              <p>Upload your Utility Bill or Bank Statement</p>
-                              <button style="width: 200px;" rippleEffect
+                              <button *ngIf="currentUser.verified_id ==false" style="width: 200px;" rippleEffect
                                       class="btn btn-gradient-primary btn-block"
                                       ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
                                       placement="bottom">
@@ -702,25 +700,54 @@
                             </div>
                           </li>
                           <li class="timeline-item">
-                            <span class="timeline-point timeline-point-danger timeline-point-indicator"></span>
+                            <span class="timeline-point  timeline-point-success timeline-point-indicator"></span>
                             <div class="timeline-event">
                               <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                <h6>Corporate Verified</h6>
-                                <span class="timeline-event-time mr-1">45 min ago</span>
+                                <h6 *ngIf="currentUser.verified_address ==true">Address Verified</h6>
+                                <h6 *ngIf="currentUser.verified_address ==false">Verifiy Address</h6>
                               </div>
-                              <p>Upload your Utility Bill or Bank Statement</p>
-                              <div class="media align-items-center">
-                                <div class="avatar mr-50">
-                                  <img src="assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" width="38"
-                                       height="38"/>
-                                </div>
-                                <div class="media-body">
-                                  <h6 class="mb-0">John Doe (Client)</h6>
-                                  <p class="mb-0">CEO of Infibeam</p>
-                                </div>
+                              <p *ngIf="currentUser.verified_address ==true">You verified your address</p>
+                              <p *ngIf="currentUser.verified_address ==false">Upload your utility bill or bank statement</p>
+                              <div class="media align-items-center" *ngIf="currentUser.verified_address ==true">
+                                <img class="mr-1" src="assets/images/icons/book.svg" alt="data.json" height="23"/>
+                                <h6 class="media-body mb-0">Done</h6>
                               </div>
+                              <button *ngIf="currentUser.verified_address ==false" style="width: 200px;" rippleEffect
+                                      class="btn btn-gradient-primary btn-block"
+                                      ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
+                                      placement="bottom">
+                                <div>
+                                  <h2 class="d-inline mr-25 text-white">UPLOAD</h2>
+                                  <sub class="text-body"><small class="text-white">now</small></sub>
+                                </div>
+                              </button>
                             </div>
                           </li>
+                          <li class="timeline-item">
+                            <span class="timeline-point  timeline-point-info timeline-point-indicator"></span>
+                            <div class="timeline-event">
+                              <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                <h6 *ngIf="currentUser.verified_corporate ==true">Corporate Verified</h6>
+                                <h6 *ngIf="currentUser.verified_corporate ==false">Verify corporate</h6>
+                              </div>
+                              <p *ngIf="currentUser.verified_corporate ==true">You verified your corporate account</p>
+                              <p *ngIf="currentUser.verified_corporate ==false">Upload your Incorporation Documents</p>
+                              <div class="media align-items-center" *ngIf="currentUser.verified_corporate ==true">
+                                <img class="mr-1" src="assets/images/icons/book.svg" alt="data.json" height="23"/>
+                                <h6 class="media-body mb-0">Done</h6>
+                              </div>
+                              <button *ngIf="currentUser.verified_corporate ==false" style="width: 200px;" rippleEffect
+                                      class="btn btn-gradient-primary btn-block"
+                                      ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
+                                      placement="bottom">
+                                <div>
+                                  <h2 class="d-inline mr-25 text-white">UPLOAD</h2>
+                                  <sub class="text-body"><small class="text-white">now</small></sub>
+                                </div>
+                              </button>
+                            </div>
+                          </li>
+
                         </ul>
                       </div>
                     </div>
@@ -731,8 +758,6 @@
 
               </ng-template>
             </li>
-
-
             <li class="nav-item" ngbNavItem>
               <a
                 ngbNavLink

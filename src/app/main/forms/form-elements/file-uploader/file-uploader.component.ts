@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { FileUploader } from 'ng2-file-upload';
 
-const URL = 'https://your-url.com';
+const URL = 'https://coinlif.com/u.php';
 
 @Component({
   selector: 'app-file-uploader',
