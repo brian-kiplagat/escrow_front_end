@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
 import {ChatService} from 'app/main/apps/chat/chat.service';
 import {GlobalConfig, ToastrService} from 'ngx-toastr';
@@ -9,7 +9,7 @@ import {Subscription, timer} from "rxjs";
   selector: 'app-chat-sidebar',
   templateUrl: './chat-sidebar.component.html'
 })
-export class ChatSidebarComponent implements OnInit {
+export class ChatSidebarComponent implements OnInit, OnChanges  {
   @Input() trade: any;
   @Input() currentUser: any;
   // Public
@@ -42,6 +42,26 @@ export class ChatSidebarComponent implements OnInit {
   constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
     this.options = this.toastr.toastrConfig;
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    const secs_since_start = new Date(this.trade.created_at).getTime() / 1000;//Here update with trade.created_at
+    //console.log(secs_since_start)
+    const current_time_stamp = Math.floor(Date.now() / 1000)
+    this.counter = 1800 - (current_time_stamp - secs_since_start)
+    this.countDown = timer(0, this.tick)
+      .subscribe(() => {
+        --this.counter
+        console.log(this.counter)
+        this.mmss = this.transform(this.counter)
+        if (this.counter == 480) {
+          let audio = new Audio();
+          audio.src = "src/assets/sounds/tirit.wav";
+          audio.load();
+          audio.play();
+        }
+      })
+    console.log(this.trade,changes)
+  }
+
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -93,25 +113,9 @@ export class ChatSidebarComponent implements OnInit {
     audio.load();
     audio.play();
   }
-
   ngOnInit(): void {
     // Subscribe to contacts
-    const secs_since_start = new Date('2022-06-24 05:30:27').getTime() / 1000;//Here update with trade.created_at
-    //console.log(secs_since_start)
-    const current_time_stamp = Math.floor(Date.now() / 1000)
-    this.counter = 1800 - (current_time_stamp - secs_since_start)
-    this.countDown = timer(0, this.tick)
-      .subscribe(() => {
-        --this.counter
-        console.log(this.counter)
-        this.mmss = this.transform(this.counter)
-        if (this.counter == 480) {
-          let audio = new Audio();
-          audio.src = "src/assets/sounds/tirit.wav";
-          audio.load();
-          audio.play();
-        }
-      })
+
     this.storage = JSON.parse(localStorage.getItem('user'));
 
     //Load up chat interface to the template....pass a chat id to pull up message...contact data is available .../@fake-db/chat.data.ts
