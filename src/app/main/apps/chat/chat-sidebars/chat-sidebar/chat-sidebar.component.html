@@ -22,30 +22,30 @@
     <div class="card card-app-design">
       <div *ngIf="trade.buyer == storage.email" class="card-body">
         <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
-        <h4 class="card-title mt-1 mb-75 pt-25">Trade {{trade.status}}</h4>
-        <p class="font-small-2" *ngIf="trade.status == 'OPENED'">
+        <h4 class="card-title mt-1 mb-75 pt-25">Trade {{status}}</h4>
+        <p class="font-small-2" *ngIf="status == 'OPENED'">
           Send {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}, {{trade.btc_amount_with_margin}} BTC will be added to your Coinpes wallet
         </p>
-        <p class="font-small-2" *ngIf="trade.status == 'PAID'"
+        <p class="font-small-2" *ngIf="status == 'PAID'"
            ngbTooltip='You have sent the payment. Now wait for the seller to send you the Bitcoin. If the seller refuses or you have a problem, Open a dispute and well come in to help you'
            placement='bottom'>
           You sent {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}. Its now the sellers turn to send {{trade.btc_amount_with_margin}} BTC
         </p>
-        <p class="font-small-2" *ngIf="trade.status == 'CANCELLED_SYSTEM'"
+        <p class="font-small-2" *ngIf="status == 'CANCELLED_SYSTEM'"
            ngbTooltip='Every trade has a payment window for a buyer to make a payment. When a trade is funded, but a buyer failed to mark a trade as paid, the payment window expires. This status means that a trade has been cancelled'
            placement='bottom'>
           This trade expired and the Bitcoin was returned to the sellers wallet. If you wish to continue, this trade
           must be reopened by the seller. You may also fund this escrow by opening it yourself via the offer below
         </p>
-        <p class="font-small-2" *ngIf="trade.status == 'SUCCESSFUL'">
+        <p class="font-small-2" *ngIf="status == 'SUCCESSFUL'">
           You bought {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}, {{trade.btc_amount_with_margin}} BTC was added to your Coinpes wallet
         </p>
-        <div class="card card-apply-job" *ngIf="(trade.dispute_started == true && trade.status == 'PAID') || trade.status == 'AWARDED_BUYER'  || trade.status == 'AWARDED_SELLER'">
+        <div class="card card-apply-job" *ngIf="(trade.dispute_started == true && status == 'PAID') || status == 'AWARDED_BUYER'  || status == 'AWARDED_SELLER'">
           <div class="card-body">
-            <div *ngIf="trade.dispute_started == true && trade.status == 'PAID'" class="apply-job-package bg-light-primary rounded d-flex justify-content-center ">
+            <div *ngIf="trade.dispute_started == true && status == 'PAID'" class="apply-job-package bg-light-primary rounded d-flex justify-content-center ">
               <div class="row align-items-center">
                 <sup class="text-body"><small><i data-feather="shield"></i></small></sup>
                 <h2 class="d-inline mr-25">DISPUTE</h2>
@@ -63,15 +63,15 @@
                   <small class="text-muted">Support</small>
                 </div>
               </div>
-              <div class="badge badge-pill badge-light-primary" *ngIf="trade.dispute_started == true && trade.status == 'PAID'" >Awaiting</div>
+              <div class="badge badge-pill badge-light-primary" *ngIf="trade.dispute_started == true && status == 'PAID'" >Awaiting</div>
             </div>
-            <h5 class="apply-job-title" *ngIf="trade.dispute_started == true && trade.status == 'PAID'" >Having a problem? We're joining in shortly to help.</h5>
-            <p class="card-text mb-2" *ngIf="trade.dispute_started == true && trade.status == 'PAID'" >
+            <h5 class="apply-job-title" *ngIf="trade.dispute_started == true && status == 'PAID'" >Having a problem? We're joining in shortly to help.</h5>
+            <p class="card-text mb-2" *ngIf="trade.dispute_started == true && status == 'PAID'" >
               Meanwhile explain to us what happened and upload evidence showing you sent the money including screenshots, video records and account statement. The
               moderator will join and assess the evidence and award the
               dispute to the correct party
             </p>
-            <p class="card-text mb-2" *ngIf="trade.status == 'AWARDED_BUYER' || trade.status == 'AWARDED_SELLER'" >
+            <p class="card-text mb-2" *ngIf="status == 'AWARDED_BUYER' || status == 'AWARDED_SELLER'" >
               DeraUser123 ensure you send the payment before you click the paid button
             </p>
 
@@ -79,8 +79,8 @@
           </div>
         </div>
         <div
-          *ngIf="trade.status == 'CANCELLED_BUYER' || trade.status == 'CANCELLED_SYSTEM'  || trade.status == 'SUCCESSFUL'">
-          <p class="font-small-2" *ngIf="trade.status == 'CANCELLED_BUYER'">
+          *ngIf="status == 'CANCELLED_BUYER' || status == 'CANCELLED_SYSTEM'  || status == 'SUCCESSFUL'">
+          <p class="font-small-2" *ngIf="status == 'CANCELLED_BUYER'">
             You cancelled this trade. If you wish to buy again, open another trade so that we reserve an escrow for
             safe payments
           </p>
@@ -93,14 +93,14 @@
 
         </div>
 
-        <div class="design-group mb-2 pt-50" *ngIf="trade.status == 'OPENED'">
+        <div class="design-group mb-2 pt-50" *ngIf="status == 'OPENED'">
           <h6 class="section-label">Expires in:</h6>
           <div (click)="playAudio('/assets/sounds/tirit.wav')" class="badge badge-light-danger mr-1"
                ngbTooltip="You have this amount of time left to send the money and click I'VE PAID to confirm the payment"
                placement="right"><span><i data-feather="clock"></i> {{mmss}}</span></div>
 
         </div>
-        <button *ngIf="trade.status == 'OPENED'" type="button"
+        <button *ngIf="status == 'OPENED'" type="button"
                 (click)="mark_paid(trade.id)" rippleEffect
                 class="btn btn-primary btn-block"
                 ngbTooltip="After sending the payment, Click this button, this will confirm that you have sent. If you don't confirm, the trade will be cancelled automatically after 30 minutes and BTC will be returned from our escrow | trust account back to the seller."
@@ -111,13 +111,13 @@
           </div>
         </button>
 
-        <button *ngIf="trade.status == 'OPENED'|| trade.status == 'PAID'"
+        <button *ngIf="status == 'OPENED'|| status == 'PAID'"
                 type="button"
                 (click)="cancel_trade(trade.id)" rippleEffect class="btn btn-outline-warning btn-block"
                 ngbTooltip="Do not cancel this trade if you had sent any amount, if you cancel this trade after sending money you may loose the BTC because we will return return this escrow to the seller. For your safety, we require you to ask for refund first before cancelling. If you feel you have a problem with the seller, Click DISPUTE NOW and well join in to help you"
                 placement="bottom">CANCEL TRADE
         </button>
-        <button *ngIf="trade.status == 'PAID' && trade.dispute_started == false" type="button" (click)="open_dispute(trade.id)" rippleEffect
+        <button *ngIf="status == 'PAID' && trade.dispute_started == false" type="button" (click)="open_dispute(trade.id)" rippleEffect
                 class="btn btn-gradient-warning btn-block"
                 ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
                 placement="bottom">
@@ -140,33 +140,33 @@
       </div>
       <div *ngIf="trade.seller == storage.email" class="card-body">
         <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
-        <h4 class="card-title mt-1 mb-75 pt-25">Trade {{trade.status}}</h4>
-        <p class="font-small-2" *ngIf="trade.status == 'OPENED'">
+        <h4 class="card-title mt-1 mb-75 pt-25">Trade {{status}}</h4>
+        <p class="font-small-2" *ngIf="status == 'OPENED'">
           You're selling {{trade.btc_amount_with_margin}} BTC
           for {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}, promptly provide your details to receive the money
         </p>
-        <p class="font-small-2" *ngIf="trade.status == 'PAID'"
+        <p class="font-small-2" *ngIf="status == 'PAID'"
            ngbTooltip='You have received the payment. Now its your turn to release the Bitcoin. If the buyer has not sent any payment or made a wrong or suspicious claim please open a dispute and well come in to help you'
            placement='bottom'>
           Check if you have received {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}} and release the Bitcoin.
         </p>
-        <p class="font-small-2" *ngIf="trade.status == 'CANCELLED_SYSTEM'"
+        <p class="font-small-2" *ngIf="status == 'CANCELLED_SYSTEM'"
            ngbTooltip='You have received the payment. Now its your turn to release the Bitcoin. If the buyer has not sent any payment or made a wrong or suspicious claim please open a dispute and well come in to help you. Look out for dishonest traders who ask for early release or use fake payment screenshots. Make sure you’ve received your money before releasing the crypto'
            placement='bottom'>
           This trade expired. Have you received the payment? If so, please reopen the trade and release the Bitcoin into
           the buyer’s wallet.
         </p>
-        <p class="font-small-2" *ngIf="trade.status == 'SUCCESSFUL'">
+        <p class="font-small-2" *ngIf="status == 'SUCCESSFUL'">
           You're sold {{trade.btc_amount_with_margin}} BTC
           for {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}. Thanks again for using Coinpes
         </p>
 
-        <div class="card card-apply-job" *ngIf="(trade.dispute_started == true && trade.status == 'PAID') || trade.status == 'AWARDED_BUYER'  || trade.status == 'AWARDED_SELLER'">
+        <div class="card card-apply-job" *ngIf="(trade.dispute_started == true && status == 'PAID') || status == 'AWARDED_BUYER'  || status == 'AWARDED_SELLER'">
           <div class="card-body">
-            <div *ngIf="trade.dispute_started == true && trade.status == 'PAID'" class="apply-job-package bg-light-primary rounded d-flex justify-content-center ">
+            <div *ngIf="trade.dispute_started == true && status == 'PAID'" class="apply-job-package bg-light-primary rounded d-flex justify-content-center ">
               <div class="row align-items-center">
                 <sup class="text-body"><small><i data-feather="shield"></i></small></sup>
                 <h2 class="d-inline mr-25">DISPUTE</h2>
@@ -184,15 +184,15 @@
                   <small class="text-muted">Support</small>
                 </div>
               </div>
-              <div class="badge badge-pill badge-light-primary" *ngIf="trade.dispute_started == true && trade.status == 'PAID'" >Awaiting</div>
+              <div class="badge badge-pill badge-light-primary" *ngIf="trade.dispute_started == true && status == 'PAID'" >Awaiting</div>
             </div>
-            <h5 class="apply-job-title" *ngIf="trade.dispute_started == true && trade.status == 'PAID'" >Having a problem? We're joining in shortly to help.</h5>
-            <p class="card-text mb-2" *ngIf="trade.dispute_started == true && trade.status == 'PAID'" >
+            <h5 class="apply-job-title" *ngIf="trade.dispute_started == true && status == 'PAID'" >Having a problem? We're joining in shortly to help.</h5>
+            <p class="card-text mb-2" *ngIf="trade.dispute_started == true && status == 'PAID'" >
               Meanwhile explain to us what happened and upload evidence showing you sent the money including screenshots, video records and account statement. The
               moderator will join and assess the evidence and award the
               dispute to the correct party
             </p>
-            <p class="card-text mb-2" *ngIf="trade.status == 'AWARDED_BUYER' || trade.status == 'AWARDED_SELLER'" >
+            <p class="card-text mb-2" *ngIf="status == 'AWARDED_BUYER' || status == 'AWARDED_SELLER'" >
               DeraUser123 ensure you send the payment before you click the paid button
             </p>
 
@@ -201,8 +201,8 @@
         </div>
 
         <div
-          *ngIf="trade.status == 'CANCELLED_BUYER' || trade.status == 'SUCCESSFUL' || trade.status == 'CANCELLED_SYSTEM'">
-          <p class="font-small-2" *ngIf="trade.status == 'CANCELLED_BUYER'">
+          *ngIf="status == 'CANCELLED_BUYER' || status == 'SUCCESSFUL' || status == 'CANCELLED_SYSTEM'">
+          <p class="font-small-2" *ngIf="status == 'CANCELLED_BUYER'">
             Trade cancelled by buyer. If you received the payment you must reopen the trade and release the Bitcoin into
             the buyer’s wallet. If you wish to sell again you must also open another trade so that we reserve an escrow
             for
@@ -216,7 +216,7 @@
           </button>
         </div>
 
-        <div class="design-group mb-2 pt-50" *ngIf="trade.status == 'OPENED'">
+        <div class="design-group mb-2 pt-50" *ngIf="status == 'OPENED'">
           <h6 class="section-label">Expires in:</h6>
           <div class="badge badge-light-warning mr-1"
                ngbTooltip="You have this amount of time left to send the money and click I'VE PAID to confirm the payment"
@@ -224,7 +224,7 @@
           </div>
 
         </div>
-        <button *ngIf="trade.status == 'OPENED' || trade.status == 'PAID'" type="button"
+        <button *ngIf="status == 'OPENED' || status == 'PAID'" type="button"
                 (click)="mark_paid(trade.id)" rippleEffect
                 class="btn btn-primary btn-block"
                 ngbTooltip="After sending the payment, Click this button, this will confirm that you have sent. If you don't confirm, the trade will be cancelled automatically after 30 minutes and BTC will be returned from our escrow | trust account back to the seller."
@@ -235,13 +235,13 @@
           </div>
         </button>
 
-        <button *ngIf="trade.status == 'OPENED' && buyer_online == false"
+        <button *ngIf="status == 'OPENED' && buyer_online == false"
                 type="button"
                 (click)="cancel_trade(trade.id)" rippleEffect class="btn btn-outline-warning btn-block"
                 ngbTooltip="You can only cancel this trade if the buyer has not viewed your trade for the last 5 minutes"
                 placement="bottom">CANCEL TRADE
         </button>
-        <button  *ngIf="trade.status == 'PAID' && trade.dispute_started == false" type="button" (click)="open_dispute(trade.id)" rippleEffect
+        <button  *ngIf="status == 'PAID' && trade.dispute_started == false" type="button" (click)="open_dispute(trade.id)" rippleEffect
                 class="btn btn-gradient-warning btn-block"
                 ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
                 placement="bottom">

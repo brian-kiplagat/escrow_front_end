@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {Component, Input, OnInit, OnChanges, SimpleChanges} from '@angular/core';
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
 import {ChatService} from 'app/main/apps/chat/chat.service';
 import {GlobalConfig, ToastrService} from 'ngx-toastr';
@@ -9,7 +9,7 @@ import {Subscription, timer} from "rxjs";
   selector: 'app-chat-sidebar',
   templateUrl: './chat-sidebar.component.html'
 })
-export class ChatSidebarComponent implements OnInit, OnChanges  {
+export class ChatSidebarComponent implements OnInit, OnChanges {
   @Input() trade: any;
   @Input() currentUser: any;
   // Public
@@ -22,6 +22,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges  {
   private options: GlobalConfig;
   public user: any = {}
   public storage: any;
+  public status: any;
 
   //TIMER
   countDown: Subscription;
@@ -42,9 +43,12 @@ export class ChatSidebarComponent implements OnInit, OnChanges  {
   constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
     this.options = this.toastr.toastrConfig;
   }
+
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.trade)
+    this.status = this.trade.status;
+    console.log(this.status)
     const secs_since_start = new Date(this.trade.created_at).getTime() / 1000;//Here update with trade.created_at
-    //console.log(secs_since_start)
     const current_time_stamp = Math.floor(Date.now() / 1000)
     this.counter = 1800 - (current_time_stamp - secs_since_start)
     this.countDown = timer(0, this.tick)
@@ -59,7 +63,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges  {
           audio.play();
         }
       })
-    console.log(this.trade,changes)
+    //console.log(this.trade,changes)
   }
 
 
@@ -107,12 +111,13 @@ export class ChatSidebarComponent implements OnInit, OnChanges  {
   /**
    * On init
    */
-  playAudio(path){
+  playAudio(path) {
     let audio = new Audio();
     audio.src = path;
     audio.load();
     audio.play();
   }
+
   ngOnInit(): void {
     // Subscribe to contacts
 
