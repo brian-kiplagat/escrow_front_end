@@ -183,6 +183,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   cancel_trade(id: any) {
+    this.playAudio('assets/sounds/windows_warning.wav')
     if (this.trade.buyer == this.storage.email) {
       Swal.fire({
         title: ' <h5>Hey Wait!</h5>',
