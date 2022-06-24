@@ -213,7 +213,7 @@ export class EcommerceCheckoutComponent implements OnInit {
       "min": this.form2.value.minimum,
       "max": this.form2.value.maximum,
       "margin": this.form2.value.offerRate,
-      "tags": this.form2.value.tags[0],
+      "tags": this.form2.value.tags,
       "label": this.form2.value.label,
       "terms": this.form2.value.terms,
       "instructions": this.form2.value.instructions,
