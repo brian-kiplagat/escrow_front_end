@@ -89,7 +89,7 @@ export class EcommerceDetailsComponent implements OnInit {
     const productIdFromRoute = routeParams.get('id');
     this._fb.getInfo(user.username, user.token, productIdFromRoute).subscribe((data: any) => {
       this.offer = data.responseMessage.data;
-      let offer_tags = data.responseMessage.data.allowed_countries
+      let offer_tags = data.responseMessage.data.tags
       let formatted_tags =offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
       const arr = formatted_tags.slice(1, -1)
       let converted_tags =arr.split(',');

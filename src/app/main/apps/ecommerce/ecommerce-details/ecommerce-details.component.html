@@ -75,7 +75,7 @@
                                                             </span>
                                                             <span
                                                                 *ngIf="
-                                                                    f.amount.value <
+                                                                    f.amount.value <=
                                                                         offer.minimum &&
                                                                     f.amount.touched
                                                                 "
@@ -121,7 +121,7 @@
                                                             </span>
                                                             <span
                                                                 *ngIf="
-                                                                    f.amounttoreceive.value >
+                                                                    f.amounttoreceive.value >=
                                                                         offer.maximum &&
                                                                     f.amounttoreceive.touched
                                                                 "
