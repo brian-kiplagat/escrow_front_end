@@ -95,11 +95,9 @@
 
         <div class="design-group mb-2 pt-50" *ngIf="trade.status == 'OPENED'">
           <h6 class="section-label">Expires in:</h6>
-          <div class="badge badge-light-warning mr-1"
+          <div (click)="playAudio('/assets/sounds/tirit.wav')" class="badge badge-light-danger mr-1"
                ngbTooltip="You have this amount of time left to send the money and click I'VE PAID to confirm the payment"
-               placement="right">{{mmss}}
-
-          </div>
+               placement="right"><span><i data-feather="clock"></i> {{mmss}}</span></div>
 
         </div>
         <button *ngIf="trade.status == 'OPENED'" type="button"

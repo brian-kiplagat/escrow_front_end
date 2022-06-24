@@ -1,11 +1,9 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {first} from 'rxjs/operators';
+import {Component, Input, OnInit} from '@angular/core';
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
 import {ChatService} from 'app/main/apps/chat/chat.service';
-import {ToastrService, GlobalConfig} from 'ngx-toastr';
+import {GlobalConfig, ToastrService} from 'ngx-toastr';
 import Swal from "sweetalert2";
-import {Router} from "@angular/router";
-import {interval, Subscription, timer} from "rxjs";
+import {Subscription, timer} from "rxjs";
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -89,61 +87,33 @@ export class ChatSidebarComponent implements OnInit {
   /**
    * On init
    */
+  playAudio(path){
+    let audio = new Audio();
+    audio.src = path;
+    audio.load();
+    audio.play();
+  }
+
   ngOnInit(): void {
     // Subscribe to contacts
-    const secs_since_start = new Date('2022-06-24 05:00:27').getTime() / 1000;
+    const secs_since_start = new Date('2022-06-24 05:30:27').getTime() / 1000;//Here update with trade.created_at
     //console.log(secs_since_start)
     const current_time_stamp = Math.floor(Date.now() / 1000)
-    let dif =1800 -( current_time_stamp - secs_since_start);
-
-    this.counter = dif
-    if (dif > 1800) {
-    console.log(dif)
-    }
+    this.counter = 1800 - (current_time_stamp - secs_since_start)
     this.countDown = timer(0, this.tick)
       .subscribe(() => {
         --this.counter
+        console.log(this.counter)
         this.mmss = this.transform(this.counter)
-
+        if (this.counter == 480) {
+          let audio = new Audio();
+          audio.src = "src/assets/sounds/tirit.wav";
+          audio.load();
+          audio.play();
+        }
       })
     this.storage = JSON.parse(localStorage.getItem('user'));
-    this._chatService.onContactsChange.subscribe(res => {
-      this.contacts = res;
-    });
 
-    let skipFirst = 0;
-
-    // Subscribe to chat users
-    this._chatService.onChatUsersChange.subscribe(res => {
-      this.chatUsers = res;
-
-      // Skip setIndex first time when initialized
-      if (skipFirst >= 1) {
-        this.setIndex(this.chatUsers.length - 1);
-      }
-      skipFirst++;
-    });
-
-    // Subscribe to selected Chats
-    this._chatService.onSelectedChatChange.subscribe(res => {
-      this.chats = res;
-    });
-
-    // Add Unseen Message To Chat User
-    this._chatService.onChatsChange.pipe(first()).subscribe(chats => {
-      chats.map(chat => {
-        this.chatUsers.map(user => {
-          if (user.id === chat.userId) {
-            user.unseenMsgs = chat.unseenMsgs;
-          }
-        });
-      });
-    });
-
-    // Subscribe to User Profile
-    this._chatService.onUserProfileChange.subscribe(response => {
-      this.userProfile = response;
-    });
     //Load up chat interface to the template....pass a chat id to pull up message...contact data is available .../@fake-db/chat.data.ts
     this.openChat(1);//1
 
