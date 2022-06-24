@@ -225,7 +225,7 @@
 
         </div>
         <button *ngIf="status == 'OPENED' || status == 'PAID'" type="button"
-                (click)="mark_paid(trade.id)" rippleEffect
+                (click)="release_btc(trade.id)" rippleEffect
                 class="btn btn-primary btn-block"
                 ngbTooltip="After sending the payment, Click this button, this will confirm that you have sent. If you don't confirm, the trade will be cancelled automatically after 30 minutes and BTC will be returned from our escrow | trust account back to the seller."
                 placement="bottom">

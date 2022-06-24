@@ -48,7 +48,7 @@ export class EcommerceDetailsComponent implements OnInit {
   /**
    * Toggle Wishlist
    * @param form
-   
+
    */
    // convenience getter for easy access to form fields
    get f() {
@@ -98,7 +98,7 @@ export class EcommerceDetailsComponent implements OnInit {
     });
     this.form = this._formBuilder.group({
       // username: ['', [Validators.required]],
-      amounttoreceive: ['', Validators.required],     
+      amounttoreceive: ['', Validators.required],
       amount: ['', Validators.compose([
         Validators.required,
       ])],
@@ -130,20 +130,24 @@ export class EcommerceDetailsComponent implements OnInit {
             "max": this.offer.maximum
           }
           //formulate request body
-  
+
           this._fb.openTrade(user.username, user.token, body).subscribe(
             (data: any) => {
-             
               this.router.navigate(['/offers/chat/room/'+data.responseMessage.trade_id])
-  
+              let audio = new Audio();
+              audio.src = 'assets/sounds/funded.wav';
+              audio.load();
+              audio.play();
+
+
             },
             (error) => {
               console.log(error);
               this.err = error.error.responseMessage
             }
           );
-  
-  
+
+
         })
       })
       this.submitted = false;
