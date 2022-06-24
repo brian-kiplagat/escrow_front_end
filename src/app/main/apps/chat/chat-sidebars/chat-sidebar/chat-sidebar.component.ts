@@ -164,8 +164,9 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           await fetch('https://api.coinlif.com/api/coin/v1/markPaid/' + id, requestOptions).then((response) => {
             console.log(response);
             if (!response.ok) {
-
-              throw new Error(response.statusText);
+              this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')
+              return
+              //throw new Error(response.statusText);
             } else {
               this.status = "PAID"
               this.toast('Great', '👋 You just confirmed your payment. Its now the sellers turn to send the Bitcoin', 'success')
@@ -214,7 +215,9 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
             console.log(response);
             if (!response.ok) {
 
-              throw new Error(response.statusText);
+              this.toast('Failed', '👋 an error happened .Please try again', 'error')
+              return
+              //throw new Error(response.statusText);
             } else {
               this.status = "CANCELLED_BUYER"
               this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
@@ -263,8 +266,9 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           await fetch('https://api.coinlif.com/api/coin/v1/releaseCrypto/' + id, requestOptions).then((response) => {
             console.log(response);
             if (!response.ok) {
-
-              throw new Error(response.statusText);
+              this.toast('Failed', '👋 Seems an error happened .Please try again', 'error')
+              return
+              //throw new Error(response.statusText);
             } else {
               this.status = "SUCCESSFUL"
               this.toast('Congratulations', '👋 You just sold BTC. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
