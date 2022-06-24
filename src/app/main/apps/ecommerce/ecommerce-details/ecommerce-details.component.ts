@@ -86,10 +86,13 @@ export class EcommerceDetailsComponent implements OnInit {
     let user = JSON.parse(localStorage.getItem('user'));
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');
-    console.log(productIdFromRoute);
     this._fb.getInfo(user.username, user.token, productIdFromRoute).subscribe((data: any) => {
       this.offer = data.responseMessage.data;
-      console.log(data.responseMessage.data);
+      let offer_tags = data.responseMessage.data.allowed_countries
+      let formatted_tags =offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
+      const arr = formatted_tags.slice(1, -1)
+      let converted_tags =arr.split(',');
+      console.log(converted_tags);
     });
     this.form = this._formBuilder.group({
       // username: ['', [Validators.required]],
@@ -128,7 +131,7 @@ export class EcommerceDetailsComponent implements OnInit {
   
           this._fb.openTrade(user.username, user.token, body).subscribe(
             (data: any) => {
-              console.log(data);
+             
               this.router.navigate(['/offers/chat/room/'+data.responseMessage.trade_id])
   
             },

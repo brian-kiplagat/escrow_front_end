@@ -95,8 +95,6 @@ export class ChatContentComponent implements OnInit {
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     this.user = JSON.parse(localStorage.getItem('user'));
-    console.log("partner data", this.partner_data)
-    console.log("trade id",   routeParams.get('id'))
 
     this.page.init(routeParams.get('id'), 'time', {reverse: true, prepend: false})
     this.fb.retrieveMessage(routeParams.get('id')).subscribe((data: any) => {
