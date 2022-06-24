@@ -26,6 +26,7 @@ export class EcommerceDetailsComponent implements OnInit {
   public currentUser: any = {}
   public err = "";
   public form: FormGroup;
+  public tags:string[]=[]
 
   /**
    * Constructor
@@ -92,6 +93,7 @@ export class EcommerceDetailsComponent implements OnInit {
       let formatted_tags =offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
       const arr = formatted_tags.slice(1, -1)
       let converted_tags =arr.split(',');
+      this.tags = converted_tags
       console.log(converted_tags);
     });
     this.form = this._formBuilder.group({

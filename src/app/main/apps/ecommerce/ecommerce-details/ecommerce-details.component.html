@@ -22,19 +22,11 @@
                                 ></span
                             >
 
-                            <div style="margin-top: 10px" class="detail-title">
-                                <div class="badge badge-pill badge-light-secondary">
-                                    Photo ID Required
+                            <div style="margin-top: 10px" class="detail-title" >
+                                <div class="badge badge-pill badge-light-secondary" *ngFor="let tag of tags">
+                                    {{tag}}
                                 </div>
-                                <div class="badge badge-pill badge-light-secondary">
-                                    {{ offer.tags }}
-                                </div>
-                                <div class="badge badge-pill badge-light-secondary">
-                                    Goods and Services
-                                </div>
-                                <div class="badge badge-pill badge-light-secondary">
-                                    No third party
-                                </div>
+                           
                             </div>
                             <div class="row">
                                 <div class="col-12">
