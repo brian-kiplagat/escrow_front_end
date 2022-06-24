@@ -1,4 +1,4 @@
-import { CoreMenu } from '@core/types';
+import {CoreMenu} from '@core/types';
 
 //? DOC: http://localhost:7777/demo/vuexy-angular-admin-dashboard-template/documentation/guide/development/navigation-menus.html#interface
 
@@ -14,14 +14,6 @@ export const menu: CoreMenu[] = [
   {
     id: 'apps_2',
     type: 'item',
-    title: 'Invest Bitcoin',
-    translate: 'MENU.APPS.SECTION',
-    icon: 'bar-chart',
-    url: "pages/pricing"
-  },
-  {
-    id: 'apps_2',
-    type: 'item',
     title: 'Buy Bitcoin',
     translate: 'MENU.APPS.SECTION',
     icon: 'dollar-sign',
@@ -33,8 +25,23 @@ export const menu: CoreMenu[] = [
     title: 'Sell Bitcoin',
     translate: 'MENU.APPS.SECTION',
     icon: 'dollar-sign',
-    url:"offers/bitcoin/sell"
+    url: "offers/bitcoin/sell"
 
+  }, {
+    id: 'apps_2',
+    type: 'item',
+    title: 'Crypto Staking',
+    translate: 'MENU.APPS.SECTION',
+    icon: 'target',
+    url: "pages/pricing"
+  },
+  {
+    id: 'apps_5',
+    type: 'item',
+    title: 'Crypto Lending',
+    translate: 'MENU.APPS.SECTION',
+    icon: 'codesandbox',
+    url: "pages/miscellaneous/coming-soon"
   },
   {
     id: 'apps_4',
