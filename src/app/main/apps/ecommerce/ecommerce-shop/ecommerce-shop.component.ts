@@ -213,4 +213,11 @@ export class EcommerceShopComponent implements OnInit {
   onTagChange(value: string) {
     this.offers = this.offers.filter((offer: any) => offer.tags == value)
   }
+
+  getArray(offer_tags: any) {
+    let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
+    const arr = formatted_tags.slice(1, -1)
+    return arr.split(',');
+
+  }
 }

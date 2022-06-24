@@ -136,19 +136,22 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   mark_paid(id: any) {
+    if (this.trade.buyer == this.storage.email){
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You must ensure that you have sent the money first before clicking this button. Providing false information or coinlocking will cause your account to be banned",
+      title: ' <h5>Are you sure?</h5>',
+      html: ' <p class="card-text font-small-3">You must ensure that you have sent the money first before clicking this button. Providing false information or coinlocking will cause your account to be banned</p>',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#7367F0',
       cancelButtonColor: '#E42728',
-      confirmButtonText: 'Yes, ive sent it',
+      confirmButtonText:
+        '<i class="fa fa-check-circle"></i> Confirm Payment',
+      confirmButtonAriaLabel: 'Confirm',
       customClass: {
         confirmButton: 'btn btn-primary',
         cancelButton: 'btn btn-danger ml-1'
       }
-    }).then(async (result) =>{
+    }).then(async (result) => {
       if (result.value) {
         let user = JSON.parse(localStorage.getItem('user'))
         const headerDict = {
@@ -160,52 +163,50 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         const requestOptions = {
           headers: new Headers(headerDict),
         };
-           await fetch('https://api.coinlif.com/api/coin/v1/markPaid/' + id, requestOptions).then((response)=>{
-            console.log(response);
-            if (!response.ok) {
+        await fetch('https://api.coinlif.com/api/coin/v1/markPaid/' + id, requestOptions).then((response) => {
+          console.log(response);
+          if (!response.ok) {
 
-              throw new Error(response.statusText);
-            } else {
-  
-              Swal.fire({
-                title: 'Trade Marked as Paid',
-                text: 'The seller will check on your payment and send the BTC shortly',
-                icon: 'success',
-                customClass: {
-                  confirmButton: 'btn btn-success'
-                }
-              });
-              this.status="PAID"
+            throw new Error(response.statusText);
+          } else {
+            this.status = "PAID"
+            this.toast('Great', '👋 You just confirmed your payment. Its now the sellers turn to send the Bitcoin', 'success')
+
+          }
+        }).catch((error) => {
+          Swal.fire({
+            title: 'Ops',
+            text: 'An error happened please try again',
+            icon: 'error',
+            customClass: {
+              confirmButton: 'btn btn-success'
             }
-          }).catch((error)=>{
-            Swal.fire({
-              title: 'Ops',
-              text: 'An error happened please try again',
-              icon: 'error',
-              customClass: {
-                confirmButton: 'btn btn-success'
-              }
-            });
-          })
+          });
+        })
       }
     });
+    }else {
+      this.toast('INVALID','You cant do that','error')
+    }
   }
 
-  cancel_trade(id) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "If you cancel the trade, well return the escrow amount back to the seller. Otherwise if you had made a payment and have any problem, click back and start a dispute.",
+  cancel_trade(id: any) {
+    if (this.trade.buyer == this.storage.email){ Swal.fire({
+      title: ' <h5>Hey Wait!</h5>',
+      html: ' <p class="card-text font-small-3">Stay on this trade if you\'ve already made this payment. For any other issues, click Back and start a dispute.</p>',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#7367F0',
+      confirmButtonColor: '#2746e4',
       cancelButtonColor: '#E42728',
-      cancelButtonText: "Back",
-      confirmButtonText: 'Yes, cancel it',
+      cancelButtonText: 'Go back',
+      confirmButtonText:
+        '<i class="fa fa-ban"></i> CANCEL TRADE',
+      confirmButtonAriaLabel: 'CANCEL',
       customClass: {
         confirmButton: 'btn btn-primary',
         cancelButton: 'btn btn-danger ml-1'
       }
-    }).then(function (result) {
+    }).then(async (result) => {
       if (result.value) {
         let user = JSON.parse(localStorage.getItem('user'))
         const headerDict = {
@@ -214,43 +215,34 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           token: user.token,
           username: user.username
         }
-
         const requestOptions = {
           headers: new Headers(headerDict),
         };
-        return fetch('https://api.coinlif.com/api/coin/v1/cancelTrade/' + id, requestOptions)
-          .then(function (response) {
-            console.log(response);
-            if (!response.ok) {
+        await fetch('https://api.coinlif.com/api/coin/v1/cancelTrade/' + id, requestOptions).then((response) => {
+          console.log(response);
+          if (!response.ok) {
 
-              throw new Error(response.statusText);
-            } else {
+            throw new Error(response.statusText);
+          } else {
+            this.status = "PAID"
+            this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
 
-              Swal.fire({
-                title: 'Trade Cancelled',
-                text: 'If still want to trade with this partner you must open another trade',
-                icon: 'success',
-                customClass: {
-                  confirmButton: 'btn btn-success'
-                }
-              });
+          }
+        }).catch((error) => {
+          Swal.fire({
+            title: 'Ops',
+            text: 'An error happened please try again',
+            icon: 'error',
+            customClass: {
+              confirmButton: 'btn btn-success'
             }
-            location.reload()
-            return response.json();
-          })
-          .catch(function (error) {
-            Swal.fire({
-              title: 'Ops',
-              text: 'An error happened please try again',
-              icon: 'error',
-              customClass: {
-                confirmButton: 'btn btn-success'
-              }
-            });
           });
-
+        })
       }
-    });
+    });}else{
+      this.toast('INVALID','You cant do that','error')
+    }
+
   }
 
   open_dispute(id) {
@@ -295,6 +287,23 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
   view_offer(idd: any) {
     window.location.href = '/offers/bitcoin/details/' + idd
+
+  }
+
+  private toast(title: string, message: string, type: string) {
+    if (type == 'success'){
+      this.toastr.success(message, title, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true
+      });
+    }else {
+      this.toastr.error(message, title, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true
+      });
+    }
 
   }
 }
