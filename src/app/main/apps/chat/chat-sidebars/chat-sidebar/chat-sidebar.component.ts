@@ -148,7 +148,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         confirmButton: 'btn btn-primary',
         cancelButton: 'btn btn-danger ml-1'
       }
-    }).then(function (result) {
+    }).then(async (result) =>{
       if (result.value) {
         let user = JSON.parse(localStorage.getItem('user'))
         const headerDict = {
@@ -160,14 +160,13 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         const requestOptions = {
           headers: new Headers(headerDict),
         };
-        return fetch('https://api.coinlif.com/api/coin/v1/markPaid/' + id, requestOptions)
-          .then(function (response) {
+           await fetch('https://api.coinlif.com/api/coin/v1/markPaid/' + id, requestOptions).then((response)=>{
             console.log(response);
             if (!response.ok) {
 
               throw new Error(response.statusText);
             } else {
-
+  
               Swal.fire({
                 title: 'Trade Marked as Paid',
                 text: 'The seller will check on your payment and send the BTC shortly',
@@ -176,11 +175,9 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
                   confirmButton: 'btn btn-success'
                 }
               });
-              location.reload();
+              this.status="PAID"
             }
-            return response.json();
-          })
-          .catch(function (error) {
+          }).catch((error)=>{
             Swal.fire({
               title: 'Ops',
               text: 'An error happened please try again',
@@ -189,8 +186,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
                 confirmButton: 'btn btn-success'
               }
             });
-          });
-
+          })
       }
     });
   }
