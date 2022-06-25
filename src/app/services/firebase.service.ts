@@ -64,6 +64,7 @@ export class FirebaseService {
   //logout
   async logout() {
     this.router.navigate(['/pages/login']);
+    localStorage.clear()
   }
 
   // reset password
