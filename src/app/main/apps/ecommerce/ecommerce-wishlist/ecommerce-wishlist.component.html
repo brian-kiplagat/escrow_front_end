@@ -155,19 +155,14 @@
                                     <div class="detail-title detail-total">45,598 EUR</div>
                                 </li>
                                 <li class="price-detail">
+                                    
                                     <div class="detail-title">
-                                        <div class="badge badge-pill badge-light-secondary">
-                                            Photo ID Required
+                                        <div *ngFor="let tag of getArray(offer.tags)" class="badge badge-pill badge-light-secondary">
+                                            {{ tag }}
                                         </div>
-                                        <div class="badge badge-pill badge-light-secondary">
-                                            {{ offer.tags }}
-                                        </div>
-                                        <div class="badge badge-pill badge-light-secondary">
-                                            Goods and Services
-                                        </div>
-                                        <div class="badge badge-pill badge-light-secondary">
-                                            No third party
-                                        </div>
+                                        
+                                       
+                                        
                                         <div
                                             class="badge badge-pill badge-light-warning"
                                             *ngIf="offer.vpn == 1"

@@ -108,24 +108,6 @@ export class EcommerceShopComponent implements OnInit {
     })
 
 
-    // Subscribe to ProductList change
-    this._ecommerceService.onProductListChange.subscribe((res) => {
-      this.products = res;
-      this.products.isInWishlist = false;
-    });
-
-    // Subscribe to Wishlist change
-    this._ecommerceService.onWishlistChange.subscribe((res) => (this.wishlist = res));
-
-    // Subscribe to Cartlist change
-    this._ecommerceService.onCartListChange.subscribe((res) => (this.cartList = res));
-
-    // update product is in Wishlist & is in CartList : Boolean
-    this.products.forEach((product) => {
-      product.isInWishlist = this.wishlist.findIndex((p) => p.productId === product.id) > -1;
-      product.isInCart = this.cartList.findIndex((p) => p.productId === product.id) > -1;
-    });
-
   }
 
   //filter offers by input

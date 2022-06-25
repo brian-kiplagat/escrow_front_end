@@ -178,6 +178,18 @@ export class EcommerceWishlistComponent implements OnInit {
                   console.log(this.offers)
             })
     }
+           
+  //filter by tag
+  onTagChange(value: string) {
+    this.offers = this.offers.filter((offer: any) => offer.tags == value)
+  }
+
+  getArray(offer_tags: any) {
+    let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
+    const arr = formatted_tags.slice(1, -1)
+    return arr.split(',');
+
+  }
         //filter offers
         filterOffers(){
             let user =JSON.parse(localStorage.getItem('user'))
@@ -204,4 +216,5 @@ export class EcommerceWishlistComponent implements OnInit {
                 })
               
         }
+ 
 }
