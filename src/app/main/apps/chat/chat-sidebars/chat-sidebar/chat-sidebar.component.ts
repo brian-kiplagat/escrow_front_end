@@ -160,8 +160,13 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           }
           const requestOptions = {
             headers: new Headers(headerDict),
+            method: 'POST',
+            body: JSON.stringify({
+              "id": id
+            })
+
           };
-          await fetch('https://api.coinlif.com/api/coin/v1/markPaid/' + id, requestOptions).then((response) => {
+          await fetch('https://api.coinlif.com/api/coin/v1/markPaid', requestOptions).then((response) => {
             console.log(response);
             if (!response.ok) {
               this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')
@@ -211,8 +216,13 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           }
           const requestOptions = {
             headers: new Headers(headerDict),
+            method: 'POST',
+            body: JSON.stringify({
+              "id": id
+            })
+
           };
-          await fetch('https://api.coinlif.com/api/coin/v1/cancelTrade/' + id, requestOptions).then((response) => {
+          await fetch('https://api.coinlif.com/api/coin/v1/cancelTrade', requestOptions).then((response) => {
             console.log(response);
             if (!response.ok) {
 
@@ -263,8 +273,14 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           }
           const requestOptions = {
             headers: new Headers(headerDict),
+            method: 'POST',
+            body: JSON.stringify({
+              "email": user.email,
+              "id": id
+            })
+
           };
-          await fetch('https://api.coinlif.com/api/coin/v1/releaseCrypto/' + id, requestOptions).then((response) => {
+          await fetch('https://api.coinlif.com/api/coin/v1/releaseCrypto', requestOptions).then((response) => {
             console.log(response);
             if (!response.ok) {
               this.toast('Failed', '👋 Seems an error happened .Please try again', 'error')
