@@ -85,12 +85,14 @@ export class EcommerceComponent implements OnInit {
 
   checkType(trade) {
     console.log(trade)
-    if (trade.buyer == this.user.email) {//Logged in user is buyer
-      console.log('logged in user is the buyer')
-      return 'buy'
-    } else if (trade.seller == this.user.email) {//Logged in user is seller
-      console.log('logged in user is the seller')
-      return 'sell'
+    if (trade.trade.buyer == this.user.email) {//Logged in user is buyer
+      console.log('//Logged in user is buyer')
+      return ['buy', trade.seller.username,trade.seller.profile_link];
+
+
+    } else if (trade.trade.seller == this.user.email) {//Logged in user is seller
+      console.log('//Logged in user is seller')
+      return ['sell', trade.buyer.username,trade.buyer.profile_link];
 
     }
   }

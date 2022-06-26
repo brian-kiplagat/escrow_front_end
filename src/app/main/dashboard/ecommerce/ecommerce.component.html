@@ -103,21 +103,21 @@
             <!-- ONE ELEMENT -->
             <div *ngFor="let trade of tradeData">
               <ngb-alert [type]="'primary'" [dismissible]="false">
-                <div class="alert-body">TRADE {{trade.status}}</div>
+                <div class="alert-body">TRADE {{trade.trade.status}}</div>
               </ngb-alert>
               <div class="d-flex justify-content-between align-items-center mb-1">
                 <div class="media">
                   <div class="avatar mr-1">
-                    <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42"/>
+                    <img src="{{checkType(trade)[2]}}" alt="Avatar" width="42" height="42"/>
                   </div>
                   <div class="media-body">
-                    <h5 class="mb-0">{{trade.method | titlecase}}</h5>
-                    <small class="text-muted" *ngIf="trade" (onCreate)="checkType(trade)">{{trade.username}}</small>
+                    <h5 class="mb-0">{{trade.trade.method | titlecase}}</h5>
+                    <small class="text-muted" >{{checkType(trade)[1]}}</small>
 
                   </div>
 
                 </div>
-                <div class="badge badge-pill badge-light-primary">{{trade.type}}</div>
+                <div class="badge badge-pill badge-light-primary">{{checkType(trade)[0]}}</div>
 
               </div>
               <div class="transaction-item">
@@ -128,15 +128,15 @@
                     </div>
                   </div>
                   <div class="media-body">
-                    <h6 class="transaction-title">{{trade.fiat_amount_original}} {{trade.currency}}</h6>
-                    <small>{{trade.btc_amount_with_margin}} BTC</small>
+                    <h6 class="transaction-title">{{trade.trade.fiat_amount_original}} {{trade.trade.currency}}</h6>
+                    <small>{{trade.trade.btc_amount_with_margin}} BTC</small>
                   </div>
                 </div>
-                <button type="button" class="btn btn-outline-primary" [routerLink]="'/offers/chat/room/'+trade.id"
+                <button type="button" class="btn btn-outline-primary" [routerLink]="'/offers/chat/room/'+trade.trade.id"
                         rippleEffect>VIEW
                 </button>
               </div>
-              <div class="apply-job-package bg-light-warning rounded" *ngIf="trade.moderator_flag !='NA'" ngbTooltip="This dispute was started. Each user must prove that they have fulfilled their end of the deal. A moderator will shortly message you via your trade chat. Provide the moderator with as much information and evidence as you can, which could be any of the following:
+              <div class="apply-job-package bg-light-warning rounded" *ngIf="trade.trade.moderator_flag !='NA'" ngbTooltip="This dispute was started. Each user must prove that they have fulfilled their end of the deal. A moderator will shortly message you via your trade chat. Provide the moderator with as much information and evidence as you can, which could be any of the following:
 Transaction receipt,
 Screenshot of payment confirmation,
 Video or screen recording of payment being made,
