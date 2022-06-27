@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation, ElementRef } from '@angular/core';
-
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -22,7 +22,8 @@ export class VerticalLayoutComponent implements OnInit, OnDestroy {
    *
    * @param {CoreConfigService} _coreConfigService
    */
-  constructor(private _coreConfigService: CoreConfigService, private _elementRef: ElementRef) {
+  constructor(private _coreConfigService: CoreConfigService, private _elementRef: ElementRef,  private router: Router,
+    private route: ActivatedRoute) {
     // Set the private defaults
     this._unsubscribeAll = new Subject();
   }

@@ -1,11 +1,24 @@
 <!-- Footer -->
-<p class="clearfix mb-0">
+<h1 *ngIf="showActions">
+  <div class=".d-none .d-sm-block .d-md-none">
+    <div class="row ">
+      <div class="col-6 ">
+        <button class="btn btn-primary mr-2">Actions</button>
+       
+      </div>
+      <div class="col-6"> <button class="btn btn-primary">Chat</button></div>
+    </div>
+  </div>
+    
+</h1>
+<p class="clearfix mb-0" *ngIf="!showActions">
   <span class="float-md-left d-block d-md-inline-block mt-25">
     COPYRIGHT &copy; {{ year }}
     <a class="ml-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">CoinPes</a>
     <span class="d-none d-sm-inline-block">, All rights Reserved</span>
   </span>
 </p>
+
 <!--/ Footer -->
 
 <!-- Move to top Button-->

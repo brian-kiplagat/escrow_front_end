@@ -23,7 +23,7 @@ const routes: Routes = [
     path: 'room/:id',
     component: ChatComponent,
    
-    data: { animation: 'chat' }
+    data: { animation: 'chat' ,showActions:true}
   },
   {
     path: 'chat',
@@ -31,7 +31,7 @@ const routes: Routes = [
     resolve: {
       chatData: ChatService
     },
-    data: { animation: 'chat' }
+    data: { animation: 'chat',showActions:true }
     
   }
 ];
