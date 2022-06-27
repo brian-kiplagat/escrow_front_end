@@ -1,13 +1,19 @@
 <!-- Footer -->
 
-  
-    <div class="row d-flex justify-content-between d-sm-block d-md-none" *ngIf="showActions">
-      <div class="col-6 ">
-        <button class="btn btn-primary btn-block">Actions</button>
-       
-      </div>
-      <div class="col-6"> <button class="btn btn-primary btn-block">Chat</button></div>
-    </div>
+
+<div class="row d-flex justify-content-between d-sm-block d-md-none" *ngIf="showActions">
+  <div class="col-6 ">
+    <button type="button" class="btn btn-primary btn-block" rippleEffect>
+      <span [data-feather]="'check'" [class]="'mr-25'"></span>Actions
+    </button>
+
+  </div>
+  <div class="col-6">
+    <button type="button" class="btn btn-outline-primary btn-block" rippleEffect>
+      <span [data-feather]="'message-square'" [class]="'mr-25'"></span>Chat
+    </button>
+  </div>
+</div>
 <p class="clearfix mb-0" *ngIf="!showActions">
   <span class="float-md-left d-block d-md-inline-block mt-25">
     COPYRIGHT &copy; {{ year }}
