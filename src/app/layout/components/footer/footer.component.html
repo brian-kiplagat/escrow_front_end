@@ -3,13 +3,13 @@
 
 <div class="row d-flex justify-content-between d-sm-block d-md-none" *ngIf="showActions">
   <div class="col-6 ">
-    <button type="button" class="btn btn-primary btn-block" rippleEffect>
+    <button type="button" class="btn btn-primary btn-block" rippleEffect (click)="toggleSidebar('chat-sidebar')">
       <span [data-feather]="'check'" [class]="'mr-25'"></span>Actions
     </button>
 
   </div>
   <div class="col-6">
-    <button type="button" class="btn btn-outline-primary btn-block" rippleEffect>
+    <button type="button" class="btn btn-outline-primary btn-block" rippleEffect (click)="toggleSidebar('chat-sidebar')">
       <span [data-feather]="'message-square'" [class]="'mr-25'"></span>Chat
     </button>
   </div>

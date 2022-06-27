@@ -1,5 +1,6 @@
 import { OnInit, OnDestroy, Component, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
 
 import { Subject } from 'rxjs';
@@ -27,7 +28,8 @@ export class FooterComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         public _coreConfigService: CoreConfigService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private _coreSidebarService: CoreSidebarService
     ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
@@ -43,27 +45,18 @@ export class FooterComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         })
     }
+      /**
+   * Toggle Sidebar
+   *
+   * @param name
+   */
+  toggleSidebar(name) {
+    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+  }
     ngAfterViewInit(): void {    
-        // this.router.events
-        //     .pipe(
-        //         filter((event) => event instanceof NavigationEnd),
-        //         map(() => this.router.routerState.root),
-             
-        //         tap((paramMap) => console.log('ParamMap', paramMap.url))
-        //     )
-        //     .subscribe(
-        //         (paramAsMap) => {
-        //             console.log(paramAsMap);
-        //         } // Get the params (paramAsMap.params) and use them to highlight or everything that meet your need
-        //     );
     }
 
-    // Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On init
-     */
     ngOnInit(): void {
         // Subscribe to config changes
         this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe((config) => {
