@@ -7,6 +7,7 @@
 <ul class="nav navbar-nav">
   <li class="nav-item d-none d-lg-block">
     <!-- Bookmark Icon -->
+    <a class="btn btn-outline-primary mr-1"   [routerLink]="'offers/bitcoin/buy'">Buy Bitcoin</a>
     <a class="btn btn-outline-primary"   [routerLink]="'offers/bitcoin/sell'">Sell Bitcoin</a>
     <a class="btn btn-outline"   [routerLink]="'offers/bitcoin/create'">Create Offer</a>
     <a class="btn btn-outline"   [routerLink]="'ui/card/card-basic'">My wallet</a>
@@ -16,7 +17,4 @@
 
   </li>
 
-  <li class="nav-item d-sm-block d-md-none">
-    <button type="button" class="btn btn-outline-primary m-1" (click)="toggleBookmarkPopup()"   [routerLink]="'offers/bitcoin/sell'" rippleEffect>SELL</button>
-  </li>
 </ul>
