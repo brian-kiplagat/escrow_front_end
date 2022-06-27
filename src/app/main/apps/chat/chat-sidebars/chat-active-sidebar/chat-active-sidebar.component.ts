@@ -13,27 +13,7 @@ import {FirebaseService} from 'app/services/firebase.service';
 })
 export class ChatActiveSidebarComponent implements OnInit {
   @Input() partner_data: any;
-  // Public
-  public chatUser;
-  email: string = '';
-  public userData: any = {
-    about: "No about yet",
-    active: 1,
-    feed_neg: 0,
-    feed_pos: 0,
-    geolocation: "none",
-    ip: "none",
-    registration_date: "2022-04-01 13:14:34",
-    status: 1
-  };
-  public user: any = {};
-  public external_username;
-  public has_blocked;
-  public blocked_by;
-  public currentUser: any = {};
-  public msg;
-  public success = false;
-  public error = false;
+
   /**
    * Constructor
    *
@@ -61,22 +41,6 @@ export class ChatActiveSidebarComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this.external_username = this.route.snapshot.paramMap.get('id');
 
-    console.log(this.external_username);
-    // get the currentUser details from localStorage
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.fb.getUserForProfile(this.external_username, this.user.token, this.user.username).subscribe((data: any) => {
-      this.currentUser = data.responseMessage?.user_data[0];
-      this.has_blocked = data.responseMessage?.has_blocked.length;
-      this.blocked_by = data.responseMessage?.blocked_by.length;
-      console.log(data);
-    }, (error) => {
-      console.log(error);
-     // this.router.navigate(['/']);
-    });
-    this._chatService.onSelectedChatUserChange.subscribe(res => {
-      this.chatUser = res;
-    });
   }
 }
