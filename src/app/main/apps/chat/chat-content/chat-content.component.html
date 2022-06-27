@@ -14,7 +14,7 @@
                     </button>
                     <button
                         class="btn avatar avatar-border user-profile-toggle bg-transparent m-0 mr-1 p-0"
-                        (click)="openLink(partner_data.username)"
+                        (click)="toggleSidebar('chat-active-sidebar')"
                     >
                         <img [src]="partner_data.profile_link" alt="avatar" height="36" width="36" />
                         <span
@@ -27,7 +27,7 @@
                         ></span>
                     </button>
                     <h6 class="mb-0">
-                        <a [routerLink]="'/users/' + partner_data.username">
+                        <a >
                             {{ partner_data.username }}</a
                         >
                     </h6>
@@ -160,7 +160,7 @@
                     *ngFor="let chatRef of chats"
                     [ngClass]="{ 'chat-left': chatRef.senderId != user.username }"
                 >
-                    <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
+                    <div class="chat-avatar" *ngIf="chatRef.senderId != user.username" >
                         <span class="avatar box-shadow-1 cursor-pointer">
                             <img [src]="chatUser.avatar" alt="avatar" height="32" width="32" />
                         </span>
