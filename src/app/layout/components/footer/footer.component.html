@@ -1,16 +1,13 @@
 <!-- Footer -->
-<h1 *ngIf="showActions">
-  <div class="d-sm-block d-md-none">
-    <div class="row ">
+
+  
+    <div class="row d-flex justify-content-between d-sm-block d-md-none" *ngIf="showActions">
       <div class="col-6 ">
-        <button class="btn btn-primary mr-2">Actions</button>
+        <button class="btn btn-primary ">Actions</button>
        
       </div>
       <div class="col-6"> <button class="btn btn-primary">Chat</button></div>
     </div>
-  </div>
-    
-</h1>
 <p class="clearfix mb-0" *ngIf="!showActions">
   <span class="float-md-left d-block d-md-inline-block mt-25">
     COPYRIGHT &copy; {{ year }}
