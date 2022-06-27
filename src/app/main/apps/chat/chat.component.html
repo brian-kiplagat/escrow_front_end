@@ -1,6 +1,5 @@
 <div class="content-area-wrapper container-xxl p-0">
   <!-- sidebar Left -->
-
   <!-- chat-sidebar -->
   <div class="sidebar-left">
     <div class="sidebar">
@@ -12,19 +11,6 @@
       >
         <app-chat-sidebar class="chat-sidebar-wrapper"[trade]="trade" ></app-chat-sidebar>
       </core-sidebar>
-
-      <!--/ chat-sidebar -->
-
-      <!-- chat-user-sidebar -->
-
-      <!-- <core-sidebar
-        class="chat-profile-sidebar"
-        name="chat-user-sidebar"
-        overlayClass="body-content-overlay"
-        hideOnEsc="true"
-      >
-        <app-chat-user-sidebar></app-chat-user-sidebar>
-      </core-sidebar> -->
     </div>
   </div>
   <!--/ chat-user-sidebar -->
@@ -33,25 +19,10 @@
 
   <!-- content-right -->
   <div class="content-right">
-    <!-- chat-active-sidebar -->
-    <!-- <core-sidebar
-      class="user-profile-sidebar"
-      name="chat-active-sidebar"
-      overlayClass="body-content-overlay"
-      hideOnEsc="true"
-    >
-      <app-chat-active-sidebar></app-chat-active-sidebar>
-    </core-sidebar> -->
-    <!--/ chat-active-sidebar -->
     <div class="content-wrapper container-xxl p-0">
       <div class="content-body">
         <app-chat-content [trade]="trade" [partner_data]="partner_data"></app-chat-content>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-6"></div>
-       <div class="col-6"></div>
-
     </div>
   </div>
   <!--/ content-right -->
