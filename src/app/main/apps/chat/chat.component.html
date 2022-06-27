@@ -19,6 +19,15 @@
 
   <!-- content-right -->
   <div class="content-right">
+        <!-- chat-active-sidebar -->
+        <core-sidebar
+        class="user-profile-sidebar"
+        name="chat-active-sidebar"
+        overlayClass="body-content-overlay"
+        hideOnEsc="true"
+      >
+        <app-chat-active-sidebar></app-chat-active-sidebar>
+      </core-sidebar>
     <div class="content-wrapper container-xxl p-0">
       <div class="content-body">
         <app-chat-content [trade]="trade" [partner_data]="partner_data"></app-chat-content>

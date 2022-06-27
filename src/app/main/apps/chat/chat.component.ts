@@ -86,8 +86,6 @@ export class ChatComponent implements OnInit ,OnDestroy,AfterViewInit{
         // Set the private defaults
         this._unsubscribeAll = new Subject();}
   ngAfterViewInit(): void {
-  this._elementRef.nativeElement.classList.add('show-action');
-  console.log("found footer")
   }
     
   ngOnDestroy(): void {
