@@ -7,7 +7,7 @@
     <!-- User Profile image with name -->
     <div class="header-profile-sidebar">
       <div class="avatar box-shadow-1 avatar-border avatar-xl">
-        <img [src]="chatUser.avatar" alt="user_avatar" height="70" width="70" />
+        <img [src]="partner_data.profile_link" alt="user_avatar" height="70" width="70" />
         <span
           class="avatar-status-lg"
           [ngClass]="{
@@ -18,7 +18,7 @@
           }"
         ></span>
       </div>
-      <h4 class="chat-user-name">heloo</h4>
+      <h4 class="chat-user-name"> {{ partner_data.username }}</h4>
       <span class="user-post">heloo</span>
     </div>
     <!--/ User Profile image with name -->
