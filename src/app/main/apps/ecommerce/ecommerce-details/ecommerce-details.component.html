@@ -7,11 +7,16 @@
                 <div class="card-body">
                     <div class="row my-2">
                         <div class="col-12">
-                            <h4 class="text-capitalize">
-                                {{ offer.type }} Bitcoin with {{ offer.method }}({{
+                            <h4 class="text-capitalize" *ngIf="offer.type =='buy'">
+                               Sell Bitcoin with {{ offer.method }}({{
                                     offer.currency
                                 }}) — {{ offer.label }}
                             </h4>
+                            <h4 class="text-capitalize" *ngIf="offer.type =='sell'">
+                                Buy Bitcoin with {{ offer.method }}({{
+                                     offer.currency
+                                 }}) — {{ offer.label }}
+                             </h4>
                             <span class="card-text item-company"
                                 >By
                                 <a
@@ -49,7 +54,7 @@
                                             >
                                                 <div class="row">
                                                     <div class="col-sm-6 col-12">
-                                                        <label>I want to buy</label>
+                                                        <label>I want to <span *ngIf="offer.type=='buy'">Sell</span> <span *ngIf="offer.type=='sell'">Buy</span></label>
 
                                                         <div class="form-group">
                                                             <!-- Select Multi with group -->
@@ -178,7 +183,7 @@
                                 >
                             </p>
                             <p class="card-text">
-                                {{ offer.type }} limits -
+                               <span *ngIf="offer.type=='buy'">Sell</span> <span *ngIf="offer.type=='sell'">Buy</span> limits -
                                 <span class="text-success"
                                     >{{ offer.minimum | number: '1.2-2' }}-{{
                                         offer.maximum | number: '1.2-2'
@@ -199,7 +204,7 @@
 
                             <hr />
                             <div class="product-color-options">
-                                <h6>About this {{ offer.type }}er</h6>
+                                <h6>About this <span *ngIf="offer.type=='buy'">Sell</span> <span *ngIf="offer.type=='sell'">Buy</span>er</h6>
 
                                 <ul class="product-features list-unstyled">
                                     <li>
