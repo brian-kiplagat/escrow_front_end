@@ -115,7 +115,27 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     audio.load();
     audio.play();
   }
+  private toast(title: string, message: string, type: string) {
+    if (type == 'success') {
+      this.toastr.success(message, title, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true,
+        positionClass: 'toast-top-right',
+        progressBar: true
+      });
+    } else {
+      this.toastr.error(message, title, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true,
+        positionClass: 'toast-top-right',
+        progressBar: true
+      });
 
+    }
+
+  }
   ngOnInit(): void {
     // Subscribe to contacts
 
@@ -348,25 +368,5 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
   }
 
-  private toast(title: string, message: string, type: string) {
-    if (type == 'success') {
-      this.toastr.success(message, title, {
-        toastClass: 'toast ngx-toastr',
-        timeOut: 5000,
-        closeButton: true,
-        positionClass: 'toast-top-right',
-        progressBar: true
-      });
-    } else {
-      this.toastr.error(message, title, {
-        toastClass: 'toast ngx-toastr',
-        timeOut: 5000,
-        closeButton: true,
-        positionClass: 'toast-top-right',
-        progressBar: true
-      });
 
-    }
-
-  }
 }

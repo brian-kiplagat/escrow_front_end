@@ -89,7 +89,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
    *
    * @param event
    */
-  uploadImage(event: any) {
+  async uploadImage(event: any) {
 
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
@@ -104,35 +104,42 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       const fileList: FileList = event.target.files;
       //check whether file is selected or not
       if (fileList.length > 0) {
-
         const file = fileList[0];
         //get file information such as name, size and type
         console.log('finfo', file.name, file.size, file.type);
         //max file size is 4 mb
         if ((file.size / 1048576) <= 4) {
-          let formData = new FormData();
-          let info = {id: 2, name: 'raja'}
-          formData.append('file', file, file.name);
-          formData.append('id', '2');
-          formData.append('tz', new Date().toISOString())
-          formData.append('update', '2')
-          formData.append('info', JSON.stringify(info))
-          this.file_data = formData
+          let user = JSON.parse(localStorage.getItem('user'))
+          const headerDict = {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            token: user.token,
+            username: user.username
+          }
+          const requestOptions = {
+            headers: new Headers(headerDict),
+            method: 'POST',
+            body: JSON.stringify({
+              "base64": event.target.result
+            })
 
-          //Upload file now
-          this.http.post(this.ip, this.file_data)
-            .subscribe(res => {
-              //send success response
-              console.log(res)
-            }, (err) => {
-              //send error response
-              console.log(err)
-
-            });
+          };
+          await fetch('https://api.coinlif.com/api/coin/v1/uploadProfile', requestOptions).then((response) => {
+            console.log(response);
+            if (!response.ok) {
+              this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')
+              //throw new Error(response.statusText);
+            } else {
+              this.toast('Great', '👋 You just uploaded your profile', 'success')
+              this.playAudio('assets/sounds/tirit.wav')
+            }
+          }).catch((error) => {
+            this.toast('Ops', '👋 An error happened try again', 'error')
+          })
 
         } else {
-          console.log('File size exceeds 4 MB. Please choose less than 4 MB')
-          //this.snackBar.open('File size exceeds 4 MB. Please choose less than 4 MB','',{duration: 2000});
+          this.toast('Ops', 'File size exceeds 4 MB. Please choose less than 4 MB', 'error')
+
         }
 
       }
@@ -140,7 +147,33 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
 
     }
   }
+  playAudio(path) {
+    let audio = new Audio();
+    audio.src = path;
+    audio.load();
+    audio.play();
+  }
+  private toast(title: string, message: string, type: string) {
+    if (type == 'success') {
+      this.toastr.success(message, title, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true,
+        positionClass: 'toast-top-right',
+        progressBar: true
+      });
+    } else {
+      this.toastr.error(message, title, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true,
+        positionClass: 'toast-top-right',
+        progressBar: true
+      });
 
+    }
+
+  }
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
