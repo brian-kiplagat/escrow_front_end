@@ -31,7 +31,7 @@ export class EcommerceWishlistComponent implements OnInit {
     public currencies =[]
     public methods =[]
     public   amount =0
-    public type:string ="sell"
+    public type:string ="buy"
     public filters ={
          currency:"",
          method:"",
@@ -91,7 +91,7 @@ export class EcommerceWishlistComponent implements OnInit {
     ngOnInit(): void {
         let user =JSON.parse(localStorage.getItem('user'))
         this._fb
-            .getOffers(user.username,user.token,"sell").subscribe((data:any) => {
+            .getOffers(user.username,user.token,"buy").subscribe((data:any) => {
                 // this.offers = data['data']['payload']
                 this.offers = data.responseMessage
                 console.log(data)

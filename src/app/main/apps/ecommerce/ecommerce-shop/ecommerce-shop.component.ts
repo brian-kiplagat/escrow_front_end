@@ -29,7 +29,7 @@ export class EcommerceShopComponent implements OnInit {
   public offers = []
   public currency: any[] = []
   public currencies = []
-  public type: string = "buy"
+  public type: string = "sell"
   public methods = []
   public amount = 0
   public filters = {
@@ -93,9 +93,9 @@ export class EcommerceShopComponent implements OnInit {
   ngOnInit(): void {
     let user = JSON.parse(localStorage.getItem('user'))
     this._fb
-      .getOffers(user.username, user.token, "buy").subscribe((data: any) => {
+      .getOffers(user.username, user.token, this.type).subscribe((data: any) => {
       this.offers = data.responseMessage
-      console.log(data)
+
     })
     this._fb.getCurrency(user.username, user.token).subscribe((data: any) => {
       this.currencies = data.responseMessage.currencies
