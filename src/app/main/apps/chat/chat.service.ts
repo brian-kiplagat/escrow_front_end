@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import {Injectable, OnInit} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
-export class ChatService{
+export class ChatService {
   public contacts: any[];
   public chats: any[];
   public userProfile;
@@ -72,14 +72,14 @@ export class ChatService{
   /**
    * Get Chats
    */
-  getChats(): Promise<any[]> {//Get chat array from @fakedb/chat.data.ts
+  getChats(): Promise<any[]> {
     const url = `api/chat-chats`;
 
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
         this.chats = response;
         this.onChatsChange.next(this.chats);
-        //console.log('CHAT DATA '+ JSON.stringify(response));
+
         resolve(this.chats);
       }, reject);
     });
@@ -88,13 +88,12 @@ export class ChatService{
   /**
    * Get User Profile
    */
-  getUserProfile(): Promise<any[]> {//Pull profile of logged in user
+  getUserProfile(): Promise<any[]> {
     const url = `api/chat-profileUser`;
 
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
         this.userProfile = response;
-        console.log('SENDER DATA '+ JSON.stringify(response));
         this.onUserProfileChange.next(this.userProfile);
         resolve(this.userProfile);
       }, reject);
@@ -109,7 +108,7 @@ export class ChatService{
   getSelectedChatUser(userId) {
     const selectUser = this.contacts.find(contact => contact.id === userId);
     this.selectedChatUser = selectUser;
-    console.log('RECEIVER DATA '+ JSON.stringify(selectUser));
+
     this.onSelectedChatUserChange.next(this.selectedChatUser);
   }
 
@@ -223,6 +222,4 @@ export class ChatService{
     this.userProfile = userProfileRef;
     this.onUserProfileChange.next(this.userProfile);
   }
-
-
 }

@@ -16,7 +16,12 @@
                         class="btn avatar avatar-border user-profile-toggle bg-transparent m-0 mr-1 p-0"
                         (click)="toggleSidebar('chat-active-sidebar')"
                     >
-                        <img [src]="partner_data.profile_link" alt="avatar" height="36" width="36" />
+                        <img
+                            [src]="partner_data.profile_link"
+                            alt="avatar"
+                            height="36"
+                            width="36"
+                        />
                         <span
                             [ngClass]="{
                                 'avatar-status-offline': chatUser.status == 'offline',
@@ -27,13 +32,12 @@
                         ></span>
                     </button>
                     <h6 class="mb-0">
-                        <a >
-                            {{ partner_data.username }}</a
-                        >
+                        <a> {{ partner_data.username }}</a>
                     </h6>
                 </div>
                 <div class="d-flex align-items-center">
-                    <i ngbTooltip="User was registered in {{partner_data.country_name}}"
+                    <i
+                        ngbTooltip="User was registered in {{ partner_data.country_name }}"
                         class="flag-icon flag-icon-{{
                             partner_data.geolocation | lowercase
                         }} cursor-pointer d-block d-none font-medium-2"
@@ -68,13 +72,7 @@
         <!--/ Chat Header -->
 
         <!-- User Chat messages -->
-        <div
-            class="user-chats overflow-scroll"
-
-            appScrollable
-            (scrollPosition)="scrollHandler($event)"
-
-        >
+        <div class="user-chats" [perfectScrollbar] #scrollMe [scrollTop]="scrolltop">
             <div class="chats">
                 <ngb-alert
                     [type]="'primary'"
@@ -160,7 +158,7 @@
                     *ngFor="let chatRef of chats"
                     [ngClass]="{ 'chat-left': chatRef.senderId != user.username }"
                 >
-                    <div class="chat-avatar" *ngIf="chatRef.senderId != user.username" >
+                    <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
                         <span class="avatar box-shadow-1 cursor-pointer">
                             <img [src]="chatUser.avatar" alt="avatar" height="32" width="32" />
                         </span>
@@ -169,10 +167,8 @@
                         <div class="chat-content">
                             <p>{{ chatRef.message }}</p>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
         <!-- User Chat messages -->

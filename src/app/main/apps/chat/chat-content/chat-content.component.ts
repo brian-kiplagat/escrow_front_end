@@ -99,6 +99,9 @@ export class ChatContentComponent implements OnInit {
     this.page.init(routeParams.get('id'), 'time', {reverse: true, prepend: false})
     this.fb.retrieveMessage(routeParams.get('id')).subscribe((data: any) => {
       this.chats = data;
+      setTimeout(() => {
+        this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
+      }, 0);
     });
     this.activeChat = false;
 

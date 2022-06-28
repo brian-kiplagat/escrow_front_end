@@ -342,7 +342,7 @@ export class FirebaseService {
     let messages = this.firestore
       .collection('trades')
       .doc(docId.toString())
-      .collection('chats', (ref) => ref.orderBy('time').limitToLast(4)).valueChanges()
+      .collection('chats', (ref) => ref.orderBy('time')).valueChanges()
       ;
 
     return messages;
