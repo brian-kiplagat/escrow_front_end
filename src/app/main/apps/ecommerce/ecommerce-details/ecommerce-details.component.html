@@ -136,19 +136,33 @@
                                                             <!--/ Select Multi with group -->
                                                         </div>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-12" >
                                                         <button
                                                             type="button"
                                                             class="btn btn-primary btn-block"
                                                             (click)="openTrade(form)"
                                                             rippleEffect
+                                                            *ngIf=" offer.type=='sell'"
                                                         >
                                                             <span
                                                                 [data-feather]="'shield'"
                                                                 [class]="'mr-25 text-capitalize'"
                                                             ></span
-                                                            >{{ offer.type | uppercase }} BITCOIN
+                                                            >BUY BITCOIN
                                                         </button>
+                                                        <button
+                                                        type="button"
+                                                        class="btn btn-primary btn-block"
+                                                        (click)="openTrade(form)"
+                                                        rippleEffect
+                                                        *ngIf=" offer.type=='buy'"
+                                                    >
+                                                        <span
+                                                            [data-feather]="'shield'"
+                                                            [class]="'mr-25 text-capitalize'"
+                                                        ></span
+                                                        >SELL BITCOIN
+                                                    </button>
                                                     </div>
                                                 </div>
                                             </form>
