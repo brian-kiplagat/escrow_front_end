@@ -1,6 +1,6 @@
-import {Component, OnInit, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 
-import {Subject} from 'rxjs';
+import {Observable, ReplaySubject, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {FlatpickrOptions} from 'ng2-flatpickr';
 
@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import {isNumeric} from "rxjs/internal-compatibility";
 import {FormControl} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
-import {ToastrService, GlobalConfig} from 'ngx-toastr';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-account-settings',
@@ -47,6 +47,8 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   // private
   private _unsubscribeAll: Subject<any>;
   private ip = 'https://coinlif.com/u.php';
+  private base64Output: string;
+  private uploading: boolean;
 
   /**
    * Constructor
@@ -89,18 +91,10 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
    *
    * @param event
    */
-  async uploadImage(event: any) {
-
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = (event: any) => {
-        this.avatarImage = event.target.result;
-        console.log(event.target.result)
-      };
-
-      reader.readAsDataURL(event.target.files[0]);
-
+  onFileSelected(event) {
+    this.convertFile(event.target.files[0]).subscribe(async base64 => {
+      this.base64Output = base64;
+      console.log(base64)
       const fileList: FileList = event.target.files;
       //check whether file is selected or not
       if (fileList.length > 0) {
@@ -109,6 +103,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         console.log('finfo', file.name, file.size, file.type);
         //max file size is 4 mb
         if ((file.size / 1048576) <= 4) {
+          this.uploading = true;
           let user = JSON.parse(localStorage.getItem('user'))
           const headerDict = {
             'Content-Type': 'application/json',
@@ -120,7 +115,10 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             headers: new Headers(headerDict),
             method: 'POST',
             body: JSON.stringify({
-              "base64": event.target.result
+              "base64": base64,
+              "email": user.email,
+              "type": file.type
+
             })
 
           };
@@ -128,10 +126,17 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             console.log(response);
             if (!response.ok) {
               this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')
+              this.uploading = false;
               //throw new Error(response.statusText);
             } else {
-              this.toast('Great', '👋 You just uploaded your profile', 'success')
+              //reader.readAsDataURL(event.target.files[0]);
+              response.json().then((json)=>{
+                this.avatarImage = json.responseMessage?.path
+              })
               this.playAudio('assets/sounds/tirit.wav')
+              this.toast('Great', '👋 You just uploaded your profile', 'success')
+              this.uploading = false;
+
             }
           }).catch((error) => {
             this.toast('Ops', '👋 An error happened try again', 'error')
@@ -144,15 +149,38 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
 
       }
 
+    });
+  }
+
+  convertFile(file: File): Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = (event) => result.next(btoa(event.target.result.toString()));
+    return result;
+  }
+
+  async uploadImage(event: any) {
+
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.avatarImage = event.target.result;
+        console.log(event.target.result)
+      };
+
 
     }
   }
+
   playAudio(path) {
     let audio = new Audio();
     audio.src = path;
     audio.load();
     audio.play();
   }
+
   private toast(title: string, message: string, type: string) {
     if (type == 'success') {
       this.toastr.success(message, title, {
@@ -174,6 +202,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     }
 
   }
+
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
@@ -448,5 +477,21 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       this.fireSwalError('Ops', err.error.responseMessage)
       console.log(err.error)
     })
+  }
+
+  resetProfile() {
+    this.uploading = true;
+    this.fb.resetProfile(this.user.token, this.user.username).subscribe((data: any) => {
+      console.log(data)
+      this.avatarImage = data.responseMessage?.path;
+      this.uploading = false;
+      this.playAudio('assets/sounds/tirit.wav')
+      this.toast('Great', '👋 You just uploaded your profile', 'success')
+    }, (error) => {
+      console.log(error)
+      this.toast('Ops', '👋 Seems an error happened', 'error')
+      this.uploading = false;
+
+    });
   }
 }

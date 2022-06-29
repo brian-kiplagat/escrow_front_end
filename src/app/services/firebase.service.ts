@@ -410,4 +410,20 @@ export class FirebaseService {
       })
     });
   }
+  resetProfile(token: string, username: string) {
+    const header = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: token,
+      username: username
+    };
+    const requestOptions = {
+      headers: new HttpHeaders(header)
+    };
+    return this.http.get(
+      'https://api.coinlif.com/api/coin/v1/resetProfile/' + username,
+      requestOptions
+    );
+  }
+
 }
