@@ -1,7 +1,5 @@
-import {Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
-import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 
 import {EcommerceService} from 'app/main/apps/ecommerce/ecommerce.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -21,12 +19,15 @@ export class EcommerceDetailsComponent implements OnInit {
   public submitted = false;
   public offer: any = {};
   public offers = [];
-  public oldoffer: any = {}
   public buyamount = ""
-  public currentUser: any = {}
   public err = "";
   public form: FormGroup;
-  public tags:string[]=[]
+  public tags: string[] = []
+
+  public offer_id;
+  public rate;
+  public min;
+  public max;
 
   /**
    * Constructor
@@ -50,10 +51,11 @@ export class EcommerceDetailsComponent implements OnInit {
    * @param form
 
    */
-   // convenience getter for easy access to form fields
-   get f() {
+  // convenience getter for easy access to form fields
+  get f() {
     return this.form.controls;
   }
+
   toggleWishlist(product) {
     if (product.isInWishlist === true) {
       this._ecommerceService.removeFromWishlist(product.id).then((res) => {
@@ -88,13 +90,17 @@ export class EcommerceDetailsComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');
     this._fb.getInfo(user.username, user.token, productIdFromRoute).subscribe((data: any) => {
+      console.log(data.responseMessage.data)
       this.offer = data.responseMessage.data;
+      this.offer_id = data.responseMessage.data.offer_id
+      this.rate = data.responseMessage.data.margin
+      this.min = data.responseMessage.data.minimum
+      this.max = data.responseMessage.data.maximum
       let offer_tags = data.responseMessage.data.tags
-      let formatted_tags =offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
+      let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
       const arr = formatted_tags.slice(1, -1)
-      let converted_tags =arr.split(',');
-      this.tags = converted_tags
-      console.log(converted_tags);
+      this.tags = arr.split(',')
+
     });
     this.form = this._formBuilder.group({
       // username: ['', [Validators.required]],
@@ -106,53 +112,38 @@ export class EcommerceDetailsComponent implements OnInit {
 
   }
 
-  openTrade(form:any) {
+  openTrade(form: any) {
     //get user and token from local stroge
     let user = JSON.parse(localStorage.getItem('user'));
     this.submitted = true;
     if (form.valid) {
-      this._fb.getUser(user.username, user.token).subscribe((data: any) => {
-        this.currentUser = data.responseMessage.user_data[0]
-        //get current loggedin user
-        this._fb
-          .getOffers(user.username, user.token, this.offer.type).subscribe((data: any) => {
-          this.offers = data.responseMessage
-          const routeParams = this.route.snapshot.paramMap;
-          const productIdFromRoute = routeParams.get('id');
-          this.oldoffer = this.offers.find(product => product.idd == productIdFromRoute);
-          const body = {
-            "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
-            "email": this.currentUser.email,
-            "offer_id": this.oldoffer.idd,
-            "amount_fiat": this.form.value.amount,
-            "rate": this.oldoffer.margin,
-            "min": this.offer.minimum,
-            "max": this.offer.maximum
-          }
-          //formulate request body
-
-          this._fb.openTrade(user.username, user.token, body).subscribe(
-            (data: any) => {
-              this.router.navigate(['/offers/chat/room/'+data.responseMessage.trade_id])
-              let audio = new Audio();
-              audio.src = 'assets/sounds/funded.wav';
-              audio.load();
-              audio.play();
+      const body = {
+        "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+        "email": user.email,
+        "offer_id": this.offer_id,
+        "amount_fiat": this.form.value.amount,
+        "rate": this.rate,
+        "min": this.min,
+        "max": this.max
+      }
+      //formulate request body
+      this._fb.openTrade(user.username, user.token, body).subscribe(
+        (data: any) => {
+          this.router.navigate(['/offers/chat/room/' + data.responseMessage.trade_id])
+          let audio = new Audio();
+          audio.src = 'assets/sounds/funded.wav';
+          audio.load();
+          audio.play();
 
 
-            },
-            (error) => {
-              console.log(error);
-              this.err = error.error.responseMessage
-            }
-          );
-
-
-        })
-      })
+        },
+        (error) => {
+          console.log(error);
+          this.err = error.error.responseMessage
+        }
+      );
       this.submitted = false;
     }
-
 
 
   }

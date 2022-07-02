@@ -77,4 +77,8 @@ export class CardBasicComponent implements OnInit {
       closeButton: true
     });
   }
+
+  sendBTC() {
+
+  }
 }
