@@ -399,7 +399,16 @@ export class FirebaseService {
     });
   }
 
-
+  updateProfile(token, username, formData: any) {
+    return this.http.post('https://api.coinlif.com/api/coin/v1/updateProfile', formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
   setChangePaswordInApp(token, username, formData: any) {
     return this.http.post('https://api.coinlif.com/api/coin/v1/changePasswordInApp', formData, {
       headers: new HttpHeaders({

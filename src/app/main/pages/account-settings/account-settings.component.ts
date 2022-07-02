@@ -44,6 +44,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public file = new FormControl('')
   public uploading: boolean;
   public currencies: any;
+  public selected: any;
 
 
   // public
@@ -51,6 +52,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   // private
   private _unsubscribeAll: Subject<any>;
   private base64Output: string;
+  private curr: any;
 
   /**
    * Constructor
@@ -132,7 +134,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
               //throw new Error(response.statusText);
             } else {
               //reader.readAsDataURL(event.target.files[0]);
-              response.json().then((json)=>{
+              response.json().then((json) => {
                 this.avatarImage = json.responseMessage?.path
               })
               this.playAudio('assets/sounds/tirit.wav')
@@ -503,5 +505,46 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       this.uploading = false;
 
     });
+  }
+
+  saveProfile() {
+    this.uploading = true;
+    let about = (<HTMLInputElement>document.getElementById("about")).value;
+    if (about.length <= 5) {
+      this.playAudio('assets/sounds/windows_warning.wav')
+      this.toast('Sorry', '👋 About must be greater than 20 characters', 'error')
+      return
+
+    }
+    if (about.length >= 50) {
+      this.playAudio('assets/sounds/windows_warning.wav')
+      this.toast('Sorry', '👋 About cannot be greater than 255 characters', 'error')
+      return
+
+    }
+
+    this.fb.updateProfile(this.user.token, this.user.username, {
+      "currency": this.curr,
+      "about": about
+    }).subscribe((response: any) => {
+      this.uploading = false;
+      this.playAudio('assets/sounds/tirit.wav')
+      this.toast('Great', '👋 You just updated your profile. You are now up to date to the latest', 'success')
+
+    }, (err) => {
+      console.log(err)
+      this.uploading = false;
+      this.playAudio('assets/sounds/windows_warning.wav')
+      this.toast('Hmm', '👋 '+ err.error.responseMessage, 'error')
+
+
+    })
+    console.log(this.curr + ' ' + about)
+
+  }
+
+  onSelected(val) {
+    console.log(val.selectedItems[0].label)
+    this.curr = val.selectedItems[0].label
   }
 }
