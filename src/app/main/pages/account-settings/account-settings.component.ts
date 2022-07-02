@@ -49,6 +49,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   private ip = 'https://coinlif.com/u.php';
   private base64Output: string;
   private uploading: boolean;
+  private currencies: any;
 
   /**
    * Constructor
@@ -239,6 +240,11 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       console.log(error)
       this.router.navigate(['/dashboard/overview'])
     });
+    this.fb.getCurrency(this.user.username, this.user.token).subscribe((data: any) => {
+      this.currencies = data.responseMessage.currencies
+    }, (error) => {
+      console.log(error)
+    })
     this.contentHeader = {
       headerTitle: 'Account Settings',
       actionButton: true,
@@ -486,7 +492,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       this.avatarImage = data.responseMessage?.path;
       this.uploading = false;
       this.playAudio('assets/sounds/tirit.wav')
-      this.toast('Great', '👋 You just uploaded your profile', 'success')
+      this.toast('Great', '👋 You just reset your profile. Adding one helps you become easily identifiable on the market place', 'success')
     }, (error) => {
       console.log(error)
       this.toast('Ops', '👋 Seems an error happened', 'error')
