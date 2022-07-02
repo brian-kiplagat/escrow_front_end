@@ -52,7 +52,9 @@
                           accept="image/*"
                           (change)="onFileSelected($event)"
                         />
-                        <button class="btn btn-sm btn-outline-secondary mb-75" (click)="resetProfile()" rippleEffect>Reset</button>
+                        <button class="btn btn-sm btn-outline-secondary mb-75" (click)="resetProfile()" rippleEffect>
+                          Reset
+                        </button>
                         <p>Allowed JPG, PNG. Max size of 4 MB</p>
                       </div>
                       <!--/ upload and reset button -->
@@ -71,7 +73,9 @@
                             <ng-select
                               [items]="currencies"
                               bindLabel="currency"
-                              bindValue="currency"
+                              bindValue="currentUser.currency"
+                              [(ngModel)]="currentUser.currency"
+                              name="first"
                               [loading]="false"
                             >
                             </ng-select>
@@ -375,7 +379,7 @@
                               </div>
                               <p *ngIf="currentUser.verified_email ==true">You verified your email</p>
                               <p *ngIf="currentUser.verified_email ==false">Check your email or spam folder
-                                </p>
+                              </p>
                               <div class="media align-items-center" *ngIf="currentUser.verified_email ==true">
                                 <img class="mr-1" src="assets/images/icons/rocket.svg" alt="data.json" height="23"/>
                                 <h6 class="media-body mb-0">{{currentUser.email}}</h6>
@@ -424,7 +428,8 @@
                                 <h6 *ngIf="currentUser.verified_address ==false">Verifiy Address</h6>
                               </div>
                               <p *ngIf="currentUser.verified_address ==true">You verified your address</p>
-                              <p *ngIf="currentUser.verified_address ==false">Upload your utility bill or bank statement</p>
+                              <p *ngIf="currentUser.verified_address ==false">Upload your utility bill or bank
+                                statement</p>
                               <div class="media align-items-center" *ngIf="currentUser.verified_address ==true">
                                 <img class="mr-1" src="assets/images/icons/book.svg" alt="data.json" height="23"/>
                                 <h6 class="media-body mb-0">Done</h6>

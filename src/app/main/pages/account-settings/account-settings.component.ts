@@ -42,14 +42,15 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public reset_error_text;
   file_data: any = ''
   public file = new FormControl('')
+  public uploading: boolean;
+  public currencies: any;
+
+
   // public
 
   // private
   private _unsubscribeAll: Subject<any>;
-  private ip = 'https://coinlif.com/u.php';
   private base64Output: string;
-  private uploading: boolean;
-  private currencies: any;
 
   /**
    * Constructor
@@ -207,6 +208,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
+
   /**
    * On init
    */
@@ -221,6 +223,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       this.currentUser = data.responseMessage?.user_data[0];
       this.avatarImage = this.currentUser.profile_link;
       this.tg_identifier = this.currentUser.tg_hash_identifier;
+
       if (this.currentUser.tg_id == 'NA') {
         this.telegram_bool = false;
       } else {
@@ -242,6 +245,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     });
     this.fb.getCurrency(this.user.username, this.user.token).subscribe((data: any) => {
       this.currencies = data.responseMessage.currencies
+
     }, (error) => {
       console.log(error)
     })
