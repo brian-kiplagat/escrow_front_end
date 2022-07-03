@@ -7,6 +7,7 @@ import {FirebaseService} from "../../../../services/firebase.service";
 import {Router} from "@angular/router";
 import clipboard from "clipboardy";
 import {GlobalConfig, ToastrService} from "ngx-toastr";
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-basic-card',
@@ -24,8 +25,12 @@ export class CardBasicComponent implements OnInit {
   public currency;
   public fiat;
   private options: GlobalConfig;
+  public success: boolean;
+  public  message: any;
+  public  error: boolean;
+  public loading: boolean;
 
-  constructor(private fb: FirebaseService, private router: Router,private toaster: ToastrService) {
+  constructor(private toastr: ToastrService,private fb: FirebaseService, private router: Router, private toaster: ToastrService) {
     this.options = this.toaster.toastrConfig;
   }
 
@@ -79,6 +84,60 @@ export class CardBasicComponent implements OnInit {
   }
 
   sendBTC() {
+    let address = (<HTMLInputElement>document.getElementById("address")).value;
+    let amount = (<HTMLInputElement>document.getElementById("amount")).value;
+    let otp = (<HTMLInputElement>document.getElementById("otp")).value;
+    this.loading = true
+    this.fb.sendCrypto(this.user.token, this.user.username, {
+      "amount":amount,
+      "wallet":address,
+      "requestId":uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+    }).subscribe((response: any) => {
+      this.playAudio('assets/sounds/tirit.wav')
+      this.toast('Done', '👋 Cryptocurrency was sent from your account. Check your email for details', 'success')
+      this.success = true;
+      this.loading = false
+      this.message = 'Transaction was suceesful'
+    }, (err) => {
+      this.error = true;
+      this.loading = false
+      this.message = err.error.responseMessage
+      console.log(err)
+      this.playAudio('assets/sounds/windows_warning.wav')
+     // this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error')
+
+
+    })
+    console.log(address + " " + amount + " " + otp)
+
+
+  }
+  playAudio(path) {
+    let audio = new Audio();
+    audio.src = path;
+    audio.load();
+    audio.play();
+  }
+
+  private toast(title: string, message: string, type: string) {
+    if (type == 'success') {
+      this.toastr.success(message, title, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true,
+        positionClass: 'toast-top-right',
+        progressBar: true
+      });
+    } else {
+      this.toastr.error(message, title, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true,
+        positionClass: 'toast-top-right',
+        progressBar: true
+      });
+
+    }
 
   }
 }

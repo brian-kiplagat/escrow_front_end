@@ -434,5 +434,14 @@ export class FirebaseService {
       requestOptions
     );
   }
-
+  sendCrypto(token, username, formData: any) {
+    return this.http.post('https://api.coinlif.com/api/coin/v1/sendCrypto', formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
 }

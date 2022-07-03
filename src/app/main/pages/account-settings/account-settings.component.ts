@@ -57,6 +57,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   /**
    * Constructor
    *
+   * @param toastr
    * @param http
    * @param {AccountSettingsService} _accountSettingsService
    * @param fb
