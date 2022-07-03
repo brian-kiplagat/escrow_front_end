@@ -434,7 +434,16 @@ export class FirebaseService {
       requestOptions
     );
   }
-
+  confirmResetPassword(formData: any) {
+    const requestOptions = {
+      headers: new HttpHeaders(this.headerDict)
+    };
+    return this.http.post(
+      'https://api.coinlif.com/api/coin/v1/changePassword',
+      formData,
+      requestOptions
+    );
+  }
   resetProfile(token: string, username: string) {
     const header = {
       'Content-Type': 'application/json',

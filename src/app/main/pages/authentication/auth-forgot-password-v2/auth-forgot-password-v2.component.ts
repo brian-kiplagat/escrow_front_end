@@ -30,6 +30,7 @@ export class AuthForgotPasswordV2Component implements OnInit {
   /**
    * Constructor
    *
+   * @param firebase
    * @param {CoreConfigService} _coreConfigService
    * @param {FormBuilder} _formBuilder
    *
