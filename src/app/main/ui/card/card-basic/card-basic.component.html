@@ -234,263 +234,30 @@
               <table class="table">
                 <thead>
                 <tr>
-                  <th>Project</th>
-                  <th>Client</th>
-                  <th>Users</th>
-                  <th>Status</th>
-                  <th>Actions</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>Fiat</th>
+                  <th>BTC</th>
+                  <th>Date</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr *ngFor ="let internal of internal_tx">
                   <td>
-                    <img
-                      src="assets/images/icons/angular.svg"
-                      class="mr-75"
-                      height="20"
-                      width="20"
-                      alt="Angular"
-                    /><span class="font-weight-bold">Angular Project</span>
+                    <a href="/users/{{internal.sender}}">
+                      <span class="font-weight-bold">{{internal.sender}}</span>
+                    </a>
+
                   </td>
-                  <td>Peter Charls</td>
                   <td>
-                    <div class="avatar-group">
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Lilian Nenez"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Alberto Glotzbach"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Alberto Glotzbach"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                    </div>
+                    <a href="/users/{{internal.recepient}}">
+                      <span class="font-weight-bold">{{internal.recepient}}</span>
+                    </a>
                   </td>
-                  <td><span class="badge badge-pill badge-light-primary mr-1">Active</span></td>
-                  <td class="overflow-hidden">
-                    <div ngbDropdown container="body">
-                      <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
-                        <i data-feather="more-vertical"></i>
-                      </button>
-                      <div ngbDropdownMenu>
-                        <a ngbDropdownItem href="javascript:void(0);"
-                        ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
-                        ><a ngbDropdownItem href="javascript:void(0);"
-                      ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
-                      >
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="assets/images/icons/react.svg" class="mr-75" height="20" width="20" alt="React"/><span
-                    class="font-weight-bold"
-                  >React Project</span
-                  >
-                  </td>
-                  <td>Ronald Frest</td>
-                  <td>
-                    <div class="avatar-group">
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Lilian Nenez"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Alberto Glotzbach"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Alberto Glotzbach"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-pill badge-light-success mr-1">Completed</span></td>
-                  <td class="overflow-hidden">
-                    <div ngbDropdown container="body">
-                      <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
-                        <i data-feather="more-vertical"></i>
-                      </button>
-                      <div ngbDropdownMenu>
-                        <a ngbDropdownItem href="javascript:void(0);"
-                        ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
-                        ><a ngbDropdownItem href="javascript:void(0);"
-                      ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
-                      >
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="assets/images/icons/vuejs.svg" class="mr-75" height="20" width="20" alt="Vuejs"/><span
-                    class="font-weight-bold"
-                  >Vuejs Project</span
-                  >
-                  </td>
-                  <td>Jack Obes</td>
-                  <td>
-                    <div class="avatar-group">
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Lilian Nenez"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Alberto Glotzbach"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Alberto Glotzbach"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-pill badge-light-info mr-1">Scheduled</span></td>
-                  <td class="overflow-hidden">
-                    <div ngbDropdown container="body">
-                      <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
-                        <i data-feather="more-vertical"></i>
-                      </button>
-                      <div ngbDropdownMenu>
-                        <a ngbDropdownItem href="javascript:void(0);"
-                        ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
-                        ><a ngbDropdownItem href="javascript:void(0);"
-                      ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
-                      >
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img
-                      src="assets/images/icons/bootstrap.svg"
-                      class="mr-75"
-                      height="20"
-                      width="20"
-                      alt="Bootstrap"
-                    /><span class="font-weight-bold">Bootstrap Project</span>
-                  </td>
-                  <td>Jerry Milton</td>
-                  <td>
-                    <div class="avatar-group">
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Lilian Nenez"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Alberto Glotzbach"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                      <div
-                        data-toggle="tooltip"
-                        data-popup="tooltip-custom"
-                        placement="top"
-                        container="body"
-                        title=""
-                        class="avatar pull-up my-0"
-                        ngbTooltip="Alberto Glotzbach"
-                      >
-                        <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26"/>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-pill badge-light-warning mr-1">Pending</span></td>
-                  <td class="overflow-hidden">
-                    <div ngbDropdown container="body">
-                      <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
-                        <i data-feather="more-vertical"></i>
-                      </button>
-                      <div ngbDropdownMenu>
-                        <a ngbDropdownItem href="javascript:void(0);"
-                        ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
-                        ><a ngbDropdownItem href="javascript:void(0);"
-                      ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
-                      >
-                      </div>
-                    </div>
-                  </td>
+                  <td><span class="badge badge-pill badge-light-warning mr-1" ngbTooltip="This was interpreted at the time of the transaction. The current value of these Bitcoins may change depending on the market rate">{{internal.fiat}} {{internal.currency}}</span></td>
+                  <td><span class="badge badge-pill badge-light-success mr-1">{{internal.amount_btc}}</span></td>
+                  <td>{{internal.created_at | date}}</td>
+
                 </tr>
                 </tbody>
               </table>

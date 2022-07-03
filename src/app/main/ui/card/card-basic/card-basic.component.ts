@@ -29,6 +29,7 @@ export class CardBasicComponent implements OnInit {
   public message: any;
   public error: boolean;
   public loading: boolean;
+  public internal_tx: any;
 
   constructor(private toastr: ToastrService, private fb: FirebaseService, private router: Router, private toaster: ToastrService) {
     this.options = this.toaster.toastrConfig;
@@ -60,6 +61,7 @@ export class CardBasicComponent implements OnInit {
       this.currentUser = data.responseMessage?.user_data[0]
       this.deposit_tx = data.responseMessage?.deposit_tx
       this.withdrawal_tx = data.responseMessage?.withdrawal_tx
+      this.internal_tx = data.responseMessage?.internal
       this.fiat = data.responseMessage?.fiat
       this.balance = data.responseMessage?.user_data[0].balance
       this.address = data.responseMessage?.user_data[0].wallet
@@ -102,7 +104,7 @@ export class CardBasicComponent implements OnInit {
       this.toast('Done', '👋 Cryptocurrency was sent from your account. Check your email for details', 'success')
       this.success = true;
       this.loading = false
-      this.message = 'Transaction was suceesful'
+      this.message = 'Transaction was successful'
     }, (err) => {
       this.error = true;
       this.loading = false
