@@ -45,7 +45,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public uploading: boolean;
   public currencies: any;
   public selected: any;
-
+  public password_response: any;
 
   // public
 
@@ -120,8 +120,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             headers: new Headers(headerDict),
             method: 'POST',
             body: JSON.stringify({
-              "base64": base64,
-              "email": user.email,
+              "profile_image": base64,
               "type": file.type
 
             })
@@ -473,9 +472,13 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     let user = JSON.parse(localStorage.getItem('user'));
     this.fb.setChangePaswordInApp(this.user.token, this.user.username, {
 
+
+      "secret": "wkkdjdiwoe",
       "email": user.email,
-      "old_password": old_password,
-      "new_password": new_password,
+      "username": user.username,
+      "pass1": new_password,
+      "pass2": new_password_confirm,
+      "old_password": old_password
 
 
     }).subscribe((response: any) => {
@@ -486,9 +489,9 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
 
       }, 2500);
     }, (err) => {
+      this.reset_error_text = err.error.responseMessage
+      this.reset_error = true
 
-      this.fireSwalError('Ops', err.error.responseMessage)
-      console.log(err.error)
     })
   }
 
@@ -536,7 +539,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       console.log(err)
       this.uploading = false;
       this.playAudio('assets/sounds/windows_warning.wav')
-      this.toast('Hmm', '👋 '+ err.error.responseMessage, 'error')
+      this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error')
 
 
     })

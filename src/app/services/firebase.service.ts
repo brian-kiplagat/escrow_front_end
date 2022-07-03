@@ -109,8 +109,9 @@ export class FirebaseService {
       requestOptions
     );
   }
+
   //get user by mail
-  getUserByMail(email: string,token: string,username: string,) {
+  getUserByMail(email: string, token: string, username: string,) {
     const header = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -127,7 +128,7 @@ export class FirebaseService {
   }
 
   //get packages
-  getPackages(token: string,username: string,email:string) {
+  getPackages(token: string, username: string, email: string) {
     const header = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -138,7 +139,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      'https://api.coinlif.com/api/coin/v1/getPackages/'+email,
+      'https://api.coinlif.com/api/coin/v1/getPackages/' + email,
       requestOptions
     );
   }
@@ -343,10 +344,11 @@ export class FirebaseService {
       .collection('trades')
       .doc(docId.toString())
       .collection('chats', (ref) => ref.orderBy('time')).valueChanges()
-      ;
+    ;
 
     return messages;
   }
+
   getUserForProfile(userIdFromRoute: string, token: string, username: string) {
     const header = {
       'Content-Type': 'application/json',
@@ -362,10 +364,11 @@ export class FirebaseService {
       requestOptions
     );
   }
+
   // get applications
   blockNow(token: string, username: string, formData: any) {
 
-       return this.http.post('https://api.coinlif.com/api/coin/v1/blockUser', formData, {
+    return this.http.post('https://api.coinlif.com/api/coin/v1/blockUser', formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -409,8 +412,9 @@ export class FirebaseService {
       })
     });
   }
+
   setChangePaswordInApp(token, username, formData: any) {
-    return this.http.post('https://api.coinlif.com/api/coin/v1/changePasswordInApp', formData, {
+    return this.http.post('https://api.coinlif.com/api/coin/v1/changePasswordAuth', formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -419,6 +423,18 @@ export class FirebaseService {
       })
     });
   }
+
+  sendResetLink(formData: any) {
+    const requestOptions = {
+      headers: new HttpHeaders(this.headerDict)
+    };
+    return this.http.post(
+      'https://api.coinlif.com/api/coin/v1/forgotPassword',
+      formData,
+      requestOptions
+    );
+  }
+
   resetProfile(token: string, username: string) {
     const header = {
       'Content-Type': 'application/json',
@@ -434,6 +450,7 @@ export class FirebaseService {
       requestOptions
     );
   }
+
   sendCrypto(token, username, formData: any) {
     return this.http.post('https://api.coinlif.com/api/coin/v1/sendCrypto', formData, {
       headers: new HttpHeaders({

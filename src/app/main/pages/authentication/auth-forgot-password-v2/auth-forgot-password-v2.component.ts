@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
-import { CoreConfigService } from '@core/services/config.service';
+import {CoreConfigService} from '@core/services/config.service';
+import {FirebaseService} from "../../../../services/firebase.service";
 
 @Component({
   selector: 'app-auth-forgot-password-v2',
@@ -21,6 +22,10 @@ export class AuthForgotPasswordV2Component implements OnInit {
 
   // Private
   private _unsubscribeAll: Subject<any>;
+  public loading: boolean;
+  public error: any;
+  public success: any;
+  public message: string;
 
   /**
    * Constructor
@@ -29,7 +34,7 @@ export class AuthForgotPasswordV2Component implements OnInit {
    * @param {FormBuilder} _formBuilder
    *
    */
-  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder) {
+  constructor(private firebase: FirebaseService, private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder) {
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -65,6 +70,26 @@ export class AuthForgotPasswordV2Component implements OnInit {
     if (this.forgotPasswordForm.invalid) {
       return;
     }
+    let email = this.forgotPasswordForm.value.email
+    this.loading = true
+    this.firebase.sendResetLink({
+      "email": email,
+    }).subscribe(
+      (response: any) => {
+        //Next callback
+        console.log('response received', response);
+        this.loading = false
+        this.success = true
+        this.message = "Password reset instructions have been sent to your email. If you don't find it check your spam folder";
+      },
+      (error) => {
+        //Error callback
+        this.loading = false
+        this.error = true;
+        this.message = error.error.responseMessage
+        //console.error(error.error.responseMessage);
+        //throw error;   //You can also throw the error to a global error handler
+      })
   }
 
   // Lifecycle Hooks
