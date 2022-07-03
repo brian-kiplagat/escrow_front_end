@@ -66,13 +66,13 @@
                     />
                   </div>
                 </div>
-                <div class="col-sm-6 col-12">
+                <div class="col-12" >
                   <div class="form-group mb-2">
                     <label for="amount" ngbTooltip="Enter your amount in {{currency}}." placement="right">Amount ({{currency}})</label>
                     <input type="number" id="amount" class="form-control" placeholder="{{currency}}" />
                   </div>
                 </div>
-                <div class="col-sm-6 col-12">
+                <div class="col-12" *ngIf="currentUser.choice_2fa == '2FA' && currentUser.factor_send == true">
                   <div class="form-group mb-2">
                     <label for="otp" ngbTooltip="Enter the code from your Authy or Google Authenticator" placement="right">OTP</label>
                     <input type="number" id="otp" class="form-control" placeholder="12356" />

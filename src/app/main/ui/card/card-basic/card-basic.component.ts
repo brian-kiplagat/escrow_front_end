@@ -26,11 +26,11 @@ export class CardBasicComponent implements OnInit {
   public fiat;
   private options: GlobalConfig;
   public success: boolean;
-  public  message: any;
-  public  error: boolean;
+  public message: any;
+  public error: boolean;
   public loading: boolean;
 
-  constructor(private toastr: ToastrService,private fb: FirebaseService, private router: Router, private toaster: ToastrService) {
+  constructor(private toastr: ToastrService, private fb: FirebaseService, private router: Router, private toaster: ToastrService) {
     this.options = this.toaster.toastrConfig;
   }
 
@@ -86,12 +86,17 @@ export class CardBasicComponent implements OnInit {
   sendBTC() {
     let address = (<HTMLInputElement>document.getElementById("address")).value;
     let amount = (<HTMLInputElement>document.getElementById("amount")).value;
-    let otp = (<HTMLInputElement>document.getElementById("otp")).value;
+    let otp
+    if (this.currentUser.choice_2fa == '2FA' && this.currentUser.factor_send == true) {
+      otp = (<HTMLInputElement>document.getElementById("otp")).value;
+    }
     this.loading = true
     this.fb.sendCrypto(this.user.token, this.user.username, {
-      "amount":amount,
-      "wallet":address,
-      "requestId":uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+      "amount": amount,
+      "wallet": address,
+      "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+      "otp": otp
+
     }).subscribe((response: any) => {
       this.playAudio('assets/sounds/tirit.wav')
       this.toast('Done', '👋 Cryptocurrency was sent from your account. Check your email for details', 'success')
@@ -104,7 +109,7 @@ export class CardBasicComponent implements OnInit {
       this.message = err.error.responseMessage
       console.log(err)
       this.playAudio('assets/sounds/windows_warning.wav')
-     // this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error')
+      // this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error')
 
 
     })
@@ -112,6 +117,7 @@ export class CardBasicComponent implements OnInit {
 
 
   }
+
   playAudio(path) {
     let audio = new Audio();
     audio.src = path;
