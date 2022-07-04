@@ -41,24 +41,15 @@ export class FileUploaderComponent implements OnInit {
   ngOnInit(): void {
     // content header
     this.contentHeader = {
-      headerTitle: 'File Uploader',
+      headerTitle: 'KYC',
       actionButton: true,
       breadcrumb: {
         type: '',
         links: [
           {
-            name: 'Home',
-            isLink: true,
+            name: 'Verify Identity',
+            isLink: false,
             link: '/'
-          },
-          {
-            name: 'Extensions',
-            isLink: true,
-            link: '/'
-          },
-          {
-            name: 'File Uploader',
-            isLink: false
           }
         ]
       }

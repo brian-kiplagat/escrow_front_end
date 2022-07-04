@@ -5,8 +5,7 @@
     <!-- ngb-alert component -->
     <ngb-alert [type]="'warning'" [dismissible]="false">
       <div class="alert-body">
-        <strong>Note:</strong> File Uploader is for demo purpose only. So, you cannot upload files from here. For
-        Backend connectivity Refer this official
+        <strong>Note:</strong> We use Identity Verification in order to comply with KYC (Know Your Customer) regulations. KYC is a way of identifying and confirming that a customer is who they say they are. It's a multi-step process that helps to prevent the creation and use of fraudulent accounts. Refer this official
         <a class="alert-link" href="https://valor-software.com/ng2-file-upload/" target="_blank">documentation</a>.
       </div>
     </ngb-alert>
@@ -24,7 +23,7 @@
                 [uploader]="uploader"
                 class="py-5 mb-3 text-center font-medium-5 text-uppercase file-drop-zone"
               >
-                Drop Files Here To Upload
+                FRONT SIDE OF ID
               </div>
             </div>
             <div class="col-md-12 col-lg-6">
@@ -35,15 +34,15 @@
                 [uploader]="uploader"
                 class="py-5 mb-3 text-center font-medium-5 text-uppercase file-drop-zone"
               >
-                Another dropzone
+                BACK SIDE OF ID
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-lg-3">
-              <h4>Select files</h4>
+              <h4>Your selfie</h4>
               <fieldset class="form-group">
-                <label for="file-upload-multiple">Multiple:</label>
+                <label for="file-upload-multiple">Face picture:</label>
                 <div class="custom-file">
                   <input
                     type="file"
@@ -58,20 +57,6 @@
                 </div>
               </fieldset>
 
-              <fieldset class="form-group">
-                <label for="file-upload-single">Single:</label>
-                <div class="custom-file">
-                  <input
-                    type="file"
-                    class="custom-file-input"
-                    type="file"
-                    ng2FileSelect
-                    [uploader]="uploader"
-                    id="file-upload-single"
-                  />
-                  <label class="custom-file-label">Choose file</label>
-                </div>
-              </fieldset>
             </div>
 
             <div class="col-lg-9 overflow-auto">

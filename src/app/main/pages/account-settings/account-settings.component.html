@@ -376,6 +376,16 @@
                   <!-- User Timeline Card -->
                   <div class="container-fluid">
                     <div class="card card-user-timeline">
+                      <ngb-alert class="m-1" [type]="'primary'" [dismissible]="false" *ngIf="uploading">
+                        <div class="alert-body">
+                          <p> Hold on. This should take a moment</p>
+                        </div>
+                      </ngb-alert>
+                      <ngb-alert class="m-1" [type]="'primary'" [dismissible]="false" *ngIf="reset_error">
+                        <div class="alert-body">
+                          <p>{{reset_error_text}}</p>
+                        </div>
+                      </ngb-alert>
                       <div class="card-header">
                         <div class="d-flex align-items-center">
                           <i data-feather="user" class="user-timeline-title-icon"></i>
@@ -400,7 +410,7 @@
                                 <img class="mr-1" src="assets/images/icons/rocket.svg" alt="data.json" height="23"/>
                                 <h6 class="media-body mb-0">{{currentUser.email}}</h6>
                               </div>
-                              <button *ngIf="currentUser.verified_email ==false" style="width: 200px;" rippleEffect
+                              <button (click)="resendConfirmation()" *ngIf="currentUser.verified_email ==false" style="width: 200px;" rippleEffect
                                       class="btn btn-gradient-primary btn-block"
                                       ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
                                       placement="bottom">
@@ -425,7 +435,7 @@
                                 <img class="mr-1" src="assets/images/icons/book.svg" alt="data.json" height="23"/>
                                 <h6 class="media-body mb-0">Done</h6>
                               </div>
-                              <button *ngIf="currentUser.verified_id ==false" style="width: 200px;" rippleEffect
+                              <button [routerLink]="'/forms/form-elements/file-uploader'" *ngIf="currentUser.verified_id ==false" style="width: 200px;" rippleEffect
                                       class="btn btn-gradient-primary btn-block"
                                       ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
                                       placement="bottom">

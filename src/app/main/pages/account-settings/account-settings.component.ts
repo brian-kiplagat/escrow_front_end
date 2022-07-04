@@ -559,7 +559,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     }).subscribe((response: any) => {
       this.uploading = false;
       this.playAudio('assets/sounds/tirit.wav')
-      this.toast('Great', '👋 You just sent you the email. Check your inbox. If you cannot see it, check your spam folder', 'success')
+      this.toast('Great', '👋 Check your inbox. If you cannot see the confirmation email, check your spam folder', 'success')
 
     }, (err) => {
       console.log(err)
