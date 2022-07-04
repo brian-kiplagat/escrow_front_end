@@ -25,10 +25,25 @@
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
         <h2 class="card-title font-weight-bold mb-1">Email Verification 📪</h2>
         <p class="card-text mb-2">Check the code we sent to your email address then enter it below. If you dont see it check your spam folder</p>
-        <form class="auth-reset-password-form mt-2" [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()">
+        <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
+          <div class="alert-body">
+            <p>{{ message }}</p>
+          </div>
+        </ngb-alert>
+        <ngb-alert [type]="'success'" [dismissible]="false" *ngIf="success">
+          <div class="alert-body">
+            <p>{{ message }}</p>
+          </div>
+        </ngb-alert>
+        <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="loading">
+          <div class="alert-body">
+            <p>Hold on. We're verifying</p>
+          </div>
+        </ngb-alert>
+        <form class="auth-reset-password-form mt-2" [formGroup]="codeForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <div class="d-flex justify-content-between">
-              <label for="code">Email Code</label>
+              <label for="code">Verification Code</label>
             </div>
             <div class="input-group input-group-merge form-password-toggle">
               <input
@@ -64,11 +79,10 @@
             </div>
           </div>
 
-          <button class="btn btn-primary btn-block" tabindex="3" rippleEffect>Complete Registration</button>
+          <button class="btn btn-primary btn-block"  type="submit" tabindex="3" rippleEffect>Complete Registration</button>
         </form>
         <p class="text-center mt-2">
-          <a routerLink="/pages/authentication/login-v2"
-            ><i data-feather="mail" class="mb-25"></i> Resend Email </a
+          <a (click)="resendConfirmation()"><i data-feather="mail" class="mb-25"></i> Resend Email </a
           >
         </p>
       </div>

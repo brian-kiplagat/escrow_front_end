@@ -551,4 +551,23 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     console.log(val.selectedItems[0].label)
     this.curr = val.selectedItems[0].label
   }
+
+  resendConfirmation() {
+    this.uploading = true
+    this.fb.sendConfirmEmail( {
+      "email": this.user.email
+    }).subscribe((response: any) => {
+      this.uploading = false;
+      this.playAudio('assets/sounds/tirit.wav')
+      this.toast('Great', '👋 You just sent you the email. Check your inbox. If you cannot see it, check your spam folder', 'success')
+
+    }, (err) => {
+      console.log(err)
+      this.uploading = false;
+      this.playAudio('assets/sounds/windows_warning.wav')
+      this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error')
+
+
+    })
+  }
 }

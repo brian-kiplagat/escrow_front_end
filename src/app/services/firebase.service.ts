@@ -470,4 +470,20 @@ export class FirebaseService {
       })
     });
   }
+  sendConfirmEmail(formData: any) {
+    return this.http.post('https://api.coinlif.com/api/coin/v1/resendEmailVerification', formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+      })
+    });
+  }
+  confirmMail(formData: any) {
+    return this.http.post('https://api.coinlif.com/api/coin/v1/userEmailVerify', formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+      })
+    });
+  }
 }
