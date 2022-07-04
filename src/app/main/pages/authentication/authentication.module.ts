@@ -35,15 +35,14 @@ const routes: Routes = [
     path: 'register',
     component: AuthRegisterV2Component
   },
+  {
+    path: 'authentication/forgot-password-v2',
+    component: AuthForgotPasswordV2Component
+  },
 
   {
     path: 'authentication/reset-password-v2',
     component: AuthResetPasswordV2Component
-  },
-
-  {
-    path: 'authentication/forgot-password-v2',
-    component: AuthForgotPasswordV2Component
   },
 
   {

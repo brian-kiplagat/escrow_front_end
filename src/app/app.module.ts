@@ -87,11 +87,6 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: '',
-    redirectTo: 'pages/login',
-    pathMatch: 'full'
-  },
-  {
     path: '**',
     redirectTo: 'pages/miscellaneous/error' //Error 404 - Page not found
   }
@@ -144,7 +139,7 @@ const appRoutes: Routes = [
 
     // ! IMPORTANT: Provider used to create fake backend, comment while using real API
    // fakeBackendProvider
-  
+
   ],
   entryComponents: [BasicCustomContextMenuComponent, AnimatedCustomContextMenuComponent],
   bootstrap: [AppComponent]
