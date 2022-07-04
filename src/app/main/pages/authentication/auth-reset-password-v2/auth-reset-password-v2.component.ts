@@ -9,7 +9,7 @@ import {ActivatedRoute} from "@angular/router";
 import {FirebaseService} from "../../../../services/firebase.service";
 
 @Component({
-  selector: 'app-auth-reset-password-v2',
+  selector: 'app-auth-forgot-password-v2',
   templateUrl: './auth-reset-password-v2.component.html',
   styleUrls: ['./auth-reset-password-v2.component.scss'],
   encapsulation: ViewEncapsulation.None
