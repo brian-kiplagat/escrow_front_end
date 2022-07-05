@@ -1,37 +1,124 @@
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body">
-    <!-- content-header component -->
-    <app-content-header [contentHeader]="contentHeader"></app-content-header>
 
     <section id="faq-search-filter">
       <div class="card faq-search" style="background-image: url('assets/images/banner/banner.png')">
         <div class="card-body text-center">
-          <!-- main title -->
-          <h2 class="text-primary">Let's answer some questions</h2>
-
-          <!-- subtitle -->
-          <p class="card-text mb-2">or choose a category to quickly find the help you need</p>
-
-          <!-- search input -->
-          <form class="faq-search-input">
-            <div class="input-group input-group-merge">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i data-feather="search"></i>
-                </div>
+          <div class="">
+            <div class="card text-center">
+              <div class="card-body">
+                <ul ngbNav #nav="ngbNav" class="nav nav-pills">
+                  <li ngbNavItem>
+                    <a ngbNavLink>BUY</a>
+                    <ng-template ngbNavContent>
+                      <h5 class="card-title">Special title treatment</h5>
+                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                      <a href="javascript:void(0)" rippleEffect class="btn btn-outline-primary">Go home</a>
+                    </ng-template>
+                  </li>
+                  <li ngbNavItem>
+                    <a ngbNavLink>SELL</a>
+                    <ng-template ngbNavContent>
+                      <h5 class="card-title">Special title treatment</h5>
+                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                      <a href="javascript:void(0)" rippleEffect class="btn btn-outline-primary">Go profile</a>
+                    </ng-template>
+                  </li>
+                </ul>
+                <div [ngbNavOutlet]="nav" class="mt-2 pt-75"></div>
               </div>
-              <input
-                type="text"
-                [(ngModel)]="searchText"
-                name="searchbar"
-                class="form-control"
-                placeholder="Search faq..."
-              />
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </section>
+    <!-- Stats Horizontal Card -->
+    <div class="row">
+      <div class="col-lg-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="font-weight-bolder mb-0">86%</h2>
+              <p class="card-text">CPU Usage</p>
+            </div>
+            <div class="avatar bg-light-primary p-50 m-0">
+              <div class="avatar-content">
+                <i data-feather="cpu" class="font-medium-5"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="font-weight-bolder mb-0">1.2gb</h2>
+              <p class="card-text">Memory Usage</p>
+            </div>
+            <div class="avatar bg-light-success p-50 m-0">
+              <div class="avatar-content">
+                <i data-feather="server" class="font-medium-5"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="font-weight-bolder mb-0">0.1%</h2>
+              <p class="card-text">Downtime Ratio</p>
+            </div>
+            <div class="avatar bg-light-danger p-50 m-0">
+              <div class="avatar-content">
+                <i data-feather="activity" class="font-medium-5"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="font-weight-bolder mb-0">13</h2>
+              <p class="card-text">Issues Found</p>
+            </div>
+            <div class="avatar bg-light-warning p-50 m-0">
+              <div class="avatar-content">
+                <i data-feather="alert-octagon" class="font-medium-5"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Stats Horizontal Card -->
+
+    <!-- Knowledge base -->
+    <section id="knowledge-base-content">
+      <div class="row kb-search-content-info match-height">
+        <div
+          *ngFor="let knowledgeBaseRef of data2"
+          class="col-md-4 col-sm-6 col-12 kb-search-content"
+        >
+          <div class="card">
+            <a routerLink="/pages/knowledge-base/{{ knowledgeBaseRef.category }}">
+              <img src="{{ knowledgeBaseRef.img }}" class="card-img-top" alt="knowledge-base-image" />
+              <div class="card-body text-center">
+                <h4>{{ knowledgeBaseRef.title }}</h4>
+                <p class="text-body mt-1 mb-0">{{ knowledgeBaseRef.desc }}</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+    <!-- Knowledge base ends -->
     <!-- account setting page -->
     <section id="faq">
       <div class="row nav-vertical d-flex">
@@ -398,5 +485,38 @@
       </div>
     </section>
     <!--/ contact us -->
+
+    <!-- pricing free trial -->
+    <div class="pricing-free-trial">
+      <div class="row">
+        <div class="col-12 col-lg-10 col-lg-offset-3 mx-auto">
+          <div class="pricing-trial-content d-flex justify-content-between">
+            <div class="text-center text-md-left mt-3">
+              <h3 class="text-primary">Still not convinced? Start with a 14-day FREE trial!</h3>
+              <h5>You will get full access to with all the features for 14 days.</h5>
+              <button class="btn btn-primary mt-2 mt-lg-3" rippleEffect>Start 14-day FREE trial</button>
+            </div>
+
+            <!-- image -->
+            <img
+              src="assets/images/illustration/pricing-Illustration.svg"
+              class="pricing-trial-img img-fluid"
+              alt="svg img"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ pricing free trial -->
+
+
+
+
+
+
   </div>
+
+
+
+
 </div>

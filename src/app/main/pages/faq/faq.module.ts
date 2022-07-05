@@ -14,7 +14,7 @@ import { FAQService } from 'app/main/pages/faq/faq.service';
 const routes: Routes = [
   {
     path: 'faq',
-    //component: FaqComponent,
+    component: FaqComponent,
     canActivate: [AuthGuard],
     resolve: {
       faqData: FAQService

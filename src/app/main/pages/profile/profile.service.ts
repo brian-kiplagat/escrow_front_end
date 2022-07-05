@@ -16,6 +16,8 @@ export class ProfileService implements Resolve<any> {
    * Constructor
    *
    * @param {HttpClient} _httpClient
+   * @param fb
+   * @param router
    */
   constructor(private _httpClient: HttpClient , public fb: FirebaseService,
   private router:Router

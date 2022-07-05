@@ -8,15 +8,17 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class FAQService implements Resolve<any> {
   rows: any;
   onFaqsChanged: BehaviorSubject<any>;
+  onKBChanged: BehaviorSubject<{}>;
 
   /**
    * Constructor
    *
    * @param {HttpClient} _httpClient
    */
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient,) {
     // Set the defaults
     this.onFaqsChanged = new BehaviorSubject({});
+    this.onKBChanged = new BehaviorSubject({});
   }
 
   /**
@@ -46,4 +48,27 @@ export class FAQService implements Resolve<any> {
       }, reject);
     });
   }
+
+  resolveCard(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+    return new Promise<void>((resolve, reject) => {
+      Promise.all([this.getDataTableRows()]).then(() => {
+        resolve();
+      }, reject);
+    });
+  }
+
+  /**
+   * Get rows
+   */
+  getCardTableRows(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.get('api/knowledge-base-data').subscribe((response: any) => {
+        this.rows = response;
+        this.onKBChanged.next(this.rows);
+        resolve(this.rows);
+      }, reject);
+    });
+  }
+
+
 }

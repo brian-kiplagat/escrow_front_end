@@ -50,6 +50,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * Constructor
    *
    * @param {PricingService} _pricingService
+   * @param route
+   * @param sanitizer
+   * @param fb
+   * @param router
    */
   constructor(private _pricingService: ProfileService, private route: ActivatedRoute, private sanitizer: DomSanitizer, private fb: FirebaseService, private router: Router) {
     this._unsubscribeAll = new Subject();
