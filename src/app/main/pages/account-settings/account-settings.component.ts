@@ -468,25 +468,20 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       return
     }
     this.reset_error = false
-    console.log(old_password + " : " + new_password + " : " + new_password_confirm);
-    let user = JSON.parse(localStorage.getItem('user'));
+    console.log(this.user.email + this.user.username);
     this.fb.setChangePaswordInApp(this.user.token, this.user.username, {
 
-
-      "secret": "wkkdjdiwoe",
-      "email": user.email,
-      "username": user.username,
+      "username": this.user.username,
       "pass1": new_password,
       "pass2": new_password_confirm,
       "old_password": old_password
-
 
     }).subscribe((response: any) => {
       this.fireSwalSuccess('SUCCESS', 'You changed your password. We are logging you out of all active session shortly and you will be required to log in again')
       setTimeout(() => {
         console.log('sleeping for 2.5 seconds');
         // And any other code that should run only after 5s
-
+        location.reload()
       }, 2500);
     }, (err) => {
       this.reset_error_text = err.error.responseMessage
@@ -554,7 +549,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
 
   resendConfirmation() {
     this.uploading = true
-    this.fb.sendConfirmEmail( {
+    this.fb.sendConfirmEmail({
       "email": this.user.email
     }).subscribe((response: any) => {
       this.uploading = false;
