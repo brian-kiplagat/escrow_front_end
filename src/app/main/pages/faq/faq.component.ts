@@ -45,45 +45,45 @@ export class FaqComponent implements OnInit, OnDestroy {
    this.data2 = [
       {
         id: 1,
-        category: 'sales-automation',
+        category: 'Buy Bitcoin online',
         img: 'assets/images/illustration/sales.svg',
-        title: 'Sales Automation',
-        desc: 'There is perhaps no better demonstration of the folly of image of our tiny world.'
+        title: 'Buy Bitcoin online',
+        desc: 'Buy Bitcoin in real time. Trade with users online with escrow on live chat.'
       },
       {
         id: 2,
-        category: 'marketing-automation',
+        category: 'Sell Bitcoin',
         img: 'assets/images/illustration/marketing.svg',
-        title: 'Marketing Automation',
-        desc: 'Look again at that dot. That’s here. That’s home. That’s us. On it everyone you love.'
+        title: 'Sell Bitcoin',
+        desc: 'Sell your Bitcoin at your chosen rate, and get paid in one of numerous payment methods.'
       },
       {
         id: 3,
-        category: 'api-questions',
+        category: 'Trusted',
         img: 'assets/images/illustration/api.svg',
-        title: 'API Questions',
-        desc: 'every hero and coward, every creator and destroyer of civilization.'
+        title: 'Trusted',
+        desc: 'Accounts are audited regularly with our moderators, get help whenever you need it '
       },
       {
         id: 4,
-        category: 'personalization',
+        category: 'Trade with secure escrow',
         img: 'assets/images/illustration/personalization.svg',
-        title: 'Personalization',
-        desc: 'It has been said that astronomy is a humbling and character experience.'
+        title: 'Trade with secure escrow',
+        desc: 'Your Bitcoin is held in our secure escrow until the trade is completed successfully.'
       },
       {
         id: 5,
-        category: 'email-marketing',
+        category: 'Build your reputation',
         img: 'assets/images/illustration/email.svg',
-        title: 'Email Marketing',
-        desc: 'There is perhaps no better demonstration of the folly of human conceits.'
+        title: 'Build your reputation',
+        desc: 'Our user feedback system enables you to identify trusted and experienced peers to trade with.'
       },
       {
         id: 6,
-        category: 'demand-generation',
+        category: 'Get a free wallet',
         img: 'assets/images/illustration/demand.svg',
-        title: 'Demand Generation',
-        desc: 'Competent means we will never take anything for granted.'
+        title: 'Get a free wallet',
+        desc: 'Get a life-time free Bitcoin wallet maintained by CoinBase, the leading provider of secure Bitcoin wallets.'
       }
     ]
 
