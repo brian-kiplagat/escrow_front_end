@@ -83,7 +83,7 @@ export class FaqComponent implements OnInit, OnDestroy {
         category: 'Get a free wallet',
         img: 'assets/images/illustration/demand.svg',
         title: 'Get a free wallet',
-        desc: 'Get a life-time free Bitcoin wallet maintained by CoinBase, the leading provider of secure Bitcoin wallets.'
+        desc: 'Get a life-time free Bitcoin wallet maintained by a leading provider of secure Bitcoin wallets.'
       }
     ]
 

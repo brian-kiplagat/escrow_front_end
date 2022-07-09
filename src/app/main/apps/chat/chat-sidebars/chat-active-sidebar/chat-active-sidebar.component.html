@@ -16,9 +16,49 @@
       <h4 class="chat-user-name"> {{ partner_data.username }}</h4>
       <span class="user-post">username</span>
     </div>
+
     <!--/ User Profile image with name -->
   </header>
   <div class="user-profile-sidebar-area" [perfectScrollbar]>
+    <!-- Transaction card -->
+    <div class="card card-transaction">
+      <div class="card-header">
+        <h4 class="card-title">Feedbacks</h4>
+        <i data-feather="star" class="font-medium-3 cursor-pointer"></i>
+      </div>
+      <div class="card-body">
+        <div class="transaction-item">
+          <div class="media">
+            <div class="avatar bg-light-success rounded">
+              <div class="avatar-content">
+                <i data-feather="thumbs-up" class="avatar-icon font-medium-3"></i>
+              </div>
+            </div>
+            <div class="media-body">
+              <h6 class="transaction-title">Positive</h6>
+              <small>feedback</small>
+            </div>
+          </div>
+          <div class="font-weight-bolder text-success">+ 74</div>
+        </div>
+        <div class="transaction-item">
+          <div class="media">
+            <div class="avatar bg-light-danger rounded">
+              <div class="avatar-content">
+                <i data-feather="thumbs-down" class="avatar-icon font-medium-3"></i>
+              </div>
+            </div>
+            <div class="media-body">
+              <h6 class="transaction-title">Negative</h6>
+              <small>feedback</small>
+            </div>
+          </div>
+          <div class="font-weight-bolder text-danger">- 40</div>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Transaction card -->
     <!-- About User -->
     <h6 class="section-label mb-1">About</h6>
     <p>{{partner_data.about}}</p>
@@ -67,7 +107,7 @@
         </li>
         <li class="cursor-pointer mb-1">
           <i data-feather="tag" class="font-medium-2 mr-50"></i>
-          <span class="align-middle">5 Previous trades</span>
+          <span class="align-middle">{{partner_data[0].previous_trades}} Previous trades</span>
         </li>
         <li class="cursor-pointer mb-1">
           <i data-feather="star" class="font-medium-2 mr-50"></i>
@@ -75,11 +115,11 @@
         </li>
         <li class="cursor-pointer mb-1">
           <i data-feather="slash" class="font-medium-2 mr-50"></i>
-          <span class="align-middle">Has blocked 7</span>
+          <span class="align-middle">Has blocked {{partner_data[0].has_blocked}}</span>
         </li>
         <li class="cursor-pointer">
           <i data-feather="slash" class="font-medium-2 mr-50"></i>
-          <span class="align-middle">Blocked by 6</span>
+          <span class="align-middle">Blocked by {{partner_data[0].blocked_by}}</span>
         </li>
       </ul>
     </div>
