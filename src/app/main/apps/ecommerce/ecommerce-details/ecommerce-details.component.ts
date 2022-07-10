@@ -100,7 +100,7 @@ export class EcommerceDetailsComponent implements OnInit {
       let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
       const arr = formatted_tags.slice(1, -1)
       this.tags = arr.split(',')
-      if (data.responseMessage.data.status != 0){
+      if (data.responseMessage.data.status != 1){
         this.err = 'This offer is turned off at the moment. Try other offers'
       }
       if (data.responseMessage.data.deauth == 1){
