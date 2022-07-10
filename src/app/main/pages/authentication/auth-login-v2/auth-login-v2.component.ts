@@ -22,7 +22,7 @@ export class AuthLoginV2Component implements OnInit {
   public submitted = false;
   public returnUrl: string;
   public passwordTextType: boolean;
-  public error =''
+  public error = ''
   public loading = false
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -31,6 +31,12 @@ export class AuthLoginV2Component implements OnInit {
    * Constructor
    *
    * @param {CoreConfigService} _coreConfigService
+   * @param _formBuilder
+   * @param _route
+   * @param _router
+   * @param _authenticationService
+   * @param firebase
+   * @param router
    */
   constructor(
     private _coreConfigService: CoreConfigService,
@@ -39,7 +45,7 @@ export class AuthLoginV2Component implements OnInit {
     private _router: Router,
     private _authenticationService: AuthenticationService,
     private firebase: FirebaseService,
-    private router:Router
+    private router: Router
   ) {
 
     this._unsubscribeAll = new Subject();
@@ -86,33 +92,59 @@ export class AuthLoginV2Component implements OnInit {
     this.loading = true;
     this.firebase.login(this.f.email.value, this.f.password.value).subscribe(
       (response: any) => {
-          //Next callback
-          console.log('response received', response);
-          this.getUser( response.responseMessage.username,response.responseMessage.token)
-          const data ={
-            username:response.responseMessage.username,
+        console.log('login received', response);
+        this.loading = false
+
+        //IF 2FA CONFIRM THE CODE
+        if (response.responseMessage.choice_2fa == '2FA') {
+          let choice_2fa_log = response.responseMessage.choice_2fa_log4
+          let mail = response.responseMessage.choice_2fa_log4
+          this.router.navigate(['pages/confirm-login'])//Pass the two params to confirm-login page
+        }
+        //IF IS NOT 2FA, Just login, but first do restriction check, the redirect accordingly
+        else {
+          const data = {
+            username: response.responseMessage.username,
             token: response.responseMessage.token,
             email: response.responseMessage.email
           }
-          this.loading =false
-          this.router.navigate(['dashboard/overview'])
-          localStorage.setItem('user',JSON.stringify(data))
+          localStorage.setItem('user', JSON.stringify(data))
+          if (response.responseMessage.status == 1) {//Active account
+            this.router.navigate(['dashboard/overview'])
+          }
+          if (response.responseMessage.status == 2) {//On hold
+            this.router.navigate(['dashboard/overview'])
+          }
+          if (response.responseMessage.status == 3) {//Banned
+            this.router.navigate(['dashboard/overview'])
+          }
+          if (response.responseMessage.status == 4) {//Restricted
+            this.router.navigate(['dashboard/overview'])
+          }
+          if (response.responseMessage.status == 5) {//Temporarily locked
+            this.router.navigate(['dashboard/overview'])
+          }
+
+
+        }
+
       },
       (error) => {
-          //Error callback
-          this.loading =false
-          this.error = error.error.responseMessage;
-          console.error(error);
-          //throw error;   //You can also throw the error to a global error handler
+        //Error callback
+        this.loading = false
+        this.error = error.error.responseMessage;
+        console.error(error);
+
       }
-  );
+    );
     if (this.error) {
-         this.loading = false;
+      this.loading = false;
     }
   }
-  getUser(username:string,token:string){
-    this.firebase.getUser(username,token)
-    }
+
+  getUser(username: string, token: string) {
+    this.firebase.getUser(username, token)
+  }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------

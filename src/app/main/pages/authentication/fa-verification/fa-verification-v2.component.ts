@@ -5,6 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { CoreConfigService } from '@core/services/config.service';
+import {FirebaseService} from "../../../../services/firebase.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-auth-fa-verification-v2',
@@ -15,22 +17,24 @@ import { CoreConfigService } from '@core/services/config.service';
 export class FaVerificationV2Component implements OnInit {
   // Public
   public coreConfig: any;
-  public passwordTextType: boolean;
-  public confPasswordTextType: boolean;
   public resetPasswordForm: FormGroup;
   public submitted = false;
   public loading = false;
-
+  public secret: any;
+  public email: any;
   // Private
   private _unsubscribeAll: Subject<any>;
+
 
   /**
    * Constructor
    *
    * @param {CoreConfigService} _coreConfigService
    * @param {FormBuilder} _formBuilder
+   * @param firebase
+   * @param route
    */
-  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder) {
+  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder,private firebase: FirebaseService,private route: ActivatedRoute) {
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -57,20 +61,6 @@ export class FaVerificationV2Component implements OnInit {
   }
 
   /**
-   * Toggle password
-   */
-  togglePasswordTextType() {
-    this.passwordTextType = !this.passwordTextType;
-  }
-
-  /**
-   * Toggle confirm password
-   */
-  toggleConfPasswordTextType() {
-    this.confPasswordTextType = !this.confPasswordTextType;
-  }
-
-  /**
    * On Submit
    */
   onSubmit() {
@@ -94,7 +84,17 @@ export class FaVerificationV2Component implements OnInit {
       newPassword: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]]
     });
+    //Get token, the route param
+    this.route.queryParams
+      .subscribe(params => {
+          console.log(params);
+          this.secret = params.s;
+          this.email = params.m;
 
+
+
+        }
+      );
     // Subscribe to config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;

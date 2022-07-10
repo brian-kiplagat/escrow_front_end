@@ -51,7 +51,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'authentication/confirm-login',
+    path: 'confirm-login',
     component: FaVerificationV2Component
   }
 ];
