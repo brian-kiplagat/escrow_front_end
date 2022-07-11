@@ -73,23 +73,23 @@ export class ChatComponent implements OnInit ,OnDestroy,AfterViewInit{
       ) {
         // Get the application main menu
         this.menu = menu;
-    
+
         // Add languages to the translation service
         this._translateService.addLangs(['en', 'fr', 'de', 'pt']);
-    
+
         // This language will be used as a fallback when a translation isn't found in the current language
         this._translateService.setDefaultLang('en');
-    
+
         // Set the translations for the menu
         this._coreTranslationService.translate(menuEnglish, menuFrench, menuGerman, menuPortuguese);
-    
+
         // Set the private defaults
         this._unsubscribeAll = new Subject();}
   ngAfterViewInit(): void {
   }
-    
+
   ngOnDestroy(): void {
-    
+
 // Unsubscribe from all subscriptions
 this._unsubscribeAll.next();
 this._unsubscribeAll.complete();
@@ -139,7 +139,7 @@ this._unsubscribeAll.complete();
         const routeParams = this.route.snapshot.paramMap;
         this.fb.getTradeByID(this.user.username, this.user.token, routeParams.get('id')).subscribe(
             (data: any) => {
-                this.trade = data.responseMessage.trade?.[0];
+                this.trade = data.responseMessage.trade;
                 if (this.user.email == this.trade.buyer) {
                     //Logged in user is buyer
                     this.partner_data = data.responseMessage.seller; //Assign to seller details so that seller details will be show in chat-content.html

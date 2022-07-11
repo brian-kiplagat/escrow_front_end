@@ -4,6 +4,7 @@ import {ChatService} from 'app/main/apps/chat/chat.service';
 import {GlobalConfig, ToastrService} from 'ngx-toastr';
 import Swal from "sweetalert2";
 import {Subscription, timer} from "rxjs";
+import {isNumeric} from "rxjs/internal-compatibility";
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -115,6 +116,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     audio.load();
     audio.play();
   }
+
   private toast(title: string, message: string, type: string) {
     if (type == 'success') {
       this.toastr.success(message, title, {
@@ -136,6 +138,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     }
 
   }
+
   ngOnInit(): void {
     // Subscribe to contacts
 
@@ -265,58 +268,130 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
   }
 
+  okSendCrpto(otp: string, id: any) {
+    let user = JSON.parse(localStorage.getItem('user'))
+    const headerDict = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: user.token,
+      username: user.username
+    }
+    const requestOptions = {
+      headers: new Headers(headerDict),
+      method: 'POST',
+      body: JSON.stringify({
+        "email": user.email,
+        "id": id,
+        "otp": otp
+      })
+
+    };
+    return fetch('https://api.coinlif.com/api/coin/v1/releaseCrypto', requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+        if (result.status == true) {
+          this.status = "SUCCESSFUL"
+          this.toast('Congratulations', '👋 You just sold BTC. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
+          this.playAudio('assets/sounds/turumturum.wav')
+        } else {
+          this.toast('Failed', '👋 '+result.responseMessage, 'error')
+          return
+        }
+      })
+    .catch((error) => {
+      console.log(error)
+      this.toast('Ops', '👋 An error happened try again', 'error')
+
+    })
+
+  }
+
   release_btc(id: any) {
+
+
     if (this.trade.seller == this.storage.email) {
-      Swal.fire({
-        title: ' <h5>Are you sure!</h5>',
-        html: ' <p class="card-text font-small-3">Before releasing the Bitcoin, be sure to check your balance to confirm that you’ve received your money. Once you\'ve released your funds, the transaction is final. If you have any issues, click Back, start a dispute and well join in to help.</p>',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#2746e4',
-        cancelButtonColor: '#E42728',
-        cancelButtonText: 'Go back',
-        confirmButtonText:
-          '<i class="fa fa-ban"></i> RELEASE BTC',
-        confirmButtonAriaLabel: 'CANCEL',
-        customClass: {
-          confirmButton: 'btn btn-primary',
-          cancelButton: 'btn btn-danger ml-1'
-        }
-      }).then(async (result) => {
-        if (result.value) {
-          let user = JSON.parse(localStorage.getItem('user'))
-          const headerDict = {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            token: user.token,
-            username: user.username
+      if (this.trade[0].seller_2fa == '2FA' && this.trade[0].seller_2fa_status == 1) {
+        console.log('Show 2fa dialog')
+        Swal.mixin({
+          input: 'text',
+          confirmButtonText: 'SEND BITCOIN',
+          showCancelButton: true,
+          progressSteps: ['1', '2'],
+          customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-danger ml-1'
           }
-          const requestOptions = {
-            headers: new Headers(headerDict),
-            method: 'POST',
-            body: JSON.stringify({
-              "email": user.email,
-              "id": id
-            })
+        })
+          .queue([
+            {
+              title: '<h5>Are you sure!</h5>',
+              html: '<p class="card-text font-small-3">Before releasing the Bitcoin, check your balance to confirm that you’ve actually received your money. Once you release BTC, the transaction is final. </p>' +
+                '<p class="card-text font-small-3">Enter your 2FA Code to authorize this transaction</p>',
 
-          };
-          await fetch('https://api.coinlif.com/api/coin/v1/releaseCrypto', requestOptions).then((response) => {
-            console.log(response);
-            if (!response.ok) {
-              this.toast('Failed', '👋 Seems an error happened .Please try again', 'error')
-              return
-              //throw new Error(response.statusText);
-            } else {
-              this.status = "SUCCESSFUL"
-              this.toast('Congratulations', '👋 You just sold BTC. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
-              this.playAudio('assets/sounds/turumturum.wav')
+            },
+
+          ])
+          .then((result) => {
+            function fireSwal(option: string, title: string, msg: string) {
+              Swal.fire({
+                title: title,
+                html: msg,
+                icon: 'error',
+                confirmButtonText: 'OKAY',
+                customClass: {confirmButton: 'btn btn-primary'}
+              })
             }
-          }).catch((error) => {
-            this.toast('Ops', '👋 An error happened try again', 'error')
 
-          })
-        }
-      });
+            if ((<HTMLInputElement>result).value) {
+              let otp = (<HTMLInputElement>result).value[0]
+              console.log(otp)
+              if (otp.length <= 0) {
+                fireSwal('error', 'OTP REQUIRED', 'Please input the 2FA Code. Get your code from Authy or Google Authenticator to authorize this action')
+                return
+              }
+              if (otp.length > 6) {
+                fireSwal('error', 'OTP TOO LONG', 'Your 2FA code cannot be longer than 6 numbers. Get your code from Authy or Google Authenticator')
+                return
+              }
+              if (otp.length > 0 && otp.length < 6) {
+                fireSwal('error', 'OTP TOO SHORT', 'Your 2FA code cannot be shorter than 6 numbers. Get your code from Authy or Google Authenticator')
+                return
+              }
+              if (otp.length > 0 && !isNumeric(parseInt(otp))) {
+                fireSwal('error', 'OTP MUST BE A NUMBER', 'Your 2FA code must be a 6 digit number. Get your code from Authy or Google Authenticator')
+                return
+              } else {
+                this.okSendCrpto(otp, id)
+
+              }
+
+
+            }
+          });
+      } else {
+        Swal.fire({
+          title: ' <h5>Are you sure!</h5>',
+          html: ' <p class="card-text font-small-3">Before releasing the Bitcoin, be sure to check your balance to confirm that you’ve received your money. Once you\'ve released your funds, the transaction is final. If you have any issues, click Back, start a dispute and well join in to help.</p>',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#2746e4',
+          cancelButtonColor: '#E42728',
+          cancelButtonText: 'Go back',
+          confirmButtonText:
+            '<i class="fa fa-ban"></i> RELEASE BTC',
+          confirmButtonAriaLabel: 'CANCEL',
+          customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-danger ml-1'
+          }
+        }).then(async (result) => {
+          if (result.value) {
+            await this.okSendCrpto('', id)
+
+          }
+        });
+      }
     } else {
       this.toast('INVALID', 'You cant do that', 'error')
     }
