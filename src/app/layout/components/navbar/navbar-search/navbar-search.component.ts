@@ -1,8 +1,9 @@
-import { DOCUMENT } from '@angular/common';
-import { Router } from '@angular/router';
-import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+import {Router} from '@angular/router';
+import {Component, ElementRef, HostListener, Inject, OnInit, ViewChild} from '@angular/core';
 
-import { SearchService } from 'app/layout/components/navbar/navbar-search/search.service';
+import {SearchService} from 'app/layout/components/navbar/navbar-search/search.service';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-navbar-search',
@@ -28,6 +29,7 @@ export class NavbarSearchComponent implements OnInit {
     this.openSearchRef = false;
     this.searchText = '';
   }
+
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target.className === 'content-overlay') {
       this.removeOverlay();
@@ -39,15 +41,18 @@ export class NavbarSearchComponent implements OnInit {
   /**
    *
    * @param document
+   * @param _elementRef
    * @param router
    * @param _searchService
+   * @param _httpClient
    */
   constructor(
     @Inject(DOCUMENT) private document,
     private _elementRef: ElementRef,
     private router: Router,
-    public _searchService: SearchService
-  ) {}
+    public _searchService: SearchService, private _httpClient: HttpClient
+  ) {
+  }
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -139,6 +144,10 @@ export class NavbarSearchComponent implements OnInit {
       this.pageSearchLimit = this.apiData[0].searchLimit;
       this.files = this.apiData[1].data;
       this.contacts = this.apiData[2].data;
+    });
+    this._httpClient.get('https://api.coinlif.com/api/coin/v1/getUsers').subscribe((response: any) => {
+      console.log(response)
+      this.contacts = response.responseMessage
     });
   }
 }
