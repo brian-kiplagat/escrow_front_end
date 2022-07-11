@@ -23,8 +23,8 @@
     <!-- Login-->
     <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-        <h2 class="card-title font-weight-bold mb-1">CoinPes Admin 👋</h2>
-        <p class="card-text mb-2">Please sign-in to your account</p>
+        <h2 class="card-title font-weight-bold mb-1">CoinPes Admin 🛡️</h2>
+        <p class="card-text mb-2">Sign in to the administrative platform</p>
         <ngb-alert [type]="'primary'" [dismissible]="false" placement="top"
                    ngbTooltip="Protect yourself from phishing and hacking. You must confirm that you are logging in from the our official domain - coinpes.com and not any other."
         >
@@ -47,6 +47,7 @@
           <div class="form-group">
             <label class="form-label" for="login-email">Email</label>
             <input
+              id="login-email"
               type="text"
               formControlName="email"
               class="form-control"
