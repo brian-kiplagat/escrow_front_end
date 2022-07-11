@@ -96,7 +96,7 @@ export class AuthLoginV2Component implements OnInit {
         this.loading = false
 
         //IF 2FA CONFIRM THE CODE
-        if (response.responseMessage.choice_2fa == '2FA') {
+        if (response.responseMessage.choice_2fa == '2FA' && response.responseMessage.factor_login == 1) {
           let choice_2fa_log = response.responseMessage.choice_2fa_log4
           let mail = response.responseMessage.choice_2fa_log4
           this.router.navigate(['pages/confirm-login'])//Pass the two params to confirm-login page
