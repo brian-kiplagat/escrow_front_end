@@ -87,6 +87,30 @@ export class FaqComponent implements OnInit, OnDestroy {
   /**
    * On Changes
    */
+  getGraphData(granularity) {
+    //document.getElementById('btn-change').innerHTML = 'OK DONE';
+
+    this.fb.getGraph({
+      "granularity": granularity,
+
+    }).subscribe((response: any) => {
+      this.api_response = response.responseMessage;
+      console.log(response)
+      for (const val of this.api_response.candles) {
+        let arr = {
+          x: new Date(val[0] * 1000),
+          y: [val[3], val[2], val[1], val[4]]//open,high,low,close
+        }
+        this.data_array.push(arr)
+      }
+
+
+    }, (err) => {
+      console.log(err.error)
+    })
+
+  }
+
   ngOnInit(): void {
     this._faqService.onFaqsChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       this.data = response;
@@ -135,28 +159,11 @@ export class FaqComponent implements OnInit, OnDestroy {
         desc: 'Get a life-time free Bitcoin wallet maintained by a leading provider of secure Bitcoin wallets.'
       }
     ]
-    this.fb.getGraph({
-      "granularity": 60,
-
-    }).subscribe((response: any) => {
-      this.api_response = response.responseMessage;
-      for (const val of this.api_response.candles) {
-        let arr = {
-          x: new Date(val[0] * 1000),
-          y: [val[3], val[2], val[1], val[4]]//open,high,low,close
-        }
-        this.data_array.push(arr)
-      }
-
-
-    }, (err) => {
-      console.log(err.error)
-    })
-    // Apex Candlestick Chart
+    this.getGraphData(60)
+// Apex Candlestick Chart
     this.apexCandlestickChart = {
       series: [
         {
-
           data: this.data_array
         }
       ],
@@ -195,7 +202,6 @@ export class FaqComponent implements OnInit, OnDestroy {
         }
       }
     };
-
 
   }
 

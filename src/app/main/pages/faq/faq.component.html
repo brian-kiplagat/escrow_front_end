@@ -41,14 +41,34 @@
               class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start"
             >
               <div>
-                <h4 class="card-title mb-25 font-weight-bolder">{{api_response.price  | number : '1.2-2'}} {{api_response.currency}}</h4>
+                <h4
+                  class="card-title mb-25 font-weight-bolder">{{api_response.price  | number : '1.2-2'}} {{api_response.currency}}</h4>
                 <span class="card-subtitle text-muted">BTC Price Index</span>
               </div>
               <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
-                <h5 class="font-weight-bolder mb-0 mr-1">SPAN</h5>
-                <div class="badge badge-light-secondary">
-                  <i class="text-danger font-small-3" data-feather="arrow-down"></i>
-                  <span class="align-middle">30 Minutes</span>
+                <div class="btn-group">
+                  <div ngbDropdown>
+                    <button id="'btn-change"
+                            type="button"
+                            class="btn btn-outline-primary btn-sm budget-dropdown"
+                            ngbDropdownToggle
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            ngbDropdownToggle
+                    >
+                     Time
+                    </button>
+                    <div ngbDropdownMenu>
+                      <a ngbDropdownItem (click)="getGraphData(60)">30 Minutes</a>
+                      <a ngbDropdownItem (click)="getGraphData(300)">1 hour</a>
+                      <a ngbDropdownItem (click)="getGraphData(3600)">24 Hours</a>
+                      <a ngbDropdownItem (click)="getGraphData(21600)">2 Days</a>
+                      <a ngbDropdownItem (click)="getGraphData(86400)">7 Days</a>
+
+
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -79,7 +99,15 @@
       </div>
     </section>
     <!--/ Apex Line Charts -->
-
+    <section>
+      <div class="col-12 text-center">
+        <h2>Buy, Sell, Invest & Trade Bitcoin</h2>
+        <p class="mb-3">
+          Buy and sell Bitcoin using over 300 different payment methods. Start accepting payments and sending money
+          worldwide with millions people with escrow trader protection
+        </p>
+      </div>
+    </section>
     <!-- Stats Horizontal Card -->
     <div class="row">
       <div class="col-lg-3 col-sm-6 col-12">
@@ -154,7 +182,7 @@
         >
           <div class="card">
             <a routerLink="/pages/knowledge-base/{{ knowledgeBaseRef.category }}">
-              <img src="{{ knowledgeBaseRef.img }}" class="card-img-top" alt="knowledge-base-image" />
+              <img src="{{ knowledgeBaseRef.img }}" class="card-img-top" alt="knowledge-base-image"/>
               <div class="card-body text-center">
                 <h4>{{ knowledgeBaseRef.title }}</h4>
                 <p class="text-body mt-1 mb-0">{{ knowledgeBaseRef.desc }}</p>
@@ -211,14 +239,15 @@
           <div class="pricing-trial-content d-flex justify-content-between">
             <div class="text-center text-md-left mt-3">
               <h3 class="text-primary">Still not convinced? join for free!</h3>
-              <h5>Sign up today to receive your free digital wallet. You can immediately start buying or selling Bitcoin, hassle-free</h5>
+              <h5>Sign up today to receive your free digital wallet. You can immediately start buying or selling
+                Bitcoin, hassle-free</h5>
               <a href="/pages/register" class="btn btn-primary mt-2 mt-lg-3" rippleEffect>Okay, get started</a>
             </div>
 
             <!-- image -->
             <img
               src="assets/images/illustration/pricing-Illustration.svg"
-              class="pricing-trial-img img-fluid"
+              class="pricing-trial-img img-fluid d-none d-lg-block"
               alt="svg img"
             />
           </div>
@@ -228,13 +257,7 @@
     <!--/ pricing free trial -->
 
 
-
-
-
-
   </div>
-
-
 
 
 </div>
