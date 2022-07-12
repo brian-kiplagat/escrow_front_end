@@ -10,6 +10,7 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 
 import { FaqComponent } from 'app/main/pages/faq/faq.component';
 import { FAQService } from 'app/main/pages/faq/faq.service';
+import {NgApexchartsModule} from "ng-apexcharts";
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [FaqComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), NgbModule, CoreCommonModule, ContentHeaderModule],
+    imports: [CommonModule, RouterModule.forChild(routes), NgbModule, CoreCommonModule, ContentHeaderModule, NgApexchartsModule],
 
   providers: [FAQService]
 })

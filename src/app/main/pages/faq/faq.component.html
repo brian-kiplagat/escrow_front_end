@@ -32,6 +32,54 @@
         </div>
       </div>
     </section>
+    <!-- Apex Line Charts -->
+    <section id="apex-line-charts">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start"
+            >
+              <div>
+                <h4 class="card-title mb-25 font-weight-bolder">{{api_response.price  | number : '1.2-2'}} {{api_response.currency}}</h4>
+                <span class="card-subtitle text-muted">BTC Price Index</span>
+              </div>
+              <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
+                <h5 class="font-weight-bolder mb-0 mr-1">SPAN</h5>
+                <div class="badge badge-light-secondary">
+                  <i class="text-danger font-small-3" data-feather="arrow-down"></i>
+                  <span class="align-middle">30 Minutes</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="candlestick-chart" #apexCandlestickChartRef>
+                <apx-chart
+                  [series]="apexCandlestickChart.series"
+                  [chart]="{
+                    height: 400,
+                    width:
+                      isMenuToggled === false ? apexCandlestickChartRef.offsetWidth : apexCandlestickChart.chart.width,
+                    type: 'candlestick',
+                    toolbar: {
+                      show: false
+                    }
+                  }"
+                  [xaxis]="apexCandlestickChart.xaxis"
+                  [yaxis]="apexCandlestickChart.yaxis"
+                  [title]="apexCandlestickChart.title"
+                  [plotOptions]="apexCandlestickChart.plotOptions"
+                  [grid]="apexCandlestickChart.grid"
+                >
+                </apx-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--/ Apex Line Charts -->
+
     <!-- Stats Horizontal Card -->
     <div class="row">
       <div class="col-lg-3 col-sm-6 col-12">
