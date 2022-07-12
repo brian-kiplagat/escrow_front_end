@@ -40,7 +40,7 @@
             <div
               class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start"
             >
-              <div>
+              <div ngbTooltip="Price is USD, Time is provided in GMT">
                 <h4
                   class="card-title mb-25 font-weight-bolder">{{api_response.price  | number : '1.2-2'}} {{api_response.currency}}</h4>
                 <span class="card-subtitle text-muted">BTC Price Index</span>
@@ -57,14 +57,15 @@
                             aria-expanded="false"
                             ngbDropdownToggle
                     >
-                     Time
+                      Time
                     </button>
                     <div ngbDropdownMenu>
-                      <a ngbDropdownItem (click)="getGraphData(60)">30 Minutes</a>
-                      <a ngbDropdownItem (click)="getGraphData(300)">1 hour</a>
-                      <a ngbDropdownItem (click)="getGraphData(3600)">24 Hours</a>
-                      <a ngbDropdownItem (click)="getGraphData(21600)">2 Days</a>
-                      <a ngbDropdownItem (click)="getGraphData(86400)">7 Days</a>
+                      <a ngbDropdownItem (click)="getGraphData('PAST_30_MIN')">30 Minutes</a>
+                      <a ngbDropdownItem (click)="getGraphData('PAST_HOUR')">1 hour</a>
+                      <a ngbDropdownItem (click)="getGraphData('PAST_DAY')">24 Hours</a>
+                      <a ngbDropdownItem (click)="getGraphData('PAST_7_DAYS')">7 Days</a>
+                      <a ngbDropdownItem (click)="getGraphData('PAST_30_DAYS')">30 Days</a>
+
 
 
                     </div>

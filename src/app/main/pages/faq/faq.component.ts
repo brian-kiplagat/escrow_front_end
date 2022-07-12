@@ -91,7 +91,7 @@ export class FaqComponent implements OnInit, OnDestroy {
     //document.getElementById('btn-change').innerHTML = 'OK DONE';
 
     this.fb.getGraph({
-      "granularity": granularity,
+      "search": granularity,
 
     }).subscribe((response: any) => {
       this.api_response = response.responseMessage;
@@ -159,7 +159,7 @@ export class FaqComponent implements OnInit, OnDestroy {
         desc: 'Get a life-time free Bitcoin wallet maintained by a leading provider of secure Bitcoin wallets.'
       }
     ]
-    this.getGraphData(60)
+    this.getGraphData('PAST_DAY')
 // Apex Candlestick Chart
     this.apexCandlestickChart = {
       series: [
@@ -204,6 +204,7 @@ export class FaqComponent implements OnInit, OnDestroy {
     };
 
   }
+ngch
 
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
