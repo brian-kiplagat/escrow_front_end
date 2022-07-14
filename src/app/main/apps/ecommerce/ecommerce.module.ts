@@ -23,6 +23,7 @@ import { EcommerceCheckoutComponent } from 'app/main/apps/ecommerce/ecommerce-ch
 import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout-item/ecommerce-checkout-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SellOffersFormComponent } from './ecommerce-wishlist/sell-offers-form/sell-offers-form.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -76,6 +77,7 @@ const routes: Routes = [
     EcommerceCheckoutComponent,
     EcommerceItemComponent,
     EcommerceCheckoutItemComponent,
+    SellOffersFormComponent,
     
 
   ],

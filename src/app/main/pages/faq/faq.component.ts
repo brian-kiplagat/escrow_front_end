@@ -18,6 +18,27 @@ export class FaqComponent implements OnInit, OnDestroy {
   public data: any;
   public data2: any;
   public searchText: string;
+  public shopSidebarToggle = false;
+  public shopSidebarReset = false;
+  public gridViewRef = true;
+  public products;
+  public wishlist;
+  public cartList;
+  public page = 1;
+  public pageSize = 9;
+  public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
+  public selectBasicLoading = false;
+  public offers = []
+  public currency:any[] = []
+  public currencies =[]
+  public methods =[]
+  public   amount =0
+  public type:string ="buy"
+  public filters ={
+       currency:"",
+       method:"",
+    
+  }
 
   // private
   private _unsubscribeAll: Subject<any>;
