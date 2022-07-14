@@ -36,6 +36,8 @@ import { environment } from '../environments/environment';
 import { ProfileService } from 'app/main/pages/profile/profile.service';
 import { AuthGuard } from 'app/auth/helpers';
 import { ProfileComponent } from './main/pages/profile/ProfileComponent';
+import { FaqComponent } from './main/pages/faq/faq.component';
+import { FAQService } from './main/pages/faq/faq.service';
 
 
 
@@ -88,7 +90,12 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'pages/login',
+    component: FaqComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      faqData: FAQService
+    },
+    data: { animation: 'faq' },
     pathMatch: 'full'
   },
   {
@@ -104,7 +111,8 @@ const appRoutes: Routes = [
     BasicCustomContextMenuComponent,
     AnimatedCustomContextMenuComponent,
     SubMenuCustomContextMenuComponent,
-    ProfileComponent
+    ProfileComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
@@ -138,7 +146,9 @@ const appRoutes: Routes = [
   ],
 
   providers: [
-    ProfileService
+    ProfileService,
+ FAQService
+
     //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
