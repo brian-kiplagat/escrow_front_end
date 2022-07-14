@@ -71,7 +71,7 @@
 
 
     <!-- Search -->
-    <app-navbar-search></app-navbar-search>
+    <app-navbar-search  *ngIf="currentUser"></app-navbar-search>
     <!--/ Search -->
 
     <!-- Cart -->
@@ -79,11 +79,11 @@
     <!--/ Cart -->
 
     <!-- Notification -->
-    <app-navbar-notification></app-navbar-notification>
+    <app-navbar-notification *ngIf="currentUser"></app-navbar-notification>
     <!--/ Notification -->
 
     <!-- User Dropdown -->
-    <li ngbDropdown class="nav-item dropdown-user">
+    <li ngbDropdown class="nav-item dropdown-user" *ngIf="currentUser">
       <a
         class="nav-link dropdown-toggle dropdown-user-link "
         id="dropdown-user"
