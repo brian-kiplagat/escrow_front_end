@@ -496,4 +496,12 @@ export class FirebaseService {
       })
     });
   }
+  getGraph(formData: any) {
+    return this.http.post('https://api.coinlif.com/api/coin/v1/getGraph', formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+      })
+    });
+  }
 }

@@ -8,6 +8,7 @@ import { AuthGuard } from 'app/auth/helpers';
 import { CoreCommonModule } from '@core/common.module';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { FAQService } from 'app/main/pages/faq/faq.service';
+import {NgApexchartsModule} from "ng-apexcharts";
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
+
+    declarations: [],
   imports: [CommonModule, RouterModule.forChild(routes), NgbModule, CoreCommonModule, ContentHeaderModule],
 
   providers: [FAQService]
