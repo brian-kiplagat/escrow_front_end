@@ -24,6 +24,7 @@ export class AuthLoginV2Component implements OnInit {
   public passwordTextType: boolean;
   public error = ''
   public loading = false
+
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -97,9 +98,9 @@ export class AuthLoginV2Component implements OnInit {
 
         //IF 2FA CONFIRM THE CODE
         if (response.responseMessage.choice_2fa == '2FA' && response.responseMessage.factor_login == 1) {
-          let choice_2fa_log = response.responseMessage.choice_2fa_log4
-          let mail = response.responseMessage.choice_2fa_log4
-          this.router.navigate(['pages/confirm-login'])//Pass the two params to confirm-login page
+          let choice_2fa_log = response.responseMessage.choice_2fa_log
+          let mail = response.responseMessage.email
+          this.router.navigate(['pages/confirm-login'],{queryParams:{ choice_2fa_log: choice_2fa_log,mail:mail}})//Pass the two params to confirm-login page
         }
         //IF IS NOT 2FA, Just login, but first do restriction check, the redirect accordingly
         else {

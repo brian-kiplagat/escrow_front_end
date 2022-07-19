@@ -38,10 +38,8 @@ export class FooterComponent implements OnInit, OnDestroy, AfterViewInit {
         .subscribe(x => {
           if(x.url.includes("chat")){
             this.showActions =true
-            console.log("I am in cvhat")
           }else{
             this.showActions =false
-            console.log("I am out of chat")
           }
         })
     }
