@@ -330,7 +330,6 @@ export class FirebaseService {
 
   //send message
   async sendMessage(data: any) {
-    console.log(data);
     this.firestore.collection('trades').doc(data.tradeId.toString()).collection('chats').add({
       senderId: data.senderId,
       message: data.message,
@@ -387,6 +386,17 @@ export class FirebaseService {
         Accept: '*/*',
         token: token,
         username: username
+      })
+    });
+  }
+
+  // confirm 2FA
+  confirm2FAAuth( formData: any) {
+
+    return this.http.post('https://api.coinlif.com/api/coin/v1/confirmLogin', formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*'
       })
     });
   }
