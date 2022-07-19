@@ -65,43 +65,46 @@ const routes: Routes = [
     },
     data: { animation: 'EcommerceCheckoutComponent' }
   },
- 
+
 ];
 
 @NgModule({
-  declarations: [
-    EcommerceShopComponent,
-    EcommerceSidebarComponent,
-    EcommerceDetailsComponent,
-    EcommerceWishlistComponent,
-    EcommerceCheckoutComponent,
-    EcommerceItemComponent,
-    EcommerceCheckoutItemComponent,
-    SellOffersFormComponent,
-    
+    declarations: [
+        EcommerceShopComponent,
+        EcommerceSidebarComponent,
+        EcommerceDetailsComponent,
+        EcommerceWishlistComponent,
+        EcommerceCheckoutComponent,
+        EcommerceItemComponent,
+        EcommerceCheckoutItemComponent,
+        SellOffersFormComponent,
 
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    SwiperModule,
-    FormsModule,
-    CoreTouchspinModule,
-    ContentHeaderModule,
-    CoreSidebarModule,
-    CoreCommonModule,
-    NgbModule,
-    NouisliderModule,
-    HttpClientModule,
-    NgSelectModule,
-    ReactiveFormsModule
 
-  ],
-  providers: [
-    {
-      provide: SWIPER_CONFIG,
-      useValue: DEFAULT_SWIPER_CONFIG
-    }
-  ]
+    ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        SwiperModule,
+        FormsModule,
+        CoreTouchspinModule,
+        ContentHeaderModule,
+        CoreSidebarModule,
+        CoreCommonModule,
+        NgbModule,
+        NouisliderModule,
+        HttpClientModule,
+        NgSelectModule,
+        ReactiveFormsModule
+
+    ],
+    exports: [
+        SellOffersFormComponent
+    ],
+    providers: [
+        {
+            provide: SWIPER_CONFIG,
+            useValue: DEFAULT_SWIPER_CONFIG
+        }
+    ]
 })
 export class EcommerceModule {}

@@ -18,15 +18,11 @@ import {
   ApexFill,
   ApexMarkers,
   ApexTheme,
-  ApexNonAxisChartSeries,
-  ApexLegend,
-  ApexResponsive,
-  ApexStates
+  ApexLegend
 } from 'ng-apexcharts';
 
 import {colors} from 'app/colors.const';
 import {CoreConfigService} from '@core/services/config.service';
-import firebase from "firebase/compat";
 import {FirebaseService} from "../../../services/firebase.service";
 
 // interface ChartOptions
@@ -62,7 +58,7 @@ export class FaqComponent implements OnInit, OnDestroy {
   public data: any;
   public data2: any;
   public searchText: string;
- public shopSidebarToggle = false;
+  public shopSidebarToggle = false;
   public shopSidebarReset = false;
   public gridViewRef = true;
   public products;
@@ -73,24 +69,23 @@ export class FaqComponent implements OnInit, OnDestroy {
   public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
   public selectBasicLoading = false;
   public offers = []
-  public currency:any[] = []
-  public currencies =[]
-  public methods =[]
-  public   amount =0
-  public type:string ="buy"
-  public filters ={
-       currency:"",
-       method:"",
-    
-  }
+  public currency: any[] = []
+  public currencies = []
+  public methods = []
+  public amount = 0
+  public type: string = "buy"
+  public filters = {
+    currency: "",
+    method: "",
 
-=======
-  public apexCandlestickChart: Partial<ChartOptions>;
-  // private
-  private _unsubscribeAll: Subject<any>;
+  }
   public isMenuToggled = false;
   public data_array = []
   public api_response: any;
+  public apexCandlestickChart: Partial<ChartOptions>;
+  // private
+  private _unsubscribeAll: Subject<any>;
+
 
   /**
    * Constructor
@@ -227,7 +222,8 @@ export class FaqComponent implements OnInit, OnDestroy {
     };
 
   }
-ngch
+
+  ngch
 
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions

@@ -38,6 +38,8 @@ import { AuthGuard } from 'app/auth/helpers';
 import { ProfileComponent } from './main/pages/profile/ProfileComponent';
 import { FaqComponent } from './main/pages/faq/faq.component';
 import { FAQService } from './main/pages/faq/faq.service';
+import {EcommerceModule} from "./main/apps/ecommerce/ecommerce.module";
+import {NgApexchartsModule} from "ng-apexcharts";
 
 
 
@@ -143,6 +145,8 @@ const appRoutes: Routes = [
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    EcommerceModule,
+    NgApexchartsModule,
   ],
 
   providers: [
