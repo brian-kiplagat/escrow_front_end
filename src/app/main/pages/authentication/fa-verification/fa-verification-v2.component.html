@@ -25,6 +25,12 @@
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
         <h2 class="card-title font-weight-bold mb-1">Enter 2FA 📪</h2>
         <p class="card-text mb-2">Check the code on your Authy or Google Authenticator then enter it below.</p>
+
+        <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
+          <div class="alert-body">
+            <p>{{ error }}</p>
+          </div>
+        </ngb-alert>
         <form class="auth-reset-password-form mt-2" [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <div class="d-flex justify-content-between">

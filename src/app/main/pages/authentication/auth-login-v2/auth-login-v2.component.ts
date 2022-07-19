@@ -104,13 +104,14 @@ export class AuthLoginV2Component implements OnInit {
         }
         //IF IS NOT 2FA, Just login, but first do restriction check, the redirect accordingly
         else {
-          const data = {
-            username: response.responseMessage.username,
-            token: response.responseMessage.token,
-            email: response.responseMessage.email
-          }
-          localStorage.setItem('user', JSON.stringify(data))
+
           if (response.responseMessage.status == 1) {//Active account
+            const data = {
+              username: response.responseMessage.username,
+              token: response.responseMessage.token,
+              email: response.responseMessage.email
+            }
+            localStorage.setItem('user', JSON.stringify(data))
             this.router.navigate(['dashboard/overview'])
           }
           if (response.responseMessage.status == 2) {//On hold
@@ -138,9 +139,7 @@ export class AuthLoginV2Component implements OnInit {
 
       }
     );
-    if (this.error) {
-      this.loading = false;
-    }
+
   }
 
   getUser(username: string, token: string) {
