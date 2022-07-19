@@ -392,7 +392,7 @@ export class FirebaseService {
 
   // confirm 2FA
   confirm2FAAuth( formData: any) {
-
+    console.log(formData)
     return this.http.post('https://api.coinlif.com/api/coin/v1/confirmLogin', formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

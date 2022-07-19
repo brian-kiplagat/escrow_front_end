@@ -82,9 +82,9 @@ export class FaVerificationV2Component implements OnInit {
         console.log(this.f.newPassword.value);
         this.firebase
             .confirm2FAAuth({
-                email: this.mail,
-                secret: this.choice_2fa_log,
-                code: this.f.newPassword.value
+                "email": this.mail,
+                "secret": this.choice_2fa_log,
+                "code": this.f.newPassword.value
             })
             .subscribe(
                 (data: any) => {
