@@ -116,7 +116,7 @@ export class FaqComponent implements OnInit, OnDestroy {
       console.log(response)
       for (const val of this.api_response.candles) {
         let arr = {
-          x: new Date(val[0] * 1000),
+          x:  val[0] * 1000,
           y: [val[3], val[2], val[1], val[4]]//open,high,low,close
 
         }
@@ -214,18 +214,14 @@ export class FaqComponent implements OnInit, OnDestroy {
       },
 
       xaxis: {
-        type: 'datetime',
+        type: 'datetime'
 
       },
       yaxis: {
         tooltip: {
-          enabled: true
+          enabled: false
         },
-        axisTicks:{
-          width:2
-        },
-        labels:{
-         show: true,
+        labels: {
           formatter: (val, opts) => this.intToString(val)
         }
       }
@@ -258,13 +254,26 @@ export class FaqComponent implements OnInit, OnDestroy {
       }
     });
   }
-  intToString (value) {
+
+  intToString(value) {
     const suffixes = ["", "k", "m", "b", "t"];
     const suffixNum = Math.floor(("" + value).length / 3);
     let shortValue = parseFloat((suffixNum != 0 ? (value / Math.pow(1000, suffixNum)) : value).toPrecision(2));
     if (shortValue % 1 != 0) {
       //shortValue = shortValue.toFixed(1);
     }
-    return shortValue+suffixes[suffixNum];
+    return shortValue + suffixes[suffixNum];
+  }
+
+  private dateFormatNow(val: any) {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    console.log(timezone); // Asia/Karachi
+
+    const date = new Date(val * 1000);
+
+    return new Date(date).toLocaleString("en-US", {
+      localeMatcher: "best fit",
+      timeZoneName: "short"
+    }); // "Wed Jun 29 2011 09:52:48 GMT-0700 (PDT)"
   }
 }
