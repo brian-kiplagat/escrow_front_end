@@ -15,7 +15,6 @@ import { PricingModule } from './pricing/pricing.module';
 import { AccountSettingsModule } from './account-settings/account-settings.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
-import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
   declarations: [],
@@ -32,8 +31,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
     PricingModule,
     ProfileModule,
     KbModule,
-    AccountSettingsModule,
-    NgApexchartsModule
+    AccountSettingsModule
   ],
 
   providers: []
