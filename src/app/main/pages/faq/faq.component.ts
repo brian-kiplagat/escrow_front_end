@@ -118,7 +118,9 @@ export class FaqComponent implements OnInit, OnDestroy {
         let arr = {
           x: new Date(val[0] * 1000),
           y: [val[3], val[2], val[1], val[4]]//open,high,low,close
+
         }
+        console.log(this.intToString(val[2]))
         this.data_array.push(arr)
       }
 
@@ -212,11 +214,19 @@ export class FaqComponent implements OnInit, OnDestroy {
       },
 
       xaxis: {
-        type: 'datetime'
+        type: 'datetime',
+
       },
       yaxis: {
         tooltip: {
           enabled: true
+        },
+        axisTicks:{
+          width:2
+        },
+        labels:{
+         show: true,
+          formatter: (val, opts) => this.intToString(val)
         }
       }
     };
@@ -248,5 +258,13 @@ export class FaqComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  intToString (value) {
+    const suffixes = ["", "k", "m", "b", "t"];
+    const suffixNum = Math.floor(("" + value).length / 3);
+    let shortValue = parseFloat((suffixNum != 0 ? (value / Math.pow(1000, suffixNum)) : value).toPrecision(2));
+    if (shortValue % 1 != 0) {
+      //shortValue = shortValue.toFixed(1);
+    }
+    return shortValue+suffixes[suffixNum];
+  }
 }
