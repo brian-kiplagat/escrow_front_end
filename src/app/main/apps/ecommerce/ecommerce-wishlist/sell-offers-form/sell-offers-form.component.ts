@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'app/services/firebase.service';
 
 @Component({
   selector: 'app-sell-offers-form',
@@ -30,9 +31,25 @@ export class SellOffersFormComponent implements OnInit {
     
   }
 
-  constructor() { }
+  constructor(private _fb: FirebaseService) { }
 
   ngOnInit(): void {
+    this._fb
+    .getOffers("buy").subscribe((data:any) => {
+        // this.offers = data['data']['payload']
+        this.offers = data.responseMessage
+        console.log(data)
+    })
+ 
+    this._fb.getCurrency().subscribe((data:any)=>{
+        this.currencies =data.responseMessage.currencies
+        //this.currency = Object.keys(listNew);
+        //this.methods = data.responsemessage.methods
+        this.methods = data.responseMessage.methods
+        console.log( this.methods)
+      },(error)=>{
+        console.log(error)
+      })
   }
 
 }
