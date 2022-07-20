@@ -3,34 +3,71 @@
 
     <section id="faq-search-filter">
       <div class="card faq-search" style="background-image: url('assets/images/banner/banner.png')">
-        <div class="card-body text-center">
-          <div class="">
-            <div class="card text-center">
-              <div class="card-body">
-                <ul ngbNav #nav="ngbNav" class="nav nav-pills">
-                  <li ngbNavItem>
-                    <a ngbNavLink>BUY</a>
-                    <ng-template ngbNavContent>
-
-                      <h5 class="card-title">BUY BTC</h5>
-                      <p class="card-text"> With bank transfers, online wallets, gift cards, and over 350 other payment
-                        methods securely with escrow - buyer protection</p>
-                      <app-sell-offers-form></app-sell-offers-form>
-                    </ng-template>
-                  </li>
-                  <li ngbNavItem>
-                    <a ngbNavLink>SELL</a>
-                    <ng-template ngbNavContent>
-                      <h5 class="card-title">SELL BTC</h5>
-                      <p class="card-text">With bank transfers, online wallets, gift cards, and over 350 other payment
-                        methods securely with escrow - seller protection</p>
-                     
-                      <app-sell-offers-form></app-sell-offers-form>
-                    
-                    </ng-template>
-                  </li>
-                </ul>
-                <div [ngbNavOutlet]="nav" class="mt-2 pt-75"></div>
+        <div class="col-12 text-center m-1">
+          <h2>Buy, Sell, Invest & Trade Bitcoin</h2>
+          <p class="mb-3">
+            Buy and sell Bitcoin using over 300 different payment methods. Start accepting payments and sending money
+            worldwide with millions people protected by escrow
+          </p>
+        </div>
+        <div class="row m-1" >
+          <div class="col-lg-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="font-weight-bolder mb-0">Bank</h2>
+                  <p class="card-text">Transfers</p>
+                </div>
+                <div class="avatar bg-light-primary p-50 m-0">
+                  <div class="avatar-content">
+                    <i data-feather="credit-card" class="font-medium-5"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="font-weight-bolder mb-0">Online</h2>
+                  <p class="card-text">Wallets</p>
+                </div>
+                <div class="avatar bg-light-success p-50 m-0">
+                  <div class="avatar-content">
+                    <i data-feather="briefcase" class="font-medium-5"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="font-weight-bolder mb-0">Digital</h2>
+                  <p class="card-text">Currencies</p>
+                </div>
+                <div class="avatar bg-light-danger p-50 m-0">
+                  <div class="avatar-content">
+                    <i data-feather="codesandbox" class="font-medium-5"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="font-weight-bolder mb-0">Cash</h2>
+                  <p class="card-text">Transfers</p>
+                </div>
+                <div class="avatar bg-light-warning p-50 m-0">
+                  <div class="avatar-content">
+                    <i data-feather="dollar-sign" class="font-medium-5"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -106,77 +143,10 @@
     </section>
     <!--/ Apex Line Charts -->
     <section>
-      <div class="col-12 text-center">
-        <h2>Buy, Sell, Invest & Trade Bitcoin</h2>
-        <p class="mb-3">
-          Buy and sell Bitcoin using over 300 different payment methods. Start accepting payments and sending money
-          worldwide with millions people protected by escrow
-        </p>
-      </div>
+
     </section>
     <!-- Stats Horizontal Card -->
-    <div class="row">
-      <div class="col-lg-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h2 class="font-weight-bolder mb-0">Bank</h2>
-              <p class="card-text">Transfers</p>
-            </div>
-            <div class="avatar bg-light-primary p-50 m-0">
-              <div class="avatar-content">
-                <i data-feather="credit-card" class="font-medium-5"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h2 class="font-weight-bolder mb-0">Online</h2>
-              <p class="card-text">Wallets</p>
-            </div>
-            <div class="avatar bg-light-success p-50 m-0">
-              <div class="avatar-content">
-                <i data-feather="briefcase" class="font-medium-5"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h2 class="font-weight-bolder mb-0">Digital</h2>
-              <p class="card-text">Currencies</p>
-            </div>
-            <div class="avatar bg-light-danger p-50 m-0">
-              <div class="avatar-content">
-                <i data-feather="codesandbox" class="font-medium-5"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h2 class="font-weight-bolder mb-0">Cash</h2>
-              <p class="card-text">Transfers</p>
-            </div>
-            <div class="avatar bg-light-warning p-50 m-0">
-              <div class="avatar-content">
-                <i data-feather="dollar-sign" class="font-medium-5"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <!--/ Stats Horizontal Card -->
 
     <!-- Knowledge base -->
