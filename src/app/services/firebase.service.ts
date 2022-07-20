@@ -185,12 +185,11 @@ export class FirebaseService {
   }
 
   // get currencies
-  getCurrency(username: string, token: string) {
+  getCurrency() {
     const header = {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
-      token: token,
-      username: username
+      Accept: 'application/json'
+    
     };
     const requestOptions = {
       headers: new HttpHeaders(header)

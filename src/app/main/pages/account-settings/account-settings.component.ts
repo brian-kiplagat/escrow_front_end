@@ -245,7 +245,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       console.log(error)
       this.router.navigate(['/dashboard/overview'])
     });
-    this.fb.getCurrency(this.user.username, this.user.token).subscribe((data: any) => {
+    this.fb.getCurrency().subscribe((data: any) => {
       this.currencies = data.responseMessage.currencies
 
     }, (error) => {

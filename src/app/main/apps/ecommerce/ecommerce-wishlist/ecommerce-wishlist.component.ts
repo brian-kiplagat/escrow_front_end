@@ -97,7 +97,7 @@ export class EcommerceWishlistComponent implements OnInit {
                 console.log(data)
             })
          
-            this._fb.getCurrency(user.username,user.token).subscribe((data:any)=>{
+            this._fb.getCurrency().subscribe((data:any)=>{
                 this.currencies =data.responseMessage.currencies
                 //this.currency = Object.keys(listNew);
                 //this.methods = data.responsemessage.methods

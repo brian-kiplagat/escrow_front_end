@@ -135,7 +135,7 @@ export class EcommerceCheckoutComponent implements OnInit {
       this.tags = data.responseMessage
     });
 
-    this._fb.getCurrency(this.user.username, this.user.token).subscribe((data: any) => {
+    this._fb.getCurrency().subscribe((data: any) => {
       console.log(data)
       this.currencies = data.responseMessage.currencies
       this.methods = data.responseMessage.methods
