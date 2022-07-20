@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { FirebaseService } from 'app/services/firebase.service';
 
 @Component({
   selector: 'app-sell-offers-form',
   templateUrl: './sell-offers-form.component.html',
-  styleUrls: ['./sell-offers-form.component.scss']
+  styleUrls: ['./sell-offers-form.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  host: { class: 'ecommerce-application' }
+
 })
 export class SellOffersFormComponent implements OnInit {
   public contentHeader: object;

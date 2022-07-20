@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
 
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
-import {ItemsList} from '@ng-select/ng-select/lib/items-list';
 
 import {EcommerceService} from 'app/main/apps/ecommerce/ecommerce.service';
 import {FirebaseService} from '../../../../services/firebase.service';
