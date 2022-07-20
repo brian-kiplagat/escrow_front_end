@@ -91,7 +91,7 @@ export class EcommerceWishlistComponent implements OnInit {
     ngOnInit(): void {
         let user =JSON.parse(localStorage.getItem('user'))
         this._fb
-            .getOffers(user.username,user.token,"buy").subscribe((data:any) => {
+            .getOffers("buy").subscribe((data:any) => {
                 // this.offers = data['data']['payload']
                 this.offers = data.responseMessage
                 console.log(data)
@@ -128,7 +128,7 @@ export class EcommerceWishlistComponent implements OnInit {
     onNotify(value:number){
          let user =JSON.parse(localStorage.getItem('user'))
     this._fb
-        .getOffers(user.username,user.token,this.type).subscribe((data:any)=>{
+        .getOffers(this.type).subscribe((data:any)=>{
             this.offers = data.responseMessage
          
            console.log(value)
@@ -162,7 +162,7 @@ export class EcommerceWishlistComponent implements OnInit {
     onSliderChange(value:any){
         let user =JSON.parse(localStorage.getItem('user'))
         this._fb
-            .getOffers(user.username,user.token,this.type).subscribe((data:any)=>{
+            .getOffers(this.type).subscribe((data:any)=>{
                 this.offers = data.responseMessage
              
                console.log(this.offers,value)
@@ -194,7 +194,7 @@ export class EcommerceWishlistComponent implements OnInit {
         filterOffers(){
             let user =JSON.parse(localStorage.getItem('user'))
             this._fb
-                .getOffers(user.username,user.token,"sell").subscribe((data:any)=>{
+                .getOffers("sell").subscribe((data:any)=>{
                     this.offers = data.responseMessage
                    
                     this.offers=data.responseMessage.filter((item:any) =>{

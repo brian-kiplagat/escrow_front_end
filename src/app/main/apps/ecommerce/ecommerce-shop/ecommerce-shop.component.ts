@@ -93,7 +93,7 @@ export class EcommerceShopComponent implements OnInit {
   ngOnInit(): void {
     let user = JSON.parse(localStorage.getItem('user'))
     this._fb
-      .getOffers(user.username, user.token, this.type).subscribe((data: any) => {
+      .getOffers( this.type).subscribe((data: any) => {
       this.offers = data.responseMessage
 
     })
@@ -114,7 +114,7 @@ export class EcommerceShopComponent implements OnInit {
   filterOffers() {
     let user = JSON.parse(localStorage.getItem('user'))
     this._fb
-      .getOffers(user.username, user.token, "buy").subscribe((data: any) => {
+      .getOffers( "buy").subscribe((data: any) => {
       this.offers = data.responseMessage
 
       this.offers = data.responseMessage.filter((item: any) => {
@@ -141,7 +141,7 @@ export class EcommerceShopComponent implements OnInit {
   onSliderChange(value: any) {
     let user = JSON.parse(localStorage.getItem('user'))
     this._fb
-      .getOffers(user.username, user.token, this.type).subscribe((data: any) => {
+      .getOffers( this.type).subscribe((data: any) => {
       this.offers = data.responseMessage
 
       console.log(value[0])
@@ -162,7 +162,7 @@ export class EcommerceShopComponent implements OnInit {
   onNotify(value: number) {
     let user = JSON.parse(localStorage.getItem('user'))
     this._fb
-      .getOffers(user.username, user.token, this.type).subscribe((data: any) => {
+      .getOffers(this.type).subscribe((data: any) => {
       this.offers = data.responseMessage
 
       console.log(value)

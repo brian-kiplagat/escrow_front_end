@@ -221,12 +221,10 @@ export class FirebaseService {
   }
 
   // get offers
-  getOffers(username: string, token: string, type: string) {
+  getOffers( type: string) {
     const header = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      token: token,
-      username: username
     };
     const body = {
       type: type
