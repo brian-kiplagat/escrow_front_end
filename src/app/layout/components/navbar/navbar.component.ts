@@ -1,18 +1,18 @@
-import { Component, OnDestroy, OnInit, HostBinding, HostListener, ViewEncapsulation } from '@angular/core';
-import { MediaObserver } from '@angular/flex-layout';
+import {Component, OnDestroy, OnInit, HostBinding, HostListener, ViewEncapsulation} from '@angular/core';
+import {MediaObserver} from '@angular/flex-layout';
 
 import * as _ from 'lodash';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 
-import { AuthenticationService } from 'app/auth/service';
-import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
-import { CoreConfigService } from '@core/services/config.service';
-import { CoreMediaService } from '@core/services/media.service';
-import { FirebaseService } from 'app/services/firebase.service';
+import {AuthenticationService} from 'app/auth/service';
+import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
+import {CoreConfigService} from '@core/services/config.service';
+import {CoreMediaService} from '@core/services/media.service';
+import {FirebaseService} from 'app/services/firebase.service';
 
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -29,14 +29,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public currentSkin: string;
   public prevSkin: string;
 
-  public currentUser: any={};
+  public currentUser: any = {};
 
   public languageOptions: any;
   public navigation: any;
   public selectedLanguage: any;
   public mail = '';
   public balance = 0;
-  public fiat:number = 0
+  public fiat: number = 0
 
   @HostBinding('class.fixed-top')
   public isFixed = false;
@@ -84,9 +84,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _coreSidebarService: CoreSidebarService,
     private _mediaObserver: MediaObserver,
     public _translateService: TranslateService,
-    
-    private _firebae :FirebaseService,
-    private router:Router
+    private _firebae: FirebaseService,
+    private router: Router
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
@@ -137,7 +136,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // Use the selected language id for translations
     this._translateService.use(language);
 
-    this._coreConfigService.setConfig({ app: { appLanguage: language } }, { emitEvent: true });
+    this._coreConfigService.setConfig({app: {appLanguage: language}}, {emitEvent: true});
   }
 
   /**
@@ -157,12 +156,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     if (this.currentSkin === 'dark') {
       this._coreConfigService.setConfig(
-        { layout: { skin: this.prevSkin ? this.prevSkin : 'default' } },
-        { emitEvent: true }
+        {layout: {skin: this.prevSkin ? this.prevSkin : 'default'}},
+        {emitEvent: true}
       );
     } else {
       localStorage.setItem('prevSkin', this.currentSkin);
-      this._coreConfigService.setConfig({ layout: { skin: 'dark' } }, { emitEvent: true });
+      this._coreConfigService.setConfig({layout: {skin: 'dark'}}, {emitEvent: true});
     }
   }
 
@@ -171,10 +170,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
    */
   logout() {
     let user = JSON.parse(localStorage.getItem('user'));
-   this._firebae.logout(user!.token,user!.username,user.email).subscribe(()=>{
-    localStorage.clear();
-    this.router.navigate(['/pages/login']);
-   })
+    this._firebae.logout(user!.token, user!.username, user.email).subscribe(() => {
+      localStorage.clear();
+      this.router.navigate(['/pages/login']);
+    })
   }
 
   // Lifecycle Hooks
@@ -187,14 +186,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // get the currentUser details from localStorage
     let user = JSON.parse(localStorage.getItem('user'));
     console.log(user)
-   user? this._firebae.getUser(user!.username,user!.token).subscribe((data: any) => {
-     this.currentUser =data.responseMessage?.user_data[0];
-     this.fiat = data.responseMessage?.fiat
+    user ? this._firebae.getUser(user!.username, user!.token).subscribe((data: any) => {
+      this.currentUser = data.responseMessage?.user_data[0];
+      this.fiat = data.responseMessage?.fiat
 
-   },(error)=>{
-     console.log(error)
-     this.router.navigate(['/'])
-   }):user={}
+    }, (error) => {
+      console.log(error)
+      this.router.navigate(['/'])
+    }) : user = {}
 
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {

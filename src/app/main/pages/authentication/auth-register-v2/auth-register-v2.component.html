@@ -1,8 +1,8 @@
 <div class="auth-wrapper auth-v2">
   <div class="auth-inner row m-0">
-    <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
+    <!-- Brand logo--><a class="brand-logo" href="/">
       <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" height="28" />
-      <h2 class="brand-text text-primary ml-1">CoinPes</h2></a
+      <h2 class="brand-text text-primary ml-1">{{ coreConfig.app.appName }}</h2></a
     >
     <!-- /Brand logo-->
     <!-- Left Text-->
@@ -23,8 +23,9 @@
     <!-- Register-->
     <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-        <h2 class="card-title font-weight-bold mb-1">Welcome to CoinPes 🚀</h2>
-        <p class="card-text mb-2">Buy and sell BTC With Trader Protection!</p>
+        <h2 class="card-title font-weight-bold mb-1">
+          Create an account 🚀</h2>
+        <p class="card-text mb-2">Do more with crypto, only on Coinpes!</p>
         <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
           <div class="alert-body">
             <p>{{ error }}</p>
@@ -82,9 +83,9 @@
             >
             <div *ngIf="f.password.errors?.minlength">Password should be more than 5 characters</div>
               <div *ngIf="f.password.errors.required">Password is required</div>
-             
+
             </div>
-           
+
           </div>
           <div class="form-group">
             <div class="custom-control custom-checkbox">
