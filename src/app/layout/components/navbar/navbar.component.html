@@ -67,13 +67,14 @@
       </a>
     </li>
     <!--/ Toggle skin -->
-    <li class="nav-item d-none d-lg-block">
+
+
+    <ng-template #elseBlock> 
+      <li class="nav-item d-none d-lg-block">
       <a class="btn btn-outline-primary"  [routerLink]="'pages/login'">Login</a>
-    </li>
-
-
+    </li></ng-template>
     <!-- Search -->
-    <app-navbar-search  *ngIf="currentUser"></app-navbar-search>
+    <app-navbar-search  *ngIf="currentUser!.username; else elseBlock"></app-navbar-search>
     <!--/ Search -->
 
     <!-- Cart -->
@@ -81,11 +82,11 @@
     <!--/ Cart -->
 
     <!-- Notification -->
-    <app-navbar-notification *ngIf="currentUser"></app-navbar-notification>
+    <app-navbar-notification *ngIf="currentUser!.username"></app-navbar-notification>
     <!--/ Notification -->
 
     <!-- User Dropdown -->
-    <li ngbDropdown class="nav-item dropdown-user" *ngIf="currentUser">
+    <li ngbDropdown class="nav-item dropdown-user" *ngIf="currentUser!.username">
       <a
         class="nav-link dropdown-toggle dropdown-user-link "
         id="dropdown-user"
@@ -96,14 +97,14 @@
       >
         <ng-container>
           <div class="user-nav d-sm-flex d-none">
-            <span class="user-status">{{currentUser.username}}</span>
-            <span class="user-name font-weight-bolder">{{fiat}} {{currentUser.currency}}</span>
+            <span class="user-status">{{currentUser!.username}}</span>
+            <span class="user-name font-weight-bolder">{{fiat}} {{currentUser!.currency}}</span>
 
           </div>
           <span class="avatar"
           ><img
             class="round "
-            src="{{currentUser.profile_link}}"
+            src="{{currentUser!.profile_link}}"
             alt="avatar"
             height="40"
             width="40"/><span class="avatar-status-online"></span

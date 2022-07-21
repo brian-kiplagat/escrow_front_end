@@ -130,10 +130,10 @@ export class EcommerceCheckoutComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'))
 
 
-    this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
+    this.user?this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
       console.log(data)
       this.tags = data.responseMessage
-    });
+    }):this.user={}
 
     this._fb.getCurrency().subscribe((data: any) => {
       console.log(data)
@@ -204,7 +204,7 @@ export class EcommerceCheckoutComponent implements OnInit {
 
   onSubmit() {
     const key = uuidv4() + Math.round(new Date().getTime() / 1000).toString();
-    this._fb.createOffer(this.user.token, this.user.username, {
+    this.user?this._fb.createOffer(this.user.token, this.user.username, {
 
       "requestId": key,
       "method": this.checkoutForm.value.paymentMethod,
@@ -232,7 +232,7 @@ export class EcommerceCheckoutComponent implements OnInit {
     }, (err) => {
       this.errorMessage = err.error.responseMessage
       console.log(err.error)
-    })
+    }):this.user={}
     this.submitted = true;
   }
 }
