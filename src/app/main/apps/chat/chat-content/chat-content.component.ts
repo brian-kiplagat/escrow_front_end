@@ -4,7 +4,7 @@ import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.ser
 import {FirebaseService} from 'app/services/firebase.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ChatService} from "../chat.service";
-import { ToastrService, GlobalConfig } from 'ngx-toastr';
+import {ToastrService, GlobalConfig} from 'ngx-toastr';
 import {PaginationService} from '../pagination.service';
 
 @Component({
@@ -60,6 +60,12 @@ export class ChatContentComponent implements OnInit {
    * Update Chat
    */
   updateChat() {
+    let toCheck = ['Clubhouse', 'VKontakte', 'Quora', 'Twitter', 'Reddit', 'Pinterest', 'QZone', 'Snapchat',
+      'Telegram', 'Weibo', 'Sina', 'QQ', 'Douyin', 'TikTok', 'LinkedIn', 'WeChat', 'Instagram', 'Facebook', 'Messenger', 'YouTube', 'whatsapp','Fuck','Asshole','Ass','Petrol','Diesel'];
+    if (toCheck.some(o => this.chatMessage.toLowerCase().includes(o.toLowerCase()))) {
+      this.chatMessage = 'This message was censored because it violates Coinpes TOS. Don’t share your phone numbers contact like information e.g whatsapp, telegram, discord etc. Scammers can try to rip you on off by asking you to send money outside our Coinpes escrow platform which actually keeps you safe. You must insist to keep all your messages inside this chat so that if your trade ends up in a dispute, our team can fully help you'
+
+    }
     let user = JSON.parse(localStorage.getItem('user'));
     this.fb.sendMessage({
       tradeId: this.trade.id,
@@ -68,10 +74,14 @@ export class ChatContentComponent implements OnInit {
 
 
     })
+
     this.chatMessage = '';//Reset the input to an empty value
-    setTimeout(() => {
-      this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
-    }, 0);
+    setTimeout(
+      () => {
+        this
+          .scrolltop = this.scrollMe?.nativeElement.scrollHeight;
+      }, 0)
+    ;
 
     console.log(this.chatMessage)
 
@@ -86,13 +96,15 @@ export class ChatContentComponent implements OnInit {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
+// Lifecycle Hooks
+// -----------------------------------------------------------------------------------------------------
 
   /**
    * On init
    */
-  ngOnInit(): void {
+  ngOnInit()
+    :
+    void {
     const routeParams = this.route.snapshot.paramMap;
     this.user = JSON.parse(localStorage.getItem('user'));
 
@@ -106,7 +118,11 @@ export class ChatContentComponent implements OnInit {
     this.activeChat = false;
 
   }
-  block(ext_username: string) {
+
+  block(ext_username
+          :
+          string
+  ) {
     let user = JSON.parse(localStorage.getItem('user'));
     this.fb.blockNow(this.user.token, this.user.username, {
 
@@ -129,7 +145,11 @@ export class ChatContentComponent implements OnInit {
 
     })
   }
-  openLink(username: string) {
+
+  openLink(username
+             :
+             string
+  ) {
     window.location.href = '/users/' + username
   }
 
