@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild, Input} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, Input, SimpleChanges} from '@angular/core';
 
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
 import {FirebaseService} from 'app/services/firebase.service';
@@ -25,7 +25,9 @@ export class ChatContentComponent implements OnInit {
     fullName: 'ochieng Warren',
     userId: 1,
     avatar: 'assets/images/avatars/12-small.png',
-    status: 'online'
+    status: 'online',
+    ago: '2 Minutes ago'
+
   };
   public userProfile;
   public chatMessage = '';
@@ -61,7 +63,7 @@ export class ChatContentComponent implements OnInit {
    */
   updateChat() {
     let toCheck = ['Clubhouse', 'VKontakte', 'Quora', 'Twitter', 'Reddit', 'Pinterest', 'QZone', 'Snapchat',
-      'Telegram', 'Weibo', 'Sina', 'QQ', 'Douyin', 'TikTok', 'LinkedIn', 'WeChat', 'Instagram', 'Facebook', 'Messenger', 'YouTube', 'whatsapp','Fuck','Asshole','Ass','Petrol','Diesel'];
+      'Telegram', 'Weibo', 'Sina', 'QQ', 'Douyin', 'TikTok', 'LinkedIn', 'WeChat', 'Instagram', 'Facebook', 'Messenger', 'YouTube', 'whatsapp', 'Fuck', 'Asshole', 'Ass', 'Petrol', 'Diesel'];
     if (toCheck.some(o => this.chatMessage.toLowerCase().includes(o.toLowerCase()))) {
       this.chatMessage = 'This message was censored because it violates Coinpes TOS. Don’t share your phone numbers contact like information e.g whatsapp, telegram, discord etc. Scammers can try to rip you on off by asking you to send money outside our Coinpes escrow platform which actually keeps you safe. You must insist to keep all your messages inside this chat so that if your trade ends up in a dispute, our team can fully help you'
 
@@ -84,6 +86,32 @@ export class ChatContentComponent implements OnInit {
     ;
 
     console.log(this.chatMessage)
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.chatUser.ago = this.partner_data[0].online
+    if (this.chatUser.ago.includes('seconds') || this.chatUser.ago.includes('second')){
+      this.chatUser.status = 'online'
+      return
+    } if (this.chatUser.ago.includes('minutes') || this.chatUser.ago.includes('minute')){
+      this.chatUser.status = 'online'
+      return
+    } if (this.chatUser.ago.includes('hours') || this.chatUser.ago.includes('hour')){
+      this.chatUser.status = 'busy'
+      return
+    }
+    if (this.chatUser.ago.includes('weeks') || this.chatUser.ago.includes('week')){
+      this.chatUser.status = 'away'
+      return
+    } if (this.chatUser.ago.includes('months') || this.chatUser.ago.includes('month')){
+      this.chatUser.status = 'offline'
+      return
+    } if (this.chatUser.ago.includes('year') || this.chatUser.ago.includes('years')){
+      this.chatUser.status = 'offline'
+      return
+    }
+
 
   }
 
@@ -137,7 +165,7 @@ export class ChatContentComponent implements OnInit {
       });
 
     }, (err) => {
-      this.toastr.success(err.error, 'Ops!', {
+      this.toastr.error(err.error, 'Ops!', {
         toastClass: 'toast ngx-toastr',
         timeOut: 5000,
         closeButton: true

@@ -10,7 +10,12 @@
         <img [src]="partner_data.profile_link" alt="user_avatar" height="70" width="70"/>
         <span
           class="avatar-status-lg"
-          [ngClass]="'avatar-status-online'"
+          [ngClass]="{
+                                'avatar-status-offline': chatUser.status == 'offline',
+                                'avatar-status-online': chatUser.status == 'online',
+                                'avatar-status-busy': chatUser.status == 'busy',
+                                'avatar-status-away': chatUser.status == 'away'
+                            }"
         ></span>
       </div>
       <h4 class="chat-user-name"> {{ partner_data.username }}</h4>
@@ -89,7 +94,7 @@
         </li>
         <li class="mb-1">
           <i data-feather="clock" class="font-medium-2 mr-50"></i>
-          <span class="align-middle">Last seen 2 minutes ago</span>
+          <span class="align-middle">Last seen {{chatUser.ago}}</span>
         </li>
 
 
