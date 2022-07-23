@@ -72,7 +72,8 @@ export class ChatContentComponent implements OnInit {
     this.fb.sendMessage({
       tradeId: this.trade.id,
       senderId: user.username,
-      message: this.chatMessage
+      message: this.chatMessage,
+      recepient:this.partner_data.username
 
 
     })

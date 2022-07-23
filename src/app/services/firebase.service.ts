@@ -16,7 +16,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class FirebaseService {
     app = initializeApp(environment.firebase);
     db = getFirestore(this.app);
-    signuperror: string = 'kiplagatbrian18@gmail.com';
+    signuperror: string = '';
     loginerror: string = '';
     userData: any = {};
     signuperrorChange: Subject<string> = new Subject<string>();
@@ -75,7 +75,7 @@ export class FirebaseService {
                 Accept: '*/*',
                 token: token,
                 username: username
-           
+
             })
         });
     }
@@ -334,11 +334,21 @@ export class FirebaseService {
 
     //send message
     async sendMessage(data: any) {
-        this.firestore.collection('trades').doc(data.tradeId.toString()).collection('chats').add({
+      //Send message
+      this.firestore.collection('trades').doc(data.tradeId.toString()).collection('chats').add({
             senderId: data.senderId,
             message: data.message,
             time: Date.now()
         });
+      //Notify reecepient
+      this.firestore.collection('notifications').add({
+        heading: 'New Trade message',
+        timestamp:Date.now(),
+        resource_path: '/offers/chat/room/'+data.tradeId,
+        text:data.senderId + ' has sent you a message',
+        username:data.recepient,
+        email: ''
+      });
     }
 
     //retrieve all messages
