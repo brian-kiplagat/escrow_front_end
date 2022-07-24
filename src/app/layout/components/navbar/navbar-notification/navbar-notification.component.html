@@ -15,7 +15,7 @@
       <div class="dropdown-header d-flex">
         <h4 class="notification-title mb-0 mr-auto">Notifications</h4>
         <div class="badge badge-pill badge-light-primary">
-          {{ notifications?.length }} New
+          {{ count }} New
         </div>
       </div>
     </li>
@@ -46,7 +46,7 @@
 
     <!-- Notifications footer -->
     <li class="dropdown-menu-footer">
-      <a class="btn btn-primary btn-block" href="javascript:void(0)">Read all notifications</a>
+      <a class="btn btn-primary btn-block" (click)="mark_read()">Read all notifications</a>
     </li>
     <!--/ Notifications footer -->
   </ul>

@@ -135,12 +135,6 @@ export class EcommerceDetailsComponent implements OnInit {
       this._fb.openTrade(user.username, user.token, body).subscribe(
         (data: any) => {
           this.router.navigate(['/offers/chat/room/' + data.responseMessage.trade_id])
-          let audio = new Audio();
-          audio.src = 'assets/sounds/funded.wav';
-          audio.load();
-          audio.play();
-
-
         },
         (error) => {
           console.log(error);
