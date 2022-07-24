@@ -341,15 +341,19 @@ export class FirebaseService {
       message: data.message,
       time: Date.now()
     });
-    //Notify reecepient
-    this.firestore.collection('notifications').add({
-      heading: 'New Trade message',
-      timestamp: Date.now(),
-      resource_path: '/offers/chat/room/' + data.tradeId,
-      text: data.senderId + ' has sent you a message',
-      username: data.recepient,
-      read: false
-    });
+    let rand = Math.floor(Math.random() * 2);
+    if (rand == 2){
+      //Notify recipient
+      this.firestore.collection('notifications').add({
+        heading: 'New Trade message',
+        timestamp: Date.now(),
+        resource_path: '/offers/chat/room/' + data.tradeId,
+        text: data.senderId + ' has sent you a message',
+        username: data.recepient,
+        read: false
+      });
+    }
+
   }
 
   //retrieve all messages

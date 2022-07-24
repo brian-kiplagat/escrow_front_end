@@ -35,21 +35,28 @@ export class NavbarNotificationComponent implements OnInit {
     this.fb.retrieveNotifications(user.email, user.username).subscribe((data: any) => {
       console.log(data)
       this.notifications = data;
-      this.count = this.notifications.filter(obj => obj.read == false).length
       this.notifications.sort(function (x, y) {
         return y.timestamp - x.timestamp;
       })
       if (this.notifications[0].read == false) {
         //console.log('Play sound')
         if (this.notifications[0].heading == 'Escrow funded') {
-          this.playAudio('assets/sounds/turumturum.wav')
+          if (localStorage.getItem('sound') == 'yes') {
+            this.playAudio('assets/sounds/turumturum.wav')
+          }
 
         } else if (this.notifications[0].heading == 'New Login') {
-          this.playAudio('assets/sounds/windows_warning.wav')
+          if (localStorage.getItem('sound') == 'yes') {
+            this.playAudio('assets/sounds/windows_warning.wav')
+          }
         } else if (this.notifications[0].heading == 'New Trade message') {
-          this.playAudio('assets/sounds/tirit.wav')
+          if (localStorage.getItem('sound') == 'yes') {
+            this.playAudio('assets/sounds/tirit.wav')
+          }
         }
       }
+      this.count = this.notifications.filter(obj => obj.read == false).length
+      this.notifications = this.notifications.slice(0, 15)
     }, error => {
       console.log(error)
     });
@@ -65,6 +72,12 @@ export class NavbarNotificationComponent implements OnInit {
   }
 
   mark_read() {
+    this.notifications.filter(obj => {
+      if (obj.read == false) {
+        this.firestore.collection('notifications').doc(obj.id).update({read: true});
+
+      }
+    })
 
   }
 }
