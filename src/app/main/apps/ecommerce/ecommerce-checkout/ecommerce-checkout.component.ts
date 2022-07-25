@@ -128,8 +128,7 @@ export class EcommerceCheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'))
-
-
+    console.log(this.user)
     this.user?this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
       console.log(data)
       this.tags = data.responseMessage

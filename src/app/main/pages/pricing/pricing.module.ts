@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'pricing',
     component: PricingComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     resolve: {
       kbq: PricingService
     },
@@ -27,6 +27,6 @@ const routes: Routes = [
   declarations: [PricingComponent],
   imports: [CommonModule, RouterModule.forChild(routes), NgbModule, CoreCommonModule, ContentHeaderModule],
 
-  providers: [PricingService]
+  providers: [PricingService,AuthGuard]
 })
 export class PricingModule {}

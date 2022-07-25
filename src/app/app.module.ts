@@ -46,6 +46,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
 const appRoutes: Routes = [
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./main/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
@@ -85,6 +86,7 @@ const appRoutes: Routes = [
   {
     path: 'users/:id',
     component:ProfileComponent,
+    canActivate: [AuthGuard],
     pathMatch: 'full',
     resolve: {
       profile: ProfileService
@@ -93,7 +95,6 @@ const appRoutes: Routes = [
   {
     path: '',
     component: FaqComponent,
-    canActivate: [AuthGuard],
     resolve: {
       faqData: FAQService
     },
@@ -151,7 +152,8 @@ const appRoutes: Routes = [
 
   providers: [
     ProfileService,
- FAQService
+ FAQService,
+ AuthGuard
 
     //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

@@ -24,6 +24,7 @@ import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/ecommerc
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SellOffersFormComponent } from './ecommerce-wishlist/sell-offers-form/sell-offers-form.component';
+import {AuthGuard} from 'app/auth/helpers';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -60,6 +61,7 @@ const routes: Routes = [
   {
     path: 'create',
     component: EcommerceCheckoutComponent,
+    canActivate: [AuthGuard],
     resolve: {
       ecommerce: EcommerceService
     },
@@ -101,6 +103,7 @@ const routes: Routes = [
         SellOffersFormComponent
     ],
     providers: [
+      AuthGuard,
         {
             provide: SWIPER_CONFIG,
             useValue: DEFAULT_SWIPER_CONFIG

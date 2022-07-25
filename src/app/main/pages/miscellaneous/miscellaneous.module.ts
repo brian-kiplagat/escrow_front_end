@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'app/auth/helpers/auth.guards';
 
 import { CoreCommonModule } from '@core/common.module';
 
@@ -13,7 +14,8 @@ import { NotAuthorizedComponent } from 'app/main/pages/miscellaneous/not-authori
 const routes: Routes = [
   {
     path: 'miscellaneous/coming-soon',
-    component: ComingSoonComponent
+    component: ComingSoonComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'miscellaneous/not-authorized',
@@ -31,6 +33,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ComingSoonComponent, NotAuthorizedComponent, MaintenanceComponent, ErrorComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), CoreCommonModule]
+  imports: [CommonModule, RouterModule.forChild(routes), CoreCommonModule],
+  providers: [AuthGuard]
 })
 export class MiscellaneousModule {}

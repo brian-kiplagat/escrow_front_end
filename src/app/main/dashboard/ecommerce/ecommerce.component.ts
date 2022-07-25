@@ -74,7 +74,7 @@ export class EcommerceComponent implements OnInit {
       this.fiat = data.responseMessage?.fiat
     }, (error) => {
       console.log(error)
-      this.router.navigate(['/'])
+      this.router.navigate(['/pages/login'])
     });
 
 

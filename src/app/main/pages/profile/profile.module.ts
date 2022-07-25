@@ -13,7 +13,7 @@ import { ProfileService } from 'app/main/pages/profile/profile.service';
 const routes: Routes = [
   {
     path: 'profile',
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     resolve: {
       profile: ProfileService
     }
@@ -24,6 +24,6 @@ const routes: Routes = [
   declarations: [],
   imports: [CommonModule, RouterModule.forChild(routes), NgbModule, CoreCommonModule, ContentHeaderModule],
 
-  providers: [ProfileService]
+  providers: [ProfileService,AuthGuard]
 })
 export class ProfileModule {}

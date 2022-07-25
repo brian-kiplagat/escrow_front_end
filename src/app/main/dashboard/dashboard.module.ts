@@ -26,10 +26,7 @@ const routes = [
   {
     path: 'overview',
     component: EcommerceComponent,
-    //canActivate: [AuthGuard],
-    resolve: {
-      css: DashboardService
-    },
+    canActivate: [AuthGuard],
     data: { animation: 'decommerce' }
   }
 ];
@@ -46,7 +43,7 @@ const routes = [
     NgApexchartsModule,
     CoreTouchspinModule
   ],
-  providers: [DashboardService],
+  providers: [AuthGuard],
   exports: [EcommerceComponent]
 })
 export class DashboardModule {}

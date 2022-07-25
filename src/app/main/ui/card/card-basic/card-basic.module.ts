@@ -8,6 +8,7 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 
 import { CardBasicComponent } from 'app/main/ui/card/card-basic/card-basic.component';
 import {CommonModule} from "@angular/common";
+import { AuthGuard } from 'app/auth/helpers/auth.guards';
 
 
 // routing
@@ -15,6 +16,7 @@ const routes: Routes = [
   {
     path: 'card/card-basic',
     component: CardBasicComponent,
+    canActivate: [AuthGuard],
     data: { animation: 'card-basic' }
   }
 ];
@@ -22,6 +24,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [CardBasicComponent],
   imports: [CommonModule, RouterModule.forChild(routes), CoreDirectivesModule, ContentHeaderModule, NgbModule],
-  providers: []
+  providers: [AuthGuard]
 })
 export class CardBasicModule {}
