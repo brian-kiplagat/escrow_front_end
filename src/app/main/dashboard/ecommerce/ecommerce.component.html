@@ -267,10 +267,11 @@ Any additional proof as determined by the moderator. The moderator will then ass
                                 <div
                                     class="badge badge-pill badge-light-primary"
                                     placement="left"
-                                    ngbTooltip="Blocked Countries: DE, AR, CA, US"
+                                    ngbTooltip="Delete Offer"
                                 >
-                                    <i data-feather="alert-circle" class="font-medium-5"></i>
+                                    <i data-feather="alert-circle" class="font-medium-5" (click)="delete_offer(offer.idd)"></i>
                                 </div>
+                                
                             </div>
                             <div class="transaction-item">
                                 <div class="media">
@@ -294,7 +295,7 @@ Any additional proof as determined by the moderator. The moderator will then ass
                                         <small>Rate</small>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-outline-primary" rippleEffect>
+                                <button type="button" class="btn btn-outline-primary" rippleEffect (click)="delete_offer(offer.idd)">
                                     EDIT
                                 </button>
                             </div>

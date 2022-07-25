@@ -62,12 +62,7 @@ export class ChatComponent implements OnInit ,OnDestroy,AfterViewInit{
         private chat_service: ChatService,
         @Inject(DOCUMENT) private document: any,
         private _title: Title,
-        private _renderer: Renderer2,
-        private _elementRef: ElementRef,
         public _coreConfigService: CoreConfigService,
-        private _coreSidebarService: CoreSidebarService,
-        private _coreLoadingScreenService: CoreLoadingScreenService,
-        private _coreMenuService: CoreMenuService,
         private _coreTranslationService: CoreTranslationService,
         private _translateService: TranslateService
       ) {

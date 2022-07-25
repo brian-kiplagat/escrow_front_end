@@ -117,6 +117,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     audio.play();
   }
 
+  
   private toast(title: string, message: string, type: string) {
     if (type == 'success') {
       this.toastr.success(message, title, {

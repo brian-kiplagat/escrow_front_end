@@ -15,6 +15,7 @@ import {locale as german} from 'app/main/dashboard/i18n/de';
 import {locale as portuguese} from 'app/main/dashboard/i18n/pt';
 import {FirebaseService} from 'app/services/firebase.service';
 import clipboard from 'clipboardy';
+import Swal from "sweetalert2";
 import { ToastrService, GlobalConfig } from 'ngx-toastr';
 
 
@@ -79,7 +80,33 @@ export class EcommerceComponent implements OnInit {
 
 
   }
+  playAudio(path) {
+    let audio = new Audio();
+    audio.src = path;
+    audio.load();
+    audio.play();
+  }
+  private toast(title: string, message: string, type: string) {
+    if (type == 'success') {
+      this.toastr.success(message, title, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true,
+        positionClass: 'toast-top-right',
+        progressBar: true
+      });
+    } else {
+      this.toastr.error(message, title, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 5000,
+        closeButton: true,
+        positionClass: 'toast-top-right',
+        progressBar: true
+      });
 
+    }
+
+  }
   checkType(trade) {
     console.log(trade)
     if (trade.trade.buyer == this.user.email) {//Logged in user is buyer
@@ -108,6 +135,62 @@ export class EcommerceComponent implements OnInit {
     this.fb.toggleAll( this.user.token,this.user.username).subscribe((data)=>{
       console.log(data)
     })}
+    delete_offer(id: any) {
+      this.playAudio('assets/sounds/windows_warning.wav')
+      if (this.user) {
+        Swal.fire({
+          title: ' <h5>Hey Wait!</h5>',
+          html: '<p class="card-text font-small-3">This offer will be deleted permanently</p>',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#2746e4',
+          cancelButtonColor: '#E42728',
+          cancelButtonText: 'Go back',
+          confirmButtonText:
+            '<i class="fa fa-ban"></i> DELETE OFFER',
+          confirmButtonAriaLabel: 'CANCEL',
+          customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-danger ml-1'
+          }
+        }).then(async (result) => {
+          if (result.value) {
+            let user = JSON.parse(localStorage.getItem('user'))
+            const headerDict = {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              token: user.token,
+              username: user.username
+            }
+            const requestOptions = {
+              headers: new Headers(headerDict),
+              method: 'POST',
+              body: JSON.stringify({
+                "id": id
+              })
+  
+            };
+            await fetch('https://api.coinlif.com/api/coin/v1/cancelTrade', requestOptions).then((response) => {
+              console.log(response);
+              if (!response.ok) {
+  
+                this.toast('Failed', '👋 an error happened .Please try again', 'error')
+                return
+                //throw new Error(response.statusText);
+              } else {
+                this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
+                this.playAudio('assets/sounds/turumturum.wav')
+              }
+            }).catch((error) => {
+              this.toast('Ops', '👋 An error happened try again', 'error')
+            })
+          }
+        });
+      } else {
+        this.toast('INVALID', 'You cant do that', 'error')
+      }
+  
+    }
   /**
    * After View Init
    */
