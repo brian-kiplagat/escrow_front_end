@@ -197,12 +197,12 @@ export class NavbarSellComponent implements OnInit {
    });
  }
 
-  login_check(path: string) {
+  /*login_check(path: string) {
    if (localStorage.getItem('user') === null){
      this.router.navigate(['/pages/login'])
    }else{
      this.router.navigate([path])
    }
 
-  }
+  }*/
 }
