@@ -3,6 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 
 import { SearchService } from 'app/layout/components/navbar/navbar-search/search.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar-sell',
@@ -48,7 +49,7 @@ export class NavbarSellComponent implements OnInit {
   * @param document
   * @param _searchService
   */
- constructor(@Inject(DOCUMENT) private document, public _searchService: SearchService) {}
+ constructor(@Inject(DOCUMENT) private document, public _searchService: SearchService,private router: Router) {}
 
  // Public Methods
  // -----------------------------------------------------------------------------------------------------
@@ -195,4 +196,13 @@ export class NavbarSellComponent implements OnInit {
      this.openBookmarkRef = res;
    });
  }
+
+  login_now(path: string) {
+   if (localStorage.getItem('user') === null){
+     this.router.navigate(['/pages/login'])
+   }else{
+     this.router.navigate([path])
+   }
+
+  }
 }
