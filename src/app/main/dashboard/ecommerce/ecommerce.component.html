@@ -215,6 +215,7 @@ Any additional proof as determined by the moderator. The moderator will then ass
                                 checked
                                 class="custom-control-input"
                                 id="customSwitch3"
+                                (change)="toggleAll()"
                             />
                             <label class="custom-control-label" for="customSwitch3"></label>
                         </div>
@@ -275,12 +276,13 @@ Any additional proof as determined by the moderator. The moderator will then ass
                                 <div class="media">
                                     <div class="custom-control custom-switch custom-control-inline">
                                         <input
-                                            type="checkbox"
-                                            class="custom-control-input"
-                                            checked
-                                            id="{{ offer.id }}"
-                                        />
-                                        <label class="custom-control-label" for="sw1"></label>
+                                type="checkbox"
+                                checked
+                                class="custom-control-input"
+                                id="customSwitch5"
+                                (change)="toggleOffer(offer.idd)"
+                            />
+                            <label class="custom-control-label" for="customSwitch5"></label>
                                     </div>
                                     <div class="media-body" style="margin-left: -10px">
                                         <core-touchspin

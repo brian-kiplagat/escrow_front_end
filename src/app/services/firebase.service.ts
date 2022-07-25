@@ -537,4 +537,26 @@ export class FirebaseService {
       })
     });
   }
+  toggleAll(token:string, username:string){
+   
+    return this.http.get('https://api.coinlif.com/api/coin/v1/offer/off/toggleall', {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
+  toggleSingleOffer(token:string, username:string, offerId:any){
+    console.log(token,username)
+    return this.http.get(`https://api.coinlif.com/api/coin/v1/offer/${offerId}/on/toggle`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
 }

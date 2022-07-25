@@ -97,7 +97,17 @@ export class EcommerceComponent implements OnInit {
   getEmail() {
     return localStorage.getItem('user')
   }
-
+  toggleOffer(id:string){
+    console.log(id)
+    this.fb.toggleSingleOffer( this.user.token,this.user.username,id).subscribe((data)=>{
+      console.log(data)
+    })
+  
+  }
+  toggleAll(){
+    this.fb.toggleAll( this.user.token,this.user.username).subscribe((data)=>{
+      console.log(data)
+    })}
   /**
    * After View Init
    */
