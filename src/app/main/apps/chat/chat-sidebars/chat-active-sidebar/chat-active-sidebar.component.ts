@@ -51,6 +51,7 @@ export class ChatActiveSidebarComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  
   ngOnChanges(changes: SimpleChanges) {
     this.chatUser.ago = this.partner_data[0].online
     if (this.chatUser.ago.includes('seconds') || this.chatUser.ago.includes('second')){

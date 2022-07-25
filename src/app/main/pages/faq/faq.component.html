@@ -86,7 +86,7 @@
             >
               <div ngbTooltip="Price is in US Dollars. Time is provided in Greenwich Mean Time (GMT)">
                 <h4
-                  class="card-title mb-25 font-weight-bolder">{{api_response.price  | number : '1.2-2'}} {{api_response.currency}}</h4>
+                  class="card-title mb-25 font-weight-bolder">{{api_response?.price  | number : '1.2-2'}} {{api_response.currency}}</h4>
                 <span class="card-subtitle text-muted">BTC Price Index</span>
               </div>
               <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1 ">

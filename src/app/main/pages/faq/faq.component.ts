@@ -1,10 +1,11 @@
-import {Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild,SimpleChanges} from '@angular/core';
 
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {FAQService} from 'app/main/pages/faq/faq.service';
 import {
+  ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
   ApexStroke,
@@ -52,7 +53,7 @@ export interface ChartOptions {
   encapsulation: ViewEncapsulation.None
 })
 export class FaqComponent implements OnInit, OnDestroy {
-  @ViewChild('apexCandlestickChartRef') apexCandlestickChartRef: any;
+  @ViewChild('apexCandlestickChartRef',{ static: false }) apexCandlestickChartRef: any;
   // public
   public contentHeader: object;
   public data: any;
@@ -61,9 +62,6 @@ export class FaqComponent implements OnInit, OnDestroy {
   public shopSidebarToggle = false;
   public shopSidebarReset = false;
   public gridViewRef = true;
-  public products;
-  public wishlist;
-  public cartList;
   public page = 1;
   public pageSize = 9;
   public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
@@ -97,6 +95,7 @@ export class FaqComponent implements OnInit, OnDestroy {
    */
   constructor(private fb: FirebaseService, private _faqService: FAQService, private _knowledgeBaseService: FAQService, private _coreConfigService: CoreConfigService) {
     this._unsubscribeAll = new Subject();
+     
   }
 
   // Lifecycle Hooks
@@ -105,32 +104,42 @@ export class FaqComponent implements OnInit, OnDestroy {
   /**
    * On Changes
    */
-  getGraphData(granularity) {
+  getGraphData(granularity:any) {
     //document.getElementById('btn-change').innerHTML = 'OK DONE';
 
     this.fb.getGraph({
-      "search": granularity,
+      "search": granularity,  
 
     }).subscribe((response: any) => {
       this.api_response = response.responseMessage;
-      console.log(response)
+      let newArray =[]
       for (const val of this.api_response.candles) {
         let arr = {
           x:  val[0] * 1000,
           y: [val[3], val[2], val[1], val[4]]//open,high,low,close
 
         }
-        console.log(this.intToString(val[2]))
-        this.data_array.push(arr)
+        newArray.push(arr)
       }
-
-
+      this.data_array =newArray
+      this.apexCandlestickChart.series=[
+        {data:this.data_array}
+      ]
     }, (err) => {
       console.log(err.error)
     })
 
   }
-
+ updateSeries(val:any){
+       // Apex Candlestick Chart
+    this.apexCandlestickChart = {
+      series: [
+        {
+          data: val
+        }
+      ],
+    };
+ }
   ngOnInit(): void {
     this._faqService.onFaqsChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       this.data = response;
@@ -196,7 +205,7 @@ export class FaqComponent implements OnInit, OnDestroy {
       },
       plotOptions: {
         candlestick: {
-          colors: {
+          colors: { 
             upward: colors.solid.success,
             downward: colors.solid.danger
           }
