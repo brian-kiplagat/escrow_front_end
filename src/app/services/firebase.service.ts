@@ -559,4 +559,14 @@ export class FirebaseService {
       })
     });
   }
+  deleteOffer(token:string, username:string ,id: any) {
+    return this.http.get(`https://api.coinlif.com/api/coin/v1/offer/${id}/delete`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
 }

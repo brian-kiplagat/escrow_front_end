@@ -267,9 +267,9 @@ Any additional proof as determined by the moderator. The moderator will then ass
                                 <div
                                     class="badge badge-pill badge-light-primary"
                                     placement="left"
-                                    ngbTooltip="Delete Offer"
+                                    ngbTooltip="{{offer.blocked_countries}}"
                                 >
-                                    <i data-feather="alert-circle" class="font-medium-5" (click)="delete_offer(offer.idd)"></i>
+                                    <i data-feather="alert-circle" class="font-medium-5"></i>
                                 </div>
                                 
                             </div>
@@ -298,6 +298,7 @@ Any additional proof as determined by the moderator. The moderator will then ass
                                 <button type="button" class="btn btn-outline-primary" rippleEffect (click)="delete_offer(offer.idd)">
                                     EDIT
                                 </button>
+                             
                             </div>
                             <form action="javascript:void(0);" class="form">
                                 <div class="row">

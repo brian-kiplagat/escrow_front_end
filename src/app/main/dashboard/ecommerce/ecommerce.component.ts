@@ -73,11 +73,12 @@ export class EcommerceComponent implements OnInit {
       this.tradeData = data.responseMessage?.trade_data;
       this.offerData = data.responseMessage?.offer_data
       this.fiat = data.responseMessage?.fiat
+      
+console.log(this.offerData)
     }, (error) => {
       console.log(error)
       this.router.navigate(['/pages/login'])
     });
-
 
   }
   playAudio(path) {
@@ -127,8 +128,12 @@ export class EcommerceComponent implements OnInit {
   toggleOffer(id:string){
     console.log(id)
     this.fb.toggleSingleOffer( this.user.token,this.user.username,id).subscribe((data)=>{
-      console.log(data)
-    })
+      console.log('data here',data)
+    
+  },
+  (error)=>{
+    console.log("this is error",error)
+  })
   
   }
   toggleAll(){
@@ -155,24 +160,9 @@ export class EcommerceComponent implements OnInit {
           }
         }).then(async (result) => {
           if (result.value) {
-            let user = JSON.parse(localStorage.getItem('user'))
-            const headerDict = {
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-              token: user.token,
-              username: user.username
-            }
-            const requestOptions = {
-              headers: new Headers(headerDict),
-              method: 'POST',
-              body: JSON.stringify({
-                "id": id
-              })
-  
-            };
-            await fetch('https://api.coinlif.com/api/coin/v1/cancelTrade', requestOptions).then((response) => {
-              console.log(response);
-              if (!response.ok) {
+            this.fb.deleteOffer(this.user.token,this.user.username,id).subscribe((data:any)=>{
+              console.log("this is the data",data)
+                            if (!data.ok) {
   
                 this.toast('Failed', '👋 an error happened .Please try again', 'error')
                 return
@@ -181,7 +171,8 @@ export class EcommerceComponent implements OnInit {
                 this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
                 this.playAudio('assets/sounds/turumturum.wav')
               }
-            }).catch((error) => {
+            },(error:any)=>{
+              console.log("this is the error",error)
               this.toast('Ops', '👋 An error happened try again', 'error')
             })
           }
