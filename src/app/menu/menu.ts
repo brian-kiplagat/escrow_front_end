@@ -41,7 +41,7 @@ export const menu: CoreMenu[] = [
     title: 'Crypto Lending',
     translate: 'MENU.APPS.SECTION',
     icon: 'codesandbox',
-    url: "pages/miscellaneous/coming-soon"
+    url: "offers/bitcoin/crypto-lending"
   },
   {
     id: 'apps_4',

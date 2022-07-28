@@ -1,0 +1,276 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+      <!-- content-header component -->
+      <app-content-header [contentHeader]="contentHeader"></app-content-header>
+  
+      <div class="row match-height">
+  
+  
+        <!-- Developer Meetup Card -->
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="card card-developer-meetup">
+            <div class="bg-light-primary rounded-top text-center">
+              <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl={{address}}" alt="Meeting Pic" height="170" />
+            </div>
+            <div class="card-body">
+              <div class="meetup-header d-flex align-items-center">
+  
+                <div class="my-auto" ngbTooltip = "Send Bitcoin (BTC) to this address to add funds to your account." placement="top">
+                  <h4 class="card-title mb-25">Receive BTC</h4>
+                  <p class="card-text mb-0" >{{address}}</p>
+                </div>
+              </div>
+              <div class="">
+                <button type="button" class="btn btn-primary btn-block" rippleEffect (click)="copy_address()">COPY ADDRESS</button>
+              </div>
+  
+            </div>
+  
+          </div>
+        </div>
+        <!--/ Developer Meetup Card -->
+        <!-- Payment Card -->
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="card card-payment">
+            <div class="card-header">
+              <h4 class="card-title">SEND BTC</h4>
+              <h4 class="card-title text-primary" ngbTooltip = "This is your current balance in {{currency}}. You can change how we display your balance from the account settings menu." placement="top">{{fiat}} {{currency}} </h4>
+            </div>
+  
+            <div class="card-body">
+              <ngb-alert [type]="'danger'" [dismissible]="true" *ngIf="error">
+                <div class="alert-body">
+                  <p>{{ message }}</p>
+                </div>
+              </ngb-alert>
+              <ngb-alert [type]="'success'" [dismissible]="true" *ngIf="success">
+                <div class="alert-body">
+                  <p>{{ message }}</p>
+                </div>
+              </ngb-alert>
+              <ngb-alert [type]="'primary'" [dismissible]="true" *ngIf="loading">
+                <div class="alert-body">
+                  <p>Hold on. Processing your sendout</p>
+                </div>
+              </ngb-alert>
+              <form action="javascript:void(0);" class="form">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group mb-2">
+                      <label for="address" ngbTooltip="Enter your address here, be sure to confirm its correct" placement="right">BTC Address</label>
+                      <input
+                        type="text"
+                        id="address"
+                        class="form-control"
+                        placeholder="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12" >
+                    <div class="form-group mb-2">
+                      <label for="amount" ngbTooltip="Enter your amount in {{currency}}." placement="right">Amount ({{currency}})</label>
+                      <input type="number" id="amount" class="form-control" placeholder="{{currency}}" />
+                    </div>
+                  </div>
+                  <div class="col-12" *ngIf="currentUser.choice_2fa == '2FA' && currentUser.factor_send == true">
+                    <div class="form-group mb-2">
+                      <label for="otp" ngbTooltip="Enter the code from your Authy or Google Authenticator" placement="right">OTP</label>
+                      <input type="number" id="otp" class="form-control" placeholder="12356" />
+                    </div>
+                  </div>
+  
+                  <div class="col-12">
+                    <button type="button" class="btn btn-primary btn-block" (click)="sendBTC()" rippleEffect>SEND BTC</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!--/ Payment Card -->
+  
+  
+        <!-- Apply Job Card -->
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="card card-apply-job">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="media">
+                  <div class="avatar mr-1">
+                    <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42" />
+                  </div>
+                  <div class="media-body">
+                    <h5 class="mb-0">Mittie Evans</h5>
+                    <small class="text-muted">Tech support</small>
+                  </div>
+                </div>
+                <div class="badge badge-pill badge-light-primary">alert</div>
+              </div>
+              <h5 class="apply-job-title">Why do i need to confirm the address when sending?</h5>
+              <p class="card-text mb-2">
+                Due to the irreversible nature of cryptocurrency protocols, transactions can't be reversed once initiated. While Coinpes Wallet gives you complete custodian control over your digital assets, this also means that we're not able to recover any funds sent to an incorrect address. We strongly suggest that you double check addresses before sending
+              </p>
+  
+            </div>
+          </div>
+        </div>
+        <!--/ Apply Job Card -->
+  
+  
+  
+  
+      </div>
+  
+      <section>
+        <!-- Table Basic -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"><h4 class="card-title">Crypto Deposits</h4></div>
+              <div class="card-body">
+                <p class="card-text">
+                  BTC sent to your address will be available in your account for trading after 3
+                  confirmations. Which takes about 30 Minutes to One Hour
+                </p>
+              </div>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>amount</th>
+                    <th>hash</th>
+                    <th>date</th>
+                    <th>status</th>
+                    <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+  
+                  <tr *ngFor ="let deposit of deposit_tx">
+                    <td>
+                     <span class="font-weight-bold">{{deposit.amount}} BTC</span>
+                    </td>
+                    <td><span class="badge badge-pill badge-light-primary mr-1">{{deposit.txhash}}</span></td>
+                    <td>{{deposit.created_at | date}}</td>
+                    <td *ngIf = "deposit.paid == 1" ngbTooltip="This transaction was confirmed and added to your balance on {{deposit.created_at | date}}" placement = "top">Confirmed</td>
+                    <td *ngIf = "deposit.paid == 0" ngbTooltip="If your transaction is still pending, this means that your transaction is still processing. All Bitcoin transactions require 3 confirmations in the blockchain from miners before they're processed. Generally speaking, Bitcoin transactions usually take 30 minutes to 1.5 hours to complete. However, there can be delays in the transaction if there is a high volume of transactions taking place at the same time" placement = "top">Pending</td>
+                    <td class="overflow-hidden">
+                      <div ngbDropdown container="body">
+                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                          <i data-feather="more-vertical"></i>
+                        </button>
+                        <div ngbDropdownMenu>
+                          <a ngbDropdownItem href="https://www.blockchain.com/btc/tx/{{deposit.txhash}}"  target="_blank"
+                          ><i data-feather="chrome" class="mr-50"></i><span>View</span></a
+                          >
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ Table Basic -->
+  
+        <!-- Table Basic -->
+        <div class="row" id="basic-table">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"><h4 class="card-title">Crypto Withdrawals</h4></div>
+              <div class="card-body">
+                <p class="card-text">
+                  A crypto withdrawal is a transaction that allows you to move your cryptocurrency balance off the Coinpes
+                  platform to an external crypto wallet.
+                </p>
+              </div>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>Amount</th>
+                    <th>Fee</th>
+                    <th>Address</th>
+                    <th>Date</th>
+  
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor ="let withdrawal of withdrawal_tx">
+                    <td>
+                      <span class="font-weight-bold">{{withdrawal.transaction_amount}} BTC</span>
+                    </td>
+                    <td><span class="badge badge-pill badge-light-primary mr-1">{{withdrawal.transaction_fee}} BTC</span></td>
+                    <td><span class="badge badge-pill badge-light-primary mr-1">{{withdrawal.address}}</span></td>
+                    <td>{{withdrawal.created_at | date}}</td>
+  
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ Table Basic -->
+  
+  
+  
+        <!-- Table Basic -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"><h4 class="card-title">Internal Transfers</h4></div>
+              <div class="card-body">
+                <p class="card-text">
+                  These are transfers from other CoinPes Users. Every time they send to your wallet, your account will be
+                  credited with a free internal transfer. Since these are off-chain transaction, the transfer is available
+                  immediately
+                </p>
+              </div>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Fiat</th>
+                    <th>BTC</th>
+                    <th>Date</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor ="let internal of internal_tx">
+                    <td>
+                      <a href="/users/{{internal.sender}}">
+                        <span class="font-weight-bold">{{internal.sender}}</span>
+                      </a>
+  
+                    </td>
+                    <td>
+                      <a href="/users/{{internal.recepient}}">
+                        <span class="font-weight-bold">{{internal.recepient}}</span>
+                      </a>
+                    </td>
+                    <td><span class="badge badge-pill badge-light-warning mr-1" ngbTooltip="This was interpreted at the time of the transaction. The current value of these Bitcoins may change depending on the market rate">{{internal.fiat}} {{internal.currency}}</span></td>
+                    <td><span class="badge badge-pill badge-light-success mr-1">{{internal.amount_btc}}</span></td>
+                    <td>{{internal.created_at | date}}</td>
+  
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ Table Basic -->
+  
+  
+      </section>
+  
+  
+    </div>
+  </div>
+  

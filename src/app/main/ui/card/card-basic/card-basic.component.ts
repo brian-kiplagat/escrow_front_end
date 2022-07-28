@@ -9,6 +9,7 @@ import clipboard from "clipboardy";
 import {GlobalConfig, ToastrService} from "ngx-toastr";
 import {v4 as uuidv4} from 'uuid';
 
+
 @Component({
   selector: 'app-basic-card',
   templateUrl: './card-basic.component.html'

@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SellOffersFormComponent } from './ecommerce-wishlist/sell-offers-form/sell-offers-form.component';
 import {AuthGuard} from 'app/auth/helpers';
+import { CryptoLendingComponent } from './crypto-lending/crypto-lending.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -67,6 +68,15 @@ const routes: Routes = [
     },
     data: { animation: 'EcommerceCheckoutComponent' }
   },
+  {
+    path: 'crypto-lending',
+    component: CryptoLendingComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      ecommerce: EcommerceService
+    },
+    data: { animation: 'EcommerceCheckoutComponent' }
+  },
 
 ];
 
@@ -80,6 +90,7 @@ const routes: Routes = [
         EcommerceItemComponent,
         EcommerceCheckoutItemComponent,
         SellOffersFormComponent,
+        CryptoLendingComponent,
 
 
     ],
