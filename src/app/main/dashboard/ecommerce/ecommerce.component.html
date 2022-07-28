@@ -295,8 +295,8 @@ Any additional proof as determined by the moderator. The moderator will then ass
                                         <small>Rate</small>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-outline-primary" rippleEffect (click)="delete_offer(offer.idd)">
-                                    EDIT
+                                <button type="button" class="btn btn-outline-primary" rippleEffect>
+                                    <a [routerLink]="'/dashboard/editoffer/' + offer.idd"> EDIT</a>
                                 </button>
                              
                             </div>

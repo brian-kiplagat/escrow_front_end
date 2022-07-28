@@ -1,8 +1,6 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -11,15 +9,26 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { AuthGuard } from 'app/auth/helpers';
-import { Role } from 'app/auth/models';
 
 import { CoreCommonModule } from '@core/common.module';
-import { DashboardService } from 'app/main/dashboard/dashboard.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 import { EcommerceComponent } from 'app/main/dashboard/ecommerce/ecommerce.component';
-import {CoreTouchspinModule} from "../../../@core/components/core-touchspin/core-touchspin.module"
+import {CoreTouchspinModule} from "../../../@core/components/core-touchspin/core-touchspin.module";
+import { EditofferComponent } from './editoffer/editoffer.component'
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
+import { NouisliderModule } from 'ng2-nouislider';
+import { SwiperConfigInterface, SwiperModule, SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+
+import { HttpClientModule } from '@angular/common/http';
+
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  observer: true
+};
 
 const routes = [
 
@@ -28,11 +37,17 @@ const routes = [
     component: EcommerceComponent,
     canActivate: [AuthGuard],
     data: { animation: 'decommerce' }
+  },
+  {
+    path: 'editoffer/:id',
+    component: EditofferComponent,
+    canActivate: [AuthGuard],
+    data: { animation: 'decommerce' }
   }
 ];
 
 @NgModule({
-  declarations: [EcommerceComponent],
+  declarations: [EcommerceComponent, EditofferComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -41,7 +56,13 @@ const routes = [
     PerfectScrollbarModule,
     CoreCommonModule,
     NgApexchartsModule,
-    CoreTouchspinModule
+    CoreTouchspinModule,
+    NgSelectModule,
+    HttpClientModule,
+    NouisliderModule,
+    FormsModule,
+    ReactiveFormsModule
+    
   ],
   providers: [AuthGuard],
   exports: [EcommerceComponent]

@@ -1,19 +1,18 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-
+import { Component, OnInit , ViewEncapsulation} from '@angular/core';
 import Stepper from 'bs-stepper';
-import {FirebaseService} from '../../../../services/firebase.service';
+import { FirebaseService } from 'app/services/firebase.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {v4 as uuidv4} from 'uuid';
 
 @Component({
-  selector: 'app-ecommerce-checkout',
-  templateUrl: './ecommerce-checkout.component.html',
-  styleUrls: ['./ecommerce-checkout.component.scss'],
+  selector: 'app-editoffer',
+  templateUrl: './editoffer.component.html',
+  styleUrls: ['./editoffer.component.scss'],
   encapsulation: ViewEncapsulation.None,
   host: {class: 'ecommerce-application'}
 })
-export class EcommerceCheckoutComponent implements OnInit {
+export class EditofferComponent implements OnInit {
 
   public selectMultiLimitedSelected = [];
   public error = '';
