@@ -12,7 +12,6 @@
           <form
             class="auth-register-form mt-2"
             [formGroup]="checkoutForm"
-  
           >
             <div id="step-cart" class="content">
               <div class="card">
@@ -75,6 +74,7 @@
                           [loading]="selectBasicLoading"
                           formControlName="paymentMethod"
                           [class.error]="submitted &&f.paymentMethod.errors"
+                          [placeholder]="offer.method"
                         >
                         </ng-select>
                         <span
@@ -103,6 +103,7 @@
                           [loading]="selectBasicLoading"
                           formControlName="currency"
                           [class.error]="submitted &&f.currency.errors"
+                          [placeholder]="offer.currency"
                         >
                         </ng-select>
                         <span
@@ -164,7 +165,7 @@
                           type="number"
                           id="checkout-name"
                           class="form-control"
-                          placeholder="Amount"
+                          [placeholder]="offer.minimum"
                           [class.error]="submitted &&f1.minimum.errors"
                           formControlName="minimum"
                         />
@@ -212,7 +213,8 @@
                           class="form-control"
                           [class.error]="submitted && f1.maximum.errors"
                           formControlName="maximum"
-                          placeholder="Amount"
+                          [placeholder]="offer.maximum"
+                        
   
                         />
                         <span
@@ -245,44 +247,10 @@
                           type="number"
                           id="checkout-apt-number"
                           class="form-control"
-                          [class.error]="submitted && f1.offerRate.errors"
                           formControlName="offerRate"
-                          placeholder="Amount"
-                          required
+                          [placeholder]="offer.margin"
+                          
                         />
-                        <span
-                          *ngIf="submitted && f1.offerRate.errors"
-                          class="invalid-form"
-                        >
-                                            <small
-                                              class="form-text text-danger"
-                                              *ngIf="f1.offerRate.errors.required"
-                                            >This field is required!</small
-                                            >
-  
-                                        </span>
-                        <span
-                          *ngIf="f1.offerRate.value<-5&&f1.offerRate.touched"
-                          class="invalid-form"
-                        >
-                                        <small
-                                          class="form-text text-danger"
-  
-                                        >value cannot be less than negative 5</small
-                                        >
-  
-                                    </span>
-                        <span
-                          *ngIf="f1.offerRate.value>80&&f1.offerRate.touched"
-                          class="invalid-form"
-                        >
-                                    <small
-                                      class="form-text text-danger"
-  
-                                    >value cannot be less than 80</small
-                                    >
-  
-                                </span>
                       </div>
                     </div>
   
@@ -310,6 +278,7 @@
                           bindLabel="tag"
                           bindValue="tag"
                           formControlName="tags"
+                          
                         >
                           <ng-template
                             ng-label-tmp
@@ -347,31 +316,12 @@
                           type="text"
                           id="checkout-pincode"
                           class="form-control"
-                          [class.error]="submitted && f1.label.errors"
                           formControlName="label"
-                          placeholder="Maximum 25 characters. Only letter, numbers and dashes"
-                          required
+                          [placeholder]="offer.label"
+                          
+                          
                         />
-                        <span
-                          *ngIf="submitted && f1.label.errors"
-                          class="invalid-form"
-                        >
-                                            <small
-                                              class="form-text text-danger"
-                                              *ngIf="f1.label.errors.required"
-                                            >This field is required!</small
-                                            >
-                                            <small
-                                              class="form-text text-danger"
-                                              *ngIf="f1.label.errors.maxlength"
-                                            >maximum of 25 characters!!</small
-                                            >
-                                            <small
-                                              class="form-text text-danger"
-                                              *ngIf="f1.label.errors.minlength"
-                                            >minimum of 4 characters!!</small
-                                            >
-                                        </span>
+                  
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
@@ -381,31 +331,10 @@
                           type="text"
                           id="checkout-state"
                           class="form-control"
-                          [class.error]="submitted && f1.terms.errors"
-                          placeholder="Write your terms here"
                           formControlName="terms"
-                          required
+                          [placeholder]="offer.terms"
+                         
                         ></textarea>
-                        <span
-                          *ngIf="submitted && f1.terms.errors"
-                          class="invalid-form"
-                        >
-                                            <small
-                                              class="form-text text-danger"
-                                              *ngIf="f1.terms.errors.required"
-                                            >This field is required!</small
-                                            >
-                                            <small
-                                              class="form-text text-danger"
-                                              *ngIf="f1.label.errors.maxlength"
-                                            >maximum of 180 characters!!</small
-                                            >
-                                            <small
-                                              class="form-text text-danger"
-                                              *ngIf="f1.label.errors.minlength"
-                                            >minimum of 4 characters!!</small
-                                            >
-                                        </span>
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
@@ -417,8 +346,8 @@
                           class="form-control"
                           [class.error]="submitted && f1.instructions.errors"
                           formControlName="instructions"
-                          placeholder="List your instructions here"
-                          required
+                          [placeholder]="offer.instructions"
+                          
                         ></textarea>
                         <span
                           *ngIf="submitted && f1.instructions.errors"

@@ -86,6 +86,7 @@ export class EcommerceDetailsComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+
     let user = JSON.parse(localStorage.getItem('user'));
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');

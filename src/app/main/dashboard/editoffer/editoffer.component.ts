@@ -2,7 +2,7 @@ import { Component, OnInit , ViewEncapsulation} from '@angular/core';
 import Stepper from 'bs-stepper';
 import { FirebaseService } from 'app/services/firebase.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Router,ActivatedRoute} from '@angular/router';
 import {v4 as uuidv4} from 'uuid';
 
 @Component({
@@ -36,6 +36,11 @@ export class EditofferComponent implements OnInit {
   public currencies = []
   public methods = []
   public countries: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
+  public offer_id;
+  public rate;
+  public min;
+  public max;
+  public offer: any = {};
 
 
   /**
@@ -46,7 +51,8 @@ export class EditofferComponent implements OnInit {
   constructor(
     private _fb: FirebaseService,
     private _formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -125,8 +131,32 @@ export class EditofferComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const routeParams = this.route.snapshot.paramMap;
+    const productIdFromRoute = routeParams.get('id');
+    console.log(productIdFromRoute);
+    
     this.user = JSON.parse(localStorage.getItem('user'))
     console.log(this.user)
+    this._fb.getInfo(this.user.username, this.user.token, productIdFromRoute).subscribe((data: any) => {
+      console.log(data.responseMessage.data)
+      this.offer = data.responseMessage.data;
+      this.offer_id = data.responseMessage.data.offer_id
+      this.rate = data.responseMessage.data.margin
+      this.min = data.responseMessage.data.minimum
+      this.max = data.responseMessage.data.maximum
+      let offer_tags = data.responseMessage.data.tags
+      let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
+      const arr = formatted_tags.slice(1, -1)
+      this.tags = arr.split(',')
+      if (data.responseMessage.data.status != 1){
+        // this.err = 'This offer is turned off at the moment. Try other offers'
+        console.log("soort")
+      }
+      if (data.responseMessage.data.deauth == 1){
+        console.log("soort")
+       // this.err = 'This offer is deauthorized by a moderator due to a terms of service violation. Try other offers'
+      }
+    });
     this.user?this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
       console.log(data)
       this.tags = data.responseMessage
@@ -148,34 +178,18 @@ export class EditofferComponent implements OnInit {
     this.checkoutForm = this._formBuilder.group({
       // username: ['', [Validators.required]],
       todo: ['sell'],
-      paymentMethod: [null, Validators.required],
-      currency: [null, Validators.required]
+      paymentMethod: [null],
+      currency: [null]
     });
     this.form2 = this._formBuilder.group({
       // username: ['', [Validators.required]],
-      minimum: ['', Validators.required],
-      maximum: ['', Validators.required],
-      offerRate: ['', Validators.required],
-      tags: [[], Validators.required],
-      label: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(25)
-        ])
-      ],
-      
-      terms: ['', Validators.compose([
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(180)
-      ])],
-      instructions: ['', Validators.compose([
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(400)
-      ])]
+      minimum: [''],
+      maximum: [''],
+      offerRate: [''],
+      tags: [[]],
+      label: [''],
+      terms: [''],
+      instructions: ['']
     });
     this.form3 = this._formBuilder.group({
       // username: ['', [Validators.required]],
