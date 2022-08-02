@@ -53,7 +53,7 @@ export class FirebaseService {
       headers: new HttpHeaders(this.headerDict)
     };
     return this.http.post(
-      'https://api.coinlif.com/api/coin/v1/loginUser',
+      `${environment.endpoint}/loginUser`,
       {
         email: email,
         password: password
@@ -70,7 +70,9 @@ export class FirebaseService {
       username: username
     };
     console.log(formData)
-    return this.http.post('https://api.coinlif.com/api/coin/v1/logout', formData, {
+    return this.http.post(
+      `${environment.endpoint}/logout`,
+       formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -84,7 +86,7 @@ export class FirebaseService {
   // reset password
   forgotPassword(email: string) {
     return this.http
-      .post('http://localhost/coinlifapi/api/coin/v1/forgotPassword', {
+      .post( `${environment.endpoint}/forgotPassword`, {
         email: email
       })
       .subscribe((data) => {
@@ -98,7 +100,7 @@ export class FirebaseService {
       headers: new HttpHeaders(this.headerDict)
     };
     return this.http.post(
-      'https://api.coinlif.com/api/coin/v1/registerUser',
+      `${environment.endpoint}/registerUser`,
       {
         email: email,
         password: password
@@ -119,7 +121,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      'https://api.coinlif.com/api/coin/v1/getUserDataByUsername/' + username,
+      `${environment.endpoint}/getUserDataByUsername` + username,
       requestOptions
     );
   }
@@ -136,7 +138,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      'https://api.coinlif.com/api/coin/v1/getUserDataByEmail/' + email,
+      `${environment.endpoint}/getUserDataByEmail` + email,
       requestOptions
     );
   }
@@ -153,7 +155,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      'https://api.coinlif.com/api/coin/v1/getPackages/' + email,
+      `${environment.endpoint}/getPackages/` + email,
       requestOptions
     );
   }
@@ -170,7 +172,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      'https://api.coinlif.com/api/coin/v1/fetchNotifications',
+      `${environment.endpoint}/fetchNotifications`,
       requestOptions
     );
   }
@@ -188,7 +190,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     console.log(token, username, formData);
-    return this.http.post('https://api.coinlif.com/api/coin/v1/createOffer', formData, {
+    return this.http.post(`${environment.endpoint}/createOffer`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -207,7 +209,7 @@ export class FirebaseService {
     const requestOptions = {
       headers: new HttpHeaders(header)
     };
-    return this.http.get('https://api.coinlif.com/api/coin/v1/getCurrency', requestOptions);
+    return this.http.get(`${environment.endpoint}/getCurrency`, requestOptions);
   }
 
   // get offer tags
@@ -221,7 +223,7 @@ export class FirebaseService {
     const requestOptions = {
       headers: new HttpHeaders(header)
     };
-    return this.http.get('https://api.coinlif.com/api/coin/v1/getTags', requestOptions);
+    return this.http.get(`${environment.endpoint}/getTags`, requestOptions);
   }
 
   // retrieve list of feeds
@@ -245,7 +247,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.post(
-      'https://api.coinlif.com/api/coin/v1/getOffers',
+      `${environment.endpoint}/getOffers`,
       body,
       requestOptions
     );
@@ -263,7 +265,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      'https://api.coinlif.com/api/coin/v1/' + id + '/fetchTradeId',
+      `${environment.endpoint}/` + id + '/fetchTradeId',
       requestOptions
     );
   }
@@ -276,7 +278,7 @@ export class FirebaseService {
       token: token,
       username: username
     };
-    const requesturl = 'https://api.coinlif.com/api/coin/v1/getOfferInfo/' + id;
+    const requesturl =  `${environment.endpoint}/getOfferInfo/` + id;
     const requestOptions = {
       headers: new HttpHeaders(header)
     };
@@ -298,7 +300,8 @@ export class FirebaseService {
     };
 
     return this.http.post(
-      'https://api.coinlif.com/api/coin/v1/openTrade',
+      `${environment.endpoint}/openTrade`,
+     
       data,
       requestOptions
     );
@@ -318,7 +321,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
 
-    return this.http.post('https://api.coinlif.com/api/coin/v1/invest', data, requestOptions);
+    return this.http.post(`${environment.endpoint}/invest`, data, requestOptions);
   }
 
   getProfile() {
@@ -386,14 +389,14 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      'https://api.coinlif.com/api/coin/v1/getUserDataByUsername/' + userIdFromRoute,
+      `${environment.endpoint}/getUserDataByUsername/` + userIdFromRoute,
       requestOptions
     );
   }
 
   // get applications
   blockNow(token: string, username: string, formData: any) {
-    return this.http.post('https://api.coinlif.com/api/coin/v1/blockUser', formData, {
+    return this.http.post(  `${environment.endpoint}/blockUser`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -405,7 +408,7 @@ export class FirebaseService {
 
   // get applications
   set2FAAuth(token: string, username: string, formData: any) {
-    return this.http.post('https://api.coinlif.com/api/coin/v1/set2FA', formData, {
+    return this.http.post(`${environment.endpoint}/set2FA`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -418,7 +421,7 @@ export class FirebaseService {
   // confirm 2FA
   confirm2FAAuth(formData: any) {
     console.log(formData);
-    return this.http.post('https://api.coinlif.com/api/coin/v1/confirmLogin', formData, {
+    return this.http.post(`${environment.endpoint}/confirmLogin`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*'
@@ -427,7 +430,7 @@ export class FirebaseService {
   }
 
   settoogle2FA(token: string, username: string, formData: any) {
-    return this.http.post('https://api.coinlif.com/api/coin/v1/set2FA', formData, {
+    return this.http.post(`${environment.endpoint}/set2FA`,formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -438,7 +441,7 @@ export class FirebaseService {
   }
 
   updateProfile(token, username, formData: any) {
-    return this.http.post('https://api.coinlif.com/api/coin/v1/updateProfile', formData, {
+    return this.http.post(`${environment.endpoint}/updateProfile`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -449,7 +452,7 @@ export class FirebaseService {
   }
 
   setChangePaswordInApp(token, username, formData: any) {
-    return this.http.post('https://api.coinlif.com/api/coin/v1/changePasswordAuth', formData, {
+    return this.http.post(`${environment.endpoint}/changePasswordAuth`,formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -464,7 +467,7 @@ export class FirebaseService {
       headers: new HttpHeaders(this.headerDict)
     };
     return this.http.post(
-      'https://api.coinlif.com/api/coin/v1/forgotPassword',
+      `${environment.endpoint}/forgotPassword`,
       formData,
       requestOptions
     );
@@ -475,7 +478,7 @@ export class FirebaseService {
       headers: new HttpHeaders(this.headerDict)
     };
     return this.http.post(
-      'https://api.coinlif.com/api/coin/v1/changePassword',
+      `${environment.endpoint}/changePassword`, 
       formData,
       requestOptions
     );
@@ -492,13 +495,13 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      'https://api.coinlif.com/api/coin/v1/resetProfile/' + username,
+      `${environment.endpoint}/resetProfile/` + username,
       requestOptions
     );
   }
 
   sendCrypto(token, username, formData: any) {
-    return this.http.post('https://api.coinlif.com/api/coin/v1/sendCrypto', formData, {
+    return this.http.post(`${environment.endpoint}/sendCrypto`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -510,7 +513,7 @@ export class FirebaseService {
 
   sendConfirmEmail(formData: any) {
     return this.http.post(
-      'https://api.coinlif.com/api/coin/v1/resendEmailVerification',
+      `${environment.endpoint}/resendEmailVerification`, 
       formData,
       {
         headers: new HttpHeaders({
