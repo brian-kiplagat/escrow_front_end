@@ -121,7 +121,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      `${environment.endpoint}/getUserDataByUsername` + username,
+      `${environment.endpoint}/getUserDataByUsername/` + username,
       requestOptions
     );
   }
@@ -138,7 +138,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      `${environment.endpoint}/getUserDataByEmail` + email,
+      `${environment.endpoint}/getUserDataByEmail/` + email,
       requestOptions
     );
   }
@@ -191,6 +191,28 @@ export class FirebaseService {
     };
     console.log(token, username, formData);
     return this.http.post(`${environment.endpoint}/createOffer`, formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
+  //edit offer
+  editOffer(token: string, username: string, formData: any) {
+    const header = {
+      'Content-Type': 'application/json',
+      Accept: '*/*',
+      token: token,
+      username: username
+    };
+    const body = JSON.stringify(formData);
+    const requestOptions = {
+      headers: new HttpHeaders(header)
+    };
+    console.log(token, username, formData);
+    return this.http.post(`${environment.endpoint}/offers/update`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -525,7 +547,7 @@ export class FirebaseService {
   }
 
   confirmMail(formData: any) {
-    return this.http.post('https://api.coinlif.com/api/coin/v1/userEmailVerify', formData, {
+    return this.http.post(`${environment.endpoint}/userEmailVerify`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*'
@@ -534,7 +556,7 @@ export class FirebaseService {
   }
 
   getGraph(formData: any) {
-    return this.http.post('https://api.coinlif.com/api/coin/v1/getGraph', formData, {
+    return this.http.post(`${environment.endpoint}/getGraph`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*'
@@ -543,7 +565,7 @@ export class FirebaseService {
   }
   toggleAll(token:string, username:string){
    
-    return this.http.get('https://api.coinlif.com/api/coin/v1/offer/off/toggleall', {
+    return this.http.get(`${environment.endpoint}/offer/off/toggleall`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -554,7 +576,7 @@ export class FirebaseService {
   }
   toggleSingleOffer(token:string, username:string, offerId:any){
     console.log(token,username)
-    return this.http.get(`https://api.coinlif.com/api/coin/v1/offer/${offerId}/on/toggle`, {
+    return this.http.get(`${environment.endpoint}/offer/${offerId}/on/toggle`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -564,7 +586,7 @@ export class FirebaseService {
     });
   }
   deleteOffer(token:string, username:string ,id: any) {
-    return this.http.get(`https://api.coinlif.com/api/coin/v1/offer/${id}/delete`, {
+    return this.http.get(`${environment.endpoint}/offer/${id}/delete`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',

@@ -215,26 +215,27 @@ export class EditofferComponent implements OnInit {
 
   onSubmit() {
     const key = uuidv4() + Math.round(new Date().getTime() / 1000).toString();
-    this.user?this._fb.createOffer(this.user.token, this.user.username, {
+    this.user?this._fb.editOffer(this.user.token, this.user.username, {
 
       "requestId": key,
-      "method": this.checkoutForm.value.paymentMethod,
-      "currency": this.checkoutForm.value.currency,
-      "type": this.checkoutForm.value.todo,
-      "min": this.form2.value.minimum,
-      "max": this.form2.value.maximum,
-      "margin": this.form2.value.offerRate,
-      "tags": this.form2.value.tags,
-      "label": this.form2.value.label,
-      "terms": this.form2.value.terms,
-      "instructions": this.form2.value.instructions,
-      "new_trader_limit": !this.form3.value.limitusers ? "N/A" : this.form3.value.limitusers,
+      "offeridd":this.offer.offer_id,
+      "method": !this.checkoutForm.value.paymentMethod ? this.offer.method :this.checkoutForm.value.paymentMethod,
+      "currency":!this.checkoutForm.value.currency ? this.offer.currency : this.checkoutForm.value.currency,
+      "type": !this.checkoutForm.value.todo ? "N/A" :this.checkoutForm.value.todo,
+      "min": !this.form2.value.minimum ? this.offer.minimum :this.form2.value.minimum,
+      "max": !this.form2.value.maximum ? this.offer.maximum :this.form2.value.maximum,
+      "margin": !this.form2.value.offerRate ? this.offer.margin :this.form2.value.offerRate,
+      "tags": !this.form2.value.tags ? this.offer.tags :this.form2.value.tags,
+      "label":!this.form2.value.label? this.offer.label : this.form2.value.label,
+      "terms":!this.form2.value.terms ? this.offer.terms : this.form2.value.terms,
+      "instructions": !this.form2.value.instructions ? this.offer.instructions :this.form2.value.instructions,
+      "new_trader_limit": !this.form3.value.limitusers ? this.offer.new_trader_limit : this.form3.value.limitusers,
       "limit_block": !this.form3.value.limit_block ? "N/A" : this.form3.value.limit_block,
-      "blocked_countries": !this.form3.value.blockedCountries ? [] : this.form3.value.blockedCountries,
-      "allowed_countries": !this.form3.value.allowedCountries ? [] : this.form3.value.allowedCountries,
-      "vpn": !this.form3.value.vpn ? false : this.form3.value.vpn,
-      "id_verification": !this.form3.value.idverification ? false : this.form3.value.idverification,
-      "full_name": !this.form3.value.fullname ? false : this.form3.value.fullname,
+      "blocked_countries": !this.form3.value.blockedCountries ? this.offer.blocked_countries : this.form3.value.blockedCountries,
+      "allowed_countries": !this.form3.value.allowedCountries ? this.offer.allowed_countries : this.form3.value.allowedCountries,
+      "vpn": !this.form3.value.vpn ? this.offer.vpn : this.form3.value.vpn,
+      "id_verification": !this.form3.value.idverification ? this.offer.user_data.id_verified : this.form3.value.idverification,
+      "full_name": !this.form3.value.fullname ? this.offer.offer_username : this.form3.value.fullname,
       "min_trades": !this.form3.value.minimumTrades ? "N/A" : this.form3.value.minimumTrades,
 
 
