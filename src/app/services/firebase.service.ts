@@ -212,7 +212,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     console.log(token, username, formData);
-    return this.http.post(`${environment.endpoint}/offers/update`, formData, {
+    return this.http.post(`${environment.endpoint}/offer/update`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
