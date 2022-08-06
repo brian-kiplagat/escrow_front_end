@@ -323,7 +323,7 @@ export class FirebaseService {
 
     return this.http.post(
       `${environment.endpoint}/openTrade`,
-     
+
       data,
       requestOptions
     );
@@ -428,6 +428,18 @@ export class FirebaseService {
     });
   }
 
+  // quick offer edit
+  quickEdit(token: string, username: string, formData: any) {
+    return this.http.post(  `${environment.endpoint}/offer/quickEdit`, formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
+
   // get applications
   set2FAAuth(token: string, username: string, formData: any) {
     return this.http.post(`${environment.endpoint}/set2FA`, formData, {
@@ -500,7 +512,7 @@ export class FirebaseService {
       headers: new HttpHeaders(this.headerDict)
     };
     return this.http.post(
-      `${environment.endpoint}/changePassword`, 
+      `${environment.endpoint}/changePassword`,
       formData,
       requestOptions
     );
@@ -535,7 +547,7 @@ export class FirebaseService {
 
   sendConfirmEmail(formData: any) {
     return this.http.post(
-      `${environment.endpoint}/resendEmailVerification`, 
+      `${environment.endpoint}/resendEmailVerification`,
       formData,
       {
         headers: new HttpHeaders({
@@ -564,7 +576,7 @@ export class FirebaseService {
     });
   }
   toggleAll(token:string, username:string){
-   
+
     return this.http.get(`${environment.endpoint}/offer/off/toggleall`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

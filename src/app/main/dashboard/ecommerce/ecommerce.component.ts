@@ -16,8 +16,8 @@ import {locale as portuguese} from 'app/main/dashboard/i18n/pt';
 import {FirebaseService} from 'app/services/firebase.service';
 import clipboard from 'clipboardy';
 import Swal from "sweetalert2";
-import { ToastrService, GlobalConfig } from 'ngx-toastr';
-
+import {ToastrService, GlobalConfig} from 'ngx-toastr';
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
 
@@ -73,20 +73,22 @@ export class EcommerceComponent implements OnInit {
       this.tradeData = data.responseMessage?.trade_data;
       this.offerData = data.responseMessage?.offer_data
       this.fiat = data.responseMessage?.fiat
-      
-console.log(this.offerData)
+
+      console.log(this.offerData)
     }, (error) => {
       console.log(error)
       this.router.navigate(['/pages/login'])
     });
 
   }
+
   playAudio(path) {
     let audio = new Audio();
     audio.src = path;
     audio.load();
     audio.play();
   }
+
   private toast(title: string, message: string, type: string) {
     if (type == 'success') {
       this.toastr.success(message, title, {
@@ -108,16 +110,17 @@ console.log(this.offerData)
     }
 
   }
+
   checkType(trade) {
     console.log(trade)
     if (trade.trade.buyer == this.user.email) {//Logged in user is buyer
       console.log('//Logged in user is buyer')
-      return ['buy', trade.seller.username,trade.seller.profile_link];
+      return ['buy', trade.seller.username, trade.seller.profile_link];
 
 
     } else if (trade.trade.seller == this.user.email) {//Logged in user is seller
       console.log('//Logged in user is seller')
-      return ['sell', trade.buyer.username,trade.buyer.profile_link];
+      return ['sell', trade.buyer.username, trade.buyer.profile_link];
 
     }
   }
@@ -125,63 +128,68 @@ console.log(this.offerData)
   getEmail() {
     return localStorage.getItem('user')
   }
-  toggleOffer(id:string){
+
+  toggleOffer(id: string) {
     console.log(id)
-    this.fb.toggleSingleOffer( this.user.token,this.user.username,id).subscribe((data)=>{
-      console.log('data here',data)
-    
-  },
-  (error)=>{
-    console.log("this is error",error)
-  })
-  
+    this.fb.toggleSingleOffer(this.user.token, this.user.username, id).subscribe((data) => {
+        console.log('data here', data)
+
+      },
+      (error) => {
+        console.log("this is error", error)
+      })
+
   }
-  toggleAll(){
-    this.fb.toggleAll( this.user.token,this.user.username).subscribe((data)=>{
+
+  toggleAll() {
+    this.fb.toggleAll(this.user.token, this.user.username).subscribe((data) => {
       console.log(data)
-    })}
-    delete_offer(id: any) {
-      this.playAudio('assets/sounds/windows_warning.wav')
-      if (this.user) {
-        Swal.fire({
-          title: ' <h5>Hey Wait!</h5>',
-          html: '<p class="card-text font-small-3">This offer will be deleted permanently</p>',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#2746e4',
-          cancelButtonColor: '#E42728',
-          cancelButtonText: 'Go back',
-          confirmButtonText:
-            '<i class="fa fa-ban"></i> DELETE OFFER',
-          confirmButtonAriaLabel: 'CANCEL',
-          customClass: {
-            confirmButton: 'btn btn-primary',
-            cancelButton: 'btn btn-danger ml-1'
-          }
-        }).then(async (result) => {
-          if (result.value) {
-            this.fb.deleteOffer(this.user.token,this.user.username,id).subscribe((data:any)=>{
-              console.log("this is the data",data)
-                            if (!data.ok) {
-  
-                this.toast('Failed', '👋 an error happened .Please try again', 'error')
-                return
-                //throw new Error(response.statusText);
-              } else {
-                this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
-                this.playAudio('assets/sounds/turumturum.wav')
-              }
-            },(error:any)=>{
-              console.log("this is the error",error)
-              this.toast('Ops', '👋 An error happened try again', 'error')
-            })
-          }
-        });
-      } else {
-        this.toast('INVALID', 'You cant do that', 'error')
-      }
-  
+    })
+  }
+
+  delete_offer(id: any) {
+    this.playAudio('assets/sounds/windows_warning.wav')
+    if (this.user) {
+      Swal.fire({
+        title: ' <h5>Hey Wait!</h5>',
+        html: '<p class="card-text font-small-3">This offer will be deleted permanently</p>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#2746e4',
+        cancelButtonColor: '#E42728',
+        cancelButtonText: 'Go back',
+        confirmButtonText:
+          '<i class="fa fa-ban"></i> DELETE OFFER',
+        confirmButtonAriaLabel: 'CANCEL',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-danger ml-1'
+        }
+      }).then(async (result) => {
+        if (result.value) {
+          this.fb.deleteOffer(this.user.token, this.user.username, id).subscribe((data: any) => {
+            console.log("this is the data", data)
+            if (!data.ok) {
+
+              this.toast('Failed', '👋 an error happened .Please try again', 'error')
+              return
+              //throw new Error(response.statusText);
+            } else {
+              this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
+              this.playAudio('assets/sounds/turumturum.wav')
+            }
+          }, (error: any) => {
+            console.log("this is the error", error)
+            this.toast('Ops', '👋 An error happened try again', 'error')
+          })
+        }
+      });
+    } else {
+      this.toast('INVALID', 'You cant do that', 'error')
     }
+
+  }
+
   /**
    * After View Init
    */
@@ -209,6 +217,48 @@ console.log(this.offerData)
       timeOut: 5000,
       closeButton: true
     });
+  }
+
+
+  updateValue(event: any, type: string, idd: string) {
+    if (type == 'rate'){
+      console.log(event)
+      this.fb.quickEdit(this.user.token, this.user.username, {
+        "offeridd": idd,
+        "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+        "type": type,
+        "value": event
+
+      }).subscribe((data: any) => {
+        let msg = data.responseMessage
+        this.toast('Success', msg, 'success')
+        //console.log(this.offerData)
+      }, (error) => {
+        this.toast('Check', error.error.responseMessage, 'error')
+        //console.log(error.error.responseMessage)
+
+      });
+    }else{
+      let value = event.target.value
+      console.log(value)
+      this.fb.quickEdit(this.user.token, this.user.username, {
+        "offeridd": idd,
+        "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+        "type": type,
+        "value": value
+
+      }).subscribe((data: any) => {
+        let msg = data.responseMessage
+        this.toast('Success', msg, 'success')
+        //console.log(this.offerData)
+      }, (error) => {
+        this.toast('Check', error.error.responseMessage, 'error')
+        //console.log(error.error.responseMessage)
+
+      });
+    }
+
+
   }
 
 
