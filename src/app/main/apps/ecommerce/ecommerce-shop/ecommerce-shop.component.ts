@@ -90,16 +90,12 @@ export class EcommerceShopComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    let user = JSON.parse(localStorage.getItem('user'))
-    this._fb
-      .getOffers( this.type).subscribe((data: any) => {
+    this._fb.getOffers(this.type).subscribe((data: any) => {
       this.offers = data.responseMessage
-
+      console.log(this.offers)
     })
     this._fb.getCurrency().subscribe((data: any) => {
       this.currencies = data.responseMessage.currencies
-      //this.currency = Object.keys(listNew);
-      //this.methods = data.responsemessage.methods
       this.methods = data.responseMessage.methods
       console.log(this.methods)
     }, (error) => {

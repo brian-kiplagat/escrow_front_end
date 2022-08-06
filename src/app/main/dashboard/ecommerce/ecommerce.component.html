@@ -1,355 +1,356 @@
 <div class="content-wrapper container-xxl p-0">
-    <div class="content-body">
-        <div class="row match-height">
-            <!-- Medal Card -->
-            <div class="col-xl-4 col-md-6 col-12">
-                <div class="card card-congratulation-medal">
-                    <div class="card-body">
-                        <h5>{{ currentUser.username }}🎉</h5>
-                        <p class="card-text font-small-3">{{ currentUser.balance }} BTC</p>
-                        <h3 class="mb-75 mt-2 pt-50">
-                            <a href="javascript:void(0);">{{ fiat }} {{ currentUser.currency }}</a>
-                        </h3>
-                        <button
-                            type="button"
-                            [routerLink]="'/ui/card/card-basic'"
-                            class="btn btn-primary"
-                            rippleEffect
-                        >
-                            MY WALLET
-                        </button>
+  <div class="content-body">
+    <div class="row match-height">
+      <!-- Medal Card -->
+      <div class="col-xl-4 col-md-6 col-12">
+        <div class="card card-congratulation-medal">
+          <div class="card-body">
+            <h5>{{ currentUser.username }}🎉</h5>
+            <p class="card-text font-small-3">{{ currentUser.balance }} BTC</p>
+            <h3 class="mb-75 mt-2 pt-50">
+              <a href="javascript:void(0);">{{ fiat }} {{ currentUser.currency }}</a>
+            </h3>
+            <button
+              type="button"
+              [routerLink]="'/ui/card/card-basic'"
+              class="btn btn-primary"
+              rippleEffect
+            >
+              MY WALLET
+            </button>
 
-                        <img
-                            src="assets/images/illustration/badge.svg"
-                            class="congratulation-medal"
-                            alt="Medal Pic"
-                        />
-                    </div>
-                </div>
-            </div>
-            <!--/ Medal Card -->
-
-            <!-- Statistics Card -->
-            <div class="col-xl-8 col-md-6 col-12">
-                <div class="card card-statistics">
-                    <div class="card-header">
-                        <h4 class="card-title">DASHBOARD</h4>
-                        <div class="d-flex align-items-center">
-                            <p class="card-text font-small-2 mr-25 mb-0"></p>
-                        </div>
-                    </div>
-                    <div class="card-body statistics-body">
-                        <div class="row">
-                            <div
-                                class="col-sm-6 col-xl-3 mb-2 mb-xl-0"
-                                [routerLink]="'/offers/bitcoin/buy'"
-                            >
-                                <div class="media">
-                                    <div class="avatar bg-light-primary mr-2">
-                                        <div class="avatar-content">
-                                            <img
-                                                src="assets/images/icons/payments/bitcoin.svg"
-                                                alt="coin"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="media-body my-auto">
-                                        <h4 class="font-weight-bolder mb-0">BUY</h4>
-                                        <p class="card-text font-small-3 mb-0">BTC</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="col-sm-6 col-xl-3 mb-2 mb-xl-0"
-                                [routerLink]="'/offers/bitcoin/sell'"
-                            >
-                                <div class="media">
-                                    <div class="avatar bg-light-info mr-2">
-                                        <div class="avatar-content">
-                                            <img
-                                                src="assets/images/icons/payments/bitcoin.svg"
-                                                alt="coin"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="media-body my-auto">
-                                        <h4 class="font-weight-bolder mb-0">SELL</h4>
-                                        <p class="card-text font-small-3 mb-0">BTC</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="col-sm-6 col-xl-3 mb-2 mb-sm-0"
-                                [routerLink]="'/pages/account-settings'"
-                            >
-                                <div class="media">
-                                    <div class="avatar bg-light-danger mr-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="shield" class="avatar-icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body my-auto">
-                                        <h4 class="font-weight-bolder mb-0">2FA</h4>
-                                        <p class="card-text font-small-3 mb-0">Security</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xl-3" [routerLink]="'/offers/bitcoin/buy'">
-                                <div class="media">
-                                    <div class="avatar bg-light-success mr-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="user" class="avatar-icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body my-auto">
-                                        <h4 class="font-weight-bolder mb-0">HELP</h4>
-                                        <p class="card-text font-small-3 mb-0">Contact</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/ Statistics Card -->
+            <img
+              src="assets/images/illustration/badge.svg"
+              class="congratulation-medal"
+              alt="Medal Pic"
+            />
+          </div>
         </div>
+      </div>
+      <!--/ Medal Card -->
 
-        <div class="row match-height">
-            <!-- TRADES CARD -->
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="card card-apply-job card-transaction">
-                    <div class="card-body">
-                        <!-- ONE ELEMENT -->
-                        <div *ngFor="let trade of tradeData">
-                            <ngb-alert [type]="'primary'" [dismissible]="false">
-                                <div class="alert-body">TRADE {{ trade.trade.status }}</div>
-                            </ngb-alert>
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <div class="media">
-                                    <div class="avatar mr-1">
-                                        <img
-                                            src="{{ checkType(trade)[2] }}"
-                                            alt="Avatar"
-                                            width="42"
-                                            height="42"
-                                        />
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="mb-0">{{ trade.trade.method | titlecase }}</h5>
-                                        <small class="text-muted">{{ checkType(trade)[1] }}</small>
-                                    </div>
-                                </div>
-                                <div class="badge badge-pill badge-light-primary">
-                                    {{ checkType(trade)[0] }}
-                                </div>
-                            </div>
-                            <div class="transaction-item">
-                                <div class="media">
-                                    <div class="avatar bg-light-primary rounded">
-                                        <div class="avatar-content">
-                                            <i
-                                                data-feather="pocket"
-                                                class="avatar-icon font-medium-3"
-                                            ></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="transaction-title">
-                                            {{ trade.trade.fiat_amount_original }}
-                                            {{ trade.trade.currency }}
-                                        </h6>
-                                        <small>{{ trade.trade.btc_amount_with_margin }} BTC</small>
-                                    </div>
-                                </div>
-                                <button
-                                    type="button"
-                                    class="btn btn-outline-primary"
-                                    [routerLink]="'/offers/chat/room/' + trade.trade.id"
-                                    rippleEffect
-                                >
-                                    VIEW
-                                </button>
-                            </div>
-                            <div
-                                class="apply-job-package bg-light-warning rounded"
-                                *ngIf="trade.trade.moderator_flag != 'NA'"
-                                ngbTooltip="This dispute was started. Each user must prove that they have fulfilled their end of the deal. A moderator will shortly message you via your trade chat. Provide the moderator with as much information and evidence as you can, which could be any of the following:
+      <!-- Statistics Card -->
+      <div class="col-xl-8 col-md-6 col-12">
+        <div class="card card-statistics">
+          <div class="card-header">
+            <h4 class="card-title">DASHBOARD</h4>
+            <div class="d-flex align-items-center">
+              <p class="card-text font-small-2 mr-25 mb-0"></p>
+            </div>
+          </div>
+          <div class="card-body statistics-body">
+            <div class="row">
+              <div
+                class="col-sm-6 col-xl-3 mb-2 mb-xl-0"
+                [routerLink]="'/offers/bitcoin/buy'"
+              >
+                <div class="media">
+                  <div class="avatar bg-light-primary mr-2">
+                    <div class="avatar-content">
+                      <img
+                        src="assets/images/icons/payments/bitcoin.svg"
+                        alt="coin"
+                      />
+                    </div>
+                  </div>
+                  <div class="media-body my-auto">
+                    <h4 class="font-weight-bolder mb-0">BUY</h4>
+                    <p class="card-text font-small-3 mb-0">BTC</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-sm-6 col-xl-3 mb-2 mb-xl-0"
+                [routerLink]="'/offers/bitcoin/sell'"
+              >
+                <div class="media">
+                  <div class="avatar bg-light-info mr-2">
+                    <div class="avatar-content">
+                      <img
+                        src="assets/images/icons/payments/bitcoin.svg"
+                        alt="coin"
+                      />
+                    </div>
+                  </div>
+                  <div class="media-body my-auto">
+                    <h4 class="font-weight-bolder mb-0">SELL</h4>
+                    <p class="card-text font-small-3 mb-0">BTC</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-sm-6 col-xl-3 mb-2 mb-sm-0"
+                [routerLink]="'/pages/account-settings'"
+              >
+                <div class="media">
+                  <div class="avatar bg-light-danger mr-2">
+                    <div class="avatar-content">
+                      <i data-feather="shield" class="avatar-icon"></i>
+                    </div>
+                  </div>
+                  <div class="media-body my-auto">
+                    <h4 class="font-weight-bolder mb-0">2FA</h4>
+                    <p class="card-text font-small-3 mb-0">Security</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3" [routerLink]="'/offers/bitcoin/buy'">
+                <div class="media">
+                  <div class="avatar bg-light-success mr-2">
+                    <div class="avatar-content">
+                      <i data-feather="user" class="avatar-icon"></i>
+                    </div>
+                  </div>
+                  <div class="media-body my-auto">
+                    <h4 class="font-weight-bolder mb-0">HELP</h4>
+                    <p class="card-text font-small-3 mb-0">Contact</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Statistics Card -->
+    </div>
+
+    <div class="row match-height">
+      <!-- TRADES CARD -->
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="card card-apply-job card-transaction">
+          <div class="card-body">
+            <!-- ONE ELEMENT -->
+            <div *ngFor="let trade of tradeData">
+              <ngb-alert [type]="'primary'" [dismissible]="false">
+                <div class="alert-body">TRADE {{ trade.trade.status }}</div>
+              </ngb-alert>
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="media">
+                  <div class="avatar mr-1">
+                    <img
+                      src="{{ checkType(trade)[2] }}"
+                      alt="Avatar"
+                      width="42"
+                      height="42"
+                    />
+                  </div>
+                  <div class="media-body">
+                    <h5 class="mb-0">{{ trade.trade.method | titlecase }}</h5>
+                    <small class="text-muted">{{ checkType(trade)[1] }}</small>
+                  </div>
+                </div>
+                <div class="badge badge-pill badge-light-primary">
+                  {{ checkType(trade)[0] }}
+                </div>
+              </div>
+              <div class="transaction-item">
+                <div class="media">
+                  <div class="avatar bg-light-primary rounded">
+                    <div class="avatar-content">
+                      <i
+                        data-feather="pocket"
+                        class="avatar-icon font-medium-3"
+                      ></i>
+                    </div>
+                  </div>
+                  <div class="media-body">
+                    <h6 class="transaction-title">
+                      {{ trade.trade.fiat_amount_original }}
+                      {{ trade.trade.currency }}
+                    </h6>
+                    <small>{{ trade.trade.btc_amount_with_margin }} BTC</small>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  [routerLink]="'/offers/chat/room/' + trade.trade.id"
+                  rippleEffect
+                >
+                  VIEW
+                </button>
+              </div>
+              <div
+                class="apply-job-package bg-light-warning rounded"
+                *ngIf="trade.trade.moderator_flag != 'NA'"
+                ngbTooltip="This dispute was started. Each user must prove that they have fulfilled their end of the deal. A moderator will shortly message you via your trade chat. Provide the moderator with as much information and evidence as you can, which could be any of the following:
 Transaction receipt,
 Screenshot of payment confirmation,
 Video or screen recording of payment being made,
 Proof of ownership receipts online and offline in transactions involving gift cards,
 Any additional proof as determined by the moderator. The moderator will then assess all the evidence given by both parties and award the escrow to the correct fair party"
-                                placement="top"
-                            >
-                                <div>
-                                    <sup class="text-body"
-                                        ><small>
-                                            <i
-                                                data-feather="shield"
-                                                class="avatar-icon font-medium-3"
-                                            ></i></small
-                                    ></sup>
-                                    <h2 class="d-inline mr-25">DISPUTE</h2>
-                                    <sub class="text-body"
-                                        ><small>{{ trade.status }}</small></sub
-                                    >
-                                </div>
-                                <div class="badge badge-pill badge-light-primary">2hr Ago</div>
-                            </div>
-                            <hr />
-                        </div>
-                        <!-- ONE ELEMENT -->
-                    </div>
+                placement="top"
+              >
+                <div>
+                  <sup class="text-body"
+                  ><small>
+                    <i
+                      data-feather="shield"
+                      class="avatar-icon font-medium-3"
+                    ></i></small
+                  ></sup>
+                  <h2 class="d-inline mr-25">DISPUTE</h2>
+                  <sub class="text-body"
+                  ><small>{{ trade.status }}</small></sub
+                  >
                 </div>
+                <div class="badge badge-pill badge-light-primary">2hr Ago</div>
+              </div>
+              <hr/>
             </div>
-            <!--/ TRADES CARD -->
+            <!-- ONE ELEMENT -->
+          </div>
+        </div>
+      </div>
+      <!--/ TRADES CARD -->
 
-            <!-- Transaction card -->
-            <div class="col-xl-8 col-md-6 col-12">
-                <div class="card card-apply-job card-transaction">
-                    <div class="card-header">
-                        <h4 class="card-title">My offers</h4>
-                        <div class="custom-control custom-control-primary custom-switch">
-                            <input
-                                type="checkbox"
-                                checked
-                                class="custom-control-input"
-                                id="customSwitch3"
-                                (change)="toggleAll()"
-                            />
-                            <label class="custom-control-label" for="customSwitch3"></label>
-                        </div>
+      <!-- Transaction card -->
+      <div class="col-xl-8 col-md-6 col-12">
+        <div class="card card-apply-job card-transaction">
+          <div class="card-header">
+            <h4 class="card-title">My offers</h4>
+            <div class="custom-control custom-control-primary custom-switch">
+              <input
+                type="checkbox"
+                checked
+                class="custom-control-input"
+                id="customSwitch3"
+                (change)="toggleAll()"
+              />
+              <label class="custom-control-label" for="customSwitch3"></label>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- ONE ELEMENT -->
+            <div *ngFor="let offer of offerData">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="media">
+                  <div
+                    class="avatar mr-2 bg-light-primary rounded"
+                    placement="right"
+                    ngbTooltip="Click here to copy this offer link, share it with your clients to open a trade with this offer"
+                    rippleEffect
+                    (click)="copy(offer.idd)"
+                  >
+                    <div class="avatar-content">
+                      <i
+                        data-feather="copy"
+                        class="avatar-icon font-medium-3"
+                      ></i>
                     </div>
-                    <div class="card-body">
-                        <!-- ONE ELEMENT -->
-                        <div *ngFor="let offer of offerData">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <div class="media">
-                                    <div
-                                        class="avatar mr-2 bg-light-primary rounded"
-                                        placement="right"
-                                        ngbTooltip="Click here to copy this offer link, share it with your clients to open a trade with this offer"
-                                        rippleEffect
-                                        (click)="copy(offer.idd)"
-                                    >
-                                        <div class="avatar-content">
-                                            <i
-                                                data-feather="copy"
-                                                class="avatar-icon font-medium-3"
-                                            ></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5
-                                            class="mb-0"
-                                            placement="right"
-                                            ngbTooltip="You have chosen to transact this trade with {{
+                  </div>
+                  <div class="media-body">
+                    <h5
+                      class="mb-0"
+                      placement="right"
+                      ngbTooltip="You have chosen to transact this trade with {{
                                                 offer.method
                                             }}. This means you must use {{
                                                 offer.method
                                             }} to transact this trade and not any other."
-                                        >
-                                            {{ offer.method }}
-                                        </h5>
-                                        <small
-                                            class="text-muted"
-                                            placement="right"
-                                            ngbTooltip="This is a {{
+                    >
+                      {{ offer.method }}
+                    </h5>
+                    <small
+                      class="text-muted"
+                      placement="right"
+                      ngbTooltip="This is a {{
                                                 offer.type | titlecase
                                             }} Offer. You have chosen to transact this trade with {{
                                                 offer.currency
                                             }} as the currency"
-                                            >{{ offer.type | titlecase }} -
-                                            {{ offer.currency }}</small
-                                        >
-                                    </div>
-                                </div>
-                                <div
-                                    class="badge badge-pill badge-light-primary"
-                                    placement="left"
-                                    ngbTooltip="{{offer.blocked_countries}}"
-                                >
-                                    <i data-feather="alert-circle" class="font-medium-5"></i>
-                                </div>
-
-                            </div>
-                            <div class="transaction-item">
-                                <div class="media">
-                                    <div class="custom-control custom-switch custom-control-inline">
-                                        <input
-                                type="checkbox"
-                                checked
-                                class="custom-control-input"
-                                id="customSwitch5"
-                                (change)="toggleOffer(offer.idd)"
-                            />
-                            <label class="custom-control-label" for="customSwitch5"></label>
-                                    </div>
-                                    <div class="media-body" style="margin-left: -10px">
-                                        <core-touchspin
-                                            class="transaction-title"
-                                            id=""
-                                            minValue="-10"
-                                            (onChange)="updateValue($event,'rate',offer.idd)"
-                                            [numberValue]="+offer.margin"
-                                            [iconChevron]="true"
-                                        ></core-touchspin>
-                                        <small>Rate</small>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-outline-primary" rippleEffect>
-                                    <a [routerLink]="'/dashboard/editoffer/' + offer.idd"> EDIT</a>
-                                </button>
-
-                            </div>
-                            <form action="javascript:void(0);" class="form">
-                                <div class="row">
-                                    <div class="col-sm-6 col-6">
-                                        <div class="form-group mb-2">
-                                            <label for="payment-expiry"
-                                                >Minimum({{ offer.currency }})</label
-                                            >
-                                            <input
-                                                type="number"
-                                                id="payment-expiry"
-                                                class="form-control form-control-sm"
-                                                placeholder="Amount"
-                                                size="3"
-                                                (blur)="updateValue($event,'min',offer.idd)"
-                                                value="{{ offer.minimum }}"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-6">
-                                        <div class="form-group mb-2">
-                                            <label for="payment-cvv"
-                                                >Maximum({{ offer.currency }})</label
-                                            >
-                                            <input
-                                                type="number"
-                                                id="payment-cvv"
-                                                class="form-control form-control-sm"
-                                                placeholder="Amount"
-                                                (blur)="updateValue($event,'max',offer.idd)"
-                                                size="3"
-                                                value="{{ offer.maximum }}"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <ngb-alert [type]="'primary'" [dismissible]="false">
-                                <div class="alert-body" *ngIf="offer.deauth != 0">
-                                    This offer was deauthorized. Contact support to reactivate this.
-                                </div>
-                            </ngb-alert>
-                            <hr />
-                        </div>
-                        <!-- ONE ELEMENT -->
-                    </div>
+                    >{{ offer.type | titlecase }} -
+                      {{ offer.currency }}</small
+                    >
+                  </div>
                 </div>
+                <div
+                  class="badge badge-pill badge-light-primary"
+                  placement="left"
+                  ngbTooltip="{{offer.blocked_countries}}"
+                >
+                  <i data-feather="alert-circle" class="font-medium-5"></i>
+                </div>
+
+              </div>
+              <div class="transaction-item">
+                <div class="media">
+                  <div class="custom-control custom-switch custom-control-inline">
+                    <input
+                      type="checkbox"
+                      checked
+                      class="custom-control-input"
+                      id="customSwitch5"
+                      (change)="toggleOffer(offer.idd)"
+                    />
+                    <label class="custom-control-label" for="customSwitch5"></label>
+                  </div>
+                  <div class="media-body" style="margin-left: -10px">
+                    <core-touchspin
+                      class="transaction-title"
+                      id=""
+                      minValue="-10"
+                      (onChange)="updateValue($event,'rate',offer.idd)"
+                      [numberValue]="+offer.margin"
+                      [iconChevron]="true"
+                    ></core-touchspin>
+                    <small>Rate</small>
+                  </div>
+                </div>
+
+                <a type="button" class="btn btn-outline-primary" [routerLink]="'/dashboard/editoffer/' + offer.idd">
+                  EDIT</a>
+
+
+              </div>
+              <form action="javascript:void(0);" class="form">
+                <div class="row">
+                  <div class="col-sm-6 col-6">
+                    <div class="form-group mb-2">
+                      <label for="payment-expiry"
+                      >Minimum({{ offer.currency }})</label
+                      >
+                      <input
+                        type="number"
+                        id="payment-expiry"
+                        class="form-control form-control-sm"
+                        placeholder="Amount"
+                        size="3"
+                        (blur)="updateValue($event,'min',offer.idd)"
+                        value="{{ offer.minimum }}"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-6">
+                    <div class="form-group mb-2">
+                      <label for="payment-cvv"
+                      >Maximum({{ offer.currency }})</label
+                      >
+                      <input
+                        type="number"
+                        id="payment-cvv"
+                        class="form-control form-control-sm"
+                        placeholder="Amount"
+                        (blur)="updateValue($event,'max',offer.idd)"
+                        size="3"
+                        value="{{ offer.maximum }}"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <ngb-alert [type]="'primary'" [dismissible]="false">
+                <div class="alert-body" *ngIf="offer.deauth != 0">
+                  This offer was deauthorized. Contact support to reactivate this.
+                </div>
+              </ngb-alert>
+              <hr/>
             </div>
-            <!--/ Transaction card -->
+            <!-- ONE ELEMENT -->
+          </div>
         </div>
+      </div>
+      <!--/ Transaction card -->
     </div>
+  </div>
 </div>

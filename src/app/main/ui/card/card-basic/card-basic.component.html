@@ -150,7 +150,7 @@
                   <td>
                    <span class="font-weight-bold">{{deposit.amount}} BTC</span>
                   </td>
-                  <td><span class="badge badge-pill badge-light-primary mr-1">{{deposit.txhash}}</span></td>
+                  <td><span class="badge badge-pill badge-light-primary mr-1">{{deposit.hash}}</span></td>
                   <td>{{deposit.created_at | date}}</td>
                   <td *ngIf = "deposit.paid == 1" ngbTooltip="This transaction was confirmed and added to your balance on {{deposit.created_at | date}}" placement = "top">Confirmed</td>
                   <td *ngIf = "deposit.paid == 0" ngbTooltip="If your transaction is still pending, this means that your transaction is still processing. All Bitcoin transactions require 3 confirmations in the blockchain from miners before they're processed. Generally speaking, Bitcoin transactions usually take 30 minutes to 1.5 hours to complete. However, there can be delays in the transaction if there is a high volume of transactions taking place at the same time" placement = "top">Pending</td>
@@ -160,7 +160,7 @@
                         <i data-feather="more-vertical"></i>
                       </button>
                       <div ngbDropdownMenu>
-                        <a ngbDropdownItem href="https://www.blockchain.com/btc/tx/{{deposit.txhash}}"  target="_blank"
+                        <a ngbDropdownItem href="https://www.blockchain.com/btc/tx/{{deposit.hash}}"  target="_blank"
                         ><i data-feather="chrome" class="mr-50"></i><span>View</span></a
                         >
                       </div>
