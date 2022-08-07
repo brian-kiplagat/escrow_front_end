@@ -170,9 +170,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
    */
   logout() {
     let user = JSON.parse(localStorage.getItem('user'));
+    localStorage.clear();
+    this.router.navigate(['/pages/login']);
     this._firebae.logout(user!.token, user!.username, user.email).subscribe(() => {
-      localStorage.clear();
-      this.router.navigate(['/pages/login']);
+
     })
   }
 

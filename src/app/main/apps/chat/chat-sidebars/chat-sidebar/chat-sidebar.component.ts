@@ -5,6 +5,7 @@ import {GlobalConfig, ToastrService} from 'ngx-toastr';
 import Swal from "sweetalert2";
 import {Subscription, timer} from "rxjs";
 import {isNumeric} from "rxjs/internal-compatibility";
+import {environment} from "../../../../../../environments/environment";
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -117,7 +118,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     audio.play();
   }
 
-  
+
   private toast(title: string, message: string, type: string) {
     if (type == 'success') {
       this.toastr.success(message, title, {
@@ -190,7 +191,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
             })
 
           };
-          await fetch('https://api.coinlif.com/api/coin/v1/markPaid', requestOptions).then((response) => {
+          await fetch(`${environment.endpoint}/markPaid`, requestOptions).then((response) => {
             console.log(response);
             if (!response.ok) {
               this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')
@@ -246,7 +247,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
             })
 
           };
-          await fetch('https://api.coinlif.com/api/coin/v1/cancelTrade', requestOptions).then((response) => {
+          await fetch(`${environment.endpoint}/cancelTrade`, requestOptions).then((response) => {
             console.log(response);
             if (!response.ok) {
 
@@ -287,7 +288,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       })
 
     };
-    return fetch('https://api.coinlif.com/api/coin/v1/releaseCrypto', requestOptions)
+    return fetch(`${environment.endpoint}/releaseCrypto`, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log('Success:', result);

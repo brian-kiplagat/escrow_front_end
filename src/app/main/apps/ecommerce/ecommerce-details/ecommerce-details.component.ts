@@ -28,6 +28,7 @@ export class EcommerceDetailsComponent implements OnInit {
   public rate;
   public min;
   public max;
+  public logged;
 
   /**
    * Constructor
@@ -82,16 +83,21 @@ export class EcommerceDetailsComponent implements OnInit {
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
+
   /**
    * On init
    */
   ngOnInit(): void {
 
-    let user = JSON.parse(localStorage.getItem('user'));
+    if (localStorage.getItem('user') === null){
+      this.logged =  false;
+    }else {
+      this.logged =  true;
+    }
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');
-    this._fb.getInfo(user.username, user.token, productIdFromRoute).subscribe((data: any) => {
-      console.log(data.responseMessage.data)
+    this._fb.getInfo(productIdFromRoute).subscribe((data: any) => {
+      //console.log(data.responseMessage.data)
       this.offer = data.responseMessage.data;
       this.offer_id = data.responseMessage.data.offer_id
       this.rate = data.responseMessage.data.margin
@@ -101,10 +107,10 @@ export class EcommerceDetailsComponent implements OnInit {
       let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
       const arr = formatted_tags.slice(1, -1)
       this.tags = arr.split(',')
-      if (data.responseMessage.data.status != 1){
+      if (data.responseMessage.data.status != 1) {
         this.err = 'This offer is turned off at the moment. Try other offers'
       }
-      if (data.responseMessage.data.deauth == 1){
+      if (data.responseMessage.data.deauth == 1) {
         this.err = 'This offer is deauthorized by a moderator due to a terms of service violation. Try other offers'
       }
     });

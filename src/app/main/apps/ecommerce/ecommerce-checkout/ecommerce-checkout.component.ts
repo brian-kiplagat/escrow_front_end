@@ -37,7 +37,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   public currencies = []
   public methods = []
   public countries: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
-
+ public limit_countries = 'none';
 
   /**
    *  Constructor
@@ -111,11 +111,12 @@ export class EcommerceCheckoutComponent implements OnInit {
     this.form3.controls['blockedCountries'].disable();
   }
 
-  removeDisable() {
+  removeDisable(type:any) {
     this.allowCountires = !this.allowCountires
     this.blockCountires = !this.blockCountires
     this.form3.controls['allowedCountries'].enable();
     this.form3.controls['blockedCountries'].enable();
+    this.limit_countries = type
   }
 
   enableBlock() {
@@ -166,7 +167,7 @@ export class EcommerceCheckoutComponent implements OnInit {
           Validators.maxLength(25)
         ])
       ],
-      
+
       terms: ['', Validators.compose([
         Validators.required,
         Validators.minLength(4),
@@ -223,7 +224,7 @@ export class EcommerceCheckoutComponent implements OnInit {
       "id_verification": !this.form3.value.idverification ? false : this.form3.value.idverification,
       "full_name": !this.form3.value.fullname ? false : this.form3.value.fullname,
       "min_trades": !this.form3.value.minimumTrades ? "N/A" : this.form3.value.minimumTrades,
-
+      "limit_countries": this.limit_countries
 
     }).subscribe((data) => {
       this.router.navigate(['/dashboard/overview'])

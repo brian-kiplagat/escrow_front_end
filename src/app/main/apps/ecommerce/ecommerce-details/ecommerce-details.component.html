@@ -37,12 +37,7 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-body">
-                      <ngb-alert [type]="'danger'" [dismissible]="false">
-                        <div class="alert-body" *ngIf="offer.vpn == 1">
-                          This offer does not allow VPN/TOR or other
-                          anonymous usages. Deactivate your VPN first
-                        </div>
-                      </ngb-alert>
+
                       <ngb-alert [type]="'danger'" [dismissible]="false">
                         <div class="alert-body" *ngIf="err">
                           {{ err }}
@@ -142,7 +137,7 @@
                               <!--/ Select Multi with group -->
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-12"  *ngIf="logged == true">
                             <button
                               type="button"
                               class="btn btn-primary btn-block"
@@ -169,6 +164,28 @@
                                                         ></span
                                                         >SELL BITCOIN
                             </button>
+                          </div>
+                          <div class="col-12"  *ngIf="logged == false">
+                            <a [routerLink]="'/pages/login'"
+                              type="button"
+                              class="btn btn-primary btn-block"
+                              (click)="openTrade(form)"
+                              rippleEffect
+
+
+                            >
+                                                            <span
+                                                              [data-feather]="'user'"
+                                                              [class]="'mr-25 text-capitalize'"
+                                                            ></span
+                                                            >LOGIN FIRST
+                            </a>
+                            <br>
+                            <ngb-alert [type]="'primary'" [dismissible]="false">
+                              <div class="alert-body" >
+                                Don't worry well bring you right here after you login or create an account</div>
+                            </ngb-alert>
+
                           </div>
                         </div>
                       </form>

@@ -634,7 +634,7 @@
                           value="blocked"
                           formControlName="limitCountries"
                           class="custom-control-input"
-                          (change)="removeDisable()"
+                          (change)="removeDisable('blocked')"
                         />
                         <label
                           class="custom-control-label"
@@ -652,7 +652,7 @@
                           value="allowed"
                           formControlName="limitCountries"
                           class="custom-control-input"
-                          (change)="removeDisable()"
+                          (change)="removeDisable('allowed')"
                         />
                         <label
                           class="custom-control-label"
@@ -687,7 +687,7 @@
                         *ngIf="allowCountires"
 
                       >
-                        <ng-option *ngFor="let car of countries" [value]="car.name">{{car.name}}  ({{car.iso}})
+                        <ng-option *ngFor="let car of countries" [value]="car.iso">{{car.name}}  ({{car.iso}})
                         </ng-option>
                       </ng-select>
                       <ng-select
@@ -699,7 +699,7 @@
                         *ngIf="blockCountires"
 
                       >
-                        <ng-option *ngFor="let car of countries" [value]="car.name">{{car.name}}  ({{car.iso}})
+                        <ng-option *ngFor="let car of countries" [value]="car.iso">{{car.name}}  ({{car.iso}})
                         </ng-option>
                       </ng-select>
 

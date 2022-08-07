@@ -293,18 +293,15 @@ export class FirebaseService {
   }
 
   //get offerinformation
-  getInfo(username: string, token: string, id: string) {
+  getInfo( id: string) {
     const header = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      token: token,
-      username: username
-    };
-    const requesturl =  `${environment.endpoint}/getOfferInfo/` + id;
+    }
     const requestOptions = {
       headers: new HttpHeaders(header)
     };
-    return this.http.get(requesturl, requestOptions);
+    return this.http.get(`${environment.endpoint}/getOfferInfo/` + id, requestOptions);
   }
 
   //open trade

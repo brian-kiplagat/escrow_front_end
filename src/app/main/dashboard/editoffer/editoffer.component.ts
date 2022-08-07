@@ -134,10 +134,10 @@ export class EditofferComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');
     console.log(productIdFromRoute);
-    
+
     this.user = JSON.parse(localStorage.getItem('user'))
     console.log(this.user)
-    this._fb.getInfo(this.user.username, this.user.token, productIdFromRoute).subscribe((data: any) => {
+    this._fb.getInfo(productIdFromRoute).subscribe((data: any) => {
       console.log(data.responseMessage.data)
       this.offer = data.responseMessage.data;
       this.offer_id = data.responseMessage.data.offer_id
