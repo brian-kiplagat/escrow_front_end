@@ -12,6 +12,7 @@ import {isNumeric} from "rxjs/internal-compatibility";
 import {FormControl} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {ToastrService} from 'ngx-toastr';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-account-settings',
@@ -126,7 +127,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             })
 
           };
-          await fetch('https://api.coinlif.com/api/coin/v1/uploadProfile', requestOptions).then((response) => {
+          await fetch(`${environment.endpoint}/uploadProfile`, requestOptions).then((response) => {
             console.log(response);
             if (!response.ok) {
               this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')
@@ -367,7 +368,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         })
       }
 
-      fetch('https://api.coinlif.com/api/coin/v1/toggle2FA', {
+      fetch(`${environment.endpoint}/toggle2FA`, {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -391,9 +392,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
           fireAlert('error', 'Ops', json.responseMessage.msg)
         }
 
-        /*this.factor_login = json.responseMessage.factor_login//Update with boolean values from server
-        this.factor_send = json.responseMessage.factor_send
-        this.factor_release = json.responseMessage.factor_release*/
+
 
       });
 
@@ -477,12 +476,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       "old_password": old_password
 
     }).subscribe((response: any) => {
-      this.fireSwalSuccess('SUCCESS', 'You changed your password. We are logging you out of all active session shortly and you will be required to log in again')
-      setTimeout(() => {
-        console.log('sleeping for 2.5 seconds');
-        // And any other code that should run only after 5s
-        location.reload()
-      }, 2500);
+      this.router.navigate(['pages/login'])
     }, (err) => {
       this.reset_error_text = err.error.responseMessage
       this.reset_error = true
