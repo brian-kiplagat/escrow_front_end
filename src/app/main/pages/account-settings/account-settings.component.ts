@@ -127,7 +127,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             })
 
           };
-          await fetch(`${environment.endpoint}/uploadProfile`, requestOptions).then((response) => {
+          await fetch(`${environment.upload_endpoint}/uploadProfile`, requestOptions).then((response) => {
             console.log(response);
             if (!response.ok) {
               this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')

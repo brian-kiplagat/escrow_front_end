@@ -7,6 +7,7 @@ export const environment = {
   hmr: false,
   apiUrl: 'http://localhost:4000',
   endpoint:'https://api.coinpes.com/api/coin/v1',
+  upload_endpoint:'https://api.coinlif.com/api/coin/v1',
   firebase: {
     apiKey: "AIzaSyAnpvBPEoonlhyLu6g-pNnNlfyGdnzjOpI",
     authDomain: "chatapp-3b35b.firebaseapp.com",
