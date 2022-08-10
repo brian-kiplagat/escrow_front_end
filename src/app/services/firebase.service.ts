@@ -503,7 +503,16 @@ export class FirebaseService {
       requestOptions
     );
   }
-
+  sendCodeToMail(token, username, formData: any) {
+    return this.http.post(`${environment.endpoint}/send2FAMail`,formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
   confirmResetPassword(formData: any) {
     const requestOptions = {
       headers: new HttpHeaders(this.headerDict)

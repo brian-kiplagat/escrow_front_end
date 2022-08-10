@@ -10,18 +10,22 @@
       <div class="col-lg-4 col-md-6 col-12">
         <div class="card card-developer-meetup">
           <div class="bg-light-primary rounded-top text-center">
-            <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl={{address}}" alt="Meeting Pic" height="170" />
+            <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl={{address}}" alt="Meeting Pic"
+                 height="170"/>
           </div>
           <div class="card-body">
             <div class="meetup-header d-flex align-items-center">
 
-              <div class="my-auto" ngbTooltip = "Send Bitcoin (BTC) to this address to add funds to your account." placement="top">
+              <div class="my-auto" ngbTooltip="Send Bitcoin (BTC) to this address to add funds to your account."
+                   placement="top">
                 <h4 class="card-title mb-25">Receive BTC</h4>
-                <p class="card-text mb-0" >{{address}}</p>
+                <p class="card-text mb-0">{{address}}</p>
               </div>
             </div>
             <div class="">
-              <button type="button" class="btn btn-primary btn-block" rippleEffect (click)="copy_address()">COPY ADDRESS</button>
+              <button type="button" class="btn btn-primary btn-block" rippleEffect (click)="copy_address()">COPY
+                ADDRESS
+              </button>
             </div>
 
           </div>
@@ -34,7 +38,9 @@
         <div class="card card-payment">
           <div class="card-header">
             <h4 class="card-title">SEND BTC</h4>
-            <h4 class="card-title text-primary" ngbTooltip = "This is your current balance in {{currency}}. You can change how we display your balance from the account settings menu." placement="top">{{fiat}} {{currency}} </h4>
+            <h4 class="card-title text-primary"
+                ngbTooltip="This is your current balance in {{currency}}. You can change how we display your balance from the account settings menu."
+                placement="top">{{fiat}} {{currency}} </h4>
           </div>
 
           <div class="card-body">
@@ -57,7 +63,8 @@
               <div class="row">
                 <div class="col-12">
                   <div class="form-group mb-2">
-                    <label for="address" ngbTooltip="Enter your address here, be sure to confirm its correct" placement="right">BTC Address</label>
+                    <label for="address" ngbTooltip="Enter your address here, be sure to confirm its correct"
+                           placement="right">BTC Address</label>
                     <input
                       type="text"
                       id="address"
@@ -66,21 +73,45 @@
                     />
                   </div>
                 </div>
-                <div class="col-12" >
+                <div class="col-12">
                   <div class="form-group mb-2">
-                    <label for="amount" ngbTooltip="Enter your amount in {{currency}}." placement="right">Amount ({{currency}})</label>
-                    <input type="number" id="amount" class="form-control" placeholder="{{currency}}" />
+                    <label for="amount" ngbTooltip="Enter your amount in {{currency}}." placement="right">Amount
+                      ({{currency}})</label>
+                    <input type="number" id="amount" class="form-control" placeholder="{{currency}}"/>
                   </div>
+                </div>
+                <div class="col-12"  *ngIf="currentUser.choice_2fa == 'MAIL' || currentUser.choice_2fa == '2FA' && currentUser.factor_send == false ">
+                  <div class="row mb-2" style="margin-left: 2px;margin-right: 2px">
+                    <label for="code_email"
+                           ngbTooltip="Click Get Code and check your email or spam folder. In future we recommend you activate 2FA"
+                           placement="right">2FA Code</label>
+                    <div class="input-group">
+                      <input
+                        type="number"
+                        id="code_email"
+                        class="form-control"
+                        placeholder="Code from email"
+                        aria-describedby="button-addon2"
+                      />
+                      <div class="input-group-append" id="button-addon2">
+                        <button class="btn btn-outline-primary" type="button" (click)="send2FAMail()" rippleEffect>Get Code
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
                 <div class="col-12" *ngIf="currentUser.choice_2fa == '2FA' && currentUser.factor_send == true">
                   <div class="form-group mb-2">
-                    <label for="otp" ngbTooltip="Enter the code from your Authy or Google Authenticator" placement="right">OTP</label>
-                    <input type="number" id="otp" class="form-control" placeholder="12356" />
+                    <label for="otp" ngbTooltip="Enter the code from your Authy or Google Authenticator"
+                           placement="right">OTP</label>
+                    <input type="number" id="otp" class="form-control" placeholder="12356"/>
                   </div>
                 </div>
 
                 <div class="col-12">
-                  <button type="button" class="btn btn-primary btn-block" (click)="sendBTC()" rippleEffect>SEND BTC</button>
+                  <button type="button" class="btn btn-primary btn-block" (click)="sendBTC()" rippleEffect>SEND BTC
+                  </button>
                 </div>
               </div>
             </form>
@@ -97,7 +128,7 @@
             <div class="d-flex justify-content-between align-items-center mb-1">
               <div class="media">
                 <div class="avatar mr-1">
-                  <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42" />
+                  <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42"/>
                 </div>
                 <div class="media-body">
                   <h5 class="mb-0">Mittie Evans</h5>
@@ -108,15 +139,16 @@
             </div>
             <h5 class="apply-job-title">Why do i need to confirm the address when sending?</h5>
             <p class="card-text mb-2">
-              Due to the irreversible nature of cryptocurrency protocols, transactions can't be reversed once initiated. While Coinpes Wallet gives you complete custodian control over your digital assets, this also means that we're not able to recover any funds sent to an incorrect address. We strongly suggest that you double check addresses before sending
+              Due to the irreversible nature of cryptocurrency protocols, transactions can't be reversed once initiated.
+              While Coinpes Wallet gives you complete custodian control over your digital assets, this also means that
+              we're not able to recover any funds sent to an incorrect address. We strongly suggest that you double
+              check addresses before sending
             </p>
 
           </div>
         </div>
       </div>
       <!--/ Apply Job Card -->
-
-
 
 
     </div>
@@ -126,11 +158,12 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header" ngbTooltip = "BTC sent to your address will be available in your account for trading after 3
-                confirmations. Which takes about 30 Minutes to One Hour"><h4 class="card-title">Crypto Transactions</h4></div>
+            <div class="card-header" ngbTooltip="BTC sent to your address will be available in your account for trading after 3
+                confirmations. Which takes about 30 Minutes to One Hour"><h4 class="card-title">Crypto Transactions</h4>
+            </div>
             <div class="card-body">
               <p class="card-text">
-               When you send or receive BTC you'll see the transactions here
+                When you send or receive BTC you'll see the transactions here
               </p>
             </div>
             <div class="table-responsive">
@@ -147,22 +180,29 @@
                 </thead>
                 <tbody>
 
-                <tr *ngFor ="let tx of transactions">
-                  <td ngbTooltip = "The value of this transaction at the time it was made was {{tx.usd  | number : '1.2-2'}} USD. The price at the time was {{tx.usdrate  | number : '1.2-2'}} USD per Bitcoin">
-                   <span class="font-weight-bold">{{tx.amount}} BTC</span>
+                <tr *ngFor="let tx of transactions">
+                  <td
+                    ngbTooltip="The value of this transaction at the time it was made was {{tx.usd  | number : '1.2-2'}} USD. The price at the time was {{tx.usdrate  | number : '1.2-2'}} USD per Bitcoin">
+                    <span class="font-weight-bold">{{tx.amount}} BTC</span>
                   </td>
                   <td>{{tx.type}}</td>
                   <td><span class="badge badge-pill badge-light-primary mr-1">{{tx.hash}}</span></td>
                   <td>{{tx.created_at | date:'medium'}}</td>
-                  <td *ngIf = "tx.paid == 1" ngbTooltip="This transaction was confirmed on {{tx.created_at | date}}. It currently has  {{tx.confirmations}} Confirmation" placement = "top">Confirmed</td>
-                  <td *ngIf = "tx.paid == 0" ngbTooltip="This means that your transaction is still processing. Bitcoin transactions usually take 30 minutes to 1.5 hours to complete. However, there can be delays in the transaction if there is a high volume of transactions in the blockchain" placement = "top">Pending</td>
+                  <td *ngIf="tx.paid == 1"
+                      ngbTooltip="This transaction was confirmed on {{tx.created_at | date}}. It currently has  {{tx.confirmations}} Confirmation"
+                      placement="top">Confirmed
+                  </td>
+                  <td *ngIf="tx.paid == 0"
+                      ngbTooltip="This means that your transaction is still processing. Bitcoin transactions usually take 30 minutes to 1.5 hours to complete. However, there can be delays in the transaction if there is a high volume of transactions in the blockchain"
+                      placement="top">Pending
+                  </td>
                   <td class="overflow-hidden">
                     <div ngbDropdown container="body">
                       <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
                         <i data-feather="more-vertical"></i>
                       </button>
                       <div ngbDropdownMenu>
-                        <a ngbDropdownItem href="https://www.blockchain.com/btc/tx/{{tx.hash}}"  target="_blank"
+                        <a ngbDropdownItem href="https://www.blockchain.com/btc/tx/{{tx.hash}}" target="_blank"
                         ><i data-feather="chrome" class="mr-50"></i><span>View</span></a
                         >
                       </div>
@@ -177,8 +217,6 @@
         </div>
       </div>
       <!--/ Table Basic -->
-
-
 
 
       <!-- Table Basic -->
@@ -205,7 +243,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor ="let internal of internal_tx">
+                <tr *ngFor="let internal of internal_tx">
                   <td>
                     <a href="/users/{{internal.sender}}">
                       <span class="font-weight-bold">{{internal.sender}}</span>
@@ -217,7 +255,9 @@
                       <span class="font-weight-bold">{{internal.recepient}}</span>
                     </a>
                   </td>
-                  <td><span class="badge badge-pill badge-light-warning mr-1" ngbTooltip="This was interpreted at the time of the transaction. The current value of these Bitcoins may change depending on the market rate">{{internal.fiat}} {{internal.currency}}</span></td>
+                  <td><span class="badge badge-pill badge-light-warning mr-1"
+                            ngbTooltip="This was interpreted at the time of the transaction. The current value of these Bitcoins may change depending on the market rate">{{internal.fiat}} {{internal.currency}}</span>
+                  </td>
                   <td><span class="badge badge-pill badge-light-success mr-1">{{internal.amount_btc}}</span></td>
                   <td>{{internal.created_at | date}}</td>
 

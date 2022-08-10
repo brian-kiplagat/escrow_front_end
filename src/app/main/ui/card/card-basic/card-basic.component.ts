@@ -88,8 +88,11 @@ export class CardBasicComponent implements OnInit {
     let address = (<HTMLInputElement>document.getElementById("address")).value;
     let amount = (<HTMLInputElement>document.getElementById("amount")).value;
     let otp
+
     if (this.currentUser.choice_2fa == '2FA' && this.currentUser.factor_send == true) {
       otp = (<HTMLInputElement>document.getElementById("otp")).value;
+    } else if (this.currentUser.choice_2fa == 'MAIL') {
+      otp = (<HTMLInputElement>document.getElementById("code_email")).value;
     }
     this.loading = true
     this.fb.sendCrypto(this.user.token, this.user.username, {
@@ -146,5 +149,17 @@ export class CardBasicComponent implements OnInit {
 
     }
 
+  }
+
+  send2FAMail() {
+    this.fb.sendCodeToMail(this.user.token, this.user.username, {
+      email: this.user.email
+    }).subscribe((response: any) => {
+      this.toast('Success', '👋 Please check your email for the 2FA Code to authorize this transfer', 'success')
+
+    }, (err) => {
+      this.toast('Ops', err.error.responseMessage, 'error')
+
+    })
   }
 }
