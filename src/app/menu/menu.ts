@@ -58,14 +58,7 @@ export const menu: CoreMenu[] = [
     translate: 'MENU.APPS.SECTION',
     icon: 'pocket',
     url: "ui/card/card-basic"
-  },
-  {
-    id: 'apps_7',
-    type: 'item',
-    title: 'Contact Support',
-    translate: 'MENU.APPS.SECTION',
-    icon: 'phone-call',
-    url: "pages/faq"
   }
+
 
 ];
