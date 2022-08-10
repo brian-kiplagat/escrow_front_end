@@ -126,11 +126,11 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header"><h4 class="card-title">Crypto Deposits</h4></div>
+            <div class="card-header" ngbTooltip = "BTC sent to your address will be available in your account for trading after 3
+                confirmations. Which takes about 30 Minutes to One Hour"><h4 class="card-title">Crypto Transactions</h4></div>
             <div class="card-body">
               <p class="card-text">
-                BTC sent to your address will be available in your account for trading after 3
-                confirmations. Which takes about 30 Minutes to One Hour
+               When you send or receive BTC you'll see the transactions here
               </p>
             </div>
             <div class="table-responsive">
@@ -138,6 +138,7 @@
                 <thead>
                 <tr>
                   <th>amount</th>
+                  <th>type</th>
                   <th>hash</th>
                   <th>date</th>
                   <th>status</th>
@@ -146,21 +147,22 @@
                 </thead>
                 <tbody>
 
-                <tr *ngFor ="let deposit of deposit_tx">
-                  <td>
-                   <span class="font-weight-bold">{{deposit.amount}} BTC</span>
+                <tr *ngFor ="let tx of transactions">
+                  <td ngbTooltip = "The value of this transaction at the time it was made was {{tx.usd  | number : '1.2-2'}} USD. The price at the time was {{tx.usdrate  | number : '1.2-2'}} USD per Bitcoin">
+                   <span class="font-weight-bold">{{tx.amount}} BTC</span>
                   </td>
-                  <td><span class="badge badge-pill badge-light-primary mr-1">{{deposit.hash}}</span></td>
-                  <td>{{deposit.created_at | date}}</td>
-                  <td *ngIf = "deposit.paid == 1" ngbTooltip="This transaction was confirmed and added to your balance on {{deposit.created_at | date}}" placement = "top">Confirmed</td>
-                  <td *ngIf = "deposit.paid == 0" ngbTooltip="If your transaction is still pending, this means that your transaction is still processing. All Bitcoin transactions require 3 confirmations in the blockchain from miners before they're processed. Generally speaking, Bitcoin transactions usually take 30 minutes to 1.5 hours to complete. However, there can be delays in the transaction if there is a high volume of transactions taking place at the same time" placement = "top">Pending</td>
+                  <td>{{tx.type}}</td>
+                  <td><span class="badge badge-pill badge-light-primary mr-1">{{tx.hash}}</span></td>
+                  <td>{{tx.created_at | date}}</td>
+                  <td *ngIf = "tx.paid == 1" ngbTooltip="This transaction was confirmed on {{tx.created_at | date}}. It currently has  {{tx.confirmations}} Confirmation" placement = "top">Confirmed</td>
+                  <td *ngIf = "tx.paid == 0" ngbTooltip="This means that your transaction is still processing. Bitcoin transactions usually take 30 minutes to 1.5 hours to complete. However, there can be delays in the transaction if there is a high volume of transactions in the blockchain" placement = "top">Pending</td>
                   <td class="overflow-hidden">
                     <div ngbDropdown container="body">
                       <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
                         <i data-feather="more-vertical"></i>
                       </button>
                       <div ngbDropdownMenu>
-                        <a ngbDropdownItem href="https://www.blockchain.com/btc/tx/{{deposit.hash}}"  target="_blank"
+                        <a ngbDropdownItem href="https://www.blockchain.com/btc/tx/{{tx.hash}}"  target="_blank"
                         ><i data-feather="chrome" class="mr-50"></i><span>View</span></a
                         >
                       </div>
@@ -176,45 +178,6 @@
       </div>
       <!--/ Table Basic -->
 
-      <!-- Table Basic -->
-      <div class="row" id="basic-table">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header"><h4 class="card-title">Crypto Withdrawals</h4></div>
-            <div class="card-body">
-              <p class="card-text">
-                A crypto withdrawal is a transaction that allows you to move your cryptocurrency balance off the Coinpes
-                platform to an external crypto wallet.
-              </p>
-            </div>
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                <tr>
-                  <th>Amount</th>
-                  <th>Fee</th>
-                  <th>Address</th>
-                  <th>Date</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor ="let withdrawal of withdrawal_tx">
-                  <td>
-                    <span class="font-weight-bold">{{withdrawal.transaction_amount}} BTC</span>
-                  </td>
-                  <td><span class="badge badge-pill badge-light-primary mr-1">{{withdrawal.transaction_fee}} BTC</span></td>
-                  <td><span class="badge badge-pill badge-light-primary mr-1">{{withdrawal.address}}</span></td>
-                  <td>{{withdrawal.created_at | date}}</td>
-
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--/ Table Basic -->
 
 
 
