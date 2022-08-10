@@ -153,7 +153,7 @@
                   </td>
                   <td>{{tx.type}}</td>
                   <td><span class="badge badge-pill badge-light-primary mr-1">{{tx.hash}}</span></td>
-                  <td>{{tx.created_at | date}}</td>
+                  <td>{{tx.created_at | date:'medium'}}</td>
                   <td *ngIf = "tx.paid == 1" ngbTooltip="This transaction was confirmed on {{tx.created_at | date}}. It currently has  {{tx.confirmations}} Confirmation" placement = "top">Confirmed</td>
                   <td *ngIf = "tx.paid == 0" ngbTooltip="This means that your transaction is still processing. Bitcoin transactions usually take 30 minutes to 1.5 hours to complete. However, there can be delays in the transaction if there is a high volume of transactions in the blockchain" placement = "top">Pending</td>
                   <td class="overflow-hidden">
