@@ -91,7 +91,7 @@ export class CardBasicComponent implements OnInit {
 
     if (this.currentUser.choice_2fa == '2FA' && this.currentUser.factor_send == true) {
       otp = (<HTMLInputElement>document.getElementById("otp")).value;
-    } else if (this.currentUser.choice_2fa == 'MAIL') {
+    } else if (this.currentUser.choice_2fa == 'MAIL'  || this.currentUser.choice_2fa == '2FA' &&  this.currentUser.factor_send == false ) {
       otp = (<HTMLInputElement>document.getElementById("code_email")).value;
     }
     this.loading = true
