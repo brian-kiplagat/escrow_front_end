@@ -40,13 +40,13 @@ export class CryptoLendingComponent implements OnInit {
   */
  ngOnInit() {
    this.contentHeader = {
-     headerTitle: 'My wallet',
+     headerTitle: 'Borrow Bitcoin',
      actionButton: true,
      breadcrumb: {
        type: '',
        links: [
          {
-           name: 'Send and Receive BTC',
+           name: 'No Credit Check needed',
            isLink: true,
            link: '/'
          }

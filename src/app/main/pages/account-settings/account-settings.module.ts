@@ -13,13 +13,8 @@ import {AccountSettingsService} from 'app/main/pages/account-settings/account-se
 import {NgSelectModule} from "@ng-select/ng-select";
 import {CardSnippetModule} from '@core/components/card-snippet/card-snippet.module';
 import {CoreDirectivesModule} from '@core/directives/directives';
-import {FormWizardComponent} from 'app/main/forms/form-wizard/form-wizard.component';
 import {FormsModule} from "@angular/forms";
-import { FormRepeaterModule } from 'app/main/forms/form-repeater/form-repeater.module';
-import { FormElementsModule } from 'app/main/forms/form-elements/form-elements.module';
-import { FormLayoutModule } from 'app/main/forms/form-layout/form-layout.module';
-import { FormValidationModule } from 'app/main/forms/form-validation/form-validation.module';
-import { FormWizardModule } from 'app/main/forms/form-wizard/form-wizard.module';
+
 
 const routes: Routes = [
   {
@@ -46,8 +41,7 @@ const routes: Routes = [
     CardSnippetModule,
     FormsModule,
     CoreDirectivesModule,
-    NgSelectModule,
-    FormElementsModule, FormLayoutModule, FormWizardModule, FormValidationModule, FormRepeaterModule
+    NgSelectModule
   ],
 
   providers: [AccountSettingsService]

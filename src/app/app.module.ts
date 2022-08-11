@@ -23,11 +23,6 @@ import { coreConfig } from 'app/app-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
-
-import { ContextMenuComponent } from 'app/main/extensions/context-menu/context-menu.component';
-import { AnimatedCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/animated-custom-context-menu/animated-custom-context-menu.component';
-import { BasicCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/basic-custom-context-menu/basic-custom-context-menu.component';
-import { SubMenuCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/sub-menu-custom-context-menu/sub-menu-custom-context-menu.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
@@ -67,22 +62,8 @@ const appRoutes: Routes = [
     path: 'components',
     loadChildren: () => import('./main/components/components.module').then(m => m.ComponentsModule),
 
-  },
-  {
-    path: 'extensions',
-    loadChildren: () => import('./main/extensions/extensions.module').then(m => m.ExtensionsModule),
-
-  },
-  {
-    path: 'forms',
-    loadChildren: () => import('./main/forms/forms.module').then(m => m.FormsModule),
-
-  },
-  {
-    path: 'tables',
-    loadChildren: () => import('./main/tables/tables.module').then(m => m.TablesModule),
-
-  },
+  }
+  ,
   {
     path: 'users/:id',
     component:ProfileComponent,
@@ -110,10 +91,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ContextMenuComponent,
-    BasicCustomContextMenuComponent,
-    AnimatedCustomContextMenuComponent,
-    SubMenuCustomContextMenuComponent,
     ProfileComponent,
     FaqComponent
   ],
@@ -162,7 +139,7 @@ const appRoutes: Routes = [
    // fakeBackendProvider
 
   ],
-  entryComponents: [BasicCustomContextMenuComponent, AnimatedCustomContextMenuComponent],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
