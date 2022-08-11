@@ -43,14 +43,13 @@ export class ChatComponent implements OnInit ,OnDestroy,AfterViewInit{
   /**
    * Constructor
    *
+   * @param fb
+   * @param route
+   * @param router
+   * @param chat_service
    * @param {DOCUMENT} document
    * @param {Title} _title
-   * @param {Renderer2} _renderer
-   * @param {ElementRef} _elementRef
    * @param {CoreConfigService} _coreConfigService
-   * @param {CoreSidebarService} _coreSidebarService
-   * @param {CoreLoadingScreenService} _coreLoadingScreenService
-   * @param {CoreMenuService} _coreMenuService
    * @param {CoreTranslationService} _coreTranslationService
    * @param {TranslateService} _translateService
    */
@@ -92,45 +91,6 @@ this._unsubscribeAll.complete();
 
     ngOnInit(): void {
         this.user = JSON.parse(localStorage.getItem('user'));
-        let config = JSON.parse(localStorage.getItem('config'));
-        // let appConfig = {
-        //     app: {
-        //         appLanguage: 'en',
-        //         appLogoImage: 'assets/images/logo/logo.svg',
-        //         appName: 'CoinPes',
-        //         appTitle: 'CoinPes'
-        //     },
-        //     layout: {
-        //         animation: 'fadeIn',
-        //         buyNow: false,
-        //         customizer: true,
-        //         enableLocalStorage: true,
-        //         menu: {
-        //             hidden: false,
-        //             collapsed: false
-        //         },
-        //         navbar: {
-        //             background: 'navbar-light',
-        //             backgroundColor: '',
-        //             customBackgroundColor: true,
-        //             hidden: false,
-        //             type: 'floating-nav'
-        //         },
-        //         footer: {
-        //             background: 'footer-light',
-        //             backgroundColor: '',
-        //             customBackgroundColor: false,
-        //             hidden: false,
-        //             type: 'footer-static'
-        //         },
-        //         scrollTop: true,
-        //         skin: 'default',
-        //         type: 'vertical'
-        //     }
-        // };
-        // localStorage.setItem('config', JSON.stringify(appConfig));
-        console.log(config);
-            // Subscribe to config change
         const routeParams = this.route.snapshot.paramMap;
         this.fb.getTradeByID(this.user.username, this.user.token, routeParams.get('id')).subscribe(
             (data: any) => {

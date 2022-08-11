@@ -115,7 +115,6 @@ export class EcommerceDetailsComponent implements OnInit {
       }
     });
     this.form = this._formBuilder.group({
-      // username: ['', [Validators.required]],
       amounttoreceive: ['', Validators.required],
       amount: ['', Validators.compose([
         Validators.required,
