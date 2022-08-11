@@ -72,7 +72,7 @@
               dispute to the correct party
             </p>
             <p class="card-text mb-2" *ngIf="status == 'AWARDED_BUYER' || status == 'AWARDED_SELLER'" >
-              DeraUser123 ensure you send the payment before you click the paid button
+              {{trade.dispute_mod_notes}}
             </p>
 
 
@@ -188,12 +188,12 @@
             </div>
             <h5 class="apply-job-title" *ngIf="trade.dispute_started == true && status == 'PAID'" >Having a problem? We're joining in shortly to help.</h5>
             <p class="card-text mb-2" *ngIf="trade.dispute_started == true && status == 'PAID'" >
-              Meanwhile explain to us what happened and upload evidence showing you sent the money including screenshots, video records and account statement. The
-              moderator will join and assess the evidence and award the
-              dispute to the correct party
+              Meanwhile explain to us what happened, upload proof showing you sent the money including screenshots, video records and an account statement. The
+              Moderator will join che chat, assess the evidence and award the
+              BTC to the correct party
             </p>
             <p class="card-text mb-2" *ngIf="status == 'AWARDED_BUYER' || status == 'AWARDED_SELLER'" >
-              DeraUser123 ensure you send the payment before you click the paid button
+              {{trade.dispute_mod_notes}}
             </p>
 
 
