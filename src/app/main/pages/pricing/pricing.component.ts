@@ -2,9 +2,6 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-
-import {PricingService} from 'app/main/pages/pricing/pricing.service';
-import {DomSanitizer} from "@angular/platform-browser";
 import {FirebaseService} from "../../../services/firebase.service";
 import {Router} from "@angular/router";
 import {v4 as uuidv4} from 'uuid';
@@ -24,6 +21,7 @@ export class PricingComponent implements OnInit, OnDestroy {
   public msg;
   public error
   public success
+  public Questions = []
 
   // private
   private _unsubscribeAll: Subject<any>;
@@ -31,14 +29,14 @@ export class PricingComponent implements OnInit, OnDestroy {
   /**
    * Constructor
    *
-   * @param {PricingService} _pricingService
+   * @param fb
+   * @param router
    */
-  constructor(private _pricingService: PricingService, private fb: FirebaseService, private router: Router) {
+  constructor(private fb: FirebaseService, private router: Router) {
     this._unsubscribeAll = new Subject();
   }
 
   ngOnInit(): void {
-    // get the currentUser details from localStorage
     this.user = JSON.parse(localStorage.getItem('user'));
     this.fb.getPackages(this.user.token, this.user.username,this.user.email).subscribe((data: any) => {
       this.packages = data.responseMessage.packages
@@ -46,12 +44,25 @@ export class PricingComponent implements OnInit, OnDestroy {
       console.log(data)
     }, (error) => {
       console.log(error)
-
+    this.Questions =  [
+      {
+        question: 'Does my subscription automatically renew?',
+        ans:
+          'You have to do it after end of every circle.'
+      },
+      {
+        question: 'What yield do i get?',
+        ans:
+          'It depends on the APY you see on the site.'
+      },
+      {
+        question: 'Am I allowed to modify the item that I purchased?',
+        ans:
+          'No you cannot.Until after the end of the market cycle.'
+      }
+    ]
     });
 
-    this._pricingService.onPricingChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-      this.data = response;
-    });
   }
 
   /**

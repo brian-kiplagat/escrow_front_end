@@ -31,7 +31,7 @@ export class CardBasicComponent implements OnInit {
   public loading: boolean;
   public internal_tx: any;
 
-  constructor(private toastr: ToastrService, private fb: FirebaseService, private router: Router, private toaster: ToastrService) {
+  constructor(private fb: FirebaseService, private router: Router, private toaster: ToastrService) {
     this.options = this.toaster.toastrConfig;
   }
 
@@ -131,7 +131,7 @@ export class CardBasicComponent implements OnInit {
 
   private toast(title: string, message: string, type: string) {
     if (type == 'success') {
-      this.toastr.success(message, title, {
+      this.toaster.success(message, title, {
         toastClass: 'toast ngx-toastr',
         timeOut: 5000,
         closeButton: true,
@@ -139,7 +139,7 @@ export class CardBasicComponent implements OnInit {
         progressBar: true
       });
     } else {
-      this.toastr.error(message, title, {
+      this.toaster.error(message, title, {
         toastClass: 'toast ngx-toastr',
         timeOut: 5000,
         closeButton: true,
