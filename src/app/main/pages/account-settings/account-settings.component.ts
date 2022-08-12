@@ -11,6 +11,7 @@ import {FormControl} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {ToastrService} from 'ngx-toastr';
 import {environment} from "../../../../environments/environment";
+import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-account-settings',
@@ -45,6 +46,8 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public currencies: any;
   public selected: any;
   public password_response: any;
+ public imageChangedEvent: any = '';
+public croppedImage: any = '';
 
   // public
 
@@ -88,6 +91,23 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   togglePasswordTextTypeRetype() {
     this.passwordTextTypeRetype = !this.passwordTextTypeRetype;
   }
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+}
+imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+}
+imageLoaded(image: LoadedImage) {
+    // show cropper
+    console.log('show cropper')
+}
+cropperReady() {
+    // cropper ready
+}
+loadImageFailed() {
+    // show message
+}
+
 
   /**
    * Upload Image
@@ -124,7 +144,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             })
 
           };
-          await fetch(`${environment.upload_endpoint}/uploadProfile`, requestOptions).then((response) => {
+          await fetch(`/uploadProfile`, requestOptions).then((response) => {
             console.log(response);
             if (!response.ok) {
               this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')

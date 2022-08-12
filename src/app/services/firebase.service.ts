@@ -362,19 +362,6 @@ export class FirebaseService {
     return this.http.post(`${environment.endpoint}/invest`, data, requestOptions);
   }
 
-  getProfile() {
-    var data: any = new FormData();
-    data.append('username', 'MurderouLlipa455');
-    data.append('key', 'kwdmcpmpmwsx');
-    data.append('secret', 'kxpwcnmpwcmcpc');
-
-    return this.http.post('https://coinlif.com/api/coin/getProfileData.php', data);
-  }
-
-  //chat logic
-  createChat() {
-  }
-
   //send message
   async sendMessage(data: any) {
     //Send message

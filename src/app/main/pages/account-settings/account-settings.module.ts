@@ -13,6 +13,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {CardSnippetModule} from '@core/components/card-snippet/card-snippet.module';
 import {CoreDirectivesModule} from '@core/directives/directives';
 import {FormsModule} from "@angular/forms";
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 const routes: Routes = [
@@ -37,7 +38,8 @@ const routes: Routes = [
     CardSnippetModule,
     FormsModule,
     CoreDirectivesModule,
-    NgSelectModule
+    NgSelectModule,
+    ImageCropperModule
   ]
 })
 export class AccountSettingsModule {
