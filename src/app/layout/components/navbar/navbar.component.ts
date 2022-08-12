@@ -75,6 +75,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * @param {CoreMediaService} _coreMediaService
    * @param {MediaObserver} _mediaObserver
    * @param {TranslateService} _translateService
+   * @param _firebae
+   * @param router
    */
   constructor(
     private _router: Router,

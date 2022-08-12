@@ -5,9 +5,8 @@ import {getFirestore, collection, getDocs} from 'firebase/firestore/lite';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Subject, Observable, throwError, from} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Subject} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 
 
@@ -122,6 +121,25 @@ export class FirebaseService {
     };
     return this.http.get(
       `${environment.endpoint}/getUserDataByUsername/` + username,
+      requestOptions
+    );
+  }
+
+
+  //get user by username
+  getUsersWithOffers(token,username) {
+    const header = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: token,
+      username: username
+
+    };
+    const requestOptions = {
+      headers: new HttpHeaders(header)
+    };
+    return this.http.get(
+      `${environment.endpoint}/getUsersWithOffers`,
       requestOptions
     );
   }

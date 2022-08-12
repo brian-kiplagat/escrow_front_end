@@ -1,7 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
-import {EcommerceService} from 'app/main/apps/ecommerce/ecommerce.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FirebaseService} from '../../../../services/firebase.service';
 import {v4 as uuidv4} from 'uuid';
@@ -33,10 +31,12 @@ export class EcommerceDetailsComponent implements OnInit {
   /**
    * Constructor
    *
-   * @param {EcommerceService} _ecommerceService
+   * @param route
+   * @param _fb
+   * @param router
+   * @param _formBuilder
    */
   constructor(
-    private _ecommerceService: EcommerceService,
     private route: ActivatedRoute,
     private _fb: FirebaseService,
     private router: Router,
@@ -57,28 +57,12 @@ export class EcommerceDetailsComponent implements OnInit {
     return this.form.controls;
   }
 
-  toggleWishlist(product) {
-    if (product.isInWishlist === true) {
-      this._ecommerceService.removeFromWishlist(product.id).then((res) => {
-        product.isInWishlist = false;
-      });
-    } else {
-      this._ecommerceService.addToWishlist(product.id).then((res) => {
-        product.isInWishlist = true;
-      });
-    }
-  }
 
   /**
    * Add To Cart
    *
    * @param product
    */
-  addToCart(product) {
-    this._ecommerceService.addToCart(product.id).then((res) => {
-      product.isInCart = true;
-    });
-  }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------

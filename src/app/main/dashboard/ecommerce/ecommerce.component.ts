@@ -222,7 +222,7 @@ export class EcommerceComponent implements OnInit {
 
   updateValue(event: any, type: string, idd: string) {
     if (type == 'rate'){
-      console.log(event)
+      //console.log(event)
       this.fb.quickEdit(this.user.token, this.user.username, {
         "offeridd": idd,
         "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
@@ -240,7 +240,7 @@ export class EcommerceComponent implements OnInit {
       });
     }else{
       let value = event.target.value
-      console.log(value)
+      //console.log(value)
       this.fb.quickEdit(this.user.token, this.user.username, {
         "offeridd": idd,
         "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),

@@ -41,11 +41,11 @@
         </p>
       </div>
     </div>
-    <button type="button" class="btn btn-light mt-1 remove-wishlist" (click)="removeFromCart(product)" rippleEffect>
+    <button type="button" class="btn btn-light mt-1 remove-wishlist" rippleEffect>
       <i data-feather="x" class="align-middle mr-25"></i>
       <span>Remove</span>
     </button>
-    <button type="button" class="btn btn-primary btn-cart move-cart" (click)="toggleWishlist(product)" rippleEffect>
+    <button type="button" class="btn btn-primary btn-cart move-cart" rippleEffect>
       <i
         class="align-middle fa mr-25"
         [ngClass]="product.isInWishlist === true ? 'fa-heart text-white' : 'fa-heart-o'"

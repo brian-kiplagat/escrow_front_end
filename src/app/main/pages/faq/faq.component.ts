@@ -1,9 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild,SimpleChanges} from '@angular/core';
 
 import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 
-import {FAQService} from 'app/main/pages/faq/faq.service';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -56,7 +54,7 @@ export class FaqComponent implements OnInit, OnDestroy {
   @ViewChild('apexCandlestickChartRef',{ static: false }) apexCandlestickChartRef: any;
   // public
   public contentHeader: object;
-  public data: any;
+
   public data2: any;
   public searchText: string;
   public shopSidebarToggle = false;
@@ -89,13 +87,11 @@ export class FaqComponent implements OnInit, OnDestroy {
    * Constructor
    *
    * @param fb
-   * @param {FAQService} _faqService
-   * @param _knowledgeBaseService
    * @param _coreConfigService
    */
-  constructor(private fb: FirebaseService, private _faqService: FAQService, private _knowledgeBaseService: FAQService, private _coreConfigService: CoreConfigService) {
+  constructor(private fb: FirebaseService,private _coreConfigService: CoreConfigService) {
     this._unsubscribeAll = new Subject();
-     
+
   }
 
   // Lifecycle Hooks
@@ -108,7 +104,7 @@ export class FaqComponent implements OnInit, OnDestroy {
     //document.getElementById('btn-change').innerHTML = 'OK DONE';
 
     this.fb.getGraph({
-      "search": granularity,  
+      "search": granularity,
 
     }).subscribe((response: any) => {
       this.api_response = response.responseMessage;
@@ -141,9 +137,7 @@ export class FaqComponent implements OnInit, OnDestroy {
     };
  }
   ngOnInit(): void {
-    this._faqService.onFaqsChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-      this.data = response;
-    });
+
     this.data2 = [
       {
         id: 1,
@@ -205,7 +199,7 @@ export class FaqComponent implements OnInit, OnDestroy {
       },
       plotOptions: {
         candlestick: {
-          colors: { 
+          colors: {
             upward: colors.solid.success,
             downward: colors.solid.danger
           }

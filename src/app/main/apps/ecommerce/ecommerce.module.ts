@@ -13,7 +13,6 @@ import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchs
 
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 
-import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
 import { EcommerceDetailsComponent } from 'app/main/apps/ecommerce/ecommerce-details/ecommerce-details.component';
 import { EcommerceItemComponent } from 'app/main/apps/ecommerce/ecommerce-item/ecommerce-item.component';
 import { EcommerceShopComponent } from 'app/main/apps/ecommerce/ecommerce-shop/ecommerce-shop.component';
@@ -38,43 +37,28 @@ const routes: Routes = [
   {
     path: 'buy',
     component: EcommerceShopComponent,
-    resolve: {
-      ecommerce: EcommerceService
-    },
     data: { animation: 'EcommerceShopComponent' }
   },
   {
     path: 'details/:id',
     component: EcommerceDetailsComponent,
-    resolve: {
-      ecommerce: EcommerceService
-    },
     data: { animation: 'EcommerceDetailsComponent' }
   },
   {
     path: 'sell',
     component: EcommerceWishlistComponent,
-    resolve: {
-      ecommerce: EcommerceService
-    },
     data: { animation: 'EcommerceWishlistComponent' }
   },
   {
     path: 'create',
     component: EcommerceCheckoutComponent,
     canActivate: [AuthGuard],
-    resolve: {
-      ecommerce: EcommerceService
-    },
     data: { animation: 'EcommerceCheckoutComponent' }
   },
   {
     path: 'crypto-lending',
     component: CryptoLendingComponent,
     canActivate: [AuthGuard],
-    resolve: {
-      ecommerce: EcommerceService
-    },
     data: { animation: 'EcommerceCheckoutComponent' }
   },
 

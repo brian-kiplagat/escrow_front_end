@@ -1,8 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 
-import { SearchService } from 'app/layout/components/navbar/navbar-search/search.service';
-
 @Component({
   selector: 'app-navbar-bookmark',
   templateUrl: './navbar-bookmark.component.html'
@@ -45,7 +43,7 @@ export class NavbarBookmarkComponent implements OnInit {
    * @param document
    * @param _searchService
    */
-  constructor(@Inject(DOCUMENT) private document, public _searchService: SearchService) {}
+  constructor(@Inject(DOCUMENT) private document) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -80,18 +78,11 @@ export class NavbarBookmarkComponent implements OnInit {
   /**
    * Open Bookmark
    */
-  openBookmark() {
-    this.openBookmarkRef = true;
-    this._searchService.onIsBookmarkOpenChange.next(this.openBookmarkRef);
-  }
 
   /**
    * Close Bookmark
    */
-  closeBookmark() {
-    this.openBookmarkRef = false;
-    this._searchService.onIsBookmarkOpenChange.next(this.openBookmarkRef);
-  }
+
 
   /**
    * Remove Overlay
@@ -148,16 +139,7 @@ export class NavbarBookmarkComponent implements OnInit {
    * Toggle Bookmark Popup
    */
   toggleBookmarkPopup() {
-    setTimeout(() => {
-      if (this.openBookmarkRef === false) {
-        this.openBookmark();
-      } else {
-        this.closeBookmark();
-      }
-      setTimeout(() => {
-        this._bookmarkElement.nativeElement.focus();
-      }, 0);
-    }, 0);
+
   }
 
   /**
@@ -182,14 +164,6 @@ export class NavbarBookmarkComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this._searchService.onApiDataChange.subscribe(res => {
-      this.apiData = res;
-      this.pages = this.apiData[0].data;
-      this.bookmarkedItems = this.pages.filter(page => page.isBookmarked === true);
-      this.bookmarkSearchLimit = this.apiData[0].bookmarkLimit;
-    });
-    this._searchService.onIsBookmarkOpenChange.subscribe(res => {
-      this.openBookmarkRef = res;
-    });
+
   }
 }

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
 import {FirebaseService} from '../../../../services/firebase.service';
 
 @Component({
@@ -20,40 +19,12 @@ export class EcommerceItemComponent implements OnInit {
 
   /**
    *
-   * @param {EcommerceService} _ecommerceService
+   * @param fb
    */
-  constructor(private _ecommerceService: EcommerceService, private fb: FirebaseService) {}
+  constructor(private fb: FirebaseService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Toggle Wishlist
-   *
-   * @param product
-   */
-  toggleWishlist(product) {
-    if (product.isInWishlist === true) {
-      this._ecommerceService.removeFromWishlist(product.id).then(res => {
-        product.isInWishlist = false;
-      });
-    } else {
-      this._ecommerceService.addToWishlist(product.id).then(res => {
-        product.isInWishlist = true;
-      });
-    }
-  }
-
-  /**
-   * Add To Cart
-   *
-   * @param product
-   */
-  addToCart(product) {
-    this._ecommerceService.addToCart(product.id).then(res => {
-      product.isInCart = true;
-    });
-  }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
