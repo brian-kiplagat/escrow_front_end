@@ -166,6 +166,7 @@
                           id="checkout-name"
                           class="form-control"
                           formControlName="minimum"
+                          [placeholder]="offer.minimum"
                         />
                         <span
                           *ngIf="submitted && f1.minimum.errors"
@@ -276,6 +277,7 @@
                           bindLabel="tag"
                           bindValue="tag"
                           formControlName="tags"
+                          [placeholder]="current_tags"
                           
                         >
                           <ng-template
@@ -409,12 +411,15 @@
                       <li class="py-50">
                         <div class="custom-control custom-checkbox">
                           <input
+                          
                             type="checkbox"
                             id="customColorRadio3"
                             value="unchecked"
                             formControlName="idverification"
                             class="custom-control-input"
+                            [checked]="user_data.id_verified"
                           />
+                          
                           <label
                             class="custom-control-label"
                             for="customColorRadio3"
@@ -431,6 +436,7 @@
                             value="unchecked"
                             formControlName="fullname"
                             class="custom-control-input"
+                            [checked]="user_data.id_verified"
                           />
                           <label
                             class="custom-control-label"
@@ -448,6 +454,7 @@
                             value="unchecked"
                             formControlName="vpn"
                             class="custom-control-input"
+                            [checked]="offer.vpn==0"
                           />
                           <label
                             class="custom-control-label"
@@ -500,7 +507,7 @@
                             [class.error]="submitted && f2.limitusers.errors"
                             placeholder="Restrict new users to trade a maximum amount"
                             formControlName="limitusers"
-  
+                            [placeholder]="offer.new_trader_limit"
                           />
   
   
@@ -644,7 +651,7 @@
                         (click)="onSubmit()"
                       >
                                       <span [data-feather]="'plus'" [class]="'mr-25'"></span
-                                      >CREATE OFFER
+                                      >UPDATE OFFER
                       </button>
                     </div>
                   </form>

@@ -41,6 +41,8 @@ export class EditofferComponent implements OnInit {
   public min;
   public max;
   public offer: any = {};
+  public user_data:any={};
+  current_tags:string=""
 
 
   /**
@@ -133,12 +135,9 @@ export class EditofferComponent implements OnInit {
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');
-    console.log(productIdFromRoute);
 
     this.user = JSON.parse(localStorage.getItem('user'))
-    console.log(this.user)
     this._fb.getInfo(productIdFromRoute).subscribe((data: any) => {
-      console.log(data.responseMessage.data)
       this.offer = data.responseMessage.data;
       this.offer_id = data.responseMessage.data.offer_id
       this.rate = data.responseMessage.data.margin
@@ -148,9 +147,11 @@ export class EditofferComponent implements OnInit {
       let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
       const arr = formatted_tags.slice(1, -1)
       this.tags = arr.split(',')
+      this.user_data = data.responseMessage.data.user_data
+      this.current_tags=data.responseMessage.data.tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "").slice(1, -1)
       if (data.responseMessage.data.status != 1){
         // this.err = 'This offer is turned off at the moment. Try other offers'
-        console.log("soort")
+        console.log("soort",this.current_tags)
       }
       if (data.responseMessage.data.deauth == 1){
         console.log("soort")
@@ -158,17 +159,13 @@ export class EditofferComponent implements OnInit {
       }
     });
     this.user?this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
-      console.log(data)
       this.tags = data.responseMessage
     }):this.user={}
 
     this._fb.getCurrency().subscribe((data: any) => {
-      console.log(data)
       this.currencies = data.responseMessage.currencies
       this.methods = data.responseMessage.methods
       this.countries = data.responseMessage.currencies
-
-      console.log(this.countries)
 
     }, (error) => {
       console.log(error)
@@ -225,7 +222,7 @@ export class EditofferComponent implements OnInit {
       "min": !this.form2.value.minimum ? this.offer.minimum :this.form2.value.minimum,
       "max": !this.form2.value.maximum ? this.offer.maximum :this.form2.value.maximum,
       "margin": !this.form2.value.offerRate ? this.offer.margin :this.form2.value.offerRate,
-      "tags": !this.form2.value.tags ? this.offer.tags :this.form2.value.tags,
+      "tags": !this.form2.value.tags ? this.tags :this.form2.value.tags,
       "label":!this.form2.value.label? this.offer.label : this.form2.value.label,
       "terms":!this.form2.value.terms ? this.offer.terms : this.form2.value.terms,
       "instructions": !this.form2.value.instructions ? this.offer.instructions :this.form2.value.instructions,
