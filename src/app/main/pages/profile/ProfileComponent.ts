@@ -3,7 +3,6 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {FirebaseService} from 'app/services/firebase.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {ProfileService} from 'app/main/pages/profile/profile.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {object} from "@angular/fire/database";
 
@@ -49,13 +48,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   /**
    * Constructor
    *
-   * @param {PricingService} _pricingService
-   * @param route
+    * @param route
    * @param sanitizer
    * @param fb
    * @param router
    */
-  constructor(private _pricingService: ProfileService, private route: ActivatedRoute, private sanitizer: DomSanitizer, private fb: FirebaseService, private router: Router) {
+  constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer, private fb: FirebaseService, private router: Router) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -90,10 +88,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }, (error) => {
       console.log(error);
       this.router.navigate(['/']);
-    });
-
-    this._pricingService.onPricingChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-      this.data = response;
     });
 
     // content header

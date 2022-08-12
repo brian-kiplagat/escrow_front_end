@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import {Subscription, timer} from "rxjs";
 import {isNumeric} from "rxjs/internal-compatibility";
 import {environment} from "../../../../../../environments/environment";
+import {FirebaseService} from "../../../../../services/firebase.service";
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -39,17 +40,16 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   /**
    * Constructor
    *
+   * @param fb
    * @param {ChatService} _chatService
    * @param {CoreSidebarService} _coreSidebarService
+   * @param toastr
    */
-  constructor(private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
+  constructor( private fb: FirebaseService,private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
     this.options = this.toastr.toastrConfig;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    //console.log(this.trade)
-    //console.log(this.status)
-
     this.status = this.trade.status;
     const secs_since_start = new Date(this.trade.created_at).getTime() / 1000;//Here update with trade.created_at
     const current_time_stamp = Math.floor(Date.now() / 1000)
@@ -62,8 +62,18 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         if (this.counter == 500) {
           this.toast('Hurry up', 'You have 5 minutes left to conclude this exchange', 'error')
         }
+        if (this.counter == 0) {
+          this.fb.getTradeByID(this.user.username, this.user.token, this.trade.id).subscribe(
+            (data: any) => {
+              this.trade = data.responseMessage.trade;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        }
       })
-    //console.log(this.trade,changes)
+
   }
 
 
@@ -150,6 +160,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     this.openChat(1);//1
 
   }
+
 
   transform(value: number): string {
     //MM:SS format

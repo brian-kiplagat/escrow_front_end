@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
-import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
 import { FirebaseService } from '../../../../services/firebase.service';
 @Component({
     selector: 'app-ecommerce-wishlist',
@@ -35,7 +34,7 @@ export class EcommerceWishlistComponent implements OnInit {
     public filters ={
          currency:"",
          method:"",
-      
+
     }
 
 
@@ -43,12 +42,10 @@ export class EcommerceWishlistComponent implements OnInit {
     /**
      *
      * @param {CoreSidebarService} _coreSidebarService
-     * @param {EcommerceService} _ecommerceService
      * @param {FirebaseService}_fb
      */
     constructor(
         private _coreSidebarService: CoreSidebarService,
-        private _ecommerceService: EcommerceService,
         private _fb: FirebaseService
     ) { }
 
@@ -81,9 +78,6 @@ export class EcommerceWishlistComponent implements OnInit {
     /**
      * Sort Product
      */
-    sortProduct(sortParam) {
-        this._ecommerceService.sortProduct(sortParam);
-    }
 
     /**
      * On init
@@ -95,7 +89,7 @@ export class EcommerceWishlistComponent implements OnInit {
                 this.offers = data.responseMessage
                 console.log(data)
             })
-         
+
             this._fb.getCurrency().subscribe((data:any)=>{
                 this.currencies =data.responseMessage.currencies
                 //this.currency = Object.keys(listNew);
@@ -105,23 +99,9 @@ export class EcommerceWishlistComponent implements OnInit {
               },(error)=>{
                 console.log(error)
               })
-        // Subscribe to ProductList change
-        this._ecommerceService.onProductListChange.subscribe((res) => {
-            this.products = res;
-            this.products.isInWishlist = false;
-        });
 
-        // Subscribe to Wishlist change
-        this._ecommerceService.onWishlistChange.subscribe((res) => (this.wishlist = res));
 
-        // Subscribe to Cartlist change
-        this._ecommerceService.onCartListChange.subscribe((res) => (this.cartList = res));
 
-        // update product is in Wishlist & is in CartList : Boolean
-        this.products.forEach((product:any) => {
-            product.isInWishlist = this.wishlist.findIndex((p:any) => p.productId === product.id) > -1;
-            product.isInCart = this.cartList.findIndex((p:any) => p.productId === product.id) > -1;
-        });
 
     }
     onNotify(value:number){
@@ -129,13 +109,13 @@ export class EcommerceWishlistComponent implements OnInit {
     this._fb
         .getOffers(this.type).subscribe((data:any)=>{
             this.offers = data.responseMessage
-         
+
            console.log(value)
             this.offers=data.responseMessage.filter((item:any) =>{
 
-                
+
                 if(value ==1){
-                    
+
                     return true
                 }else if(value ==2&&10 < Number(item.minimum)){
                     return false
@@ -145,39 +125,39 @@ export class EcommerceWishlistComponent implements OnInit {
                 else if(value ==4&&100 < Number(item.minimum)&& 500 < Number(item.maximum)){
                     return false
                 }
-              
+
                else if(value ==5&&500 >Number(item.minimum)){
                   return false
               }else{
                 return true;
               }
-                
+
               });
-              
+
               console.log(this.offers)
         })
-      
+
     }
     onSliderChange(value:any){
         let user =JSON.parse(localStorage.getItem('user'))
         this._fb
             .getOffers(this.type).subscribe((data:any)=>{
                 this.offers = data.responseMessage
-             
+
                console.log(this.offers,value)
                 this.offers=data.responseMessage.filter((item:any) =>{
 
                     if(value&&value[0] < Number(item.minimum)&& value[1] > Number(item.maximum)){
                         return true
                     }
-                  
+
                     return false;
                   });
-                  
+
                   console.log(this.offers)
             })
     }
-           
+
   //filter by tag
   onTagChange(value: string) {
     this.offers = this.offers.filter((offer: any) => offer.tags == value)
@@ -195,11 +175,11 @@ export class EcommerceWishlistComponent implements OnInit {
             this._fb
                 .getOffers("sell").subscribe((data:any)=>{
                     this.offers = data.responseMessage
-                   
+
                     this.offers=data.responseMessage.filter((item:any) =>{
-                        
+
                         if(this.amount!=0&&this.amount < Number(item.minimum)|| this.amount > Number(item.maximum)){
-                            
+
                             return false
                         }
                         if(this.filters.currency&& item.currency != this.filters.currency){
@@ -210,10 +190,10 @@ export class EcommerceWishlistComponent implements OnInit {
                         }
                         return true;
                       });
-                      
+
                       console.log(this.offers)
                 })
-              
+
         }
- 
+
 }

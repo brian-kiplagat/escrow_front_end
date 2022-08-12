@@ -43,8 +43,8 @@
           You bought {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
           using  {{trade.method | titlecase}}, {{trade.btc_amount_with_margin}} BTC was added to your Coinpes wallet
         </p>
-        <div class="card card-apply-job" *ngIf="(trade.dispute_started == true && status == 'PAID') || status == 'AWARDED_BUYER'  || status == 'AWARDED_SELLER'">
-          <div class="card-body">
+        <div class="card-apply-job" *ngIf="(trade.dispute_started == true && status == 'PAID') || status == 'AWARDED_BUYER'  || status == 'AWARDED_SELLER'">
+          <div>
             <div *ngIf="trade.dispute_started == true && status == 'PAID'" class="apply-job-package bg-light-primary rounded d-flex justify-content-center ">
               <div class="row align-items-center">
                 <sup class="text-body"><small><i data-feather="shield"></i></small></sup>
@@ -72,7 +72,7 @@
               dispute to the correct party
             </p>
             <p class="card-text mb-2" *ngIf="status == 'AWARDED_BUYER' || status == 'AWARDED_SELLER'" >
-              DeraUser123 ensure you send the payment before you click the paid button
+              {{trade.dispute_mod_notes}}
             </p>
 
 
@@ -165,7 +165,7 @@
         </p>
 
         <div class="card card-apply-job" *ngIf="(trade.dispute_started == true && status == 'PAID') || status == 'AWARDED_BUYER'  || status == 'AWARDED_SELLER'">
-          <div class="card-body">
+          <div>
             <div *ngIf="trade.dispute_started == true && status == 'PAID'" class="apply-job-package bg-light-primary rounded d-flex justify-content-center ">
               <div class="row align-items-center">
                 <sup class="text-body"><small><i data-feather="shield"></i></small></sup>
@@ -188,12 +188,12 @@
             </div>
             <h5 class="apply-job-title" *ngIf="trade.dispute_started == true && status == 'PAID'" >Having a problem? We're joining in shortly to help.</h5>
             <p class="card-text mb-2" *ngIf="trade.dispute_started == true && status == 'PAID'" >
-              Meanwhile explain to us what happened and upload evidence showing you sent the money including screenshots, video records and account statement. The
-              moderator will join and assess the evidence and award the
-              dispute to the correct party
+              Meanwhile explain to us what happened, upload proof showing you sent the money including screenshots, video records and an account statement. The
+              Moderator will join che chat, assess the evidence and award the
+              BTC to the correct party
             </p>
             <p class="card-text mb-2" *ngIf="status == 'AWARDED_BUYER' || status == 'AWARDED_SELLER'" >
-              DeraUser123 ensure you send the payment before you click the paid button
+              {{trade.dispute_mod_notes}}
             </p>
 
 

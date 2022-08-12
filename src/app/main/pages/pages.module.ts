@@ -8,7 +8,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CoreCommonModule } from '@core/common.module';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 
-import { KbModule } from './kb/kb.module';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { ProfileModule } from './profile/profile.module';
 import { PricingModule } from './pricing/pricing.module';
@@ -30,7 +29,7 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
     Ng2FlatpickrModule,
     PricingModule,
     ProfileModule,
-    KbModule,
+
     AccountSettingsModule
   ],
 

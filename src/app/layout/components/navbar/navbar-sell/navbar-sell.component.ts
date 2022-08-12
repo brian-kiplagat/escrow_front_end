@@ -1,8 +1,6 @@
 
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
-
-import { SearchService } from 'app/layout/components/navbar/navbar-search/search.service';
 import {Router} from "@angular/router";
 
 @Component({
@@ -49,7 +47,7 @@ export class NavbarSellComponent implements OnInit {
   * @param document
   * @param _searchService
   */
- constructor(@Inject(DOCUMENT) private document, public _searchService: SearchService,private router: Router) {}
+ constructor(@Inject(DOCUMENT) private document, private router: Router) {}
 
  // Public Methods
  // -----------------------------------------------------------------------------------------------------
@@ -84,18 +82,12 @@ export class NavbarSellComponent implements OnInit {
  /**
   * Open Bookmark
   */
- openBookmark() {
-   this.openBookmarkRef = true;
-   this._searchService.onIsBookmarkOpenChange.next(this.openBookmarkRef);
- }
+
 
  /**
   * Close Bookmark
   */
- closeBookmark() {
-   this.openBookmarkRef = false;
-   this._searchService.onIsBookmarkOpenChange.next(this.openBookmarkRef);
- }
+
 
  /**
   * Remove Overlay
@@ -151,18 +143,7 @@ export class NavbarSellComponent implements OnInit {
  /**
   * Toggle Bookmark Popup
   */
- toggleBookmarkPopup() {
-   setTimeout(() => {
-     if (this.openBookmarkRef === false) {
-       this.openBookmark();
-     } else {
-       this.closeBookmark();
-     }
-     setTimeout(() => {
-       this._bookmarkElement.nativeElement.focus();
-     }, 0);
-   }, 0);
- }
+
 
  /**
   * Update Bookmark
@@ -186,23 +167,7 @@ export class NavbarSellComponent implements OnInit {
   * On init
   */
  ngOnInit(): void {
-   this._searchService.onApiDataChange.subscribe(res => {
-     this.apiData = res;
-     this.pages = this.apiData[0].data;
-     this.bookmarkedItems = this.pages.filter(page => page.sell ===true);
-     this.bookmarkSearchLimit = this.apiData[0].bookmarkLimit;
-   });
-   this._searchService.onIsBookmarkOpenChange.subscribe(res => {
-     this.openBookmarkRef = res;
-   });
+
  }
 
-  /*login_check(path: string) {
-   if (localStorage.getItem('user') === null){
-     this.router.navigate(['/pages/login'])
-   }else{
-     this.router.navigate([path])
-   }
-
-  }*/
 }

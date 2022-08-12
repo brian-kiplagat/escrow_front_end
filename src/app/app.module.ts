@@ -1,46 +1,38 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouterModule, Routes} from '@angular/router';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { FakeDbService } from '@fake-db/fake-db.service';
-import { CommonModule } from '@angular/common';
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {CommonModule} from '@angular/common';
 
 import 'hammerjs';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrModule } from 'ngx-toastr';
-import { TranslateModule } from '@ngx-translate/core';
-import { ContextMenuModule } from '@ctrl/ngx-rightclick';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ToastrModule} from 'ngx-toastr';
+import {TranslateModule} from '@ngx-translate/core';
+import {ContextMenuModule} from '@ctrl/ngx-rightclick';
 
-import { CoreModule } from '@core/core.module';
-import { CoreCommonModule } from '@core/common.module';
-import { CoreSidebarModule, CoreThemeCustomizerModule } from '@core/components';
-import { CardSnippetModule } from '@core/components/card-snippet/card-snippet.module';
+import {CoreModule} from '@core/core.module';
+import {CoreCommonModule} from '@core/common.module';
+import {CoreSidebarModule, CoreThemeCustomizerModule} from '@core/components';
+import {CardSnippetModule} from '@core/components/card-snippet/card-snippet.module';
 
-import { coreConfig } from 'app/app-config';
-import { AppComponent } from 'app/app.component';
-import { LayoutModule } from 'app/layout/layout.module';
-import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
-
-import { ContextMenuComponent } from 'app/main/extensions/context-menu/context-menu.component';
-import { AnimatedCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/animated-custom-context-menu/animated-custom-context-menu.component';
-import { BasicCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/basic-custom-context-menu/basic-custom-context-menu.component';
-import { SubMenuCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/sub-menu-custom-context-menu/sub-menu-custom-context-menu.component';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { environment } from '../environments/environment';
-import { ProfileService } from 'app/main/pages/profile/profile.service';
-import { AuthGuard } from 'app/auth/helpers';
-import { ProfileComponent } from './main/pages/profile/ProfileComponent';
-import { FaqComponent } from './main/pages/faq/faq.component';
-import { FAQService } from './main/pages/faq/faq.service';
+import {coreConfig} from 'app/app-config';
+import {AppComponent} from 'app/app.component';
+import {LayoutModule} from 'app/layout/layout.module';
+import {ContentHeaderModule} from 'app/layout/components/content-header/content-header.module';
+import {AngularFireModule} from '@angular/fire/compat';
+import {AngularFireAnalyticsModule} from '@angular/fire/compat/analytics';
+import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
+import {AngularFireAuthModule} from '@angular/fire/compat/auth';
+import {environment} from '../environments/environment';
+import {ProfileService} from 'app/main/pages/profile/profile.service';
+import {AuthGuard} from 'app/auth/helpers';
+import {ProfileComponent} from './main/pages/profile/ProfileComponent';
+import {FaqComponent} from './main/pages/faq/faq.component';
 import {EcommerceModule} from "./main/apps/ecommerce/ecommerce.module";
 import {NgApexchartsModule} from "ng-apexcharts";
-
 
 
 const appRoutes: Routes = [
@@ -67,38 +59,18 @@ const appRoutes: Routes = [
     path: 'components',
     loadChildren: () => import('./main/components/components.module').then(m => m.ComponentsModule),
 
-  },
-  {
-    path: 'extensions',
-    loadChildren: () => import('./main/extensions/extensions.module').then(m => m.ExtensionsModule),
-
-  },
-  {
-    path: 'forms',
-    loadChildren: () => import('./main/forms/forms.module').then(m => m.FormsModule),
-
-  },
-  {
-    path: 'tables',
-    loadChildren: () => import('./main/tables/tables.module').then(m => m.TablesModule),
-
-  },
+  }
+  ,
   {
     path: 'users/:id',
-    component:ProfileComponent,
+    component: ProfileComponent,
     canActivate: [AuthGuard],
-    pathMatch: 'full',
-    resolve: {
-      profile: ProfileService
-    }
+    pathMatch: 'full'
   },
   {
     path: '',
     component: FaqComponent,
-    resolve: {
-      faqData: FAQService
-    },
-    data: { animation: 'faq' },
+    data: {animation: 'faq'},
     pathMatch: 'full'
   },
   {
@@ -110,10 +82,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ContextMenuComponent,
-    BasicCustomContextMenuComponent,
-    AnimatedCustomContextMenuComponent,
-    SubMenuCustomContextMenuComponent,
     ProfileComponent,
     FaqComponent
   ],
@@ -123,10 +91,6 @@ const appRoutes: Routes = [
     HttpClientModule,
     ContentHeaderModule,
     CommonModule,
-    HttpClientInMemoryWebApiModule.forRoot(FakeDbService, {
-      delay: 0,
-      passThruUnknownUrl: true
-    }),
     RouterModule.forRoot(appRoutes, {
       scrollPositionRestoration: 'enabled', // Add options right here
       relativeLinkResolution: 'legacy'
@@ -152,17 +116,10 @@ const appRoutes: Routes = [
 
   providers: [
     ProfileService,
- FAQService,
- AuthGuard
-
-    //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-    // ! IMPORTANT: Provider used to create fake backend, comment while using real API
-   // fakeBackendProvider
-
+    AuthGuard
   ],
-  entryComponents: [BasicCustomContextMenuComponent, AnimatedCustomContextMenuComponent],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -19,8 +19,7 @@ export class CardBasicComponent implements OnInit {
   public contentHeader: object;
   public user: any = {}
   public currentUser: any = {}
-  public withdrawal_tx: any = []
-  public deposit_tx: any = []
+  public transactions: any = []
   public address;
   public balance;
   public currency;
@@ -60,8 +59,7 @@ export class CardBasicComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'))
     this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0]
-      this.deposit_tx = data.responseMessage?.deposit_tx
-      this.withdrawal_tx = data.responseMessage?.withdrawal_tx
+      this.transactions = data.responseMessage?.transactions
       this.internal_tx = data.responseMessage?.internal
       this.fiat = data.responseMessage?.fiat
       this.balance = data.responseMessage?.user_data[0].balance
@@ -90,8 +88,11 @@ export class CardBasicComponent implements OnInit {
     let address = (<HTMLInputElement>document.getElementById("address")).value;
     let amount = (<HTMLInputElement>document.getElementById("amount")).value;
     let otp
+
     if (this.currentUser.choice_2fa == '2FA' && this.currentUser.factor_send == true) {
       otp = (<HTMLInputElement>document.getElementById("otp")).value;
+    } else if (this.currentUser.choice_2fa == 'MAIL'  || this.currentUser.choice_2fa == '2FA' &&  this.currentUser.factor_send == false ) {
+      otp = (<HTMLInputElement>document.getElementById("code_email")).value;
     }
     this.loading = true
     this.fb.sendCrypto(this.user.token, this.user.username, {
@@ -148,5 +149,17 @@ export class CardBasicComponent implements OnInit {
 
     }
 
+  }
+
+  send2FAMail() {
+    this.fb.sendCodeToMail(this.user.token, this.user.username, {
+      email: this.user.email
+    }).subscribe((response: any) => {
+      this.toast('Success', '👋 Please check your email for the 2FA Code to authorize this transfer', 'success')
+
+    }, (err) => {
+      this.toast('Ops', err.error.responseMessage, 'error')
+
+    })
   }
 }

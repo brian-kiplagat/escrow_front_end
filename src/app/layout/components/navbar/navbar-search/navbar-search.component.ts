@@ -1,9 +1,7 @@
 import {DOCUMENT} from '@angular/common';
 import {Router} from '@angular/router';
 import {Component, ElementRef, HostListener, Inject, OnInit, ViewChild} from '@angular/core';
-
-import {SearchService} from 'app/layout/components/navbar/navbar-search/search.service';
-import {HttpClient} from "@angular/common/http";
+import {FirebaseService} from "../../../../services/firebase.service";
 
 @Component({
   selector: 'app-navbar-search',
@@ -14,9 +12,6 @@ export class NavbarSearchComponent implements OnInit {
   public searchText = '';
   public openSearchRef = false;
   public activeIndex = 0;
-  public apiData;
-  public pages = [];
-  public files = [];
   public contacts = [];
   public pageSearchLimit;
 
@@ -43,14 +38,13 @@ export class NavbarSearchComponent implements OnInit {
    * @param document
    * @param _elementRef
    * @param router
-   * @param _searchService
-   * @param _httpClient
+   * @param firebase
    */
   constructor(
     @Inject(DOCUMENT) private document,
     private _elementRef: ElementRef,
     private router: Router,
-    public _searchService: SearchService, private _httpClient: HttpClient
+    private firebase: FirebaseService
   ) {
   }
 
@@ -84,17 +78,18 @@ export class NavbarSearchComponent implements OnInit {
    * @param event
    */
   autoSuggestion(event) {
-    if (38 === event.keyCode) {
+    //console.log(event)
+      if (38 === event.keyCode) {//Up key
       return this.prevActiveMatch();
     }
-    if (40 === event.keyCode) {
+    if (40 === event.keyCode) {//Down key
       return this.nextActiveMatch();
     }
-    if (13 === event.keyCode) {
-      // Navigate to activeIndex
+    if (13 === event.keyCode) {//Enter key.... Navigate to activeIndex
       // ! Todo: Improve this code
       let current_item = this._pageListElement.nativeElement.getElementsByClassName('current_item');
       current_item[0]?.children[0].click();
+
     }
   }
 
@@ -102,7 +97,7 @@ export class NavbarSearchComponent implements OnInit {
    * Toggle Search
    */
   toggleSearch() {
-    this._searchService.onIsBookmarkOpenChange.next(false);
+    //  this._searchService.onIsBookmarkOpenChange.next(false);
     this.removeOverlay();
     this.openSearchRef = !this.openSearchRef;
     this.activeIndex = 0;
@@ -123,6 +118,10 @@ export class NavbarSearchComponent implements OnInit {
    */
   searchUpdate(event) {
     const val = event.target.value.toLowerCase();
+    //let search_word = (<HTMLInputElement>document.getElementById("search_input")).value;
+    console.log(val)
+    //Search this word against
+
     if (val !== '') {
       this.document.querySelector('.app-content').classList.add('show-overlay');
     } else {
@@ -138,16 +137,15 @@ export class NavbarSearchComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this._searchService.onApiDataChange.subscribe(res => {
-      this.apiData = res;
-      this.pages = this.apiData[0].data;
-      this.pageSearchLimit = this.apiData[0].searchLimit;
-      this.files = this.apiData[1].data;
-      this.contacts = this.apiData[2].data;
-    });
-    this._httpClient.get('https://api.coinlif.com/api/coin/v1/getUsers').subscribe((response: any) => {
-      console.log(response)
-      this.contacts = response.responseMessage
-    });
+    let user = JSON.parse(localStorage.getItem('user'));
+    this.firebase.getUsersWithOffers(user.token, user.username).subscribe(
+      (data: any) => {
+        this.contacts = data.responseMessage;
+        console.log(data)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

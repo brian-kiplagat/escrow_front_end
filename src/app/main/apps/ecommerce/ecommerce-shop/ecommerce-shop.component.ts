@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
 
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
-
-import {EcommerceService} from 'app/main/apps/ecommerce/ecommerce.service';
 import {FirebaseService} from '../../../../services/firebase.service';
 
 @Component({
@@ -40,12 +38,10 @@ export class EcommerceShopComponent implements OnInit {
   /**
    *
    * @param {CoreSidebarService} _coreSidebarService
-   * @param {EcommerceService} _ecommerceService
    * @param {FirebaseService}_fb
    */
   constructor(
     private _coreSidebarService: CoreSidebarService,
-    private _ecommerceService: EcommerceService,
     private _fb: FirebaseService
   ) {
   }
@@ -76,12 +72,6 @@ export class EcommerceShopComponent implements OnInit {
     this.gridViewRef = true;
   }
 
-  /**
-   * Sort Product
-   */
-  sortProduct(sortParam) {
-    this._ecommerceService.sortProduct(sortParam);
-  }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
