@@ -109,7 +109,7 @@
                                                         class="modal-title"
                                                         id="exampleModalCenterTitle"
                                                     >
-                                                        Vertically Centered
+                                                        Crop Profile Picture
                                                     </h5>
                                                     <button
                                                         type="button"
@@ -134,21 +134,17 @@
                                                         (cropperReady)="cropperReady()"
                                                         (loadImageFailed)="loadImageFailed()"
                                                     ></image-cropper>
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <button
-                                                                type="button"
-                                                                class="btn btn-outline-primary"
-                                                                (click)="rotate()"
-                                                                rippleEffect
-                                                            >
-                                                                rotate
-                                                            </button>
-                                                        </div>
-                                                       
-                                                    </div>
+
                                                 </div>
-                                                <div class="modal-footer">
+                                                <div class="modal-footer d-flex justify-content-between">
+                                                  <button
+                                                    type="button"
+                                                    class="btn btn-outline-primary"
+                                                    rippleEffect
+                                                    (click)="modal.dismiss('Cross click')"
+                                                  >
+                                                    Cancel
+                                                  </button>
                                                     <button
                                                         type="button"
                                                         class="btn btn-primary"
