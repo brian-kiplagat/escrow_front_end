@@ -29,7 +29,6 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
     Ng2FlatpickrModule,
     PricingModule,
     ProfileModule,
-
     AccountSettingsModule
   ],
 

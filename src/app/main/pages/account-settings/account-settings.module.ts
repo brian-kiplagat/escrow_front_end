@@ -9,7 +9,6 @@ import {CoreCommonModule} from '@core/common.module';
 import {ContentHeaderModule} from 'app/layout/components/content-header/content-header.module';
 import {Ng2FlatpickrModule} from 'ng2-flatpickr';
 import {AccountSettingsComponent} from 'app/main/pages/account-settings/account-settings.component';
-import {AccountSettingsService} from 'app/main/pages/account-settings/account-settings.service';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {CardSnippetModule} from '@core/components/card-snippet/card-snippet.module';
 import {CoreDirectivesModule} from '@core/directives/directives';
@@ -21,9 +20,6 @@ const routes: Routes = [
     path: 'account-settings',
     component: AccountSettingsComponent,
     canActivate: [AuthGuard],
-    resolve: {
-      accountSetting: AccountSettingsService
-    },
     data: {animation: 'account-settings'}
   }
 ];
@@ -42,9 +38,7 @@ const routes: Routes = [
     FormsModule,
     CoreDirectivesModule,
     NgSelectModule
-  ],
-
-  providers: [AccountSettingsService]
+  ]
 })
 export class AccountSettingsModule {
 }

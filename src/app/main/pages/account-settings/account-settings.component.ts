@@ -3,8 +3,6 @@ import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {Observable, ReplaySubject, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {FlatpickrOptions} from 'ng2-flatpickr';
-
-import {AccountSettingsService} from 'app/main/pages/account-settings/account-settings.service';
 import {FirebaseService} from "../../../services/firebase.service";
 import {Router} from "@angular/router";
 import Swal from "sweetalert2";
@@ -60,11 +58,10 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
    *
    * @param toastr
    * @param http
-   * @param {AccountSettingsService} _accountSettingsService
    * @param fb
    * @param router
    */
-  constructor(private toastr: ToastrService, public http: HttpClient, private _accountSettingsService: AccountSettingsService, private fb: FirebaseService, private router: Router) {
+  constructor(private toastr: ToastrService, public http: HttpClient, private fb: FirebaseService, private router: Router) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -216,11 +213,6 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit() {
-    this._accountSettingsService.onSettingsChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-      this.data = response;
-      this.avatarImage = 'this.data.accountSetting.general.avatar';
-    });
-
     this.user = JSON.parse(localStorage.getItem('user'));
     this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];

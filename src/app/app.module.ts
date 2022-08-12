@@ -27,7 +27,6 @@ import {AngularFireAnalyticsModule} from '@angular/fire/compat/analytics';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {environment} from '../environments/environment';
-import {ProfileService} from 'app/main/pages/profile/profile.service';
 import {AuthGuard} from 'app/auth/helpers';
 import {ProfileComponent} from './main/pages/profile/ProfileComponent';
 import {FaqComponent} from './main/pages/faq/faq.component';
@@ -110,8 +109,7 @@ const appRoutes: Routes = [
   ],
 
   providers: [
-    ProfileService,
-    AuthGuard
+   AuthGuard
   ],
   entryComponents: [],
   bootstrap: [AppComponent]
