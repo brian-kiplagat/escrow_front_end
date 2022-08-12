@@ -1,4 +1,4 @@
-import { Component, OnInit , ViewEncapsulation} from '@angular/core';
+import { Component, OnInit , ViewEncapsulation,ViewChild,ElementRef} from '@angular/core';
 import Stepper from 'bs-stepper';
 import { FirebaseService } from 'app/services/firebase.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -14,6 +14,9 @@ import {v4 as uuidv4} from 'uuid';
 })
 export class EditofferComponent implements OnInit {
 
+  // Decorator
+  @ViewChild('scrollMe') scrollMe: ElementRef;
+  scrolltop: number = null;
   public selectMultiLimitedSelected = [];
   public error = '';
   public tags = [];
@@ -241,6 +244,12 @@ export class EditofferComponent implements OnInit {
     }, (err) => {
       this.errorMessage = err.error.responseMessage
       console.log(err.error)
+      setTimeout(
+        () => {
+          this
+            .scrolltop = this.scrollMe?.nativeElement.scrollHeight;
+        }, 0)
+      ;
     }):this.user={}
     this.submitted = true;
   }
