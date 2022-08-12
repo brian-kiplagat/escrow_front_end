@@ -129,10 +129,20 @@ export class EcommerceComponent implements OnInit {
     return localStorage.getItem('user')
   }
 
-  toggleOffer(id: string) {
-    console.log(id)
-    this.fb.toggleSingleOffer(this.user.token, this.user.username, id).subscribe((data) => {
+  toggleOffer(id: string,action:string) {
+    this.fb.toggleSingleOffer(this.user.token, this.user.username, id,action).subscribe((data) => {
         console.log('data here', data)
+        this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
+          this.currentUser = data.responseMessage?.user_data[0];
+          this.tradeData = data.responseMessage?.trade_data;
+          this.offerData = data.responseMessage?.offer_data
+          this.fiat = data.responseMessage?.fiat
+    
+          console.log(this.offerData)
+        }, (error) => {
+          console.log(error)
+          this.router.navigate(['/pages/login'])
+        });
 
       },
       (error) => {

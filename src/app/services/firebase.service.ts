@@ -11,6 +11,7 @@ import {catchError, retry} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -583,9 +584,9 @@ export class FirebaseService {
       })
     });
   }
-  toggleSingleOffer(token:string, username:string, offerId:any){
+  toggleSingleOffer(token:string, username:string, offerId:any,action:string){
     console.log(token,username)
-    return this.http.get(`${environment.endpoint}/offer/${offerId}/on/toggle`, {
+    return this.http.get(`${environment.endpoint}/offer/${offerId}/${action}/toggle`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
