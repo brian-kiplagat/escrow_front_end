@@ -600,9 +600,9 @@ export class FirebaseService {
       })
     });
   }
-  toggleAll(token:string, username:string){
+  toggleAll(token:string, username:string,state:string){
 
-    return this.http.get(`${environment.endpoint}/offer/off/toggleall`, {
+    return this.http.get(`${environment.endpoint}/offer/${state}/toggleall`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -612,7 +612,6 @@ export class FirebaseService {
     });
   }
   toggleSingleOffer(token:string, username:string, offerId:any,action:string){
-    console.log(token,username)
     return this.http.get(`${environment.endpoint}/offer/${offerId}/${action}/toggle`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

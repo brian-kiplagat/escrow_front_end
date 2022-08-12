@@ -38,13 +38,15 @@ export class EcommerceComponent implements OnInit {
   public tradeData: any = []
   public offerData: any = []
   public fiat: any = 0
+  public flag_checked = false
 
   /**
    * Constructor
-   * @param {AuthenticationService} _authenticationService
-   * @param {DashboardService} _dashboardService
    * @param {CoreConfigService} _coreConfigService
    * @param {CoreTranslationService} _coreTranslationService
+   * @param fb
+   * @param router
+   * @param toastr
    */
   constructor(
     private _coreConfigService: CoreConfigService,
@@ -73,12 +75,20 @@ export class EcommerceComponent implements OnInit {
       this.tradeData = data.responseMessage?.trade_data;
       this.offerData = data.responseMessage?.offer_data
       this.fiat = data.responseMessage?.fiat
-
-      console.log(this.offerData)
+      //If one or more offers is on, we set flag_checked == true
+      for (let entry of this.offerData) {
+        //console.log(entry);
+        if (entry.status === 1) {
+          //One offer is one, so just set it to true
+          this.flag_checked = true
+          break
+        }
+      }
     }, (error) => {
-      console.log(error)
+      //console.log(error)
       this.router.navigate(['/pages/login'])
     });
+
 
   }
 
@@ -112,14 +122,14 @@ export class EcommerceComponent implements OnInit {
   }
 
   checkType(trade) {
-    console.log(trade)
+    //console.log(trade)
     if (trade.trade.buyer == this.user.email) {//Logged in user is buyer
-      console.log('//Logged in user is buyer')
+      //console.log('//Logged in user is buyer')
       return ['buy', trade.seller.username, trade.seller.profile_link];
 
 
     } else if (trade.trade.seller == this.user.email) {//Logged in user is seller
-      console.log('//Logged in user is seller')
+      //console.log('//Logged in user is seller')
       return ['sell', trade.buyer.username, trade.buyer.profile_link];
 
     }
@@ -129,42 +139,67 @@ export class EcommerceComponent implements OnInit {
     return localStorage.getItem('user')
   }
 
-  toggleOffer(id: string,action:string) {
-    this.fb.toggleSingleOffer(this.user.token, this.user.username, id,action).subscribe((data) => {
-        console.log('data here', data)
-        this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
-          this.currentUser = data.responseMessage?.user_data[0];
-          this.tradeData = data.responseMessage?.trade_data;
-          this.offerData = data.responseMessage?.offer_data
-          this.fiat = data.responseMessage?.fiat
-    
-        }, (error) => {
-          console.log(error)
-          this.router.navigate(['/pages/login'])
-        });
+  toggleOffer(id: string, index: string) {
+    if (this.offerData[index].status === 0) {//Is off so make it on
+      this.okToggleThisShit('on', id)
+    } else if (this.offerData[index].status === 1) {//Is on so make it off
+      this.okToggleThisShit('off', id)
+    }
 
+
+  }
+
+  okToggleThisShit(state: any, id: any) {
+    this.fb.toggleSingleOffer(this.user.token, this.user.username, id, state).subscribe((data: any) => {
+        this.offerData = data.responseMessage.offers
+        if (data.responseMessage.toggle === 'on') {
+          this.toast('Success', 'Offer was turned on', 'success')
+          this.flag_checked = true
+        } else if (data.responseMessage.toggle === 'off') {
+          //If one or more offers is on, we set flag_checked == true
+          this.flag_checked = false
+          for (let entry of this.offerData) {
+            if (entry.status === 1) {
+              //One offer is one, so just set it to true
+              this.flag_checked = true
+              break
+            }
+          }
+          this.toast('Success', 'Offer was turned off', 'success')
+
+        }
       },
       (error) => {
-        console.log("this is error", error)
+        this.toast('Ops', error.error.responseMessage, 'error')
       })
 
   }
 
   toggleAll() {
-    this.fb.toggleAll(this.user.token, this.user.username).subscribe((data) => {
-      this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
-        this.currentUser = data.responseMessage?.user_data[0];
-        this.tradeData = data.responseMessage?.trade_data;
-        this.offerData = data.responseMessage?.offer_data
-        this.fiat = data.responseMessage?.fiat
-  
-      }, (error) => {
-        console.log(error)
-        this.router.navigate(['/pages/login'])
-      });
-    })
-  }
+    if (this.flag_checked == true){
+      this.justToggleNowAll('off')
+    }else  if (this.flag_checked == false){
+      this.justToggleNowAll('on')
+    }
+     }
+  justToggleNowAll(state: any) {
+    this.fb.toggleAll(this.user.token, this.user.username, state).subscribe((data: any) => {
+        this.offerData = data.responseMessage.offers
+        if (data.responseMessage.toggle === 'on') {
+          this.toast('Success', 'All your offers were switched on', 'success')
+          this.flag_checked = true
+        } else if (data.responseMessage.toggle === 'off') {
+          //If one or more offers is on, we set flag_checked == true
+          this.flag_checked = false
+          this.toast('Success', 'All your offers were switched off. They cannot be seen on the market place', 'success')
 
+        }
+      },
+      (error) => {
+        this.toast('Ops', error.error.responseMessage, 'error')
+      })
+
+  }
   delete_offer(id: any) {
     this.playAudio('assets/sounds/windows_warning.wav')
     if (this.user) {
@@ -186,7 +221,7 @@ export class EcommerceComponent implements OnInit {
       }).then(async (result) => {
         if (result.value) {
           this.fb.deleteOffer(this.user.token, this.user.username, id).subscribe((data: any) => {
-            console.log("this is the data", data)
+            //console.log("this is the data", data)
             if (!data.ok) {
 
               this.toast('Failed', '👋 an error happened .Please try again', 'error')
@@ -197,7 +232,7 @@ export class EcommerceComponent implements OnInit {
               this.playAudio('assets/sounds/turumturum.wav')
             }
           }, (error: any) => {
-            console.log("this is the error", error)
+            //console.log("this is the error", error)
             this.toast('Ops', '👋 An error happened try again', 'error')
           })
         }
@@ -208,9 +243,6 @@ export class EcommerceComponent implements OnInit {
 
   }
 
-  /**
-   * After View Init
-   */
   ngAfterViewInit() {
     // Subscribe to core config changes
 
@@ -239,7 +271,7 @@ export class EcommerceComponent implements OnInit {
 
 
   updateValue(event: any, type: string, idd: string) {
-    if (type == 'rate'){
+    if (type == 'rate') {
       //console.log(event)
       this.fb.quickEdit(this.user.token, this.user.username, {
         "offeridd": idd,
@@ -256,7 +288,7 @@ export class EcommerceComponent implements OnInit {
         //console.log(error.error.responseMessage)
 
       });
-    }else{
+    } else {
       let value = event.target.value
       //console.log(value)
       this.fb.quickEdit(this.user.token, this.user.username, {

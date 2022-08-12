@@ -137,7 +137,7 @@ export class NavbarSearchComponent implements OnInit {
     this.firebase.getUsersWithOffers(user.token, user.username).subscribe(
       (data: any) => {
         this.contacts = data.responseMessage;
-        console.log(data)
+        //console.log(data)
       },
       (error) => {
         console.log(error);

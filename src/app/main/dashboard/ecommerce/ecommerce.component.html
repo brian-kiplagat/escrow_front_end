@@ -212,17 +212,17 @@ Any additional proof as determined by the moderator. The moderator will then ass
                         <div class="custom-control custom-control-primary custom-switch">
                             <input
                                 type="checkbox"
-                                checked
+                                [checked]="flag_checked"
                                 class="custom-control-input"
-                                id="customSwitch3"
+                                id="general_offer"
                                 (change)="toggleAll()"
                             />
-                            <label class="custom-control-label" for="customSwitch3"></label>
+                            <label class="custom-control-label" for="general_offer"></label>
                         </div>
                     </div>
                     <div class="card-body">
                         <!-- ONE ELEMENT -->
-                        <div *ngFor="let offer of offerData">
+                        <div *ngFor="let offer of offerData; let i = index">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <div class="media">
                                     <div
@@ -276,23 +276,15 @@ Any additional proof as determined by the moderator. The moderator will then ass
                                 <div class="media">
                                     <div class="custom-control custom-switch custom-control-inline">
                                         <input
-                                        *ngIf="offer.status==1"
                                             type="checkbox"
-                                            checked
+                                           [checked]="offer.status"
                                             class="custom-control-input"
-                                            id="customSwitch5"
-                                            (change)="toggleOffer(offer.idd,'off')"
-                                        />
-                                        <input
-                                        *ngIf="offer.status==2"
-                                            type="checkbox"
-                                            class="custom-control-input"
-                                            id="customSwitch5"
-                                            (change)="toggleOffer(offer.idd,'on')"
+                                            id="{{offer.idd}}"
+                                            (change)="toggleOffer(offer.idd,i)"
                                         />
                                         <label
                                             class="custom-control-label"
-                                            for="customSwitch5"
+                                            for="{{offer.idd}}"
                                         ></label>
                                     </div>
                                     <div class="media-body" style="margin-left: -10px">

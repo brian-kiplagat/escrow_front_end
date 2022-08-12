@@ -33,7 +33,6 @@ export class NavbarNotificationComponent implements OnInit {
   ngOnInit(): void {
     let user: any = JSON.parse(localStorage.getItem('user'))
     this.fb.retrieveNotifications(user.email, user.username).subscribe((data: any) => {
-      console.log(data)
       this.notifications = data;
       this.notifications.sort(function (x, y) {
         return y.timestamp - x.timestamp;
