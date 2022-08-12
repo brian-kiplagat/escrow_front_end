@@ -78,8 +78,8 @@ export class NavbarSearchComponent implements OnInit {
    * @param event
    */
   autoSuggestion(event) {
-    //console.log(event)
-      if (38 === event.keyCode) {//Up key
+
+    if (38 === event.keyCode) {//Up key
       return this.prevActiveMatch();
     }
     if (40 === event.keyCode) {//Down key
@@ -118,10 +118,6 @@ export class NavbarSearchComponent implements OnInit {
    */
   searchUpdate(event) {
     const val = event.target.value.toLowerCase();
-    //let search_word = (<HTMLInputElement>document.getElementById("search_input")).value;
-    console.log(val)
-    //Search this word against
-
     if (val !== '') {
       this.document.querySelector('.app-content').classList.add('show-overlay');
     } else {
