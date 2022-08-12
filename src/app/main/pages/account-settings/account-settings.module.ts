@@ -16,6 +16,7 @@ import {FormsModule} from "@angular/forms";
 import { ImageCropperModule } from 'ngx-image-cropper';
 
 
+
 const routes: Routes = [
   {
     path: 'account-settings',
