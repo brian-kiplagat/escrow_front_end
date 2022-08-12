@@ -64,7 +64,7 @@
                   <div class="row">
                     <div class="col-sm-6 col-12">
                       <label>Payment Method</label>
-  
+
                       <div class="form-group">
                         <!-- Basic Multi select -->
                         <ng-select
@@ -90,10 +90,10 @@
                         <!--/ Basic Multi select -->
                       </div>
                     </div>
-  
+
                     <div class="col-sm-6 col-12">
                       <label>Preffered currency</label>
-  
+
                       <div class="form-group">
                         <!-- Basic Multi select -->
                         <ng-select
@@ -121,9 +121,9 @@
                                               >This field is required!</small
                                               >
                                           </span>
-  
+
                         <!--/ Basic Multi select -->
-  
+
                       </div>
                     </div>
                     <div class="col-12">
@@ -149,7 +149,7 @@
             <div id="step-address" class="content">
               <!-- Checkout Customer Address Left starts -->
               <div class="card">
-  
+
                 <div class="card-header flex-column align-items-start">
                   <h4 class="card-title">Trade pricing</h4>
                   <p class="card-text text-muted mt-25">
@@ -177,7 +177,7 @@
                                               *ngIf="f1.minimum.errors.required"
                                             >This field is required!</small
                                             >
-  
+
                                         </span>
                         <span
                           *ngIf=" f1.minimum.value>f1.maximum.value"
@@ -185,10 +185,10 @@
                         >
                                             <small
                                               class="form-text text-danger"
-  
+
                                             >Minimum cannot be greate than maximum!</small
                                             >
-  
+
                                         </span>
                         <span
                           *ngIf=" f1.minimum.value<10&&f1.minimum.touched"
@@ -196,10 +196,10 @@
                         >
                                         <small
                                           class="form-text text-danger"
-  
+
                                         >Minimum cannot be less than 10 USD</small
                                         >
-  
+
                                     </span>
                       </div>
                     </div>
@@ -213,8 +213,8 @@
                           [class.error]="submitted && f1.maximum.errors"
                           formControlName="maximum"
                           [placeholder]="offer.maximum"
-                        
-  
+
+
                         />
                         <span
                           *ngIf="submitted && f1.maximum.errors"
@@ -232,10 +232,10 @@
                         >
                                             <small
                                               class="form-text text-danger"
-  
+
                                             >Minimum cannot be greate than maximum!</small
                                             >
-  
+
                                         </span>
                       </div>
                     </div>
@@ -248,14 +248,14 @@
                           class="form-control"
                           formControlName="offerRate"
                           [placeholder]="offer.margin"
-                          
+
                         />
                       </div>
                     </div>
-  
+
                     <div class="col-sm-6 col-12">
                       <label>Offer Tags</label>
-  
+
                       <div class="form-group">
                         <!-- Multi select with limited number of selections -->
                         <ngb-alert
@@ -268,7 +268,7 @@
                             <small>Max selection reached</small>
                           </div>
                         </ngb-alert>
-  
+
                         <ng-select
                           #selectMultiLimited
                           [items]="tags"
@@ -278,7 +278,7 @@
                           bindValue="tag"
                           formControlName="tags"
                           [placeholder]="current_tags"
-                          
+
                         >
                           <ng-template
                             ng-label-tmp
@@ -303,9 +303,9 @@
                                           *ngIf="f1.tags.errors.required"
                                         >This field is required!</small
                                         >
-  
+
                                     </span>
-  
+
                         <!-- Multi select with limited number of selections -->
                       </div>
                     </div>
@@ -318,10 +318,10 @@
                           class="form-control"
                           formControlName="label"
                           [placeholder]="offer.label"
-                          
-                          
+
+
                         />
-                  
+
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
@@ -333,7 +333,7 @@
                           class="form-control"
                           formControlName="terms"
                           [placeholder]="offer.terms"
-                         
+
                         ></textarea>
                       </div>
                     </div>
@@ -347,7 +347,7 @@
                           [class.error]="submitted && f1.instructions.errors"
                           formControlName="instructions"
                           [placeholder]="offer.instructions"
-                          
+
                         ></textarea>
                         <span
                           *ngIf="submitted && f1.instructions.errors"
@@ -376,7 +376,7 @@
                         type="button"
                         class="btn btn-primary btn-next delivery-address" (click)="validateNextStep(form2)"
                         rippleEffect
-  
+
                       >
                         NEXT STEP
                       </button>
@@ -387,9 +387,9 @@
               <!-- Checkout Customer Address Left ends -->
             </div>
           </form>
-  
+
           <!-- Checkout Customer Address Ends -->
-  
+
           <!-- Checkout Payment Starts -->
           <div id="step-payment" class="content">
             <div class="payment-type">
@@ -400,18 +400,18 @@
                     Optimise your offer to your need
                   </p>
                 </div>
-  
+
                 <div class="card-body" style="margin-top: -10px;">
                   <form
                     class="auth-register-form "
                     [formGroup]="form3"
-  
+
                   >
                     <ul class="other-payment-options list-unstyled">
                       <li class="py-50">
                         <div class="custom-control custom-checkbox">
                           <input
-                          
+
                             type="checkbox"
                             id="customColorRadio3"
                             value="unchecked"
@@ -419,7 +419,7 @@
                             class="custom-control-input"
                             [checked]="user_data.id_verified"
                           />
-                          
+
                           <label
                             class="custom-control-label"
                             for="customColorRadio3"
@@ -465,7 +465,7 @@
                         </div>
                       </li>
                     </ul>
-  
+
                     <hr class="my-2"/>
                     <div class="row">
                       <div class="col-md-6 col-sm-12" ngbTooltip="The user must have traded this number of times before opening your trade. This choice is optional" placement="top">
@@ -477,10 +477,10 @@
                             type="number"
                             id="checkout-number"
                             class="form-control"
-  
+
                             formControlName="minimumTrades"
                             placeholder="Patner should have done this number of trades"
-  
+
                           />
                           <span
                             *ngIf="submitted && f2.minimumTrades.errors"
@@ -492,7 +492,7 @@
                                               >This field is required!</small
                                               >
                                           </span>
-  
+
                         </div>
                       </div>
                       <div class="col-md-6 col-sm-12" ngbTooltip="New users will not trade above this amount. This choice is optional" placement="top">
@@ -509,8 +509,8 @@
                             formControlName="limitusers"
                             [placeholder]="offer.new_trader_limit"
                           />
-  
-  
+
+
                         </div>
                       </div>
                       <div class="col-md-6 col-sm-12" ngbTooltip="Users blocked above this threshold will not be able to open this offer.  This choice is optional" placement="top">
@@ -525,16 +525,16 @@
                             [class.error]="submitted && f2.limitusers.errors"
                             placeholder="Restrict user based on blocks"
                             formControlName="limit_block"
-  
-  
+
+
                           />
-  
-  
+
+
                         </div>
                       </div>
-  
+
                     </div>
-  
+
                     <div class="card-header flex-column align-items-start" >
                       <h4 class="card-title">Limitation by countries</h4>
                       <p class="card-text text-muted mt-25">
@@ -599,7 +599,7 @@
                     </ul>
                     <div class="col-sm-6 col-12">
                       <label>Country options</label>
-  
+
                       <div class="form-group">
                         <!-- Multi select with limited number of selections -->
                         <ngb-alert
@@ -616,10 +616,10 @@
                           #selectMultiLimited
                           [multiple]="true"
                           [maxSelectedItems]="50"
-  
+
                           formControlName="allowedCountries"
                           *ngIf="allowCountires"
-  
+
                         >
                           <ng-option *ngFor="let car of countries" [value]="car.name">{{car.name}}  ({{car.iso}})
                           </ng-option>
@@ -628,16 +628,16 @@
                           #selectMultiLimited
                           [multiple]="true"
                           [maxSelectedItems]="50"
-  
+
                           formControlName="blockedCountries"
                           *ngIf="blockCountires"
-  
+
                         >
                           <ng-option *ngFor="let car of countries" [value]="car.name">{{car.name}}  ({{car.iso}})
                           </ng-option>
                         </ng-select>
-  
-  
+
+
                         <!-- Multi select with limited number of selections -->
                       </div>
                     </div>
@@ -650,20 +650,20 @@
                         rippleEffect
                         (click)="onSubmit()"
                       >
-                                      <span [data-feather]="'plus'" [class]="'mr-25'"></span
+                                      <span [data-feather]="'check'" [class]="'mr-25'"></span
                                       >UPDATE OFFER
                       </button>
                     </div>
                   </form>
                 </div>
-  
-  
+
+
               </div>
             </div>
           </div>
           <!-- Checkout Payment Ends -->
         </div>
-  
+
         <!-- Wizard starts -->
         <div class="bs-stepper-header">
           <div class="step" data-target="#step-cart">
@@ -710,4 +710,3 @@
       </div>
     </div>
   </div>
-  
