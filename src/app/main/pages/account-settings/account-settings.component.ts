@@ -133,13 +133,18 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     loadImageFailed() {
         // show message
     }
-    rotate() {
-      this.canvasRotation++;    
+    rotate() {  
       this.transform = {
         ...this.transform,
-        rotate: this.rotation+=15
+        rotate: this.rotation+=5
     };
   }
+  resetImage() {
+    
+    this.rotation = 0;
+    this.canvasRotation = 0;
+    this.transform = {};
+}
 
   private flipAfterRotate() {
       const flippedH = this.transform.flipH;
@@ -156,6 +161,57 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
      *
      * @param event
      */
+    async uploadDP(){
+      console.log("updating")
+      if (this.croppedImage.size / 1048576 <= 4) {
+        this.uploading = true;
+        let user = JSON.parse(localStorage.getItem('user'));
+        const headerDict = {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            token: user.token,
+            username: user.username
+        };
+        const requestOptions = {
+            headers: new Headers(headerDict),
+            method: 'POST',
+            body: JSON.stringify({
+                profile_image: this.croppedImage,
+                type: this.croppedImage.type
+            })
+        };
+        await fetch(`https://api.coinlif.com/api/files/v1/uploadDP`, requestOptions)
+            .then((response) => {
+                console.log(response);
+                if (!response.ok) {
+                    this.toast(
+                        'FAILED',
+                        '👋 Seems an error happened .Please try again',
+                        'error'
+                    );
+                    this.uploading = false;
+                    //throw new Error(response.statusText);
+                } else {
+                    //reader.readAsDataURL(event.target.files[0]);
+                    response.json().then((json) => {
+                        this.avatarImage = json.responseMessage?.path;
+                    });
+                    this.playAudio('assets/sounds/tirit.wav');
+                    this.toast('Great', '👋 You just uploaded your profile', 'success');
+                    this.uploading = false;
+                }
+            })
+            .catch((error) => {
+                this.toast('Ops', '👋 An error happened try again', 'error');
+            });
+    } else {
+        this.toast(
+            'Ops',
+            'File size exceeds 4 MB. Please choose less than 4 MB',
+            'error'
+        );
+    }
+    }
     onFileSelected(event) {
         this.convertFile(event.target.files[0]).subscribe(async (base64) => {
             this.base64Output = base64;
@@ -167,7 +223,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
                 //get file information such as name, size and type
                 console.log('finfo', file.name, file.size, file.type);
                 //max file size is 4 mb
-                if (file.size / 1048576 <= 4) {
+                if (this.croppedImage.size / 1048576 <= 4) {
                     this.uploading = true;
                     let user = JSON.parse(localStorage.getItem('user'));
                     const headerDict = {
@@ -180,11 +236,11 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
                         headers: new Headers(headerDict),
                         method: 'POST',
                         body: JSON.stringify({
-                            profile_image: base64,
+                            profile_image: this.croppedImage,
                             type: file.type
                         })
                     };
-                    await fetch(`/uploadProfile`, requestOptions)
+                    await fetch(`https://api.coinlif.com/api/files/v1/uploadDP`, requestOptions)
                         .then((response) => {
                             console.log(response);
                             if (!response.ok) {
