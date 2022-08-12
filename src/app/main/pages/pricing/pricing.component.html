@@ -41,7 +41,7 @@
                   <div class="pricing-badge text-right">
                     <div class="badge badge-pill badge-light-primary">{{package.rate}}</div>
                   </div>
-                  <img src="{{ data.pricing.standardPlan.img }}" class="mb-1" alt="svg img"/>
+                  <img src="assets/images/illustration/badge.svg" class="mb-1" alt="svg img"/>
                   <h3>{{ package.package }}</h3>
                   <p class="card-text">Stake</p>
                   <div class="annual-plan">
@@ -128,7 +128,7 @@
                 <tr *ngFor="let data of investments">
                   <td>
                     <img
-                      src="assets/images/icons/angular.svg"
+                      src="assets/images/icons/star.svg"
                       class="mr-75"
                       height="20"
                       width="20"
@@ -164,7 +164,7 @@
                 <ngb-panel
                   id="deliveryId{{ i }}"
                   [cardClass]="'collapse-margin'"
-                  *ngFor="let qandARef of data.pricing.qandA; let i = index"
+                  *ngFor="let qandARef of Questions; let i = index"
                 >
                   <ng-template ngbPanelTitle>
                     <span>{{ qandARef.question }}</span>

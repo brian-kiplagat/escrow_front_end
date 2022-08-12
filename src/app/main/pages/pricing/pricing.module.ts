@@ -9,16 +9,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 
 import { PricingComponent } from 'app/main/pages/pricing/pricing.component';
-import { PricingService } from 'app/main/pages/pricing/pricing.service';
 
 const routes: Routes = [
   {
     path: 'pricing',
     component: PricingComponent,
     canActivate: [AuthGuard],
-    resolve: {
-      kbq: PricingService
-    },
     data: { animation: 'pricing' }
   }
 ];
@@ -27,6 +23,6 @@ const routes: Routes = [
   declarations: [PricingComponent],
   imports: [CommonModule, RouterModule.forChild(routes), NgbModule, CoreCommonModule, ContentHeaderModule],
 
-  providers: [PricingService,AuthGuard]
+  providers: [AuthGuard]
 })
 export class PricingModule {}
