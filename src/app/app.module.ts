@@ -54,11 +54,6 @@ const appRoutes: Routes = [
     path: 'ui',
     loadChildren: () => import('./main/ui/ui.module').then(m => m.UIModule),
 
-  },
-  {
-    path: 'components',
-    loadChildren: () => import('./main/components/components.module').then(m => m.ComponentsModule),
-
   }
   ,
   {
