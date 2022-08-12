@@ -138,7 +138,6 @@ export class EcommerceComponent implements OnInit {
           this.offerData = data.responseMessage?.offer_data
           this.fiat = data.responseMessage?.fiat
     
-          console.log(this.offerData)
         }, (error) => {
           console.log(error)
           this.router.navigate(['/pages/login'])
@@ -153,7 +152,16 @@ export class EcommerceComponent implements OnInit {
 
   toggleAll() {
     this.fb.toggleAll(this.user.token, this.user.username).subscribe((data) => {
-      console.log(data)
+      this.fb.getUser(this.user.username, this.user.token).subscribe((data: any) => {
+        this.currentUser = data.responseMessage?.user_data[0];
+        this.tradeData = data.responseMessage?.trade_data;
+        this.offerData = data.responseMessage?.offer_data
+        this.fiat = data.responseMessage?.fiat
+  
+      }, (error) => {
+        console.log(error)
+        this.router.navigate(['/pages/login'])
+      });
     })
   }
 
