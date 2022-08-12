@@ -21,7 +21,23 @@ export class PricingComponent implements OnInit, OnDestroy {
   public msg;
   public error
   public success
-  public Questions = []
+  public Questions =  [
+    {
+      question: 'Does my subscription automatically renew?',
+      ans:
+        'You have to do it after end of every circle.'
+    },
+    {
+      question: 'What yield do i get?',
+      ans:
+        'It depends on the APY you see on the site.'
+    },
+    {
+      question: 'Am I allowed to modify the item that I purchased?',
+      ans:
+        'No you cannot.Until after the end of the market cycle.'
+    }
+  ]
 
   // private
   private _unsubscribeAll: Subject<any>;
@@ -44,23 +60,6 @@ export class PricingComponent implements OnInit, OnDestroy {
       console.log(data)
     }, (error) => {
       console.log(error)
-    this.Questions =  [
-      {
-        question: 'Does my subscription automatically renew?',
-        ans:
-          'You have to do it after end of every circle.'
-      },
-      {
-        question: 'What yield do i get?',
-        ans:
-          'It depends on the APY you see on the site.'
-      },
-      {
-        question: 'Am I allowed to modify the item that I purchased?',
-        ans:
-          'No you cannot.Until after the end of the market cycle.'
-      }
-    ]
     });
 
   }
