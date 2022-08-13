@@ -18,6 +18,7 @@ import clipboard from 'clipboardy';
 import Swal from "sweetalert2";
 import {ToastrService, GlobalConfig} from 'ngx-toastr';
 import {v4 as uuidv4} from 'uuid';
+import {off} from "@angular/fire/database";
 
 @Component({
 
@@ -315,14 +316,47 @@ export class EcommerceComponent implements OnInit {
 
 
   getBlocked(offer) {
-    //console.log(offer)
-    if (offer.limit_countries == 'none') {
-      return 'No countries blocked or allowed'
-    } else if (offer.limit_countries == 'allowed') {
-      return 'These countries are allowed - ' + offer.blocked_countries.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "").slice(1, -1)
-    } else if (offer.limit_countries == 'blocked') {
-      return 'These countries are blocked - ' + offer.blocked_countries.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "").slice(1, -1)
+    if (offer.idd == 123){
+      console.log(offer)
+    }
+    let options = '';
+    if (offer.vpn == 1) {
+      options += ' | VPNs and Tor is not allowed'
+    }
+    if (offer.id_verification == 1) {
+      options += ' | All users must be ID Verified'
+    }
+    if (offer.full_name == 1) {
+      options  +=' | All users must display their full name'
+    }
+    if (offer.min_trades != 0) {
+      options += ' | All users must have ' + offer.min_trades + ' minimum trades'
+    }
 
+    if (offer.limit_countries == 'none') {
+      let clause = 'No countries blocked or allowed'
+      if (options !== null) {
+        return clause + options
+      } else {
+        return clause
+
+      }
+    } else if (offer.limit_countries == 'allowed') {
+      let clause = 'These countries are allowed - ' + offer.blocked_countries.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "").slice(1, -1)
+      if (options !== null) {
+        return clause + options
+      } else {
+        return clause
+
+      }
+    } else if (offer.limit_countries == 'blocked') {
+      let clause = 'These countries are blocked - ' + offer.blocked_countries.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "").slice(1, -1)
+      if (options !== null) {
+        return clause + options
+      } else {
+        return clause
+
+      }
     }
 
   }
