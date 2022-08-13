@@ -155,9 +155,15 @@ export class CardBasicComponent implements OnInit {
     this.fb.sendCodeToMail(this.user.token, this.user.username, {
       email: this.user.email
     }).subscribe((response: any) => {
+      this.success = true;
+      this.loading = false
+      this.message = 'Check your email now. Then enter the code below to authorize this transfer'
       this.toast('Success', '👋 Please check your email for the 2FA Code to authorize this transfer', 'success')
 
     }, (err) => {
+      this.error = true;
+      this.loading = false
+      this.message = err.error.responseMessage
       this.toast('Ops', err.error.responseMessage, 'error')
 
     })
