@@ -109,6 +109,7 @@ export class EcommerceCheckoutComponent implements OnInit {
     this.noneSelected = !this.noneSelected;
     this.form3.controls['allowedCountries'].disable();
     this.form3.controls['blockedCountries'].disable();
+    this.limit_countries = 'none'
   }
 
   removeDisable(type: any) {
