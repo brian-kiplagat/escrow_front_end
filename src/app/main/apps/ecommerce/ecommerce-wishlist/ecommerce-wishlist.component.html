@@ -137,13 +137,13 @@
                                     class="form-control input-group-text text-primary"
                                     id="username"
                                 >
-                                <a [routerLink]="'/users/' + offer.username">{{ offer.username }}</a>
+                                <a [routerLink]="'/users/' + offer.offer.username">{{ offer.offer.username }}</a>
                                     </span
                                 >
 
                             <div class="input-group-append">
                                 <span class="input-group-text text-primary" id="selling-price"
-                                    >{{ offer.margin }}%</span
+                                    >{{ offer.offer.margin }}%</span
                                 >
                             </div>
                         </div>
@@ -151,8 +151,8 @@
                         <div class="price-details" style="margin-bottom: -1px">
                             <ul class="list-unstyled">
                                 <li class="price-detail">
-                                    <div class="detail-title">Fast Trades</div>
-                                    <div class="detail-title detail-total">45,598 EUR</div>
+                                    <div class="detail-title">{{offer.offer.label}}</div>
+                                    <div class="detail-title detail-total"><i data-feather="thumbs-up"></i> {{offer.user.feed_positive}}</div>
                                 </li>
                                 <li class="price-detail">
 
@@ -160,15 +160,15 @@
                                       <div
                                         class="badge badge-pill badge-light-warning"
                                       >
-                                        {{offer.method}}
+                                        {{offer.offer.method}}
                                       </div>
-                                        <div *ngFor="let tag of getArray(offer.tags)" class="badge badge-pill badge-light-secondary">
+                                        <div *ngFor="let tag of getArray(offer.offer.tags)" class="badge badge-pill badge-light-secondary">
                                             {{ tag }}
                                         </div>
                                     </div>
                                     <div class="detail-amt discount-amt text-success">
-                                        Limits: {{ offer.minimum }}-{{ offer.maximum }}
-                                        {{ offer.currency }}
+                                        Limits: {{ offer.offer.minimum }}-{{ offer.offer.maximum }}
+                                        {{ offer.offer.currency }}
                                     </div>
                                 </li>
                             </ul>
@@ -177,7 +177,7 @@
                                 <li class="price-detail">
                                     <div class="detail-title detail-total"></div>
                                     <div class="detail-amt font-weight-bolder">
-                                        <a [routerLink]="'/offers/bitcoin/details/' + offer.idd">
+                                        <a [routerLink]="'/offers/bitcoin/details/' + offer.offer.idd">
                                             <button
                                                 type="button"
                                                 class="btn btn-primary btn-block btn-next place-order"
