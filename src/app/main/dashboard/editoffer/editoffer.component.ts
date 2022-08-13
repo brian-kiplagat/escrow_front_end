@@ -45,8 +45,8 @@ export class EditofferComponent implements OnInit {
   public max;
   public offer: any = {};
   public user_data:any={};
-  current_tags:string=""
-
+  public current_tags = []
+  public limit_countries = 'none';
 
   /**
    *  Constructor
@@ -121,11 +121,12 @@ export class EditofferComponent implements OnInit {
     this.form3.controls['blockedCountries'].disable();
   }
 
-  removeDisable() {
+  removeDisable(type: any) {
     this.allowCountires = !this.allowCountires
     this.blockCountires = !this.blockCountires
     this.form3.controls['allowedCountries'].enable();
     this.form3.controls['blockedCountries'].enable();
+    this.limit_countries = type
   }
 
   enableBlock() {
@@ -146,20 +147,9 @@ export class EditofferComponent implements OnInit {
       this.rate = data.responseMessage.data.margin
       this.min = data.responseMessage.data.minimum
       this.max = data.responseMessage.data.maximum
-      let offer_tags = data.responseMessage.data.tags
-      let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
-      const arr = formatted_tags.slice(1, -1)
-      this.tags = arr.split(',')
+      this.current_tags = data.responseMessage.data.tags
       this.user_data = data.responseMessage.data.user_data
-      this.current_tags=data.responseMessage.data.tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "").slice(1, -1)
-      if (data.responseMessage.data.status != 1){
-        // this.err = 'This offer is turned off at the moment. Try other offers'
-        console.log("soort",this.current_tags)
-      }
-      if (data.responseMessage.data.deauth == 1){
-        console.log("soort")
-       // this.err = 'This offer is deauthorized by a moderator due to a terms of service violation. Try other offers'
-      }
+
     });
     this.user?this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
       this.tags = data.responseMessage
@@ -237,7 +227,7 @@ export class EditofferComponent implements OnInit {
       "id_verification": !this.form3.value.idverification ? this.offer.user_data.id_verified : this.form3.value.idverification,
       "full_name": !this.form3.value.fullname ? this.offer.offer_username : this.form3.value.fullname,
       "min_trades": !this.form3.value.minimumTrades ? "N/A" : this.form3.value.minimumTrades,
-
+      "limit_countries": this.limit_countries
 
     }).subscribe((data) => {
       this.router.navigate(['/dashboard/overview'])

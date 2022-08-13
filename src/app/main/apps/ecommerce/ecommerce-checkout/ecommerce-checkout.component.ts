@@ -37,7 +37,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   public currencies = []
   public methods = []
   public countries: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
- public limit_countries = 'none';
+  public limit_countries = 'none';
 
   /**
    *  Constructor
@@ -111,7 +111,7 @@ export class EcommerceCheckoutComponent implements OnInit {
     this.form3.controls['blockedCountries'].disable();
   }
 
-  removeDisable(type:any) {
+  removeDisable(type: any) {
     this.allowCountires = !this.allowCountires
     this.blockCountires = !this.blockCountires
     this.form3.controls['allowedCountries'].enable();
@@ -129,10 +129,10 @@ export class EcommerceCheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'))
     console.log(this.user)
-    this.user?this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
+    this.user ? this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
       console.log(data)
       this.tags = data.responseMessage
-    }):this.user={}
+    }) : this.user = {}
 
     this._fb.getCurrency().subscribe((data: any) => {
       console.log(data)
@@ -203,7 +203,7 @@ export class EcommerceCheckoutComponent implements OnInit {
 
   onSubmit() {
     const key = uuidv4() + Math.round(new Date().getTime() / 1000).toString();
-    this.user?this._fb.createOffer(this.user.token, this.user.username, {
+    this.user ? this._fb.createOffer(this.user.token, this.user.username, {
 
       "requestId": key,
       "method": this.checkoutForm.value.paymentMethod,
@@ -231,7 +231,7 @@ export class EcommerceCheckoutComponent implements OnInit {
     }, (err) => {
       this.errorMessage = err.error.responseMessage
       console.log(err.error)
-    }):this.user={}
+    }) : this.user = {}
     this.submitted = true;
   }
 }

@@ -176,12 +176,13 @@ export class EcommerceComponent implements OnInit {
   }
 
   toggleAll() {
-    if (this.flag_checked == true){
+    if (this.flag_checked == true) {
       this.justToggleNowAll('off')
-    }else  if (this.flag_checked == false){
+    } else if (this.flag_checked == false) {
       this.justToggleNowAll('on')
     }
-     }
+  }
+
   justToggleNowAll(state: any) {
     this.fb.toggleAll(this.user.token, this.user.username, state).subscribe((data: any) => {
         this.offerData = data.responseMessage.offers
@@ -200,6 +201,7 @@ export class EcommerceComponent implements OnInit {
       })
 
   }
+
   delete_offer(id: any) {
     this.playAudio('assets/sounds/windows_warning.wav')
     if (this.user) {
@@ -312,4 +314,16 @@ export class EcommerceComponent implements OnInit {
   }
 
 
+  getBlocked(offer) {
+    //console.log(offer)
+    if (offer.limit_countries == 'none') {
+      return 'No countries blocked or allowed'
+    } else if (offer.limit_countries == 'allowed') {
+      return 'These countries are allowed - ' + offer.blocked_countries.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "").slice(1, -1)
+    } else if (offer.limit_countries == 'blocked') {
+      return 'These countries are blocked - ' + offer.blocked_countries.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "").slice(1, -1)
+
+    }
+
+  }
 }

@@ -1,11 +1,7 @@
 <div class="content-wrapper container-xxl p-0">
 
     <div class="content-body">
-      <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="errorMessage">
-        <div class="alert-body">
-          <p>{{ errorMessage }}</p>
-        </div>
-      </ngb-alert>
+
       <div class="bs-stepper checkout-tab-steps" id="checkoutStepper">
         <div class="bs-stepper-content">
           <!-- Checkout Place order starts -->
@@ -166,7 +162,7 @@
                           id="checkout-name"
                           class="form-control"
                           formControlName="minimum"
-                          [placeholder]="offer.minimum"
+                          [value]="offer.minimum"
                         />
                         <span
                           *ngIf="submitted && f1.minimum.errors"
@@ -212,7 +208,7 @@
                           class="form-control"
                           [class.error]="submitted && f1.maximum.errors"
                           formControlName="maximum"
-                          [placeholder]="offer.maximum"
+                          [value]="offer.maximum"
 
 
                         />
@@ -247,7 +243,7 @@
                           id="checkout-apt-number"
                           class="form-control"
                           formControlName="offerRate"
-                          [placeholder]="offer.margin"
+                          [value]="offer.margin"
 
                         />
                       </div>
@@ -277,7 +273,7 @@
                           bindLabel="tag"
                           bindValue="tag"
                           formControlName="tags"
-                          [placeholder]="current_tags"
+
 
                         >
                           <ng-template
@@ -317,7 +313,7 @@
                           id="checkout-pincode"
                           class="form-control"
                           formControlName="label"
-                          [placeholder]="offer.label"
+                          [value]="offer.label"
 
 
                         />
@@ -332,7 +328,7 @@
                           id="checkout-state"
                           class="form-control"
                           formControlName="terms"
-                          [placeholder]="offer.terms"
+                          [value]="offer.terms"
 
                         ></textarea>
                       </div>
@@ -346,7 +342,7 @@
                           class="form-control"
                           [class.error]="submitted && f1.instructions.errors"
                           formControlName="instructions"
-                          [placeholder]="offer.instructions"
+                          [value]="offer.instructions"
 
                         ></textarea>
                         <span
@@ -568,7 +564,7 @@
                             value="blocked"
                             formControlName="limitCountries"
                             class="custom-control-input"
-                            (change)="removeDisable()"
+                            (change)="removeDisable('blocked')"
                           />
                           <label
                             class="custom-control-label"
@@ -586,7 +582,7 @@
                             value="allowed"
                             formControlName="limitCountries"
                             class="custom-control-input"
-                            (change)="removeDisable()"
+                            (change)="removeDisable('allowed')"
                           />
                           <label
                             class="custom-control-label"
@@ -616,12 +612,11 @@
                           #selectMultiLimited
                           [multiple]="true"
                           [maxSelectedItems]="50"
-
                           formControlName="allowedCountries"
                           *ngIf="allowCountires"
 
                         >
-                          <ng-option *ngFor="let car of countries" [value]="car.name">{{car.name}}  ({{car.iso}})
+                          <ng-option *ngFor="let car of countries" [value]="car.iso">{{car.name}}  ({{car.iso}})
                           </ng-option>
                         </ng-select>
                         <ng-select
@@ -633,7 +628,7 @@
                           *ngIf="blockCountires"
 
                         >
-                          <ng-option *ngFor="let car of countries" [value]="car.name">{{car.name}}  ({{car.iso}})
+                          <ng-option *ngFor="let car of countries" [value]="car.iso">{{car.name}}  ({{car.iso}})
                           </ng-option>
                         </ng-select>
 
@@ -643,6 +638,11 @@
                     </div>
                     <hr class="my-2"/>
                     <div class="col-12">
+                      <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="errorMessage">
+                        <div class="alert-body">
+                          <p>{{ errorMessage }}</p>
+                        </div>
+                      </ngb-alert>
                       <button
                         class="btn btn-primary btn-next delivery-address"
                         type="submit"
