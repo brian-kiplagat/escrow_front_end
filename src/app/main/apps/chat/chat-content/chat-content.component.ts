@@ -73,7 +73,7 @@ export class ChatContentComponent implements OnInit {
       tradeId: this.trade.id,
       senderId: user.username,
       message: this.chatMessage,
-      recepient:this.partner_data.username
+      recepient: this.partner_data.username
 
 
     })
@@ -92,23 +92,27 @@ export class ChatContentComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     this.chatUser.ago = this.partner_data[0].online
-    if (this.chatUser.ago.includes('seconds') || this.chatUser.ago.includes('second')){
+    if (this.chatUser.ago.includes('seconds') || this.chatUser.ago.includes('second')) {
       this.chatUser.status = 'online'
       return
-    } if (this.chatUser.ago.includes('minutes') || this.chatUser.ago.includes('minute')){
+    }
+    if (this.chatUser.ago.includes('minutes') || this.chatUser.ago.includes('minute')) {
       this.chatUser.status = 'online'
       return
-    } if (this.chatUser.ago.includes('hours') || this.chatUser.ago.includes('hour')){
+    }
+    if (this.chatUser.ago.includes('hours') || this.chatUser.ago.includes('hour')) {
       this.chatUser.status = 'busy'
       return
     }
-    if (this.chatUser.ago.includes('weeks') || this.chatUser.ago.includes('week')){
+    if (this.chatUser.ago.includes('weeks') || this.chatUser.ago.includes('week')) {
       this.chatUser.status = 'away'
       return
-    } if (this.chatUser.ago.includes('months') || this.chatUser.ago.includes('month')){
+    }
+    if (this.chatUser.ago.includes('months') || this.chatUser.ago.includes('month')) {
       this.chatUser.status = 'offline'
       return
-    } if (this.chatUser.ago.includes('year') || this.chatUser.ago.includes('years')){
+    }
+    if (this.chatUser.ago.includes('year') || this.chatUser.ago.includes('years')) {
       this.chatUser.status = 'offline'
       return
     }
@@ -136,11 +140,10 @@ export class ChatContentComponent implements OnInit {
     void {
     const routeParams = this.route.snapshot.paramMap;
     this.user = JSON.parse(localStorage.getItem('user'));
-
     this.page.init(routeParams.get('id'), 'time', {reverse: true, prepend: false})
     this.fb.retrieveMessage(routeParams.get('id')).subscribe((data: any) => {
       this.chats = data;
-      setTimeout(() => {
+         setTimeout(() => {
         this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
       }, 0);
     });

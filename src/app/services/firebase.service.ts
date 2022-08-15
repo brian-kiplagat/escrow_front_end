@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import {initializeApp} from 'firebase/app';
 import {environment} from 'environments/environment';
-import {getFirestore, collection, getDocs} from 'firebase/firestore/lite';
+import {collection, getDocs, getFirestore} from 'firebase/firestore/lite';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
-
 
 
 @Injectable({
@@ -370,37 +369,43 @@ export class FirebaseService {
       message: data.message,
       time: Date.now()
     });
-    let rand = Math.floor(Math.random() * 2);
-    if (rand == 2){
-      //Notify recipient
-      this.firestore.collection('notifications').add({
-        heading: 'New Trade message',
-        timestamp: Date.now(),
-        resource_path: '/offers/chat/room/' + data.tradeId,
-        text: data.senderId + ' has sent you a message',
-        username: data.recepient,
-        read: false
-      });
-    }
+    this.firestore.collection('notifications').add({
+      heading: 'New Trade message',
+      timestamp: Date.now(),
+      resource_path: '/offers/chat/room/' + data.tradeId,
+      text: data.senderId + ' has sent you a message',
+      username: data.recepient,
+      read: false
+    });
+
 
   }
+  //send Trigger
+  async sendTrigger(data: any) {
+    //Send message
+    this.firestore.collection('trades').doc(data.tradeId.toString()).collection('chats').add({
+      senderId: data.senderId,
+      message: data.message,
+      time: Date.now()
+    });
 
+
+
+  }
   //retrieve all messages
   retrieveMessage(docId: string) {
-    let messages = this.firestore
+    return this.firestore
       .collection('trades')
       .doc(docId.toString())
       .collection('chats', (ref) => ref.orderBy('time'))
       .valueChanges();
-    return messages;
   }
 
 //retrieve all messages
   retrieveNotifications(email: string,username: string,) {
-    let notifications = this.firestore
+    return this.firestore
       .collection('notifications', (ref) => ref.where('username', '==', username))
       .valueChanges();
-    return notifications;
   }
 
   getUserForProfile(userIdFromRoute: string, token: string, username: string) {

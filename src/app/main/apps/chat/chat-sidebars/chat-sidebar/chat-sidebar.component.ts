@@ -7,6 +7,7 @@ import {Subscription, timer} from "rxjs";
 import {isNumeric} from "rxjs/internal-compatibility";
 import {environment} from "../../../../../../environments/environment";
 import {FirebaseService} from "../../../../../services/firebase.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -16,10 +17,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   @Input() trade: any;
   @Input() currentUser: any;
   // Public
-  public contacts;
-  public chatUsers;
   public searchText;
-  public chats;
   public selectedIndex = null;
   public userProfile;
   private options: GlobalConfig;
@@ -40,17 +38,20 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   /**
    * Constructor
    *
+   * @param route
    * @param fb
    * @param {ChatService} _chatService
    * @param {CoreSidebarService} _coreSidebarService
    * @param toastr
    */
-  constructor( private fb: FirebaseService,private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
+  constructor(private route: ActivatedRoute, private fb: FirebaseService, private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
     this.options = this.toastr.toastrConfig;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
     this.status = this.trade.status;
+    //console.log(this.trade)
     const secs_since_start = new Date(this.trade.created_at).getTime() / 1000;//Here update with trade.created_at
     const current_time_stamp = Math.floor(Date.now() / 1000)
     this.counter = 1800 - (current_time_stamp - secs_since_start)
@@ -74,6 +75,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         }
       })
 
+
   }
 
 
@@ -88,12 +90,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   openChat(id) {
     this._chatService.openChat(id);//Invoke chat.service.ts instance
 
-    // Reset unread Message to zero
-    this.chatUsers.map(user => {
-      if (user.id === id) {
-        user.unseenMsgs = 0;
-      }
-    });
   }
 
   /**
@@ -121,6 +117,9 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   /**
    * On init
    */
+
+
+
   playAudio(path) {
     let audio = new Audio();
     audio.src = path;
@@ -152,14 +151,12 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    // Subscribe to contacts
-
     this.storage = JSON.parse(localStorage.getItem('user'));
-
-    //Load up chat interface to the template....pass a chat id to pull up message...contact data is available .../@fake-db/chat.data.ts
     this.openChat(1);//1
 
+
   }
+
 
 
   transform(value: number): string {
@@ -212,6 +209,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
               this.status = "PAID"
               this.toast('Great', '👋 You just confirmed your payment. Its now the sellers turn to send the Bitcoin', 'success')
               this.playAudio('assets/sounds/tirit.wav')
+              this.sendTrigger(id, user.username)
             }
           }).catch((error) => {
             this.toast('Ops', '👋 An error happened try again', 'error')
@@ -269,6 +267,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
               this.status = "CANCELLED_BUYER"
               this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
               this.playAudio('assets/sounds/turumturum.wav')
+              this.sendTrigger(id, user.username)
             }
           }).catch((error) => {
             this.toast('Ops', '👋 An error happened try again', 'error')
@@ -307,16 +306,17 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           this.status = "SUCCESSFUL"
           this.toast('Congratulations', '👋 You just sold BTC. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
           this.playAudio('assets/sounds/turumturum.wav')
+          this.sendTrigger(id, user.username)
         } else {
-          this.toast('Failed', '👋 '+result.responseMessage, 'error')
+          this.toast('Failed', '👋 ' + result.responseMessage, 'error')
           return
         }
       })
-    .catch((error) => {
-      console.log(error)
-      this.toast('Ops', '👋 An error happened try again', 'error')
+      .catch((error) => {
+        console.log(error)
+        this.toast('Ops', '👋 An error happened try again', 'error')
 
-    })
+      })
 
   }
 
@@ -454,6 +454,17 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   view_offer(idd: any) {
     window.location.href = '/offers/bitcoin/details/' + idd
 
+  }
+
+  sendTrigger(tradeId, sender_username) {
+    this.fb.sendTrigger({
+      tradeId: tradeId,
+      senderId: sender_username,
+      message: 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq',
+      recepient: 'NOT AVAILABLE'
+
+
+    })
   }
 
 
