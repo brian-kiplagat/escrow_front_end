@@ -109,7 +109,7 @@ this._unsubscribeAll.complete();
                 let lastElement = data[data.length - 1]
                 //console.log(lastElement)
                 if (lastElement.senderId != user.username && lastElement.message == 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq') {
-                  console.log('I got the key')
+                  //console.log('I got the key')
                   this.okUpdateSideBar(this.trade.id)
                 }
               });
@@ -127,7 +127,7 @@ this._unsubscribeAll.complete();
 
     }
   okUpdateSideBar(id: any) {
-    console.log('Triggering API')
+    //console.log('Triggering API')
     let user = JSON.parse(localStorage.getItem('user'));
     this.fb.getTradeByID(user.username, user.token, id).subscribe(
       (data: any) => {

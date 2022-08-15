@@ -62,7 +62,7 @@ export class FirebaseService {
   }
 
   //logout
-  logout(token: string, username: string, email: string) {
+  async logout(token: string, username: string, email: string) {
     let formData: any = {
       token: token,
       email: email,
@@ -71,21 +71,21 @@ export class FirebaseService {
     console.log(formData)
     return this.http.post(
       `${environment.endpoint}/logout`,
-       formData, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Accept: '*/*',
-        token: token,
-        username: username
+      formData, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Accept: '*/*',
+          token: token,
+          username: username
 
-      })
-    });
+        })
+      });
   }
 
   // reset password
   forgotPassword(email: string) {
     return this.http
-      .post( `${environment.endpoint}/forgotPassword`, {
+      .post(`${environment.endpoint}/forgotPassword`, {
         email: email
       })
       .subscribe((data) => {
@@ -127,7 +127,7 @@ export class FirebaseService {
 
 
   //get user by username
-  getUsersWithOffers(token,username) {
+  getUsersWithOffers(token, username) {
     const header = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -217,6 +217,7 @@ export class FirebaseService {
       })
     });
   }
+
   //edit offer
   editOffer(token: string, username: string, formData: any) {
     const header = {
@@ -311,7 +312,7 @@ export class FirebaseService {
   }
 
   //get offerinformation
-  getInfo( id: string) {
+  getInfo(id: string) {
     const header = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -380,6 +381,7 @@ export class FirebaseService {
 
 
   }
+
   //send Trigger
   async sendTrigger(data: any) {
     //Send message
@@ -390,8 +392,8 @@ export class FirebaseService {
     });
 
 
-
   }
+
   //retrieve all messages
   retrieveMessage(docId: string) {
     return this.firestore
@@ -402,7 +404,7 @@ export class FirebaseService {
   }
 
 //retrieve all messages
-  retrieveNotifications(email: string,username: string,) {
+  retrieveNotifications(email: string, username: string,) {
     return this.firestore
       .collection('notifications', (ref) => ref.where('username', '==', username))
       .valueChanges();
@@ -426,7 +428,7 @@ export class FirebaseService {
 
   // get applications
   blockNow(token: string, username: string, formData: any) {
-    return this.http.post(  `${environment.endpoint}/blockUser`, formData, {
+    return this.http.post(`${environment.endpoint}/blockUser`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -438,7 +440,7 @@ export class FirebaseService {
 
   // quick offer edit
   quickEdit(token: string, username: string, formData: any) {
-    return this.http.post(  `${environment.endpoint}/offer/quickEdit`, formData, {
+    return this.http.post(`${environment.endpoint}/offer/quickEdit`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -472,7 +474,7 @@ export class FirebaseService {
   }
 
   settoogle2FA(token: string, username: string, formData: any) {
-    return this.http.post(`${environment.endpoint}/set2FA`,formData, {
+    return this.http.post(`${environment.endpoint}/set2FA`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -494,7 +496,7 @@ export class FirebaseService {
   }
 
   setChangePaswordInApp(token, username, formData: any) {
-    return this.http.post(`${environment.endpoint}/changePasswordAuth`,formData, {
+    return this.http.post(`${environment.endpoint}/changePasswordAuth`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -514,8 +516,9 @@ export class FirebaseService {
       requestOptions
     );
   }
+
   sendCodeToMail(token, username, formData: any) {
-    return this.http.post(`${environment.endpoint}/send2FAMail`,formData, {
+    return this.http.post(`${environment.endpoint}/send2FAMail`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -524,6 +527,7 @@ export class FirebaseService {
       })
     });
   }
+
   confirmResetPassword(formData: any) {
     const requestOptions = {
       headers: new HttpHeaders(this.headerDict)
@@ -592,7 +596,8 @@ export class FirebaseService {
       })
     });
   }
-  toggleAll(token:string, username:string,state:string){
+
+  toggleAll(token: string, username: string, state: string) {
 
     return this.http.get(`${environment.endpoint}/offer/${state}/toggleall`, {
       headers: new HttpHeaders({
@@ -603,7 +608,8 @@ export class FirebaseService {
       })
     });
   }
-  toggleSingleOffer(token:string, username:string, offerId:any,action:string){
+
+  toggleSingleOffer(token: string, username: string, offerId: any, action: string) {
     return this.http.get(`${environment.endpoint}/offer/${offerId}/${action}/toggle`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -613,7 +619,8 @@ export class FirebaseService {
       })
     });
   }
-  deleteOffer(token:string, username:string ,id: any) {
+
+  deleteOffer(token: string, username: string, id: any) {
     return this.http.get(`${environment.endpoint}/offer/${id}/delete`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
