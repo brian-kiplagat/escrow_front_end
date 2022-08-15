@@ -209,7 +209,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
               this.status = "PAID"
               this.toast('Great', '👋 You just confirmed your payment. Its now the sellers turn to send the Bitcoin', 'success')
               this.playAudio('assets/sounds/tirit.wav')
-              this.sendTrigger(id, user.username)
+
             }
           }).catch((error) => {
             this.toast('Ops', '👋 An error happened try again', 'error')
@@ -267,7 +267,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
               this.status = "CANCELLED_BUYER"
               this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
               this.playAudio('assets/sounds/turumturum.wav')
-              this.sendTrigger(id, user.username)
+
             }
           }).catch((error) => {
             this.toast('Ops', '👋 An error happened try again', 'error')
@@ -306,7 +306,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           this.status = "SUCCESSFUL"
           this.toast('Congratulations', '👋 You just sold BTC. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
           this.playAudio('assets/sounds/turumturum.wav')
-          this.sendTrigger(id, user.username)
         } else {
           this.toast('Failed', '👋 ' + result.responseMessage, 'error')
           return
@@ -456,16 +455,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
   }
 
-  sendTrigger(tradeId, sender_username) {
-    this.fb.sendTrigger({
-      tradeId: tradeId,
-      senderId: sender_username,
-      message: 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq',
-      recepient: 'NOT AVAILABLE'
-
-
-    })
-  }
 
 
 }

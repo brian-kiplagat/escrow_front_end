@@ -382,18 +382,6 @@ export class FirebaseService {
 
   }
 
-  //send Trigger
-  async sendTrigger(data: any) {
-    //Send message
-    this.firestore.collection('trades').doc(data.tradeId.toString()).collection('chats').add({
-      senderId: data.senderId,
-      message: data.message,
-      time: Date.now()
-    });
-
-
-  }
-
   //retrieve all messages
   retrieveMessage(docId: string) {
     return this.firestore
