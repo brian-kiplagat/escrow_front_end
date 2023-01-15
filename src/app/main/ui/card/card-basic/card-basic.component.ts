@@ -91,8 +91,6 @@ export class CardBasicComponent implements OnInit {
 
     if (this.currentUser.choice_2fa == '2FA' && this.currentUser.factor_send == true) {
       otp = (<HTMLInputElement>document.getElementById("otp")).value;
-    } else if (this.currentUser.choice_2fa == 'MAIL'  || this.currentUser.choice_2fa == '2FA' &&  this.currentUser.factor_send == false ) {
-      otp = (<HTMLInputElement>document.getElementById("code_email")).value;
     }
     this.loading = true
     this.fb.sendCrypto(this.user.token, this.user.username, {
@@ -105,10 +103,12 @@ export class CardBasicComponent implements OnInit {
       this.playAudio('assets/sounds/tirit.wav')
       this.toast('Done', '👋 Cryptocurrency was sent from your account. Check your email for details', 'success')
       this.success = true;
+      this.error = false;
       this.loading = false
       this.message = 'Transaction was successful'
     }, (err) => {
       this.error = true;
+      this.success = false;
       this.loading = false
       this.message = err.error.responseMessage
       console.log(err)

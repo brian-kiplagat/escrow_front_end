@@ -44,12 +44,12 @@
           </div>
 
           <div class="card-body">
-            <ngb-alert [type]="'danger'" [dismissible]="true" *ngIf="error">
+            <ngb-alert [type]="'danger'" [dismissible]="true" *ngIf="error == true && success == false">
               <div class="alert-body">
                 <p>{{ message }}</p>
               </div>
             </ngb-alert>
-            <ngb-alert [type]="'success'" [dismissible]="true" *ngIf="success">
+            <ngb-alert [type]="'success'" [dismissible]="true" *ngIf="success == true && error == false">
               <div class="alert-body">
                 <p>{{ message }}</p>
               </div>
@@ -79,27 +79,6 @@
                       ({{currency}})</label>
                     <input type="number" id="amount" class="form-control" placeholder="{{currency}}"/>
                   </div>
-                </div>
-                <div class="col-12"  *ngIf="currentUser.choice_2fa == 'MAIL' || currentUser.choice_2fa == '2FA' && currentUser.factor_send == false ">
-                  <div class="row mb-2" style="margin-left: 2px;margin-right: 2px">
-                    <label for="code_email"
-                           ngbTooltip="Click Get Code and check your email or spam folder. In future we recommend you activate 2FA"
-                           placement="right">2FA Code</label>
-                    <div class="input-group">
-                      <input
-                        type="number"
-                        id="code_email"
-                        class="form-control"
-                        placeholder="Code from email"
-                        aria-describedby="button-addon2"
-                      />
-                      <div class="input-group-append" id="button-addon2">
-                        <button class="btn btn-outline-primary" type="button" (click)="send2FAMail()" rippleEffect>Get Code
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
                 <div class="col-12" *ngIf="currentUser.choice_2fa == '2FA' && currentUser.factor_send == true">
                   <div class="form-group mb-2">
