@@ -27,6 +27,8 @@ export class EcommerceDetailsComponent implements OnInit {
   public min;
   public max;
   public logged;
+  public price;
+  public btc;
 
   /**
    * Constructor
@@ -73,10 +75,10 @@ export class EcommerceDetailsComponent implements OnInit {
    */
   ngOnInit(): void {
 
-    if (localStorage.getItem('user') === null){
-      this.logged =  false;
-    }else {
-      this.logged =  true;
+    if (localStorage.getItem('user') === null) {
+      this.logged = false;
+    } else {
+      this.logged = true;
     }
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');
@@ -85,6 +87,7 @@ export class EcommerceDetailsComponent implements OnInit {
       this.offer = data.responseMessage.data;
       this.offer_id = data.responseMessage.data.offer_id
       this.rate = data.responseMessage.data.margin
+      this.price = data.responseMessage.data.price
       this.min = data.responseMessage.data.minimum
       this.max = data.responseMessage.data.maximum
       let offer_tags = data.responseMessage.data.tags
@@ -133,6 +136,18 @@ export class EcommerceDetailsComponent implements OnInit {
       );
       this.submitted = false;
     }
+
+
+  }
+
+  onChangeEvent(event: any) {
+    this.btc = event.target.value / this.price;
+    this.btc = parseFloat(this.btc.toFixed(8));
+    console.log(this.btc)
+
+    this.form.patchValue({
+      amounttoreceive: this.btc + ' BTC'
+    });
 
 
   }
