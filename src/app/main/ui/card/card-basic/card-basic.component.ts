@@ -100,7 +100,7 @@ export class CardBasicComponent implements OnInit {
       "otp": otp
 
     }).subscribe((response: any) => {
-      this.playAudio('assets/sounds/tirit.wav')
+      //this.playAudio('assets/sounds/tirit.wav')
       this.toast('Done', '👋 Cryptocurrency was sent from your account. Check your email for details', 'success')
       this.success = true;
       this.error = false;
@@ -112,7 +112,7 @@ export class CardBasicComponent implements OnInit {
       this.loading = false
       this.message = err.error.responseMessage
       console.log(err)
-      this.playAudio('assets/sounds/windows_warning.wav')
+      //this.playAudio('assets/sounds/windows_warning.wav')
       // this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error')
 
 
