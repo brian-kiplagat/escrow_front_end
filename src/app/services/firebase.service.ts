@@ -449,6 +449,17 @@ export class FirebaseService {
       })
     });
   }
+  // Set Whitelist
+  setWhitelist(token: string, username: string, formData: any) {
+    return this.http.post(`${environment.endpoint}/setWhitelist`, formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
 
   // confirm 2FA
   confirm2FAAuth(formData: any) {

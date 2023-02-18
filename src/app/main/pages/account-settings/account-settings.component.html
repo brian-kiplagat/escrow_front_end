@@ -346,7 +346,8 @@
                             Whitelist Address
                           </h4>
                           <p class="card-text mb-0">
-                            Adding a whitelist ensures Bitcoin can be sent to only a few addresses that you have approved.
+                            Adding a whitelist ensures Bitcoin can be sent to only a few addresses that you have
+                            approved.
                           </p>
                           <p class="card-text mb-0">
                             Enter an BTC Address below to add to your list
@@ -359,9 +360,9 @@
                           <div class="input-group">
                             <input
                               id="whitelist"
-                              type="number"
+                              type="text"
                               class="form-control"
-                              placeholder="BTC Address"
+                              placeholder="Your BTC Address"
                               aria-describedby="button-addon2"
                             />
                             <div
@@ -369,16 +370,44 @@
                               id="whitelist_button"
                             >
                               <button
+                                (click)="addWhitelist()"
                                 class="btn btn-outline-primary"
                                 type="button"
                                 rippleEffect
                               >
-                               WHITELIST
+                                WHITELIST
                               </button>
                             </div>
                           </div>
                         </div>
                       </form>
+                      <br>
+
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th>Address</th>
+                            <th>Date</th>
+                            <th>Delete</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+
+                          <tr *ngFor="let tx of whitelist">
+                            <td>
+                              <span class="font-weight-bold">{{tx.address}}</span>
+                            </td>
+                            <td><span
+                              class="badge badge-pill badge-light-primary mr-1">{{tx.created_at | date:'medium'}}</span>
+                            </td>
+                            <td><i data-feather="x-circle" class="mr-50"></i></td>
+                          </tr>
+
+                          </tbody>
+                        </table>
+                      </div>
+
                     </div>
                   </div>
                 </div>
