@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 
 import {Observable, ReplaySubject, Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 import {FlatpickrOptions} from 'ng2-flatpickr';
 import {FirebaseService} from '../../../services/firebase.service';
 import {Router} from '@angular/router';
@@ -467,7 +466,6 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   addWhitelist() {
     const address = (document.getElementById('whitelist') as HTMLInputElement).value;
     console.log(address);
-    let user = JSON.parse(localStorage.getItem('user'));
     if (address === "") {
       this.fireSwalError(
         'Address Required',
@@ -482,10 +480,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         })
         .subscribe(
           (response: any) => {
-            this.two_factor = true;
-            this.factor_login = true;
-            this.factor_send = true;
-            this.factor_release = true;
+            this.whitelist = response.responseMessage?.addresses;
             console.log(response.responseMessage);
             this.fireSwalSuccess(
               'DONE',
@@ -500,6 +495,121 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
           }
         );
     }
+  }
+
+  removeWhitelist(address: string) {
+    function toggle2FA(otp: string) {
+      console.log('otp: ' + otp + ' address: ' + address);
+      let user = JSON.parse(localStorage.getItem('user'));
+
+      function fireAlert(sign: any, title: string, msg: string) {
+
+        Swal.fire({
+          title: title,
+          html: msg,
+          icon: sign,
+          confirmButtonText: 'OKAY',
+          customClass: {confirmButton: 'btn btn-primary'}
+        });
+      }
+
+      fetch(`${environment.endpoint}/removeWhitelist`, {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          token: user.token,
+          username: user.username
+        },
+        body: JSON.stringify({
+          address: address,
+          otp: otp
+        })
+      }).then(async (response) => {
+        const json = await response.json(); // Get JSON value from the response
+        //console.log(json);
+        if (response.status == 200) {
+
+          fireAlert(
+            'success',
+            'DONE',
+            json.responseMessage.message
+          );
+          //Here look for way to update ui with data
+          console.log(json.responseMessage.addresses)
+        } else {
+          fireAlert('error', 'Ops', json.responseMessage);
+        }
+      });
+    }
+
+    Swal.mixin({
+      input: 'text',
+      confirmButtonText: 'CONFIRM',
+      showCancelButton: true,
+      progressSteps: ['1', '2'],
+      customClass: {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-danger ml-1'
+      }
+    })
+      .queue([
+        {
+          title: '2FA CODE',
+          text: 'Get your code from Authy or Google Authenticator to authorize this action'
+        }
+      ])
+      .then(function (result) {
+        function fireSwal(option: string, title: string, msg: string) {
+          Swal.fire({
+            title: title,
+            html: msg,
+            icon: 'error',
+            confirmButtonText: 'OKAY',
+            customClass: {confirmButton: 'btn btn-primary'}
+          });
+        }
+
+        if ((<HTMLInputElement>result).value) {
+          console.log((<HTMLInputElement>result).value);
+          let otp = (<HTMLInputElement>result).value[0];
+          console.log(otp);
+          if (otp.length <= 0) {
+            fireSwal(
+              'error',
+              'OTP REQUIRED',
+              'Please input the 2FA Code. Get your code from Authy or Google Authenticator to authorize this action'
+            );
+            return;
+          }
+          if (otp.length > 6) {
+            fireSwal(
+              'error',
+              'OTP TOO LONG',
+              'Your 2FA code cannot be longer than 6 numbers. Get your code from Authy or Google Authenticator'
+            );
+            return;
+          }
+          if (otp.length > 0 && otp.length < 6) {
+            fireSwal(
+              'error',
+              'OTP TOO SHORT',
+              'Your 2FA code cannot be shorter than 6 numbers. Get your code from Authy or Google Authenticator'
+            );
+            return;
+          }
+          if (otp.length > 0 && !isNumeric(parseInt(otp))) {
+            fireSwal(
+              'error',
+              'OTP MUST BE A NUMBER',
+              'Your 2FA code must be a 6 digit number. Get your code from Authy or Google Authenticator'
+            );
+            return;
+          } else {
+            toggle2FA(otp);
+          }
+        }
+      });
   }
 
   fireSwalError(title: string, message: string) {

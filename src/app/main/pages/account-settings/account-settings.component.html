@@ -401,7 +401,7 @@
                             <td><span
                               class="badge badge-pill badge-light-primary mr-1">{{tx.created_at | date:'medium'}}</span>
                             </td>
-                            <td><i data-feather="x-circle" class="mr-50"></i></td>
+                            <td (click)="removeWhitelist(tx.address)"><i data-feather="x-circle" class="mr-50"  ></i></td>
                           </tr>
 
                           </tbody>
