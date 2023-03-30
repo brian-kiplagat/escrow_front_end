@@ -425,7 +425,17 @@ export class FirebaseService {
       })
     });
   }
-
+  // reopen Trade
+  reopenTrade(token: string, username: string, formData: any) {
+    return this.http.post(`${environment.endpoint}/reopenTrade`, formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
   // quick offer edit
   quickEdit(token: string, username: string, formData: any) {
     return this.http.post(`${environment.endpoint}/offer/quickEdit`, formData, {

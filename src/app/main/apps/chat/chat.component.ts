@@ -127,7 +127,7 @@ this._unsubscribeAll.complete();
 
     }
   okUpdateSideBar(id: any) {
-    //console.log('Triggering API')
+    console.log('Refreshing Data')
     let user = JSON.parse(localStorage.getItem('user'));
     this.fb.getTradeByID(user.username, user.token, id).subscribe(
       (data: any) => {

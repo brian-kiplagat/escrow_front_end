@@ -8,6 +8,7 @@ import {isNumeric} from "rxjs/internal-compatibility";
 import {environment} from "../../../../../../environments/environment";
 import {FirebaseService} from "../../../../../services/firebase.service";
 import {ActivatedRoute} from "@angular/router";
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -33,6 +34,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   public seconds
   //TIMER
   public mmss: string;
+  public reopenErr: any;
 
 
   /**
@@ -156,7 +158,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
 
   }
-
 
 
   transform(value: number): string {
@@ -451,10 +452,49 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   view_offer(idd: any) {
+    console.log('view clicked')
     window.location.href = '/offers/bitcoin/details/' + idd
 
   }
 
+  reopen_trade(tradeId: any) {
+    let user = JSON.parse(localStorage.getItem('user'))
+    const headerDict = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: user.token,
+      username: user.username
+    }
+    const requestOptions = {
+      headers: new Headers(headerDict),
+      method: 'POST',
+      body: JSON.stringify({
+        "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+        "email": user.email,
+        "tradeId": tradeId
+      })
+
+    };
+    fetch(`${environment.endpoint}/reopenTrade`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result.status == true) {
+          console.log(result.responseMessage)
+          this.status = "OPENED"
+        } else {
+          this.reopenErr = result.responseMessage
+          return
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+        this.toast('Ops', '👋 An error happened try again', 'error')
+
+      })
 
 
+    console.log('clicked')
+
+
+  }
 }
