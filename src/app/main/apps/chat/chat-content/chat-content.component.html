@@ -171,6 +171,85 @@
             </div>
           </div>
         </div>
+
+        <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.status == 'CANCELLED_SYSTEM' && trade.buyer == user.email;">
+          <div class="card btn-gradient-info">
+            <div class="alert-body">
+              <p class="text-body-heading">
+                This trade has EXPIRED
+              </p>
+              <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
+                trade.fiat_amount_with_margin | number: '1.2-2'
+                }} {{ trade.currency | uppercase }}) Back to the seller</p>
+              <p class="text-black-50">2. You have 30 minutes to send the money and confirm it by clicking paid </p>
+              <p class="text-black-50">3. If you dont click paid the trade is cancelled automatically after 30
+                                       minutes </p>
+              <p class="text-black-50">3. If you sent money and forgot to click paid you must report it to us so we
+                                       investigate</p>
+
+
+            </div>
+          </div>
+        </ngb-alert>
+        <ngb-alert [type]="'primary'" [dismissible]="false"  *ngIf="trade.status == 'CANCELLED_SYSTEM' && trade.seller == user.email;" >
+          <div class="card btn-gradient-info">
+            <div class="alert-body">
+              <p class="text-body-heading">
+                Trade has EXPIRED
+              </p>
+              <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
+                trade.fiat_amount_with_margin | number: '1.2-2'
+                }} {{ trade.currency | uppercase }}) Back to you</p>
+              <p class="text-black-50">2. To trade again, You must REOPEN the trade so that escrow is reserved </p>
+              <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY in
+                                       escrow </p>
+              <p class="text-black-50">3. Attempting to sell outside escrow you will get you BANNED </p>
+              <p class="text-black-50">3. If you receive payments where buyer forgets to click paid, you must promptly
+                                       reopen and release BTC otherwise you will get BANNED </p>
+
+
+            </div>
+          </div>
+        </ngb-alert>
+
+
+        <ngb-alert [type]="'warning'" [dismissible]="false" *ngIf="trade.status == 'CANCELLED_BUYER' && trade.buyer == user.email;">
+          <div class="card  btn-gradient-warning">
+            <div class="alert-body">
+              <p class="text-body-heading">
+                You CANCELLED this trade
+              </p>
+              <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
+                trade.fiat_amount_with_margin | number: '1.2-2'
+                }} {{ trade.currency | uppercase }}) Back to the seller</p>
+              <p class="text-black-50">2. To trade again, You must ask the Seller to REOPEN the trade so that escrow is
+                                       reserved </p>
+              <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY in
+                                       escrow </p>
+
+
+            </div>
+          </div>
+        </ngb-alert>
+        <ngb-alert [type]="'primary'" [dismissible]="false"  *ngIf="trade.status == 'CANCELLED_BUYER' && trade.seller == user.email;" >
+          <div class="card btn-gradient-warning">
+            <div class="alert-body">
+              <p class="text-body-heading">
+                Trade CANCELLED by Buyer
+              </p>
+              <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
+                trade.fiat_amount_with_margin | number: '1.2-2'
+                }} {{ trade.currency | uppercase }}) Back to you</p>
+              <p class="text-black-50">2. To trade again, You must REOPEN the trade so that escrow is reserved </p>
+              <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY in
+                                       escrow </p>
+              <p class="text-black-50">3. Attempting to sell outside escrow you will get you BANNED </p>
+
+
+            </div>
+          </div>
+        </ngb-alert>
+
       </div>
     </div>
     <!-- User Chat messages -->
