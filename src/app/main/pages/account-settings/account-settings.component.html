@@ -1045,10 +1045,7 @@
                           <input
                             type="checkbox"
                             class="custom-control-input"
-                            [checked]="
-                                                            data.accountSetting.notification
-                                                                .commentOnArticle
-                                                        "
+                            [checked]="true"
                             id="accountSwitch1"
                           />
                           <label
@@ -1064,10 +1061,7 @@
                           <input
                             type="checkbox"
                             class="custom-control-input"
-                            [checked]="
-                                                            data.accountSetting.notification
-                                                                .AnswerOnForm
-                                                        "
+                            [checked]="true"
                             id="accountSwitch2"
                           />
                           <label
@@ -1083,10 +1077,7 @@
                           <input
                             type="checkbox"
                             class="custom-control-input"
-                            [checked]="
-                                                            data.accountSetting.notification
-                                                                .followMe
-                                                        "
+                            [checked]="true"
                             id="accountSwitch3"
                           />
                           <label
@@ -1104,12 +1095,12 @@
                             type="checkbox"
                             class="custom-control-input"
                             [checked]="telegram_bool"
-                            id="accountSwitch4"
+                            id="accountSwitch9"
                             (click)="openLink()"
                           />
                           <label
                             class="custom-control-label"
-                            for="accountSwitch4"
+                            for="accountSwitch9"
                           >Allow Telegram Notifications</label
                           >
                         </div>
@@ -1119,15 +1110,12 @@
                           <input
                             type="checkbox"
                             class="custom-control-input"
-                            [checked]="
-                                                            data.accountSetting.notification
-                                                                .productUpdates
-                                                        "
-                            id="accountSwitch6"
+                            [checked]="true"
+                            id="accountSwitch10"
                           />
                           <label
                             class="custom-control-label"
-                            for="accountSwitch6"
+                            for="accountSwitch10"
                           >Allow Sound Notifications</label
                           >
                         </div>
@@ -1137,15 +1125,12 @@
                           <input
                             type="checkbox"
                             class="custom-control-input"
-                            [checked]="
-                                                            data.accountSetting.notification
-                                                                .blogDigest
-                                                        "
-                            id="accountSwitch5"
+                            [checked]="true"
+                            id="accountSwitch11"
                           />
                           <label
                             class="custom-control-label"
-                            for="accountSwitch5"
+                            for="accountSwitch11"
                           >Allow Email Notifications</label
                           >
                         </div>

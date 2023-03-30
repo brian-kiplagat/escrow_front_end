@@ -7,13 +7,14 @@ import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {isNumeric} from 'rxjs/internal-compatibility';
 import {FormControl} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {environment} from '../../../../environments/environment';
 import {ImageCroppedEvent, LoadedImage, ImageTransform} from 'ngx-image-cropper';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import * as snippet from 'app/main/pages/account-settings/modals.snippetcode';
+import * as http from "http";
 
 @Component({
   selector: 'app-account-settings',
@@ -42,7 +43,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public factor_release = false;
   public reset_error = false;
   public reset_error_text;
-  public whitelist;
+  public whitelist: Observable<any>
   file_data: any = '';
   public file = new FormControl('');
   public uploading: boolean;
@@ -342,7 +343,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         this.whitelist = data.responseMessage?.whitelist;
         this.currentUser = data.responseMessage?.user_data[0];
         this.avatarImage = this.currentUser.profile_link;
-       this.tg_identifier = this.currentUser.tg_hash_identifier;
+        this.tg_identifier = this.currentUser.tg_hash_identifier;
         console.log(this.whitelist)
 
         if (this.currentUser.tg_id == 'NA') {
