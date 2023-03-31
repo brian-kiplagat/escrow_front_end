@@ -394,7 +394,7 @@ export class FirebaseService {
 //retrieve all messages
   retrieveNotifications(email: string, username: string,) {
     return this.firestore
-      .collection('notifications', (ref) => ref.where('username', '==', username).orderBy('time','desc'))
+      .collection('notifications', (ref) => ref.where('username', '==', username))
       .valueChanges();
   }
 
