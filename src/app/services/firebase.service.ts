@@ -387,14 +387,14 @@ export class FirebaseService {
     return this.firestore
       .collection('trades')
       .doc(docId.toString())
-      .collection('chats', (ref) => ref.orderBy('time'))
+      .collection('chats', (ref) => ref.orderBy('time','asc'))
       .valueChanges();
   }
 
 //retrieve all messages
   retrieveNotifications(email: string, username: string,) {
     return this.firestore
-      .collection('notifications', (ref) => ref.where('username', '==', username))
+      .collection('notifications', (ref) => ref.where('username', '==', username).orderBy('time','desc'))
       .valueChanges();
   }
 
