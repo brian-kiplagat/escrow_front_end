@@ -268,7 +268,7 @@
           <!-- TRADE REOPENED -->
           <!-- TRADE CANCELLED -->
           <div *ngIf="chatRef.message == 'CANCEL_GQvC1fsxZq_BUYER'">
-            <ngb-alert [type]="'warning'" [dismissible]="false" *ngIf="trade.status == 'CANCELLED_BUYER' && trade.buyer == user.email;">
+            <ngb-alert [type]="'warning'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
               <div class="card  btn-gradient-warning">
                 <div class="alert-body">
                   <p class="text-body-heading">
@@ -288,7 +288,7 @@
                 </div>
               </div>
             </ngb-alert>
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.status == 'CANCELLED_BUYER' && trade.seller == user.email;">
+            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email;">
               <div class="card btn-gradient-warning">
                 <div class="alert-body">
                   <p class="text-body-heading">
@@ -311,7 +311,7 @@
           <!-- TRADE CANCELLED -->
           <!-- TRADE EXPIRED -->
           <div *ngIf="chatRef.message == 'EXPIRED_GQvC1fsxZER'">
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.status == 'CANCELLED_SYSTEM' && trade.buyer == user.email;">
+            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
               <div class="card btn-gradient-info">
                 <div class="alert-body">
                   <p class="text-body-heading">
@@ -330,7 +330,7 @@
                 </div>
               </div>
             </ngb-alert>
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.status == 'CANCELLED_SYSTEM' && trade.seller == user.email;">
+            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email;">
               <div class="card btn-gradient-info">
                 <div class="alert-body">
                   <p class="text-body-heading">
@@ -356,7 +356,7 @@
           <!-- TRADE EXPIRED -->
           <!-- TRADE RELEASED -->
           <div *ngIf="chatRef.message == 'RELEASEDKvC1fsxZqGbGQvC1fsxZq'">
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.status == 'SUCCESSFUL' && trade.buyer == user.email;">
+            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
@@ -370,7 +370,7 @@
                 </div>
               </div>
             </ngb-alert>
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.status == 'SUCCESSFUL' && trade.buyer == user.email;">
+            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
@@ -388,7 +388,7 @@
           <!-- TRADE RELEASED -->
           <!-- TRADE PAID -->
           <div *ngIf="chatRef.message == 'PAIDKvC1fVrVsxZqGbGQvC1fsxZq'">
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.status == 'PAID' && trade.buyer == user.email;">
+            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email">
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
@@ -404,7 +404,7 @@
                 </div>
               </div>
             </ngb-alert>
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.status == 'PAID' && trade.seller == user.email;">
+            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email">
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
