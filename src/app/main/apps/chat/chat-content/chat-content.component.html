@@ -180,6 +180,12 @@
           <!-- TRADE REOPENED -->
           <!-- TRADE REOPENED -->
           <div *ngIf="chatRef.message == 'RE_GbGQvC1fsxZq_OPEN'">
+            <ngb-alert [type]="'primary'" [dismissible]="false">
+              <div class="card alert-body">
+                <p>This Trade has been reopened. Escrow has been reserved and it is now safe
+                   to make payments.</p>
+              </div>
+            </ngb-alert>
             <ngb-alert
               [type]="'primary'"
               [dismissible]="false"
@@ -187,9 +193,6 @@
             >
               <div class="card">
                 <div class="alert-body">
-                  <p class="text-body-heading">This Trade has been reopened. Escrow has been reserved and it is now safe
-                                               to make payments.</p>
-                  <br>
                   <p class="text-body-heading">
                     You’re selling {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
@@ -224,9 +227,6 @@
             >
               <div class="card">
                 <div class="alert-body">
-                  <p class="text-body-heading">This Trade has been reopened. Escrow has been reserved and it is now safe
-                                               to make payments.</p>
-                  <br>
                   <p class="text-body-heading">
                     You’re buying {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
