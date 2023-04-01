@@ -360,7 +360,7 @@
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    This trade was successfull
+                    🎉 This trade was successfull
                   </p>
                   <p class="text-black-50">1. You received {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
@@ -370,15 +370,15 @@
                 </div>
               </div>
             </ngb-alert>
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
+            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email;">
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    This trade was successful
+                    🎉 This trade was successful
                   </p>
                   <p class="text-black-50">1. You sent {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
-                    }} {{ trade.currency | uppercase }}</p>
+                    }} {{ trade.currency | uppercase }})</p>
                   <p class="text-black-50">2. Be sure to leave feedback </p>
 
                 </div>
