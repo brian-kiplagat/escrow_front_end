@@ -354,13 +354,13 @@
             </ngb-alert>
           </div>
           <!-- TRADE EXPIRED -->
-          <!-- TRADE RELEASED -->
+          <!-- TRADE SUCCESSFUL -->
           <div *ngIf="chatRef.message == 'RELEASEDKvC1fsxZqGbGQvC1fsxZq'">
             <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    🎉 This trade was successfull
+                    💰 This trade was successfull
                   </p>
                   <p class="text-black-50">1. You received {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
@@ -374,7 +374,7 @@
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    🎉 This trade was successful
+                    💰 This trade was successful
                   </p>
                   <p class="text-black-50">1. You sent {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
@@ -385,7 +385,7 @@
               </div>
             </ngb-alert>
           </div>
-          <!-- TRADE RELEASED -->
+          <!-- TRADE SUCCESSFUL -->
           <!-- TRADE PAID -->
           <div *ngIf="chatRef.message == 'PAIDKvC1fVrVsxZqGbGQvC1fsxZq'">
             <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email">
