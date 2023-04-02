@@ -41,21 +41,6 @@
 <ng-template #menu>
   <div class="horizontal-menu-wrapper">
     <!-- Horizontal menu: Visible above large screen only  -->
-    <app-menu
-      menuType="horizontal-menu"
-      [ngClass]="[
-        coreConfig.layout.navbar.customBackgroundColor === true
-          ? coreConfig.layout.navbar.background +
-            ' ' +
-            coreConfig.layout.navbar.type +
-            ' ' +
-            coreConfig.layout.navbar.backgroundColor
-          : coreConfig.layout.navbar.background + ' ' + coreConfig.layout.navbar.type,
-        coreConfig.layout.navbar.type === 'floating-nav' ? 'container-xxl' : ''
-      ]"
-      class="header-navbar navbar-expand-sm navbar navbar-horizontal navbar-shadow menu-border d-none d-xl-block"
-      *ngIf="!coreConfig.layout.menu.hidden"
-    ></app-menu>
     <!-- Vertical overlay menu: Visible below large screen only  -->
     <core-sidebar
       name="menu"
