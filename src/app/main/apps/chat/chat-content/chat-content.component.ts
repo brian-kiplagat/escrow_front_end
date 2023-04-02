@@ -91,6 +91,7 @@ export class ChatContentComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    //console.log(this.partner_data)
     this.chatUser.ago = this.partner_data[0].online
     if (this.chatUser.ago.includes('seconds') || this.chatUser.ago.includes('second')) {
       this.chatUser.status = 'online'

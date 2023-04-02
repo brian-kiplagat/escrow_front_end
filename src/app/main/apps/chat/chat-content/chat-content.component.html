@@ -167,7 +167,7 @@
           <div *ngIf="chatRef.message != 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq' && chatRef.message != 'RE_GbGQvC1fsxZq_OPEN' && chatRef.message != 'CANCEL_GQvC1fsxZq_BUYER' &&  chatRef.message != 'RELEASEDKvC1fsxZqGbGQvC1fsxZq'&&  chatRef.message != 'PAIDKvC1fVrVsxZqGbGQvC1fsxZq'">
             <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
                         <span class="avatar box-shadow-1 cursor-pointer">
-                            <img [src]="chatUser.avatar" alt="avatar" height="32" width="32"/>
+                            <img [src]="partner_data.profile_link" alt="avatar" height="32" width="32"/>
                         </span>
             </div>
             <div class="chat-body">
@@ -182,7 +182,7 @@
           <div *ngIf="chatRef.message == 'RE_GbGQvC1fsxZq_OPEN'">
             <ngb-alert [type]="'primary'" [dismissible]="false">
               <div class="card alert-body">
-                <p>This Trade has been reopened. Escrow has been reserved and it is now safe
+                <p>🛡️ This Trade has been reopened. Escrow has been reserved and it is now safe
                    to make payments.</p>
               </div>
             </ngb-alert>
@@ -272,7 +272,7 @@
               <div class="card  btn-gradient-warning">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    You CANCELLED this trade
+                    ❌ You CANCELLED this trade
                   </p>
                   <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
@@ -292,7 +292,7 @@
               <div class="card btn-gradient-warning">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    Trade CANCELLED by Buyer
+                    ❌  Trade CANCELLED by Buyer
                   </p>
                   <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
@@ -315,7 +315,7 @@
               <div class="card btn-gradient-info">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    This trade has EXPIRED
+                    ❌ This trade has EXPIRED
                   </p>
                   <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
@@ -334,7 +334,7 @@
               <div class="card btn-gradient-info">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    Trade has EXPIRED
+                    ❌ Trade has EXPIRED
                   </p>
                   <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
@@ -392,7 +392,7 @@
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    This trade was marked PAID
+                    🛡️ This trade was marked PAID
                   </p>
                   <p class="text-black-50">1. You sent {{
                     trade.fiat_amount_with_margin | number: '1.2-2'
@@ -408,7 +408,7 @@
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    This trade was marked PAID
+                    🛡️ This trade was marked PAID
                   </p>
                   <p class="text-black-50">1. You received {{
                     trade.fiat_amount_with_margin | number: '1.2-2'
