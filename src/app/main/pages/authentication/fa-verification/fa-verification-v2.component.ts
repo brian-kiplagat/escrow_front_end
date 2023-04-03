@@ -83,7 +83,7 @@ export class FaVerificationV2Component implements OnInit {
       this.loading = false;
       return;
     }
-    console.log(this.f.newPassword.value);
+    //console.log(this.f.newPassword.value);
     this.firebase
       .confirm2FAAuth({
         "email": this.mail,
@@ -142,7 +142,7 @@ export class FaVerificationV2Component implements OnInit {
     });
 
     this.route.queryParams.pipe(filter((params) => params.mail)).subscribe((params) => {
-      console.log(params); // { order: "popular" }
+     // console.log(params); // { order: "popular" }
       (this.choice_2fa_log = params.choice_2fa_log), (this.mail = params.mail);
     });
 

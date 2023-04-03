@@ -204,6 +204,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
             console.log(response);
             if (!response.ok) {
               this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')
+              this.playAudio('assets/sounds/windows_warning.wav')
               return
               //throw new Error(response.statusText);
             } else {
@@ -213,11 +214,13 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
             }
           }).catch((error) => {
+            this.playAudio('assets/sounds/windows_warning.wav')
             this.toast('Ops', '👋 An error happened try again', 'error')
           })
         }
       });
     } else {
+      this.playAudio('assets/sounds/windows_warning.wav')
       this.toast('INVALID', 'You cant do that', 'error')
     }
   }
@@ -412,6 +415,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   open_dispute(id) {
+    this.playAudio('assets/sounds/windows_warning.wav')
     Swal.mixin({
       input: 'text',
       confirmButtonText: 'Next &rarr;',
@@ -481,8 +485,10 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         if (result.status == true) {
           console.log(result.responseMessage)
           this.status = "OPENED"
+          this.playAudio('assets/sounds/turumturum.wav')
         } else {
           this.reopenErr = result.responseMessage
+          this.playAudio('assets/sounds/windows_warning.wav')
           return
         }
       })

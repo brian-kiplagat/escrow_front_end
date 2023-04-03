@@ -93,7 +93,6 @@ export class AuthLoginV2Component implements OnInit {
     this.loading = true;
     this.firebase.login(this.f.email.value, this.f.password.value).subscribe(
       (response: any) => {
-        console.log('login received', response);
         this.loading = false
 
         //IF 2FA CONFIRM THE CODE

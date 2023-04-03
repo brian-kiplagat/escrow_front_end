@@ -127,10 +127,12 @@ export class EcommerceDetailsComponent implements OnInit {
       //formulate request body
       this._fb.openTrade(user.username, user.token, body).subscribe(
         (data: any) => {
+          this.playAudio('assets/sounds/windows_warning.wav')
           this.router.navigate(['/offers/chat/room/' + data.responseMessage.trade_id])
         },
         (error) => {
           console.log(error);
+          this.playAudio('assets/sounds/windows_warning.wav')
           this.err = error.error.responseMessage
         }
       );
@@ -138,6 +140,12 @@ export class EcommerceDetailsComponent implements OnInit {
     }
 
 
+  }
+  playAudio(path) {
+    let audio = new Audio();
+    audio.src = path;
+    audio.load();
+    audio.play();
   }
 
   onChangeEvent(event: any) {
