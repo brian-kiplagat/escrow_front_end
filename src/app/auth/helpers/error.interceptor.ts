@@ -21,9 +21,6 @@ export class ErrorInterceptor implements HttpInterceptor {
           // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
           this._router.navigate(['/pages/miscellaneous/not-authorized']);
 
-          // ? Can also logout and reload if needed
-          // this._authenticationService.logout();
-          // location.reload(true);
         }
         // throwError
         const error = err.error.message || err.statusText;
