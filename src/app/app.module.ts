@@ -27,7 +27,7 @@ import {AngularFireAnalyticsModule} from '@angular/fire/compat/analytics';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {environment} from '../environments/environment';
-import {AuthGuard} from 'app/auth/helpers';
+import {AuthGuard, ErrorInterceptor} from 'app/auth/helpers';
 import {ProfileComponent} from './main/pages/profile/ProfileComponent';
 import {FaqComponent} from './main/pages/faq/faq.component';
 import {EcommerceModule} from "./main/apps/ecommerce/ecommerce.module";
@@ -109,7 +109,8 @@ const appRoutes: Routes = [
   ],
 
   providers: [
-   AuthGuard
+    AuthGuard,
+    //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   entryComponents: [],
   bootstrap: [AppComponent]
