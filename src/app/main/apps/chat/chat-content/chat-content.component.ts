@@ -152,15 +152,13 @@ export class ChatContentComponent implements OnInit {
 
   }
 
-  block(ext_username
-          :
-          string
-  ) {
+  block(ext_username,trade_id) {
     let user = JSON.parse(localStorage.getItem('user'));
     this.fb.blockNow(this.user.token, this.user.username, {
 
       "email": user.email,
       "please_block": ext_username,
+      "trade_id": trade_id,
 
     }).subscribe((response: any) => {
       this.toastr.success(response.responseMessage, 'Done!', {
@@ -170,7 +168,7 @@ export class ChatContentComponent implements OnInit {
       });
 
     }, (err) => {
-      this.toastr.error(err.error, 'Ops!', {
+      this.toastr.error(err.error.responseMessage, 'Ops!', {
         toastClass: 'toast ngx-toastr',
         timeOut: 5000,
         closeButton: true

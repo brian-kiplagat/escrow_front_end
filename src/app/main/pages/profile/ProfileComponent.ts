@@ -126,6 +126,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
       "email": user.email,
       "please_block": ext_username,
+      "trade_id": 'PROFILE_PAGE',
 
     }).subscribe((response: any) => {
       this.msg = response.responseMessage
