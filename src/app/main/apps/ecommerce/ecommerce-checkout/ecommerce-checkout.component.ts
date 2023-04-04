@@ -129,19 +129,13 @@ export class EcommerceCheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'))
-    console.log(this.user)
-    this.user ? this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
-      console.log(data)
-      this.tags = data.responseMessage
-    }) : this.user = {}
-
     this._fb.getCurrency().subscribe((data: any) => {
-      console.log(data)
+
       this.currencies = data.responseMessage.currencies
       this.methods = data.responseMessage.methods
       this.countries = data.responseMessage.currencies
+      this.tags = data.responseMessage.tags
 
-      console.log(this.countries)
 
     }, (error) => {
       console.log(error)
@@ -219,8 +213,8 @@ export class EcommerceCheckoutComponent implements OnInit {
       "instructions": this.form2.value.instructions,
       "new_trader_limit": !this.form3.value.limitusers ? "N/A" : this.form3.value.limitusers,
       "limit_block": !this.form3.value.limit_block ? "N/A" : this.form3.value.limit_block,
-      "blocked_countries": !this.form3.value.blockedCountries ? [] : this.form3.value.blockedCountries,
-      "allowed_countries": !this.form3.value.allowedCountries ? [] : this.form3.value.allowedCountries,
+      "blocked_countries": !this.form3.value.blockedCountries ? "N/A" : this.form3.value.blockedCountries.toString(),
+      "allowed_countries": !this.form3.value.allowedCountries ? "N/A" : this.form3.value.allowedCountries.toString(),
       "vpn": !this.form3.value.vpn ? false : this.form3.value.vpn,
       "id_verification": !this.form3.value.idverification ? false : this.form3.value.idverification,
       "full_name": !this.form3.value.fullname ? false : this.form3.value.fullname,
