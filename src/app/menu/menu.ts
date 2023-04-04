@@ -43,21 +43,6 @@ export const menu: CoreMenu[] = [
     translate: 'MENU.APPS.SECTION',
     icon: 'pocket',
     url: "ui/card/card-basic"
-  }, {
-    id: 'apps_2',
-    type: 'item',
-    title: 'Crypto Staking',
-    translate: 'MENU.APPS.SECTION',
-    icon: 'target',
-    url: "pages/pricing"
-  },
-  {
-    id: 'apps_5',
-    type: 'item',
-    title: 'Crypto Lending',
-    translate: 'MENU.APPS.SECTION',
-    icon: 'codesandbox',
-    url: "offers/bitcoin/crypto-lending"
   }
 
 
