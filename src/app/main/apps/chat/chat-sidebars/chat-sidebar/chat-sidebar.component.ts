@@ -17,6 +17,7 @@ import {v4 as uuidv4} from 'uuid';
 export class ChatSidebarComponent implements OnInit, OnChanges {
   @Input() trade: any;
   @Input() currentUser: any;
+  @Input() partner_data: any;
   // Public
   public searchText;
   public selectedIndex = null;
@@ -25,6 +26,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   public user: any = {}
   public storage: any;
   public status: any;
+  public error
 
   //TIMER
   countDown: Subscription;
@@ -489,6 +491,57 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         } else {
           this.reopenErr = result.responseMessage
           this.playAudio('assets/sounds/windows_warning.wav')
+          return
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+        this.toast('Ops', '👋 An error happened try again', 'error')
+
+      })
+
+
+    console.log('clicked')
+
+
+  }
+
+  submit_feedback(tradeId: any) {
+    let comment = (<HTMLInputElement>document.getElementById("email-id-icon")).value;
+    let positive = (<HTMLInputElement>document.getElementById("positive")).value;
+    let negative = (<HTMLInputElement>document.getElementById("negative")).value;
+
+    console.log(positive,negative)
+
+    let user = JSON.parse(localStorage.getItem('user'))
+    const headerDict = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: user.token,
+      username: user.username
+    }
+    const requestOptions = {
+      headers: new Headers(headerDict),
+      method: 'POST',
+      body: JSON.stringify({
+        "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+        "feedback_type": user.email,
+        "trade_id": tradeId,
+        "feedback_comment": comment
+
+      })
+
+    };
+    fetch(`${environment.endpoint}/postFeedback`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result.status == true) {
+          console.log(result.responseMessage)
+          this.status = "OPENED"
+          //this.playAudio('assets/sounds/turumturum.wav')
+        } else {
+          this.error = result.responseMessage
+          //this.playAudio('assets/sounds/windows_warning.wav')
           return
         }
       })
