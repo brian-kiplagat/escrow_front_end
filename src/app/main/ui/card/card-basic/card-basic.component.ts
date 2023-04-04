@@ -104,7 +104,7 @@ export class CardBasicComponent implements OnInit {
       this.success = true;
       this.error = false;
       this.loading = false
-      this.message = response.responseMessage
+      this.message = 'You sent ' + amount + ' ' + this.currency + ' to ' + address
       this.playAudio('assets/sounds/tirit.wav')
     }, (err) => {
       this.error = true;
