@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
 
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
 import {FirebaseService} from '../../../../services/firebase.service';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-ecommerce-shop',
@@ -39,10 +40,11 @@ export class EcommerceShopComponent implements OnInit {
    *
    * @param {CoreSidebarService} _coreSidebarService
    * @param {FirebaseService}_fb
+   * @param modalService
    */
   constructor(
     private _coreSidebarService: CoreSidebarService,
-    private _fb: FirebaseService
+    private _fb: FirebaseService, private modalService: NgbModal
   ) {
   }
 
@@ -185,6 +187,27 @@ export class EcommerceShopComponent implements OnInit {
     let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
     const arr = formatted_tags.slice(1, -1)
     return arr.split(',');
+
+  }
+
+
+// ng-select in model
+  modalSelectOpen(modalSelect) {
+    this.modalService.open(modalSelect, {
+      windowClass: 'modal'
+    });
+  }
+
+
+  changeFn(val : string) {
+    if (val == null) {
+      document.querySelector('#btn-text').innerHTML = 'USD';
+    } else {
+      document.querySelector('#btn-text').innerHTML = val;
+      this.modalService.dismissAll();
+    }
+    //console.log("Dropdown selection:", val);
+
 
   }
 }
