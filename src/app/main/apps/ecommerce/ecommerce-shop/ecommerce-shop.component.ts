@@ -89,7 +89,7 @@ export class EcommerceShopComponent implements OnInit {
     this._fb.getCurrency().subscribe((data: any) => {
       this.currencies = data.responseMessage.currencies
       this.methods = data.responseMessage.methods
-      //console.log(this.methods)
+      //console.log(this.currencies)
     }, (error) => {
       console.log(error)
     })

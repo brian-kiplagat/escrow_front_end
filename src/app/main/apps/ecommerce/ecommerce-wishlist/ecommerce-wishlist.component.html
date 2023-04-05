@@ -77,14 +77,38 @@
                               </button>
                             </div>
                             <div class="modal-body" tabindex="0" ngbAutofocus>
-                              <p>Sell BTC into over 200+ currencies all over the world.</p>
+                              <p>Buy BTC with over 200+ currencies all over the world.</p>
                               <ng-select
                                 (change)="changeFn(filters.currency)"
                                 [items]="currencies"
-                                bindLabel="currency_name"
                                 bindValue="currency"
                                 [(ngModel)]="filters.currency"
-                                [loading]="selectBasicLoading"></ng-select>
+                                [loading]="selectBasicLoading">
+
+                                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+
+                                  <div class="d-flex justify-content-between align-items-center w-100 label-md">
+                                    <div class="d-flex align-items-center">
+                                      <i class="flag-icon flag-icon-{{item.iso.toLowerCase()}}"></i>
+                                      <span class="ml-1">{{item.currency_name}}</span>
+                                    </div>
+
+
+                                    <button
+                                      type="button"
+                                      class="btn btn-outline-primary"
+                                      rippleEffect
+                                    >
+                                      {{item.currency}}
+                                    </button>
+
+                                  </div>
+
+
+                                </ng-template>
+
+
+                              </ng-select>
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
@@ -116,7 +140,6 @@
         </div>
       </section>
       <!-- Multiple Select end -->
-      <!-- E-commerce Head Section Starts -->
 
       <!-- E-commerce Products Starts -->
       <!-- <section id="ecommerce-products" [ngClass]="gridViewRef === true ? 'list-view' : 'grid-view'">
