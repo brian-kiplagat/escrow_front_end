@@ -56,23 +56,45 @@
                     <fieldset>
                       <div class="input-group">
                         <input type="number" class="form-control" placeholder="Enter Amount"/>
-                        <div ngbDropdown class="input-group-append">
+                        <div class="input-group-append">
                           <button
+                            id="btn-text"
+                            (click)="modalSelectOpen(modalSelect)"
                             type="button"
                             class="btn btn-outline-primary"
-                            ngbDropdownToggle
                             data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false"
                             rippleEffect
                           >
-                            $ £ € ¥
+                            $ £ € <i data-feather="chevron-down"></i>
                           </button>
-                          <div ngbDropdownMenu>
-                            <a ngbDropdownItem href="javascript:void(0)" *ngFor="let item of currencies; index as i;">{{item.currency}}</a>
-                            <div role="separator" class="dropdown-divider"></div>
-                            <a ngbDropdownItem href="javascript:void(0)">Separated link</a>
-                          </div>
+                          <!-- Modal -->
+                          <ng-template #modalSelect let-modal>
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="myModalLabel1">Choose a currency</h4>
+                              <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body" tabindex="0" ngbAutofocus>
+                              <p>Sell BTC into over 200+ currencies all over the world.</p>
+                              <ng-select
+                                (change)="changeFn(filters.currency)"
+                                [items]="currencies"
+                                bindLabel="currency_name"
+                                bindValue="currency"
+                                [(ngModel)]="filters.currency"
+                                [loading]="selectBasicLoading"></ng-select>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+                                Accept
+                              </button>
+                            </div>
+                          </ng-template>
+                          <!-- / Modal -->
+
                         </div>
                       </div>
                     </fieldset>
