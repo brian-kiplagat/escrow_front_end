@@ -8,61 +8,24 @@
   <div class="card-body">
     <!-- Price Filter starts -->
     <div class="multi-range-price">
-      <h6 class="filter-title mt-0">Multi Range</h6>
+      <h6 class="filter-title mt-0">Verification</h6>
       <ul class="list-unstyled price-range" id="price-range">
         <li>
           <div class="custom-control custom-radio">
             <input type="radio" id="priceAll" name="price-range" class="custom-control-input"value="1" checked (change)="filterOffersByRange($event)"/>
-            <label class="custom-control-label" for="priceAll">All</label>
+            <label class="custom-control-label" for="priceAll">Partner Verified</label>
           </div>
         </li>
         <li>
           <div class="custom-control custom-radio">
             <input type="radio" id="priceRange1" name="price-range" class="custom-control-input"value="2"  (change)="filterOffersByRange($event)" />
-            <label class="custom-control-label" for="priceRange1">&lt;=$10</label>
+            <label class="custom-control-label" for="priceRange1">Not Verified</label>
           </div>
         </li>
-        <li>
-          <div class="custom-control custom-radio">
-            <input type="radio" id="priceRange2" name="price-range" class="custom-control-input"value="3"  (change)="filterOffersByRange($event)"/>
-            <label class="custom-control-label" for="priceRange2">$10 - $100</label>
-          </div>
-        </li>
-        <li>
-          <div class="custom-control custom-radio">
-            <input type="radio" id="priceARange3" name="price-range" class="custom-control-input" value="4"  (change)="filterOffersByRange($event)"/>
-            <label class="custom-control-label" for="priceARange3">$100 - $500</label>
-          </div>
-        </li>
-        <li>
-          <div class="custom-control custom-radio">
-            <input type="radio" id="priceRange4" name="price-range" class="custom-control-input" value="5"  (change)="filterOffersByRange($event)"/>
-            <label class="custom-control-label" for="priceRange4">&gt;= $500</label>
-          </div>
-        </li>
+
       </ul>
     </div>
     <!-- Price Filter ends -->
-
-    <!-- Price Slider starts -->
-    <div class="price-slider">
-      <h6 class="filter-title">Price Range</h6>
-      <div class="price-slider">
-        <nouislider
-          [connect]="true"
-          [ngClass]="'mt-3'"
-          [behaviour]="'drag'"
-          [tooltips]="true"
-          [min]="1"
-          [max]="1000"
-          [limit]="1000"
-          [step]="2"
-          [(ngModel)]="sliderPriceValue"
-          (change)="sliderValue($event)"
-        ></nouislider>
-      </div>
-    </div>
-    <!-- Price Range ends -->
 
     <!-- Brands starts -->
     <div class="brands">
@@ -73,7 +36,7 @@
             <input type="checkbox" class="custom-control-input" id="{{tag.id}}" value="{{tag.tag}}" (change)="tagValue($event)"/>
             <label class="custom-control-label" for="{{tag.id}}">{{tag.tag}}</label>
           </div>
-         
+
         </li>
       </ul>
     </div>

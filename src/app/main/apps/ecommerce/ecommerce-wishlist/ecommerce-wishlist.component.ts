@@ -87,15 +87,13 @@ export class EcommerceWishlistComponent implements OnInit {
             .getOffers("buy").subscribe((data:any) => {
                 // this.offers = data['data']['payload']
                 this.offers = data.responseMessage
-                console.log(data)
+                //console.log(data)
             })
 
             this._fb.getCurrency().subscribe((data:any)=>{
                 this.currencies =data.responseMessage.currencies
-                //this.currency = Object.keys(listNew);
-                //this.methods = data.responsemessage.methods
                 this.methods = data.responseMessage.methods
-                console.log( this.methods)
+                  //console.log( this.methods)
               },(error)=>{
                 console.log(error)
               })
@@ -106,56 +104,12 @@ export class EcommerceWishlistComponent implements OnInit {
     }
     onNotify(value:number){
          let user =JSON.parse(localStorage.getItem('user'))
-    this._fb
-        .getOffers(this.type).subscribe((data:any)=>{
-            this.offers = data.responseMessage
 
-           console.log(value)
-            this.offers=data.responseMessage.filter((item:any) =>{
-
-
-                if(value ==1){
-
-                    return true
-                }else if(value ==2&&10 < Number(item.minimum)){
-                    return false
-                }else if(value ==3&&10 < Number(item.minimum)&& 100 < Number(item.maximum)){
-                    return false
-                }
-                else if(value ==4&&100 < Number(item.minimum)&& 500 < Number(item.maximum)){
-                    return false
-                }
-
-               else if(value ==5&&500 >Number(item.minimum)){
-                  return false
-              }else{
-                return true;
-              }
-
-              });
-
-              console.log(this.offers)
-        })
 
     }
     onSliderChange(value:any){
         let user =JSON.parse(localStorage.getItem('user'))
-        this._fb
-            .getOffers(this.type).subscribe((data:any)=>{
-                this.offers = data.responseMessage
 
-               console.log(this.offers,value)
-                this.offers=data.responseMessage.filter((item:any) =>{
-
-                    if(value&&value[0] < Number(item.minimum)&& value[1] > Number(item.maximum)){
-                        return true
-                    }
-
-                    return false;
-                  });
-
-                  console.log(this.offers)
-            })
     }
 
   //filter by tag
@@ -195,5 +149,6 @@ export class EcommerceWishlistComponent implements OnInit {
                 })
 
         }
+
 
 }

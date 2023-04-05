@@ -37,61 +37,52 @@
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-sm-6 col-12">
-                    <label>Pay Via</label>
+                  <div class="col-md-6 col-12 mb-1">
+                    <!-- Basic Multi select -->
+                    <ng-select
+                      [ngStyle]="{'min-width': '100%'}"
+                      [items]="methods"
+                      bindLabel="method"
+                      bindValue="method"
+                      [(ngModel)]="filters.method"
+                      [loading]="selectBasicLoading"
+                    >
 
-                    <div class="form-group">
-                      <!-- Basic Multi select -->
-                      <ng-select
-                        [items]="methods"
-                        bindLabel="method"
-                        bindValue="method"
-                        [(ngModel)]="filters.method"
-                        [loading]="selectBasicLoading"
-                      >
-                      </ng-select>
-                      <!--/ Basic Multi select -->
-                    </div>
+
+                    </ng-select>
+                    <!--/ Basic Multi select -->
                   </div>
-                  <div class="col-sm-6 col-12">
-                    <label>I want to trade</label>
-
-                    <div class="form-group">
-                      <!-- Select Multi with group -->
-                      <input
-                        type="text"
-                        id="last-name-column"
-                        class="form-control"
-                        placeholder="Amount"
-                        [(ngModel)]="amount"
-                      />
-
-                      <!--/ Select Multi with group -->
-                    </div>
+                  <div class="col-md-6 col-12 mb-1">
+                    <fieldset>
+                      <div class="input-group">
+                        <input type="number" class="form-control" placeholder="Enter Amount"/>
+                        <div ngbDropdown class="input-group-append">
+                          <button
+                            type="button"
+                            class="btn btn-outline-primary"
+                            ngbDropdownToggle
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            rippleEffect
+                          >
+                            $ £ € ¥
+                          </button>
+                          <div ngbDropdownMenu>
+                            <a ngbDropdownItem href="javascript:void(0)" *ngFor="let item of currencies; index as i;">{{item.currency}}</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a ngbDropdownItem href="javascript:void(0)">Separated link</a>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
                   </div>
-                  <div class="col-sm-6 col-12">
-                    <label>Preffered currency</label>
-
-                    <div class="form-group">
-                      <!-- Basic Multi select -->
-                      <ng-select
-                        [items]="currencies"
-                        bindLabel="currency"
-                        bindValue="currency"
-                        [(ngModel)]="filters.currency"
-                        [loading]="selectBasicLoading"
-                      >
-                      </ng-select>
-                      <!--/ Basic Multi select -->
-                    </div>
-                  </div>
-
                   <div class="col-12">
                     <button
                       type="button"
                       class="btn btn-primary btn-block"
-                      rippleEffect
                       (click)="filterOffers()"
+                      rippleEffect
                     >
                                             <span [data-feather]="'search'" [class]="'mr-25'"></span
                                             >FIND OFFERS
