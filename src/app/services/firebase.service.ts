@@ -197,17 +197,6 @@ export class FirebaseService {
 
   // get applications
   createOffer(token: string, username: string, formData: any) {
-    const header = {
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-      token: token,
-      username: username
-    };
-    const body = JSON.stringify(formData);
-    const requestOptions = {
-      headers: new HttpHeaders(header)
-    };
-    console.log(token, username, formData);
     return this.http.post(`${environment.endpoint}/createOffer`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -294,16 +283,29 @@ export class FirebaseService {
     );
   }
 
-  // get offers
+  // filter offers
+  filterOffers(token: string, username: string, formData: any) {
+
+    return this.http.post(`${environment.endpoint}/offer/filterOffers`, formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
+
+  // get Trade by ID
   getTradeByID(username: string, token: string, id: string) {
-    const header = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      token: token,
-      username: username
-    };
+
     const requestOptions = {
-      headers: new HttpHeaders(header)
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        token: token,
+        username: username
+      })
     };
     return this.http.get(
       `${environment.endpoint}/` + id + '/fetchTradeId',

@@ -31,6 +31,17 @@
         </p>
       </div>
       <!-- Multiple Select start -->
+      <ngb-alert *ngIf="search_msg" [type]="'primary'" [dismissible]="false" placement="top"
+                 ngbTooltip="Protect yourself from phishing and hacking. You must confirm that you are logging in from the our official domain - coinpes.com and not any other."
+      >
+        <div class="alert-body font-small-2">
+          <p>
+            <small class="mr-50"><span class="font-weight-bold">{{search_msg}}</span></small>
+          </p>
+
+        </div>
+
+      </ngb-alert>
       <section class="multiple-select">
         <div class="row">
           <div class="col-12">
@@ -40,6 +51,7 @@
                   <div class="col-md-6 col-12 mb-1">
                     <!-- Basic Multi select -->
                     <ng-select
+                      (change)="changeMethod(filters.method)"
                       [ngStyle]="{'min-width': '100%'}"
                       [items]="methods"
                       bindLabel="method"
@@ -55,7 +67,7 @@
                   <div class="col-md-6 col-12 mb-1">
                     <fieldset>
                       <div class="input-group">
-                        <input type="number" class="form-control" placeholder="Enter Amount"/>
+                        <input type="number" id="search_amount" class="form-control" placeholder="Enter Amount"/>
                         <div class="input-group-append">
                           <button
                             id="btn-text"
@@ -155,6 +167,18 @@
     "
   ></app-ecommerce-item>
 </section> -->
+      <div class="d-flex justify-content-center kb-search-content">
+        <div class="card" *ngIf = "offers.length <=0">
+          <a>
+            <img src="/assets/images/pages/coming-soon.svg" class="card-img-top" alt="knowledge-base-image"/>
+            <div class="card-body text-center">
+              <h4>No offer found</h4>
+              <p class="text-body mt-1 mb-0">Try changing your search criteria to get more Sellers</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
       <div class="checkout-options">
         <div
           style="margin-bottom: 6px"

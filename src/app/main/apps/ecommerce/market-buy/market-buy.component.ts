@@ -35,6 +35,9 @@ export class MarketBuyComponent implements OnInit {
     method: "",
 
   }
+  public query = 'none'
+  public query_method = 'none';
+  public search_msg: string;
 
   /**
    *
@@ -97,38 +100,13 @@ export class MarketBuyComponent implements OnInit {
 
   }
 
-  //filter offers by input
-  filterOffers() {
-    let user = JSON.parse(localStorage.getItem('user'))
-    this._fb
-      .getOffers( "buy").subscribe((data: any) => {
-      this.offers = data.responseMessage
 
-      this.offers = data.responseMessage.filter((item: any) => {
-
-        if (this.amount != 0 && this.amount < Number(item.minimum) || this.amount > Number(item.maximum)) {
-
-          return false
-        }
-        if (this.filters.currency && item.currency != this.filters.currency) {
-          return false
-        }
-        if (this.filters.method && item.method != this.filters.method) {
-          return false
-        }
-        return true;
-      });
-
-      console.log(this.offers)
-    })
-
-  }
 
   // filter  by slider chamge
   onSliderChange(value: any) {
     let user = JSON.parse(localStorage.getItem('user'))
     this._fb
-      .getOffers( this.type).subscribe((data: any) => {
+      .getOffers(this.type).subscribe((data: any) => {
       this.offers = data.responseMessage
 
       console.log(value[0])
@@ -199,15 +177,51 @@ export class MarketBuyComponent implements OnInit {
   }
 
 
-  changeFn(val : string) {
+  changeFn(val: string) {
     if (val == null) {
-      document.querySelector('#btn-text').innerHTML = 'USD';
+      //document.querySelector('#btn-text').innerHTML = 'USD';
+      this.query = 'none'
     } else {
+      this.query = val
       document.querySelector('#btn-text').innerHTML = val;
       this.modalService.dismissAll();
+
     }
     //console.log("Dropdown selection:", val);
 
+
+  }
+
+  changeMethod(val) {
+    if (val == null) {
+      this.query_method = 'none'
+    } else {
+      this.query_method = val
+
+
+    }
+  }
+
+  //filter offers by searching against API
+  filterOffers() {
+    let user = JSON.parse(localStorage.getItem('user'))
+    let amount = (<HTMLInputElement>document.getElementById("search_amount")).value;
+    if (amount == null || amount == '') {
+      amount = 'none'
+    }
+    this._fb.filterOffers(user.token, user.username, {
+      "type": "sell",
+      "method": this.query_method,
+      "amount": amount,
+      "currency": this.query
+
+    }).subscribe((data: any) => {
+      //console.log(data.responseMessage)
+      this.offers = data.responseMessage.offers
+      this.search_msg = data.responseMessage.message
+
+
+    })
 
   }
 }
