@@ -3,21 +3,16 @@ import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule, Routes} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-
-import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {CommonModule} from '@angular/common';
-
 import 'hammerjs';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrModule} from 'ngx-toastr';
 import {TranslateModule} from '@ngx-translate/core';
 import {ContextMenuModule} from '@ctrl/ngx-rightclick';
-
 import {CoreModule} from '@core/core.module';
 import {CoreCommonModule} from '@core/common.module';
 import {CoreSidebarModule, CoreThemeCustomizerModule} from '@core/components';
 import {CardSnippetModule} from '@core/components/card-snippet/card-snippet.module';
-
 import {coreConfig} from 'app/app-config';
 import {AppComponent} from 'app/app.component';
 import {LayoutModule} from 'app/layout/layout.module';
@@ -27,7 +22,7 @@ import {AngularFireAnalyticsModule} from '@angular/fire/compat/analytics';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {environment} from '../environments/environment';
-import {AuthGuard, ErrorInterceptor} from 'app/auth/helpers';
+import {AuthGuard} from 'app/auth/helpers';
 import {ProfileComponent} from './main/pages/profile/ProfileComponent';
 import {FaqComponent} from './main/pages/faq/faq.component';
 import {EcommerceModule} from "./main/apps/ecommerce/ecommerce.module";

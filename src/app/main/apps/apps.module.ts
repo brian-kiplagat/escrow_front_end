@@ -8,7 +8,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { HttpClientModule } from '@angular/common/http';
-import { CardComponent } from './card/card.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // routing
@@ -29,7 +28,7 @@ FullCalendarModule.registerPlugins([dayGridPlugin, timeGridPlugin, listPlugin, i
 
 @NgModule({
   declarations: [
-    CardComponent
+
   ],
   imports: [CommonModule, HttpClientModule,NgbModule,   RouterModule.forChild(routes)]
 })
