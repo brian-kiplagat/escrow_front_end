@@ -29,6 +29,7 @@ export class OfferPageComponent implements OnInit {
   public logged;
   public price;
   public btc;
+  public productIdFromRoute: string;
 
   /**
    * Constructor
@@ -81,9 +82,8 @@ export class OfferPageComponent implements OnInit {
       this.logged = true;
     }
     const routeParams = this.route.snapshot.paramMap;
-    const productIdFromRoute = routeParams.get('id');
-    this._fb.getInfo(productIdFromRoute).subscribe((data: any) => {
-      //console.log(data.responseMessage.data)
+    this.productIdFromRoute = routeParams.get('id');
+    this._fb.getInfo(this.productIdFromRoute).subscribe((data: any) => {
       this.offer = data.responseMessage.data;
       this.offer_id = data.responseMessage.data.offer_id
       this.rate = data.responseMessage.data.margin
@@ -141,6 +141,7 @@ export class OfferPageComponent implements OnInit {
 
 
   }
+
   playAudio(path) {
     let audio = new Audio();
     audio.src = path;

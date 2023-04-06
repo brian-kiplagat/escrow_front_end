@@ -135,7 +135,7 @@ export class AuthResetPasswordV2Component implements OnInit {
     //Get token, the route param
     this.route.queryParams
       .subscribe(params => {
-          console.log(params); // { orderby: "price" }
+          //console.log(params); // { orderby: "price" }
           this.token = params.token;
           this.username = params.username;
           this.email = params.email;

@@ -26,11 +26,10 @@ import { FaVerificationV2Component } from 'app/main/pages/authentication/fa-veri
 // routing
 const routes: Routes = [
 
-  {
+ {
     path: 'login',
     component: AuthLoginV2Component
   },
-
   {
     path: 'register',
     component: AuthRegisterV2Component
@@ -39,7 +38,6 @@ const routes: Routes = [
     path: 'authentication/forgot-password-v2',
     component: AuthForgotPasswordV2Component
   },
-
   {
     path: 'authentication/reset-password-v2',
     component: AuthResetPasswordV2Component

@@ -33,21 +33,25 @@
                 </div>
 
               </div>
+
+              <!--INPUT FORM -->
               <div class="row">
                 <div class="col-12">
                   <div class="card">
                     <div class="card-body">
-
+                      <!--WARNING ERRORS -->
                       <ngb-alert [type]="'danger'" [dismissible]="false">
                         <div class="alert-body" *ngIf="err">
                           {{ err }}
                         </div>
                       </ngb-alert>
+                      <!--WARNING ERRORS -->
                       <form
                         class="auth-register-form mt-2"
                         [formGroup]="form"
                       >
                         <div class="row">
+                          <!--FIAT INPUT -->
                           <div class="col-sm-6 col-12">
                             <label>I want to <span *ngIf="offer.type=='buy'">Sell</span> <span
                               *ngIf="offer.type=='sell'">Buy</span></label>
@@ -92,6 +96,8 @@
                               <!--/ Select Multi with group -->
                             </div>
                           </div>
+                          <!--FIAT INPUT -->
+                          <!--BTC INPUT -->
                           <div class="col-sm-6 col-12">
                             <label>And receive</label>
 
@@ -120,55 +126,36 @@
                               <!--/ Select Multi with group -->
                             </div>
                           </div>
-                          <div class="col-12" *ngIf="logged == true">
-                            <button
-                              type="button"
-                              class="btn btn-primary btn-block"
-                              (click)="openTrade(form)"
-                              rippleEffect
-                              *ngIf=" offer.type=='sell'"
-                            >
-                                                            <span
-                                                              [data-feather]="'shield'"
-                                                              [class]="'mr-25 text-capitalize'"
-                                                            ></span
-                                                            >BUY BITCOIN
-                            </button>
-                            <button
-                              type="button"
-                              class="btn btn-primary btn-block"
-                              (click)="openTrade(form)"
-                              rippleEffect
-                              *ngIf=" offer.type=='buy'"
-                            >
-                                                        <span
-                                                          [data-feather]="'shield'"
-                                                          [class]="'mr-25 text-capitalize'"
-                                                        ></span
-                                                        >SELL BITCOIN
-                            </button>
-                          </div>
-                          <div class="col-12" *ngIf="logged == false">
-                            <a [routerLink]="'/pages/login'"
-                               type="button"
-                               class="btn btn-primary btn-block"
-                               (click)="openTrade(form)"
-                               rippleEffect
+                          <!--BTC INPUT -->
+                          <div class="col-12">
+                            <!--LOGGED OUT -->
+                            <div *ngIf = "logged == false">
+                              <a type="button" class="btn btn-primary btn-block"  href="/pages/login?offer={{productIdFromRoute}}"                       >
+                              <span  [data-feather]="'user'"
+                                     [class]="'mr-25 text-capitalize'"></span>LOGIN FIRST</a>
+                              <br>
+                              <ngb-alert [type]="'primary'" [dismissible]="false" >
+                                <div class="alert-body">
+                                 Don't worry We'll bring you right here after you login in to your account
+                                </div>
+                              </ngb-alert>
+                            </div>
+                            <!--LOGGED IN -->
+                            <div *ngIf = "logged == true">
+                              <a type="button" class="btn btn-primary btn-block" (click)="openTrade(form)" rippleEffect>
+                              <span  [data-feather]="'check-circle'"
+                                     [class]="'mr-25 text-capitalize'"></span>OPEN TRADE</a>
+                              <br>
+                              <ngb-alert [type]="'primary'" [dismissible]="false" >
+                                <div class="alert-body">
+                                  This will secure an escrow and Reserve Bitcoins for your trade
+                                </div>
+                              </ngb-alert>
+                            </div>
 
 
-                            >
-                                                            <span
-                                                              [data-feather]="'user'"
-                                                              [class]="'mr-25 text-capitalize'"
-                                                            ></span
-                                                            >LOGIN FIRST
-                            </a>
-                            <br>
-                            <ngb-alert [type]="'primary'" [dismissible]="false">
-                              <div class="alert-body">
-                                Don't worry well bring you right here after you login or create an account
-                              </div>
-                            </ngb-alert>
+
+
 
                           </div>
                         </div>
@@ -177,7 +164,10 @@
                   </div>
                 </div>
               </div>
+              <!--INPUT FORM -->
 
+
+              <!--OFFER RATES AND INSTRUCTION -->
               <p class="card-text">
                 Rate -
                 <span class="text-success"
@@ -203,8 +193,9 @@
               <p class="card-text">
                 {{ offer.terms }}
               </p>
-
+              <!--OFFER RATES AND INSTRUCTION -->
               <hr/>
+              <!--TRADER INFO -->
               <div class="product-color-options">
                 <h6>About this <span *ngIf="offer.type=='buy'">Sell</span> <span *ngIf="offer.type=='sell'">Buy</span>er
                 </h6>
@@ -254,7 +245,8 @@
                   <span [data-feather]="'thumbs-down'" [class]="'mr-25'"></span>
                 </div>
               </div>
-
+              <!--TRADER INFO -->
+              <!--WISHLIST -->
               <div class="d-flex flex-column flex-sm-row pt-1">
                 <a
                   href="javascript:void(0)"
@@ -299,12 +291,13 @@
                   </div>
                 </div>
               </div>
+              <!--WISHLIST -->
             </div>
           </div>
         </div>
         <!-- Product Details ends -->
 
-        <!-- Item features starts -->
+        <!-- CHAT FEATURES -->
         <div class="item-features">
           <div class="row text-center">
             <div class="col-12 col-md-4 mb-4 mb-md-0">
