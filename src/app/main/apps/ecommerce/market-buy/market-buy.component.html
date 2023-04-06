@@ -92,11 +92,15 @@
                             <div class="modal-body" tabindex="0" ngbAutofocus>
                               <p>Buy BTC with over 200+ currencies all over the world.</p>
                               <ng-select
-                                (change)="changeFn(filters.currency)"
+                                (change)="changeFn(filters.currency,$event)"
                                 [items]="currencies"
                                 bindValue="currency"
+                                [bindLabel]="currency"
+                                [typeahead]="peopleInput$"
                                 [(ngModel)]="filters.currency"
-                                [loading]="selectBasicLoading">
+                                [searchFn]="customSearchFn">
+                                [loading]="selectBasicLoading"
+                              >
 
                                 <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
 

@@ -3,6 +3,7 @@ import {Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
 import {FirebaseService} from '../../../../services/firebase.service';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-ecommerce-shop',
@@ -87,7 +88,7 @@ export class MarketBuyComponent implements OnInit {
   ngOnInit(): void {
     this._fb.getOffers(this.type).subscribe((data: any) => {
       this.offers = data.responseMessage
-      console.log(this.offers)
+      //console.log(this.offers)
     })
     this._fb.getCurrency().subscribe((data: any) => {
       this.currencies = data.responseMessage.currencies
@@ -100,7 +101,21 @@ export class MarketBuyComponent implements OnInit {
 
   }
 
-
+  customSearchFn(term: string, item) {
+    //console.log("search term: ",term)
+    //console.log("search item: ",item)
+    term = term.toLowerCase();
+    //{
+    //     "iso": "AF",
+    //     "iso3": "AFG",
+    //     "currency": "AFN",
+    //     "currency_name": "Afghani",
+    //     "dial": "93",
+    //     "name": "Afghanistan"
+    // }
+    //Search by either Currency name or ISO3 name
+    return item.name.toLowerCase().indexOf(term) > -1 || item.currency.toLowerCase()  === term;
+  }
 
   // filter  by slider chamge
   onSliderChange(value: any) {
@@ -176,22 +191,25 @@ export class MarketBuyComponent implements OnInit {
     });
   }
 
-
+ //Currency select
   changeFn(val: string) {
+    //console.log($event)
     if (val == null) {
       //document.querySelector('#btn-text').innerHTML = 'USD';
       this.query = 'none'
     } else {
       this.query = val
       document.querySelector('#btn-text').innerHTML = val;
+      //console.log("Currency select:", val);
       this.modalService.dismissAll();
 
     }
-    //console.log("Dropdown selection:", val);
+
 
 
   }
 
+  //Method Select
   changeMethod(val) {
     if (val == null) {
       this.query_method = 'none'

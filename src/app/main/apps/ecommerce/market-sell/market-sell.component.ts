@@ -129,7 +129,21 @@ export class MarketSellComponent implements OnInit {
 
   }
 
-
+  customSearchFn(term: string, item) {
+    //console.log("search term: ",term)
+    //console.log("search item: ",item)
+    term = term.toLowerCase();
+    //{
+    //     "iso": "AF",
+    //     "iso3": "AFG",
+    //     "currency": "AFN",
+    //     "currency_name": "Afghani",
+    //     "dial": "93",
+    //     "name": "Afghanistan"
+    // }
+    //Search by either Currency name or ISO3 name
+    return item.name.toLowerCase().indexOf(term) > -1 || item.currency.toLowerCase()  === term;
+  }
 // ng-select in model
   modalSelectOpen(modalSelect) {
     this.modalService.open(modalSelect, {

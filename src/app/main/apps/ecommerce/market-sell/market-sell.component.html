@@ -94,8 +94,11 @@
                                 (change)="changeFn(filters.currency)"
                                 [items]="currencies"
                                 bindValue="currency"
+                                [bindLabel]="currency"
                                 [(ngModel)]="filters.currency"
-                                [loading]="selectBasicLoading">
+                                [searchFn]="customSearchFn">
+                                [loading]="selectBasicLoading"
+                                >
 
                                 <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
 
