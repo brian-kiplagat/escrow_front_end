@@ -13,8 +13,7 @@ import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchs
 
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 
-import { EcommerceDetailsComponent } from 'app/main/apps/ecommerce/ecommerce-details/ecommerce-details.component';
-import { EcommerceItemComponent } from 'app/main/apps/ecommerce/ecommerce-item/ecommerce-item.component';
+import { OfferPageComponent } from 'app/main/apps/ecommerce/offer-page/offer-page.component';
 import { MarketBuyComponent } from 'app/main/apps/ecommerce/market-buy/market-buy.component';
 import { EcommerceSidebarComponent } from 'app/main/apps/ecommerce/market-buy/sidebar/sidebar.component';
 import { MarketSellComponent } from 'app/main/apps/ecommerce/market-sell/market-sell.component';
@@ -41,7 +40,7 @@ const routes: Routes = [
   },
   {
     path: 'details/:id',
-    component: EcommerceDetailsComponent,
+    component: OfferPageComponent,
     data: { animation: 'EcommerceDetailsComponent' }
   },
   {
@@ -68,10 +67,9 @@ const routes: Routes = [
     declarations: [
         MarketBuyComponent,
         EcommerceSidebarComponent,
-        EcommerceDetailsComponent,
+        OfferPageComponent,
         MarketSellComponent,
         EcommerceCheckoutComponent,
-        EcommerceItemComponent,
         EcommerceCheckoutItemComponent,
         SellOffersFormComponent,
         CryptoLendingComponent,

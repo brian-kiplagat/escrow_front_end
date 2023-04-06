@@ -1,4 +1,4 @@
-//  File Name: app-ecommerce-details.js
+//  File Name: app-offer-page.js
 //  Description: App Ecommerce Details js.
 //  ----------------------------------------------------------------------------------------------
 //  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template

@@ -6,12 +6,12 @@ import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-ecommerce-details',
-  templateUrl: './ecommerce-details.component.html',
-  styleUrls: ['./ecommerce-details.component.scss'],
+  templateUrl: './offer-page.component.html',
+  styleUrls: ['./offer-page.component.scss'],
   encapsulation: ViewEncapsulation.None,
   host: {class: 'ecommerce-application'}
 })
-export class EcommerceDetailsComponent implements OnInit {
+export class OfferPageComponent implements OnInit {
   // public
   public contentHeader: object;
   public submitted = false;
