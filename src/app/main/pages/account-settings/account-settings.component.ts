@@ -536,7 +536,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             'DONE',
             json.responseMessage.message
           );
-          //Here look for way to update ui with data
+          //Here look for way to update wallet with data
           console.log(json.responseMessage.addresses)
         } else {
           fireAlert('error', 'Ops', json.responseMessage);
@@ -670,7 +670,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             'DONE',
             'You updated your 2FA. Never share your 2FA codes. If someone asks for it please neglect and report to support'
           );
-          //Here look for way to update ui with data
+          //Here look for way to update wallet with data
         } else {
           fireAlert('error', 'Ops', json.responseMessage.msg);
         }

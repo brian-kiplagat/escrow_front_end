@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreDirectivesModule } from '@core/directives/directives';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 
-import { CardBasicComponent } from 'app/main/ui/card/card-basic/card-basic.component';
+import { CardBasicComponent } from 'app/main/wallet/card/card-basic/card-basic.component';
 import {CommonModule} from "@angular/common";
 import { AuthGuard } from 'app/auth/helpers/auth.guards';
 
@@ -14,7 +14,7 @@ import { AuthGuard } from 'app/auth/helpers/auth.guards';
 // routing
 const routes: Routes = [
   {
-    path: 'card/card-basic',
+    path: 'main',
     component: CardBasicComponent,
     canActivate: [AuthGuard],
     data: { animation: 'card-basic' }

@@ -1,5 +1,5 @@
 /*=========================================================================================
-    File Name: ui-feather.js
+    File Name: wallet-feather.js
     Description: Feather Icons
     ----------------------------------------------------------------------------------------
     Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template

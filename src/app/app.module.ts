@@ -46,7 +46,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'wallet',
-    loadChildren: () => import('./main/ui/ui.module').then(m => m.UIModule),
+    loadChildren: () => import('./main/wallet/ui.module').then(m => m.UIModule),
 
   }
   ,

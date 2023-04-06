@@ -13,7 +13,7 @@ export class CoreCardComponent implements OnInit {
   // Generate random string  assign to specific core-card to only block that specific card
   public coreCardId: string = Math.random().toString(36).substring(2);
 
-  // To pass core-block-ui component values to _CoreBlockUiComponent variable
+  // To pass core-block-wallet component values to _CoreBlockUiComponent variable
   public _CoreBlockUiComponent = CoreBlockUiComponent;
 
   // default status before click event
@@ -142,7 +142,7 @@ export class CoreCardComponent implements OnInit {
     this.events.emit('reload');
     this.blockUIService.start(this.coreCardId);
 
-    // block-ui timeout
+    // block-wallet timeout
     setTimeout(() => {
       this.blockUIService.stop(this.coreCardId);
       this.isReload = false;
