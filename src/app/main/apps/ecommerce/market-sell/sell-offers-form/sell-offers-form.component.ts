@@ -31,7 +31,7 @@ export class SellOffersFormComponent implements OnInit {
   public filters ={
        currency:"",
        method:"",
-    
+
   }
 
   constructor(private _fb: FirebaseService) { }
@@ -43,7 +43,7 @@ export class SellOffersFormComponent implements OnInit {
         this.offers = data.responseMessage
         console.log(data)
     })
- 
+
     this._fb.getCurrency().subscribe((data:any)=>{
         this.currencies =data.responseMessage.currencies
         //this.currency = Object.keys(listNew);

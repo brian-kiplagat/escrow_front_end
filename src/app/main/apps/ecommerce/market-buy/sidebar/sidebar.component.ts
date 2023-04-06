@@ -4,7 +4,7 @@ import { FirebaseService } from 'app/services/firebase.service';
 @Component({
   selector: 'ecommerce-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['../ecommerce-shop.component.scss'],
+  styleUrls: ['../market-buy.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class EcommerceSidebarComponent implements OnInit {
@@ -30,7 +30,7 @@ export class EcommerceSidebarComponent implements OnInit {
    //filter offers
    filterOffersByRange(e:any){
      this.notify.emit(e.target.value)
-   
+
 }
 //notify slider
 sliderValue(e:any){

@@ -1,5 +1,5 @@
 /*=========================================================================================
-    File Name: app-ecommerce-wishlist.js
+    File Name: app-market-sell.js
     Description: Ecommerce wishlist pages js
     ----------------------------------------------------------------------------------------
     Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template

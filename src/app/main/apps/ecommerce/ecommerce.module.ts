@@ -15,14 +15,14 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 
 import { EcommerceDetailsComponent } from 'app/main/apps/ecommerce/ecommerce-details/ecommerce-details.component';
 import { EcommerceItemComponent } from 'app/main/apps/ecommerce/ecommerce-item/ecommerce-item.component';
-import { EcommerceShopComponent } from 'app/main/apps/ecommerce/ecommerce-shop/ecommerce-shop.component';
-import { EcommerceSidebarComponent } from 'app/main/apps/ecommerce/ecommerce-shop/sidebar/sidebar.component';
-import { EcommerceWishlistComponent } from 'app/main/apps/ecommerce/ecommerce-wishlist/ecommerce-wishlist.component';
+import { MarketBuyComponent } from 'app/main/apps/ecommerce/market-buy/market-buy.component';
+import { EcommerceSidebarComponent } from 'app/main/apps/ecommerce/market-buy/sidebar/sidebar.component';
+import { MarketSellComponent } from 'app/main/apps/ecommerce/market-sell/market-sell.component';
 import { EcommerceCheckoutComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout.component';
 import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout-item/ecommerce-checkout-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { SellOffersFormComponent } from './ecommerce-wishlist/sell-offers-form/sell-offers-form.component';
+import { SellOffersFormComponent } from './market-sell/sell-offers-form/sell-offers-form.component';
 import {AuthGuard} from 'app/auth/helpers';
 import { CryptoLendingComponent } from './crypto-lending/crypto-lending.component';
 
@@ -36,7 +36,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 const routes: Routes = [
   {
     path: 'buy',
-    component: EcommerceShopComponent,
+    component: MarketBuyComponent,
     data: { animation: 'EcommerceShopComponent' }
   },
   {
@@ -46,7 +46,7 @@ const routes: Routes = [
   },
   {
     path: 'sell',
-    component: EcommerceWishlistComponent,
+    component: MarketSellComponent,
     data: { animation: 'EcommerceWishlistComponent' }
   },
   {
@@ -66,10 +66,10 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        EcommerceShopComponent,
+        MarketBuyComponent,
         EcommerceSidebarComponent,
         EcommerceDetailsComponent,
-        EcommerceWishlistComponent,
+        MarketSellComponent,
         EcommerceCheckoutComponent,
         EcommerceItemComponent,
         EcommerceCheckoutItemComponent,

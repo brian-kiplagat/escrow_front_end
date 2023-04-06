@@ -1,20 +1,18 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
 
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
-
 import {FirebaseService} from '../../../../services/firebase.service';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: 'app-ecommerce-wishlist',
-  templateUrl: './ecommerce-wishlist.component.html',
-  styleUrls: ['./ecommerce-wishlist.component.scss'],
+  selector: 'app-ecommerce-shop',
+  templateUrl: './market-buy.component.html',
+  styleUrls: ['./market-buy.component.scss'],
   encapsulation: ViewEncapsulation.None,
   host: {class: 'ecommerce-application'}
 })
-export class EcommerceWishlistComponent implements OnInit {
-  // Public
-
+export class MarketBuyComponent implements OnInit {
+  // public
   public contentHeader: object;
   public shopSidebarToggle = false;
   public shopSidebarReset = false;
@@ -25,20 +23,18 @@ export class EcommerceWishlistComponent implements OnInit {
   public page = 1;
   public pageSize = 9;
   public searchText = '';
-  public selectBasic: any[] = ['Bank Transfer', 'Mpesa', 'Paypal', 'Skrill'];
   public selectBasicLoading = false;
   public offers = []
   public currency: any[] = []
   public currencies = []
+  public type: string = "sell"
   public methods = []
   public amount = 0
-  public type: string = "buy"
   public filters = {
     currency: "",
     method: "",
 
   }
-
 
   /**
    *
@@ -78,25 +74,22 @@ export class EcommerceWishlistComponent implements OnInit {
     this.gridViewRef = true;
   }
 
-  /**
-   * Sort Product
-   */
+
+  // Lifecycle Hooks
+  // -----------------------------------------------------------------------------------------------------
 
   /**
    * On init
    */
   ngOnInit(): void {
-    this._fb
-      .getOffers("buy").subscribe((data: any) => {
-      // this.offers = data['data']['payload']
+    this._fb.getOffers(this.type).subscribe((data: any) => {
       this.offers = data.responseMessage
-      //console.log(data)
+      console.log(this.offers)
     })
-
     this._fb.getCurrency().subscribe((data: any) => {
       this.currencies = data.responseMessage.currencies
       this.methods = data.responseMessage.methods
-      //console.log( this.methods)
+      //console.log(this.currencies)
     }, (error) => {
       console.log(error)
     })
@@ -104,34 +97,11 @@ export class EcommerceWishlistComponent implements OnInit {
 
   }
 
-  onNotify(value: number) {
-    let user = JSON.parse(localStorage.getItem('user'))
-
-
-  }
-
-  onSliderChange(value: any) {
-    let user = JSON.parse(localStorage.getItem('user'))
-
-  }
-
-  //filter by tag
-  onTagChange(value: string) {
-    this.offers = this.offers.filter((offer: any) => offer.tags == value)
-  }
-
-  getArray(offer_tags: any) {
-    let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
-    const arr = formatted_tags.slice(1, -1)
-    return arr.split(',');
-
-  }
-
-  //filter offers
+  //filter offers by input
   filterOffers() {
     let user = JSON.parse(localStorage.getItem('user'))
     this._fb
-      .getOffers("sell").subscribe((data: any) => {
+      .getOffers( "buy").subscribe((data: any) => {
       this.offers = data.responseMessage
 
       this.offers = data.responseMessage.filter((item: any) => {
@@ -151,6 +121,72 @@ export class EcommerceWishlistComponent implements OnInit {
 
       console.log(this.offers)
     })
+
+  }
+
+  // filter  by slider chamge
+  onSliderChange(value: any) {
+    let user = JSON.parse(localStorage.getItem('user'))
+    this._fb
+      .getOffers( this.type).subscribe((data: any) => {
+      this.offers = data.responseMessage
+
+      console.log(value[0])
+      this.offers = data.responseMessage.filter((item: any) => {
+
+        if (value && value[0] < Number(item.minimum) && value[1] > Number(item.maximum)) {
+          return true
+        }
+
+        return false;
+      });
+
+      console.log(this.offers)
+    })
+  }
+
+  // filter offers by price range
+  onNotify(value: number) {
+    let user = JSON.parse(localStorage.getItem('user'))
+    this._fb
+      .getOffers(this.type).subscribe((data: any) => {
+      this.offers = data.responseMessage
+
+      console.log(value)
+      this.offers = data.responseMessage.filter((item: any) => {
+
+
+        if (value == 1) {
+
+          return true
+        } else if (value == 2 && 10 < Number(item.minimum)) {
+          return false
+        } else if (value == 3 && 10 < Number(item.minimum) && 100 < Number(item.maximum)) {
+          return false
+        } else if (value == 4 && 100 < Number(item.minimum) && 500 < Number(item.maximum)) {
+          return false
+        } else if (value == 5 && 500 > Number(item.minimum)) {
+          return false
+        } else {
+          return true;
+        }
+
+      });
+
+      console.log(this.offers)
+    })
+
+  }
+
+  //filter by tag
+  onTagChange(value: string) {
+    this.offers = this.offers.filter((offer: any) => offer.tags == value)
+  }
+
+  getArray(offer_tags: any) {
+    let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
+    const arr = formatted_tags.slice(1, -1)
+    return arr.split(',');
 
   }
 
@@ -174,6 +210,4 @@ export class EcommerceWishlistComponent implements OnInit {
 
 
   }
-
-
 }

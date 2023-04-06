@@ -62,7 +62,7 @@ const routes = [
     NouisliderModule,
     FormsModule,
     ReactiveFormsModule
-    
+
   ],
   providers: [AuthGuard],
   exports: [EcommerceComponent]
