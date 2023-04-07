@@ -66,6 +66,9 @@
             You cancelled this trade. If you wish to continue, this trade
             must be reopened by the seller. You may also fund this escrow by opening it yourself via the offer below
           </p>
+
+
+
           <p class="font-small-2" *ngIf="status == 'SUCCESSFUL'">
             You bought {{trade.currency}} {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}
             using  {{trade.method | titlecase}}, {{trade.btc_amount_with_margin}} BTC was added to your Coinpes wallet
