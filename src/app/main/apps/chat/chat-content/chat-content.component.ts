@@ -69,24 +69,25 @@ export class ChatContentComponent implements OnInit {
 
     }
     let user = JSON.parse(localStorage.getItem('user'));
-    this.fb.sendMessage({
-      tradeId: this.trade.id,
-      senderId: user.username,
-      message: this.chatMessage,
-      recepient: this.partner_data.username
+    //console.log("message: ",this.chatMessage)
 
+    if (this.chatMessage != "") {
+      this.fb.sendMessage({
+        tradeId: this.trade.id,
+        senderId: user.username,
+        message: this.chatMessage,
+        recepient: this.partner_data.username
 
-    })
+      })
+      this.chatMessage = '';//Reset the input to an empty value
+      setTimeout(
+        () => {
+          this
+            .scrolltop = this.scrollMe?.nativeElement.scrollHeight;
+        }, 0)
+      ;
+    }
 
-    this.chatMessage = '';//Reset the input to an empty value
-    setTimeout(
-      () => {
-        this
-          .scrolltop = this.scrollMe?.nativeElement.scrollHeight;
-      }, 0)
-    ;
-
-    console.log(this.chatMessage)
 
   }
 
@@ -144,7 +145,7 @@ export class ChatContentComponent implements OnInit {
     this.page.init(routeParams.get('id'), 'time', {reverse: true, prepend: false})
     this.fb.retrieveMessage(routeParams.get('id')).subscribe((data: any) => {
       this.chats = data;
-         setTimeout(() => {
+      setTimeout(() => {
         this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
       }, 0);
     });
@@ -152,7 +153,7 @@ export class ChatContentComponent implements OnInit {
 
   }
 
-  block(ext_username,trade_id) {
+  block(ext_username, trade_id) {
     let user = JSON.parse(localStorage.getItem('user'));
     this.fb.blockNow(this.user.token, this.user.username, {
 
