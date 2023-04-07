@@ -163,11 +163,11 @@
           [ngClass]="{ 'chat-left': chatRef.senderId != user.username }"
         >
 
-          <!-- MESSAGES CHATS  -->
+          <!-- NORMAL MESSAGES CHATS  -->
           <div *ngIf="chatRef.message != 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq' && chatRef.message != 'RE_GbGQvC1fsxZq_OPEN' && chatRef.message != 'CANCEL_GQvC1fsxZq_BUYER' &&  chatRef.message != 'RELEASEDKvC1fsxZqGbGQvC1fsxZq' &&  chatRef.message != 'PAIDKvC1fVrVsxZqGbGQvC1fsxZq'  &&  chatRef.message != 'BLOCK_GbGQvC1fsxZq'">
             <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
                         <span class="avatar box-shadow-1 cursor-pointer">
-                            <img [src]="partner_data.profile_link" alt="avatar" height="32" width="32"/>
+                            <img [src]="partner_data.profile_link" (click)="openLink(partner_data.username)" alt="avatar" height="32" width="32"/>
                         </span>
             </div>
             <div class="chat-body">
@@ -176,7 +176,7 @@
               </div>
             </div>
           </div>
-          <!-- MESSAGES CHATS -->
+          <!-- NORMAL MESSAGES CHATS -->
           <!-- TRADE BLOCKED -->
           <div *ngIf="chatRef.message == 'BLOCK_GbGQvC1fsxZq'">
             <ngb-alert [type]="'primary'" [dismissible]="false">
