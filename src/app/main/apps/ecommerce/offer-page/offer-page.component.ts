@@ -100,6 +100,9 @@ export class OfferPageComponent implements OnInit {
       if (data.responseMessage.data.deauth == 1) {
         this.err = 'This offer is deauthorized by a moderator due to a terms of service violation. Try other offers'
       }
+    },error => {
+      //this.playAudio('assets/sounds/windows_warning.wav')
+      this.err = error.error.responseMessage
     });
     this.form = this._formBuilder.group({
       amounttoreceive: ['', Validators.required],

@@ -282,9 +282,7 @@
                   <p class="text-body-heading">
                     ❌ You CANCELLED this trade
                   </p>
-                  <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
-                    trade.fiat_amount_with_margin | number: '1.2-2'
-                    }} {{ trade.currency | uppercase }}) Back to the seller</p>
+                  <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC back to the seller</p>
                   <p class="text-black-50">2. To trade again, You must ask the Seller to REOPEN the trade so that escrow
                                            is
                                            reserved </p>
@@ -302,9 +300,7 @@
                   <p class="text-body-heading">
                     ❌  Trade CANCELLED by Buyer
                   </p>
-                  <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
-                    trade.fiat_amount_with_margin | number: '1.2-2'
-                    }} {{ trade.currency | uppercase }}) Back to you</p>
+                  <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC back to you</p>
                   <p class="text-black-50">2. To trade again, You must REOPEN the trade so that escrow is reserved </p>
                   <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY
                                            in
@@ -325,9 +321,7 @@
                   <p class="text-body-heading">
                     ❌ This trade has EXPIRED
                   </p>
-                  <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
-                    trade.fiat_amount_with_margin | number: '1.2-2'
-                    }} {{ trade.currency | uppercase }}) Back to the seller</p>
+                  <p class="text-black-50">1. We returned the BTC Back to the seller</p>
                   <p class="text-black-50">2. You have 30 minutes to send the money and confirm it by clicking paid </p>
                   <p class="text-black-50">3. If you dont click paid the trade is cancelled automatically after 30
                                            minutes </p>
@@ -344,9 +338,7 @@
                   <p class="text-body-heading">
                     ❌ Trade has EXPIRED
                   </p>
-                  <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC ({{
-                    trade.fiat_amount_with_margin | number: '1.2-2'
-                    }} {{ trade.currency | uppercase }}) Back to you</p>
+                  <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC back to you</p>
                   <p class="text-black-50">2. To trade again, You must REOPEN the trade so that escrow is reserved </p>
                   <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY
                                            in
@@ -403,7 +395,7 @@
                     🛡️ This trade was marked PAID
                   </p>
                   <p class="text-black-50">1. You sent {{
-                    trade.fiat_amount_with_margin | number: '1.2-2'
+                    trade.fiat_amount_original | number: '1.2-2'
                     }} {{ trade.currency | uppercase }} via {{ trade.method | titlecase }}</p>
                   <p class="text-black-50">2. If the seller refuses to release or you have any problem please start a dispute</p>
                   <p class="text-black-50">3. Report any suspicious activity to moderators</p>
@@ -419,7 +411,7 @@
                     🛡️ This trade was marked PAID
                   </p>
                   <p class="text-black-50">1. You received {{
-                    trade.fiat_amount_with_margin | number: '1.2-2'
+                    trade.fiat_amount_original | number: '1.2-2'
                     }} {{ trade.currency | uppercase }} via {{ trade.method | titlecase }}</p>
                   <p class="text-black-50">2. If you did not receive any money please start a dispute</p>
                   <p class="text-black-50">3. If you are coinlocked please start a dispute</p>
