@@ -243,7 +243,7 @@
                 <tr>
                   <th>From</th>
                   <th>To</th>
-                  <th>Fiat</th>
+                  <th>Amount</th>
                   <th>BTC</th>
                   <th>Date</th>
                 </tr>
@@ -264,7 +264,7 @@
                   <td><span class="badge badge-pill badge-light-warning mr-1"
                             ngbTooltip="This was interpreted at the time of the transaction. The current value of these Bitcoins may change depending on the market rate">{{internal.fiat}} {{internal.currency}}</span>
                   </td>
-                  <td><span class="badge badge-pill badge-light-success mr-1">{{internal.amount_btc}}</span></td>
+                  <td><span class="badge badge-pill badge-light-success mr-1">{{internal.amount_btc  | number:'1.8-8'}} BTC</span></td>
                   <td>{{internal.created_at | date}}</td>
 
                 </tr>
