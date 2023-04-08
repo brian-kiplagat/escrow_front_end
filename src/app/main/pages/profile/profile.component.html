@@ -1,12 +1,12 @@
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body">
 
-    <ngb-alert [type]="'primary'" [dismissible]="true" *ngIf="success" >
+    <ngb-alert [type]="'primary'" [dismissible]="true" *ngIf="success">
       <div class="alert-body">
         <p>{{ msg }}</p>
       </div>
     </ngb-alert>
-    <ngb-alert [type]="'danger'" [dismissible]="true" *ngIf="error" >
+    <ngb-alert [type]="'danger'" [dismissible]="true" *ngIf="error">
       <div class="alert-body">
         <p>{{ msg }}</p>
       </div>
@@ -18,14 +18,14 @@
         <div class="col-12">
           <div class="card profile-header mb-2">
             <!-- profile cover photo -->
-            <img class="card-img-top" src="assets/images/profile/user-uploads/timeline.jpg" alt="User Profile Image" />
+            <img class="card-img-top" src="assets/images/profile/user-uploads/timeline.jpg" alt="User Profile Image"/>
             <!--/ profile cover photo -->
 
             <div class="position-relative">
               <!-- profile picture -->
               <div class="profile-img-container d-flex align-items-center text-center">
                 <div class="profile-img">
-                  <img [src]="currentUser.profile_link"  class="rounded img-fluid" alt="Card image" />
+                  <img [src]="image" class="rounded img-fluid" alt="Card image"/>
                 </div>
                 <!-- profile title -->
                 <div class="profile-title ml-3">
@@ -34,6 +34,7 @@
                 </div>
               </div>
             </div>
+
 
             <!-- tabs pill -->
             <div class="profile-header-nav">
@@ -56,15 +57,28 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="toggleMenu">
                   <div class="profile-tabs d-flex justify-content-between flex-wrap mt-1 mt-md-0">
                     <ul class="nav nav-pills mb-0">
-                      <li class="nav-item">
-                        <a class="nav-link font-weight-bold active" rippleEffect href="javascript:void(0)">
+                      <li class="mr-1 nav-item">
+                        <a class="nav-link font-weight-bold active" rippleEffect (click)="send_coins(external_username)"
+                           ngbTooltip="Send Bitcoin to {{external_username}}" placement="top"
+                        >
+                          <span class="d-none d-md-block">Send Bitcoin</span>
+                          <i data-feather="dollar-sign" class="d-block d-md-none"></i>
+                        </a>
+                      </li>
+                      <li class="mr-1 nav-item">
+                        <a class="nav-link font-weight-bold active" rippleEffect href="javascript:void(0)"
+                           ngbTooltip="Trust {{external_username}}" placement="top"
+                        >
                           <span class="d-none d-md-block">Trust</span>
                           <i data-feather="user-plus" class="d-block d-md-none"></i>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="button nav-link font-weight-bold"  (click)="block(external_username)" href="javascript:void(0)">
-                          <span class="d-none d-md-block" >Block</span>
+                        <a class="button nav-link font-weight-bold" (click)="block(external_username)"
+                           href="javascript:void(0)"
+                           ngbTooltip="Block {{external_username}}" placement="top"
+                        >
+                          <span class="d-none d-md-block">Block</span>
                           <i data-feather="user-x" class="d-block d-md-none"></i>
                         </a>
                       </li>
@@ -77,8 +91,11 @@
               </nav>
               <!--/ navbar -->
             </div>
+
           </div>
         </div>
+
+
       </div>
       <!--/ profile header -->
 

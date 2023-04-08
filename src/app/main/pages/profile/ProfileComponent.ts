@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   };
   public feeds: any[] = [];
   public currentUser: any = {};
+  public image = '/assets/images/avatars/avatar.webp'
   public user: any = {};
   public has_blocked;
   public blocked_by;
@@ -48,7 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   /**
    * Constructor
    *
-    * @param route
+   * @param route
    * @param sanitizer
    * @param fb
    * @param router
@@ -82,6 +83,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.fb.getUserForProfile(this.external_username, this.user.token, this.user.username).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];
+      this.image = data.responseMessage?.user_data[0].profile_link;
       this.has_blocked = data.responseMessage?.has_blocked.length;
       this.blocked_by = data.responseMessage?.blocked_by.length;
       console.log(data);
@@ -137,5 +139,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.error = true;
       console.log(err.error)
     })
+  }
+
+  send_coins(external_username) {
+    
   }
 }

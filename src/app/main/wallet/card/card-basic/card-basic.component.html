@@ -73,13 +73,40 @@
                     />
                   </div>
                 </div>
-                <div class="col-12">
-                  <div class="form-group mb-2">
-                    <label for="amount" ngbTooltip="Enter your amount in {{currency}}." placement="right">Amount
-                      ({{currency}})</label>
-                    <input type="number" id="amount" class="form-control" placeholder="{{currency}}"/>
-                  </div>
+
+                <div class="col-12 mb-1">
+                  <label for="amount" ngbTooltip="Enter your amount in {{currency}}." placement="right">Amount
+                    ({{currency}})</label>
+
+                  <fieldset>
+                    <div class="input-group">
+                      <input id="amount" type="text" class="form-control" placeholder="Enter your Amount"
+                             aria-label="Amount"/>
+                      <div ngbDropdown class="input-group-append">
+                        <button
+                          id="button_change"
+                          type="button"
+                          class="btn btn-outline-primary"
+                          ngbDropdownToggle
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                          rippleEffect
+                        >
+                          {{currency}}
+                        </button>
+                        <div ngbDropdownMenu class="dropdown-menu-right">
+                          <a ngbDropdownItem (click)="change_currency(currency)">{{currency}}</a>
+                          <a ngbDropdownItem (click)="change_currency('BTC')">BTC</a>
+                          <a ngbDropdownItem (click)="change_currency('SATS')">SATS</a>
+                          <div role="separator" class="dropdown-divider"></div>
+                          <a ngbDropdownItem href="/pages/account-settings">Change Currency</a>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
                 </div>
+
                 <div class="col-12" *ngIf="currentUser.choice_2fa == '2FA' && currentUser.factor_send == true">
                   <div class="form-group mb-2">
                     <label for="otp" ngbTooltip="Enter the code from your Authy or Google Authenticator"

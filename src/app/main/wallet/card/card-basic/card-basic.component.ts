@@ -30,6 +30,7 @@ export class CardBasicComponent implements OnInit {
   public error: boolean;
   public loading: boolean;
   public internal_tx: any;
+  public currency_mode: any;
 
   constructor(private fb: FirebaseService, private router: Router, private toaster: ToastrService) {
     this.options = this.toaster.toastrConfig;
@@ -65,6 +66,7 @@ export class CardBasicComponent implements OnInit {
       this.balance = data.responseMessage?.user_data[0].balance
       this.address = data.responseMessage?.user_data[0].wallet
       this.currency = data.responseMessage?.user_data[0].currency
+      this.currency_mode = data.responseMessage?.user_data[0].currency;
 
     }, (error) => {
       console.log(error)
@@ -97,6 +99,7 @@ export class CardBasicComponent implements OnInit {
       "amount": amount,
       "wallet": address,
       "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+      "currency_mode":this.currency_mode,
       "otp": otp
 
     }).subscribe((response: any) => {
@@ -167,5 +170,11 @@ export class CardBasicComponent implements OnInit {
       this.toast('Ops', err.error.responseMessage, 'error')
 
     })
+  }
+
+  change_currency(currency) {
+    document.querySelector('#button_change').innerHTML = currency;
+    this.currency_mode = currency
+    console.log(this.currency_mode)
   }
 }
