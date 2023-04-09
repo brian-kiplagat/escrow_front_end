@@ -120,7 +120,7 @@ export class CardBasicComponent implements OnInit {
 
 
     })
-    console.log(address + " " + amount + " " + otp)
+    //console.log(address + " " + amount + " " + otp)
 
 
   }
@@ -175,6 +175,6 @@ export class CardBasicComponent implements OnInit {
   change_currency(currency) {
     document.querySelector('#button_change').innerHTML = currency;
     this.currency_mode = currency
-    console.log(this.currency_mode)
+    //console.log(this.currency_mode)
   }
 }

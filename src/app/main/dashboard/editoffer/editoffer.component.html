@@ -249,7 +249,7 @@
                       </div>
                     </div>
 
-                    <div class="col-sm-6 col-12">
+                    <div class="col-md-6 col-12">
                       <label>Offer Tags</label>
 
                       <div class="form-group">
@@ -410,10 +410,12 @@
 
                             type="checkbox"
                             id="customColorRadio3"
-                            value="unchecked"
                             formControlName="idverification"
                             class="custom-control-input"
-                            [checked]="user_data.id_verified"
+                            [checked]="CHECK_ID"
+                            (change)="onCheckboxChange($event,'ID')"
+                            [value]="CHECK_ID"
+
                           />
 
                           <label
@@ -428,11 +430,12 @@
                         <div class="custom-control custom-checkbox">
                           <input
                             type="checkbox"
+                            (change)="onCheckboxChange($event,'NAME')"
                             id="customColorRadio4"
-                            value="unchecked"
                             formControlName="fullname"
                             class="custom-control-input"
-                            [checked]="user_data.id_verified"
+                            [checked]="CHECK_NAME"
+                            [value]="CHECK_NAME"
                           />
                           <label
                             class="custom-control-label"
@@ -447,10 +450,11 @@
                           <input
                             type="checkbox"
                             id="vpn"
-                            value="unchecked"
+                            (change)="onCheckboxChange($event,'VPN')"
                             formControlName="vpn"
                             class="custom-control-input"
-                            [checked]="offer.vpn==0"
+                            [checked]="CHECK_VPN"
+                            [value]="CHECK_VPN"
                           />
                           <label
                             class="custom-control-label"
@@ -473,7 +477,7 @@
                             type="number"
                             id="checkout-number"
                             class="form-control"
-
+                            [value]="offer.min_trades"
                             formControlName="minimumTrades"
                             placeholder="Patner should have done this number of trades"
 
@@ -503,7 +507,7 @@
                             [class.error]="submitted && f2.limitusers.errors"
                             placeholder="Restrict new users to trade a maximum amount"
                             formControlName="limitusers"
-                            [placeholder]="offer.new_trader_limit"
+                            [value]="offer.new_trader_limit"
                           />
 
 
@@ -521,7 +525,7 @@
                             [class.error]="submitted && f2.limitusers.errors"
                             placeholder="Restrict user based on blocks"
                             formControlName="limit_block"
-
+                            value="{{offer.limit_block}}"
 
                           />
 

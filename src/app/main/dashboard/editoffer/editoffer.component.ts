@@ -1,8 +1,8 @@
-import { Component, OnInit , ViewEncapsulation,ViewChild,ElementRef} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import Stepper from 'bs-stepper';
-import { FirebaseService } from 'app/services/firebase.service';
+import {FirebaseService} from 'app/services/firebase.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router,ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {v4 as uuidv4} from 'uuid';
 
 @Component({
@@ -44,9 +44,12 @@ export class EditofferComponent implements OnInit {
   public min;
   public max;
   public offer: any = {};
-  public user_data:any={};
+  public user_data: any = {};
   public current_tags = []
   public limit_countries = 'none';
+  public CHECK_ID: boolean;
+  public CHECK_NAME: boolean;
+  public CHECK_VPN: boolean;
 
   /**
    *  Constructor
@@ -148,13 +151,16 @@ export class EditofferComponent implements OnInit {
       this.rate = data.responseMessage.data.margin
       this.min = data.responseMessage.data.minimum
       this.max = data.responseMessage.data.maximum
+      this.CHECK_NAME = data.responseMessage.data.full_name
+      this.CHECK_ID = data.responseMessage.data.id_verification
+      this.CHECK_VPN = data.responseMessage.data.vpn
       this.current_tags = data.responseMessage.data.tags
       this.user_data = data.responseMessage.data.user_data
 
     });
-    this.user?this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
+    this.user ? this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
       this.tags = data.responseMessage
-    }):this.user={}
+    }) : this.user = {}
 
     this._fb.getCurrency().subscribe((data: any) => {
       this.currencies = data.responseMessage.currencies
@@ -205,30 +211,31 @@ export class EditofferComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.form3.value)
     const key = uuidv4() + Math.round(new Date().getTime() / 1000).toString();
-    this.user?this._fb.editOffer(this.user.token, this.user.username, {
+    this.user ? this._fb.editOffer(this.user.token, this.user.username, {
 
       "requestId": key,
-      "offeridd":this.offer.offer_id,
-      "method": !this.checkoutForm.value.paymentMethod ? this.offer.method :this.checkoutForm.value.paymentMethod,
-      "currency":!this.checkoutForm.value.currency ? this.offer.currency : this.checkoutForm.value.currency,
-      "type": !this.checkoutForm.value.todo ? "N/A" :this.checkoutForm.value.todo,
-      "min": !this.form2.value.minimum ? this.offer.minimum :this.form2.value.minimum,
-      "max": !this.form2.value.maximum ? this.offer.maximum :this.form2.value.maximum,
-      "margin": !this.form2.value.offerRate ? this.offer.margin :this.form2.value.offerRate,
-      "tags": !this.form2.value.tags ? this.tags :this.form2.value.tags,
-      "label":!this.form2.value.label? this.offer.label : this.form2.value.label,
-      "terms":!this.form2.value.terms ? this.offer.terms : this.form2.value.terms,
-      "instructions": !this.form2.value.instructions ? this.offer.instructions :this.form2.value.instructions,
-      "new_trader_limit": !this.form3.value.limitusers ? this.offer.new_trader_limit : this.form3.value.limitusers,
-      "limit_block": !this.form3.value.limit_block ? "N/A" : this.form3.value.limit_block,
-      "blocked_countries": !this.form3.value.blockedCountries ? this.offer.blocked_countries : this.form3.value.blockedCountries,
-      "allowed_countries": !this.form3.value.allowedCountries ? this.offer.allowed_countries : this.form3.value.allowedCountries,
-      "vpn": !this.form3.value.vpn ? this.offer.vpn : this.form3.value.vpn,
-      "id_verification": !this.form3.value.idverification ? this.offer.user_data.id_verified : this.form3.value.idverification,
-      "full_name": !this.form3.value.fullname ? this.offer.offer_username : this.form3.value.fullname,
-      "min_trades": !this.form3.value.minimumTrades ? "N/A" : this.form3.value.minimumTrades,
-      "limit_countries": this.limit_countries
+      "offeridd": this.offer.offer_id,
+      "method": !this.checkoutForm.value.paymentMethod ? this.offer.method : this.checkoutForm.value.paymentMethod,
+      "currency": !this.checkoutForm.value.currency ? this.offer.currency : this.checkoutForm.value.currency,
+      "type": !this.checkoutForm.value.todo ? "N/A" : this.checkoutForm.value.todo,
+      "min": !this.form2.value.minimum ? this.offer.minimum : this.form2.value.minimum,
+      "max": !this.form2.value.maximum ? this.offer.maximum : this.form2.value.maximum,
+      "margin": !this.form2.value.offerRate ? this.offer.margin : this.form2.value.offerRate,
+      "tags": !this.form2.value.tags ? this.tags : this.form2.value.tags,
+      "label": !this.form2.value.label ? this.offer.label : this.form2.value.label,
+      "terms": !this.form2.value.terms ? this.offer.terms : this.form2.value.terms,
+      "instructions": !this.form2.value.instructions ? this.offer.instructions : this.form2.value.instructions,
+      "new_trader_limit": !this.form3.value.limitusers ? 0 : this.form3.value.limitusers,
+      "limit_block": !this.form3.value.limit_block ? 0 : this.form3.value.limit_block,
+      "blocked_countries": !this.form3.value.blockedCountries ? "N/A" : this.form3.value.blockedCountries,
+      "allowed_countries": !this.form3.value.allowedCountries ? "N/A" : this.form3.value.allowedCountries,
+      "vpn": this.CHECK_VPN,
+      "id_verification": this.CHECK_ID,
+      "full_name": this.CHECK_NAME,
+      "min_trades": !this.form3.value.minimumTrades ? 0 : this.form3.value.minimumTrades,
+      "limit_countries": !this.form3.value.limit_countries ? this.limit_countries : this.form3.value.limit_countries,
 
     }).subscribe((data) => {
       this.router.navigate(['/dashboard/overview'])
@@ -241,7 +248,29 @@ export class EditofferComponent implements OnInit {
             .scrolltop = this.scrollMe?.nativeElement.scrollHeight;
         }, 0)
       ;
-    }):this.user={}
+    }) : this.user = {}
     this.submitted = true;
+  }
+
+  onCheckboxChange(e, type) {
+    console.log(e)
+    if (e.target.checked) {
+      if (type == 'ID') {
+        this.CHECK_ID = true;
+      } else if (type == 'NAME') {
+        this.CHECK_NAME = true;
+      } else if (type == 'VPN') {
+        this.CHECK_VPN = true;
+      }
+    } else {
+      if (type == 'ID') {
+        this.CHECK_ID = false;
+      } else if (type == 'NAME') {
+        this.CHECK_NAME = false;
+      } else if (type == 'VPN') {
+        this.CHECK_VPN = false;
+      }
+
+    }
   }
 }

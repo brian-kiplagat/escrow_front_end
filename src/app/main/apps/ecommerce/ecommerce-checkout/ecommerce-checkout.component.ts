@@ -211,14 +211,14 @@ export class EcommerceCheckoutComponent implements OnInit {
       "label": this.form2.value.label,
       "terms": this.form2.value.terms,
       "instructions": this.form2.value.instructions,
-      "new_trader_limit": !this.form3.value.limitusers ? "N/A" : this.form3.value.limitusers,
-      "limit_block": !this.form3.value.limit_block ? "N/A" : this.form3.value.limit_block,
+      "new_trader_limit": !this.form3.value.limitusers ? 0 : this.form3.value.limitusers,
+      "limit_block": !this.form3.value.limit_block ? 0 : this.form3.value.limit_block,
       "blocked_countries": !this.form3.value.blockedCountries ? "N/A" : this.form3.value.blockedCountries.toString(),
       "allowed_countries": !this.form3.value.allowedCountries ? "N/A" : this.form3.value.allowedCountries.toString(),
       "vpn": !this.form3.value.vpn ? false : this.form3.value.vpn,
       "id_verification": !this.form3.value.idverification ? false : this.form3.value.idverification,
       "full_name": !this.form3.value.fullname ? false : this.form3.value.fullname,
-      "min_trades": !this.form3.value.minimumTrades ? "N/A" : this.form3.value.minimumTrades,
+      "min_trades": !this.form3.value.minimumTrades ? 0 : this.form3.value.minimumTrades,
       "limit_countries": this.limit_countries
 
     }).subscribe((data) => {

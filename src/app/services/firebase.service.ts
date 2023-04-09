@@ -209,17 +209,7 @@ export class FirebaseService {
 
   //edit offer
   editOffer(token: string, username: string, formData: any) {
-    const header = {
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-      token: token,
-      username: username
-    };
-    const body = JSON.stringify(formData);
-    const requestOptions = {
-      headers: new HttpHeaders(header)
-    };
-    console.log(token, username, formData);
+    console.log(formData);
     return this.http.post(`${environment.endpoint}/offer/update`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
