@@ -87,14 +87,14 @@
                 You’re selling {{ trade.btc_amount_with_margin }} BTC ({{
                 trade.fiat_amount_with_margin | number: '1.2-2'
                 }}
-                {{ trade.currency }}) for
+                {{ trade.offer_currency }}) for
                 {{ trade.fiat_amount_original | number: '1.2-2' }}
-                {{ trade.currency }} via {{ trade.method | titlecase }}. Your funds
+                {{ trade.offer_currency }} via {{ trade.offer_method | titlecase }}. Your funds
                 are being securely held in escrow.
               </p>
 
               <p class="text-black-50">
-                1. Share your {{ trade.method | titlecase }} details and the account
+                1. Share your {{ trade.offer_method | titlecase }} details and the account
                 holder’s name with your trade partner
               </p>
               <p class="text-black-50">
@@ -122,14 +122,14 @@
                 You’re buying {{ trade.btc_amount_with_margin }} BTC ({{
                 trade.fiat_amount_with_margin | number: '1.2-2'
                 }}
-                {{ trade.currency }}) for
+                {{ trade.offer_currency }}) for
                 {{ trade.fiat_amount_original | number: '1.2-2' }}
-                {{ trade.currency }} via {{ trade.method | titlecase }}. BTC is
+                {{ trade.offer_currency }} via {{ trade.offer_method | titlecase }}. BTC is
                 being securely held in escrow and its safe to make payments.
               </p>
 
               <p class="text-black-50">
-                1. The seller will share {{ trade.method | titlecase }} details
+                1. The seller will share {{ trade.offer_method | titlecase }} details
               </p>
               <p class="text-black-50">
                 2. Follow the instructions below and send the payment
@@ -151,7 +151,7 @@
               <p class="text-body-heading">
                 Follow these instructions from your trade patner
               </p>
-              <p class="text-black-50">{{ trade.instructions }}</p>
+              <p class="text-black-50">{{ trade.offer_instructions }}</p>
             </div>
           </div>
         </ngb-alert>
@@ -205,14 +205,14 @@
                     You’re selling {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
                     }}
-                    {{ trade.currency }}) for
+                    {{ trade.offer_currency }}) for
                     {{ trade.fiat_amount_original | number: '1.2-2' }}
-                    {{ trade.currency }} via {{ trade.method | titlecase }}. Your funds
+                    {{ trade.offer_currency }} via {{ trade.offer_method | titlecase }}. Your funds
                     are being securely held in escrow.
                   </p>
 
                   <p class="text-black-50">
-                    1. Share your {{ trade.method | titlecase }} details and the account
+                    1. Share your {{ trade.offer_method | titlecase }} details and the account
                     holder’s name with your trade partner
                   </p>
                   <p class="text-black-50">
@@ -239,14 +239,14 @@
                     You’re buying {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
                     }}
-                    {{ trade.currency }}) for
+                    {{ trade.offer_currency }}) for
                     {{ trade.fiat_amount_original | number: '1.2-2' }}
-                    {{ trade.currency }} via {{ trade.method | titlecase }}. BTC is
+                    {{ trade.offer_currency }} via {{ trade.offer_method | titlecase }}. BTC is
                     being securely held in escrow and its safe to make payments.
                   </p>
 
                   <p class="text-black-50">
-                    1. The seller will share {{ trade.method | titlecase }} details
+                    1. The seller will share {{ trade.offer_method | titlecase }} details
                   </p>
                   <p class="text-black-50">
                     2. Follow the instructions below and send the payment
@@ -364,7 +364,7 @@
                   </p>
                   <p class="text-black-50">1. You received {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
-                    }} {{ trade.currency | uppercase }}) in your CoinPes wallet</p>
+                    }} {{ trade.offer_currency | uppercase }}) in your CoinPes wallet</p>
                   <p class="text-black-50">2. Be sure to leave feedback </p>
 
                 </div>
@@ -378,7 +378,7 @@
                   </p>
                   <p class="text-black-50">1. You sent {{ trade.btc_amount_with_margin }} BTC ({{
                     trade.fiat_amount_with_margin | number: '1.2-2'
-                    }} {{ trade.currency | uppercase }})</p>
+                    }} {{ trade.offer_currency | uppercase }})</p>
                   <p class="text-black-50">2. Be sure to leave feedback </p>
 
                 </div>
@@ -396,7 +396,7 @@
                   </p>
                   <p class="text-black-50">1. You sent {{
                     trade.fiat_amount_original | number: '1.2-2'
-                    }} {{ trade.currency | uppercase }} via {{ trade.method | titlecase }}</p>
+                    }} {{ trade.offer_currency | uppercase }} via {{ trade.offer_method | titlecase }}</p>
                   <p class="text-black-50">2. If the seller refuses to release or you have any problem please start a dispute</p>
                   <p class="text-black-50">3. Report any suspicious activity to moderators</p>
                   <p class="text-black-50">4. Please wait patiently for the seller to verify your money and release the BTC</p>
@@ -412,7 +412,7 @@
                   </p>
                   <p class="text-black-50">1. You received {{
                     trade.fiat_amount_original | number: '1.2-2'
-                    }} {{ trade.currency | uppercase }} via {{ trade.method | titlecase }}</p>
+                    }} {{ trade.offer_currency | uppercase }} via {{ trade.offer_method | titlecase }}</p>
                   <p class="text-black-50">2. If you did not receive any money please start a dispute</p>
                   <p class="text-black-50">3. If you are coinlocked please start a dispute</p>
                   <p class="text-black-50">4. Report any suspicious activity to moderators</p>

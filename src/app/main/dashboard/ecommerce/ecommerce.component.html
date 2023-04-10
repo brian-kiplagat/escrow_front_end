@@ -300,13 +300,29 @@ Any additional proof as determined by the moderator. The moderator will then ass
                                     </div>
                                 </div>
 
-                                <a
-                                    type="button"
-                                    class="btn btn-outline-primary"
-                                    [routerLink]="'/dashboard/editoffer/' + offer.idd"
+                              <div ngbDropdown >
+                                <button
+                                  id="button_change"
+                                  type="button"
+                                  class="btn btn-outline-primary"
+                                  ngbDropdownToggle
+                                  data-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false"
+                                  rippleEffect
                                 >
-                                    EDIT</a
-                                >
+                                 MORE
+                                </button>
+                                <div ngbDropdownMenu class="dropdown-menu-right">
+
+                                  <a ngbDropdownItem href="/dashboard/editoffer/{{offer.idd}}">EDIT</a>
+                                  <div role="separator" class="dropdown-divider"></div>
+                                  <a ngbDropdownItem (click)="delete_offer(offer.idd)">DELETE</a>
+                                </div>
+                              </div>
+
+
+
                             </div>
                             <form action="javascript:void(0);" class="form">
                                 <div class="row">

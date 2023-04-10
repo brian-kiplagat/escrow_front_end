@@ -204,7 +204,7 @@ export class EcommerceComponent implements OnInit {
   }
 
   delete_offer(id: any) {
-    this.playAudio('assets/sounds/windows_warning.wav')
+    this.playAudio('assets/sounds/bmw.mp3')
     if (this.user) {
       Swal.fire({
         title: ' <h5>Hey Wait!</h5>',
@@ -224,19 +224,13 @@ export class EcommerceComponent implements OnInit {
       }).then(async (result) => {
         if (result.value) {
           this.fb.deleteOffer(this.user.token, this.user.username, id).subscribe((data: any) => {
-            //console.log("this is the data", data)
-            if (!data.ok) {
-
-              this.toast('Failed', '👋 an error happened .Please try again', 'error')
-              return
-              //throw new Error(response.statusText);
-            } else {
-              this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
-              this.playAudio('assets/sounds/turumturum.wav')
-            }
+            console.log("this is the data", data)
+            this.toast('Deleted', '👋 You just deleted your offer', 'success')
+            this.playAudio('assets/sounds/turumturum.wav')
           }, (error: any) => {
             //console.log("this is the error", error)
-            this.toast('Ops', '👋 An error happened try again', 'error')
+            this.toast('Ops', error.error.responseMessage, 'error')
+            this.playAudio('assets/sounds/windows_warning.wav')
           })
         }
       });

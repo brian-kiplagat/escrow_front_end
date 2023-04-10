@@ -173,8 +173,10 @@ export class CardBasicComponent implements OnInit {
   }
 
   change_currency(currency) {
-    document.querySelector('#button_change').innerHTML = currency;
     this.currency_mode = currency
+    document.querySelector('#label_amount').innerHTML = 'Amount ('+currency+')';
+    document.querySelector('#button_change').innerHTML = currency;
+
     //console.log(this.currency_mode)
   }
 }

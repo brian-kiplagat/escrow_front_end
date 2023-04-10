@@ -26,7 +26,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   public user: any = {}
   public storage: any;
   public status: any;
-  public error
+
 
   //TIMER
   countDown: Subscription;
@@ -37,8 +37,10 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   //TIMER
   public mmss: string;
   public reopenErr: any;
-
-
+  public CHECK_POSITIVE: boolean;
+  public CHECK_NEGATIVE: boolean;
+  public feed_success: any;
+  public feed_error
   /**
    * Constructor
    *
@@ -117,6 +119,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
   buyer_online: boolean = true;
+
 
   /**
    * On init
@@ -508,11 +511,12 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
   submit_feedback(tradeId: any) {
     let comment = (<HTMLInputElement>document.getElementById("email-id-icon")).value;
-    let positive = (<HTMLInputElement>document.getElementById("positive")).value;
-    let negative = (<HTMLInputElement>document.getElementById("negative")).value;
-
-    console.log(positive,negative)
-
+    let type;
+    if (this.CHECK_NEGATIVE == true) {
+      type = 'NEGATIVE';
+    } else if (this.CHECK_POSITIVE == true) {
+      type = 'POSITIVE';
+    }
     let user = JSON.parse(localStorage.getItem('user'))
     const headerDict = {
       'Content-Type': 'application/json',
@@ -525,7 +529,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       method: 'POST',
       body: JSON.stringify({
         "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
-        "feedback_type": user.email,
+        "feedback_type": type,
         "trade_id": tradeId,
         "feedback_comment": comment
 
@@ -536,24 +540,39 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       .then(response => response.json())
       .then(result => {
         if (result.status == true) {
-          console.log(result.responseMessage)
-          this.status = "OPENED"
+          this.feed_success = result.responseMessage
+          this.feed_error = null
           //this.playAudio('assets/sounds/turumturum.wav')
         } else {
-          this.error = result.responseMessage
+          this.feed_error = result.responseMessage
+          this.feed_success = null
           //this.playAudio('assets/sounds/windows_warning.wav')
           return
         }
       })
       .catch((error) => {
+        this.feed_error = 'An error happened, consult admin'
         console.log(error)
         this.toast('Ops', '👋 An error happened try again', 'error')
 
       })
 
 
-    console.log('clicked')
-
-
   }
+
+
+  onRadioChange(e, type) {
+    //console.log(e)
+    if (e.target.checked) {
+      if (type == 'POSITIVE') {
+        this.CHECK_POSITIVE = true;
+        this.CHECK_NEGATIVE = false;
+      } else if (type == 'NEGATIVE') {
+        this.CHECK_POSITIVE = false;
+        this.CHECK_NEGATIVE = true;
+      }
+
+    }
+  }
+
 }
