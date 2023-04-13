@@ -142,30 +142,32 @@
                 <!-- twitter feed -->
                 <div class="profile-twitter-feed mt-2" *ngFor="let feed of feeds">
                   <div class="d-flex justify-content-start align-items-center mb-1">
-                    <!-- <div class="avatar mr-1">
-                      <img [src]="twitterFeedsRef.imgUrl" alt="avatar img" height="40" width="40" />
-                    </div> -->
+                    <div class="avatar mr-1">
+                      <img [src]="currentUser.profile_link" alt="avatar img" height="40" width="40"/>
+                    </div>
                     <div class="profile-user-info">
-                      <h6 class="mb-0">{{ feed.buyer }}</h6>
+                      <h6 class="mb-0">{{ feed.username }}</h6>
                       <a href="javascript:void(0)">
-                        <small class="text-muted">{{feed.seller}}</small>
-                        <i data-feather="check-circle"></i>
+                        <small class="text-muted">{{feed.method}} - {{feed.currency}}</small>
                       </a>
                     </div>
                     <div class="profile-star ml-auto">
                       <i
                         class="font-medium-3 fa"
                         [ngClass]="{
-                          'fa-star text-warning': feed.favorite === true,
-                          'fa-star-o': feed.favorite !== true
+                          'fa-thumbs-up text-success': feed.flag == 'POSITIVE',
+                          'fa-thumbs-down text-danger': feed.flag != 'POSITIVE'
                         }"
                       ></i>
                     </div>
                   </div>
-                  <p class="card-text mb-50">{{ feed.coment }}</p>
+                  <p class="card-text mb-50">{{ feed.comment }}</p>
                   <a href="javascript:void(0)">
-                    <small>{{ feed.id }}</small>
+                    <small *ngIf = "feed.flag == 'POSITVE'">{{ feed.flag }}</small>
+                    <small class="text-danger" ngbTooltip = 'We use a reputation system where users can leave feedback after trading with one another. It helps to gauge if you are dealing with a good trader or not.' *ngIf = "feed.flag == 'NEGATIVE'">{{ feed.flag }}</small>
                   </a>
+
+                  <hr>
                 </div>
               </div>
             </div>

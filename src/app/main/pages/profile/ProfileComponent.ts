@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     registration_date: "2022-04-01 13:14:34",
     status: 1
   };
-  public feeds: any[] = [];
+  public feeds;
   public currentUser: any = {};
   public image = '/assets/images/avatars/avatar.webp'
   public user: any = {};
@@ -86,7 +86,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.image = data.responseMessage?.user_data[0].profile_link;
       this.has_blocked = data.responseMessage?.has_blocked.length;
       this.blocked_by = data.responseMessage?.blocked_by.length;
-      console.log(data);
+      this.feeds = data.responseMessage?.feedback;
+      console.log(this.feeds);
     }, (error) => {
       console.log(error);
       this.router.navigate(['/']);
@@ -142,6 +143,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   send_coins(external_username) {
-    
+
   }
 }

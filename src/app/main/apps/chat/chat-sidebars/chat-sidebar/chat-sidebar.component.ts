@@ -25,8 +25,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   private options: GlobalConfig;
   public user: any = {}
   public storage: any;
-  public status: any;
-
 
   //TIMER
   countDown: Subscription;
@@ -55,8 +53,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
-    this.status = this.trade.status;
 
     const secs_since_start = new Date(this.trade.created_at).getTime() / 1000;//Here update with trade.created_at
     const current_time_stamp = Math.floor(Date.now() / 1000)
@@ -215,7 +211,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
               return
               //throw new Error(response.statusText);
             } else {
-              this.status = "PAID"
+              this.trade.status = "PAID"
               this.toast('Great', '👋 You just confirmed your payment. Its now the sellers turn to send the Bitcoin', 'success')
               this.playAudio('assets/sounds/tirit.wav')
 
@@ -275,7 +271,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
               return
               //throw new Error(response.statusText);
             } else {
-              this.status = "CANCELLED_BUYER"
+              this.trade.status = "CANCELLED_BUYER"
               this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
               this.playAudio('assets/sounds/turumturum.wav')
 
@@ -314,7 +310,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       .then(result => {
         console.log('Success:', result);
         if (result.status == true) {
-          this.status = "SUCCESSFUL"
+          this.trade.status = "SUCCESSFUL"
           this.toast('Congratulations', '👋 You just sold BTC. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
           this.playAudio('assets/sounds/turumturum.wav')
         } else {
@@ -491,7 +487,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       .then(result => {
         if (result.status == true) {
           console.log(result.responseMessage)
-          this.status = "OPENED"
+          this.trade.status = "OPENED"
           this.playAudio('assets/sounds/turumturum.wav')
         } else {
           this.reopenErr = result.responseMessage
@@ -511,7 +507,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
   }
 
-  submit_feedback(tradeId: any) {
+  submit_feedback(tradeId,username) {
     let comment = (<HTMLInputElement>document.getElementById("email-id-icon")).value;
     let type;
     if (this.CHECK_NEGATIVE == true) {
@@ -533,7 +529,8 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
         "feedback_type": type,
         "trade_id": tradeId,
-        "feedback_comment": comment
+        "comment": comment,
+        "target": username
 
       })
 
