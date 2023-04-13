@@ -225,8 +225,8 @@ export class EcommerceComponent implements OnInit {
         if (result.value) {
           this.fb.deleteOffer(this.user.token, this.user.username, id).subscribe((data: any) => {
             console.log("this is the data", data)
-            this.toast('Deleted', '👋 You just deleted your offer', 'success')
-            this.playAudio('assets/sounds/turumturum.wav')
+            this.toast('Deleted', '👋 You just removed this offer from the marketplace', 'success')
+            this.offerData = data.responseMessage
           }, (error: any) => {
             //console.log("this is the error", error)
             this.toast('Ops', error.error.responseMessage, 'error')

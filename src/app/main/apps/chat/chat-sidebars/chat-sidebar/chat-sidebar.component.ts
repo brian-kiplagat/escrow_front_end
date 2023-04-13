@@ -57,7 +57,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
     this.status = this.trade.status;
-    //console.log(this.trade)
+
     const secs_since_start = new Date(this.trade.created_at).getTime() / 1000;//Here update with trade.created_at
     const current_time_stamp = Math.floor(Date.now() / 1000)
     this.counter = 1800 - (current_time_stamp - secs_since_start)
@@ -80,6 +80,8 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           );
         }
       })
+    //console.log(this.trade[1].feedback)
+
 
 
   }
