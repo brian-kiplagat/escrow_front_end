@@ -17,8 +17,8 @@ import { OfferPageComponent } from 'app/main/apps/ecommerce/offer-page/offer-pag
 import { MarketBuyComponent } from 'app/main/apps/ecommerce/market-buy/market-buy.component';
 import { EcommerceSidebarComponent } from 'app/main/apps/ecommerce/market-buy/sidebar/sidebar.component';
 import { MarketSellComponent } from 'app/main/apps/ecommerce/market-sell/market-sell.component';
-import { EcommerceCheckoutComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout.component';
-import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout-item/ecommerce-checkout-item.component';
+import { EcommerceCheckoutComponent } from 'app/main/apps/ecommerce/create-offer/ecommerce-checkout.component';
+import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/create-offer/ecommerce-checkout-item/ecommerce-checkout-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SellOffersFormComponent } from './market-sell/sell-offers-form/sell-offers-form.component';

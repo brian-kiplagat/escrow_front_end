@@ -224,7 +224,7 @@ export class EcommerceComponent implements OnInit {
       }).then(async (result) => {
         if (result.value) {
           this.fb.deleteOffer(this.user.token, this.user.username, id).subscribe((data: any) => {
-            console.log("this is the data", data)
+            //console.log("this is the data", data)
             this.toast('Deleted', '👋 You just removed this offer from the marketplace', 'success')
             this.offerData = data.responseMessage
           }, (error: any) => {

@@ -13,7 +13,7 @@ $(function () {
     productOption = $('.product-color-options li'),
     btnCart = $('.btn-cart'),
     wishlist = $('.btn-wishlist'),
-    checkout = 'app-ecommerce-checkout.html',
+    checkout = 'app-create-offer.html',
     isRtl = $('html').attr('data-textdirection') === 'rtl';
 
   if ($('body').attr('data-framework') === 'laravel') {
