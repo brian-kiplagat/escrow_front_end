@@ -507,7 +507,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
   }
 
-  submit_feedback(tradeId,username) {
+  submit_feedback(tradeId,patner_data) {
     let comment = (<HTMLInputElement>document.getElementById("email-id-icon")).value;
     let type;
     if (this.CHECK_NEGATIVE == true) {
@@ -530,7 +530,10 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         "feedback_type": type,
         "trade_id": tradeId,
         "comment": comment,
-        "target": username
+        "target": patner_data.username,
+        "photo_url": patner_data.profile_link,
+
+
 
       })
 
