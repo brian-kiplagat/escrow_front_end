@@ -143,9 +143,12 @@
                 <div class="profile-twitter-feed mt-2" *ngFor="let feed of feeds">
                   <div class="d-flex justify-content-start align-items-center mb-1">
                     <div class="avatar mr-1">
-                      <img [src]="feed.photo_url" alt="avatar img" height="40" width="40"/>
+                      <a href="/users/{{feed.username}}">
+                        <img [src]="feed.photo_url" alt="avatar img" height="40" width="40"/>
+                      </a>
+
                     </div>
-                    <div class="profile-user-info">
+                    <div class="profile-user-info" href="/users/{{feed.username}}">
                       <h6 class="mb-0">{{ feed.username }}</h6>
                       <a href="javascript:void(0)">
                         <small class="text-muted">{{feed.method}} - {{feed.currency}}</small>

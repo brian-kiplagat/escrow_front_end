@@ -555,8 +555,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         "feedback_type": type,
         "trade_id": tradeId,
         "comment": comment,
-        "target": patner_data.username,
-        "photo_url": patner_data.profile_link,
+        "target": patner_data.username
 
 
       })
