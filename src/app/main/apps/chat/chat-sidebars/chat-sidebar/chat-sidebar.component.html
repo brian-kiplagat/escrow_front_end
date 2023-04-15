@@ -54,7 +54,8 @@
              ngbTooltip='You have sent the payment. Now wait for the seller to send you the Bitcoin. If the seller refuses or you have a problem, Open a dispute and well come in to help you'
              placement='bottom'>
             You sent {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
-            using  {{trade.offer_method | titlecase}}. Its now the sellers turn to send {{trade.btc_amount_with_margin}} BTC
+            using  {{trade.offer_method | titlecase}}. Its now the sellers turn to send {{trade.btc_amount_with_margin}}
+            BTC
           </p>
           <p class="font-small-2" *ngIf="trade.status == 'CANCELLED_SYSTEM'"
              ngbTooltip='Every trade has a payment window for a buyer to make a payment. When a trade is funded, but a buyer failed to mark a trade as paid, the payment window expires. This status means that a trade has been cancelled'
@@ -70,10 +71,10 @@
           </p>
 
 
-
           <p class="font-small-2" *ngIf="trade.status == 'SUCCESSFUL'">
             You bought {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
-            using  {{trade.offer_method | titlecase}}, {{trade.btc_amount_with_margin}} BTC was added to your Coinpes wallet
+            using  {{trade.offer_method | titlecase}}, {{trade.btc_amount_with_margin}} BTC was added to your Coinpes
+            wallet
           </p>
           <!-- BUYER BUTTONS-->
           <!-- BUYER MARK PAID-->
@@ -181,11 +182,11 @@
         <!--SELLER BLURB-->
         <!-- ANYONE OPEN DISPUTE-->
         <div class="mt-1">
-          <button  *ngIf="trade.status == 'PAID' && trade.dispute_started == false" type="button"
-                   (click)="open_dispute(trade.id)" rippleEffect
-                   class="btn btn-gradient-warning btn-block"
-                   ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
-                   placement="bottom">
+          <button *ngIf="trade.status == 'PAID' && trade.dispute_started == false" type="button"
+                  (click)="open_dispute(trade.id)" rippleEffect
+                  class="btn btn-gradient-warning btn-block"
+                  ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
+                  placement="bottom">
             <div>
               <h2 class="d-inline mr-25 text-white">OPEN DISPUTE</h2>
               <sub class="text-body"><small class="text-white">NOW</small></sub>
@@ -221,7 +222,8 @@
                 Awaiting
               </div>
             </div>
-            <h5 class="apply-job-title" *ngIf="trade.dispute_started == true && trade.status == 'PAID'">Having a problem?
+            <h5 class="apply-job-title" *ngIf="trade.dispute_started == true && trade.status == 'PAID'">Having a
+              problem?
               We're joining in
               shortly to help.</h5>
             <p class="card-text mb-2" *ngIf="trade.dispute_started == true && trade.status == 'PAID'">
@@ -256,18 +258,32 @@
               </ngb-alert>
             </div>
             <div class="col-12">
+              <div class="profile-star ml-auto">
+
+              </div>
               <div class="form-group">
                 <label for="first-name-icon">{{partner_data.username}}</label>
                 <div class="input-group input-group-merge">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><span [data-feather]="'user'"></span></span>
+                    <span class="input-group-text" *ngIf = "partner_comment == ' No comment yet'" ><span [data-feather]="'user'"></span></span>
+                    <span class="input-group-text" *ngIf = "partner_comment != ' No comment yet'" ><i
+                      class="font-medium-3 fa"
+                      [ngClass]="{
+                          'fa-thumbs-up text-success': PARTNER_FLAG == true,
+                          'fa-thumbs-down text-danger': PARTNER_FLAG != true
+                        }"
+                    ></i></span>
                   </div>
+
+
+
                   <input
                     type="text"
                     id="first-name-icon"
                     class="form-control"
                     name="fname-icon"
                     disabled
+                    [value]="partner_comment"
                     placeholder=" No comment yet"
                   />
                 </div>
@@ -285,6 +301,7 @@
                     id="email-id-icon"
                     class="form-control"
                     name="email-id-icon"
+                    [value]="my_comment"
                     placeholder=" No comment yet"
                   />
                 </div>
@@ -320,7 +337,8 @@
             </div>
 
           </div>
-          <button type="submit" (click)="submit_feedback(trade.id,partner_data)" rippleEffect class="btn btn-primary btn-block">
+          <button type="submit" (click)="submit_feedback(trade.id,partner_data)" rippleEffect
+                  class="btn btn-primary btn-block">
             SAVE FEEDBACK
           </button>
         </form>
@@ -331,7 +349,8 @@
           <div class="badge badge-light-warning mr-1"
                ngbTooltip="Send this to support in case you have complaints regarding this trade" placement="bottom">
             Trade id: {{trade.id}}</div>
-          <div class="badge badge-light-primary">Rate: {{trade.price| number : '1.1-2'}} {{trade.offer_currency}}/BTC</div>
+          <div class="badge badge-light-primary">Rate: {{trade.price| number : '1.1-2'}} {{trade.offer_currency}}/BTC
+          </div>
         </div>
         <!-- ANYONE SEE DETAILS -->
       </div>
