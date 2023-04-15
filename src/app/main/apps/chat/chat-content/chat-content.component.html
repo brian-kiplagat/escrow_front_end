@@ -164,7 +164,7 @@
         >
 
           <!-- NORMAL MESSAGES CHATS  -->
-          <div *ngIf="chatRef.message != 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq' && chatRef.message != 'RE_GbGQvC1fsxZq_OPEN' && chatRef.message != 'CANCEL_GQvC1fsxZq_BUYER' &&  chatRef.message != 'RELEASEDKvC1fsxZqGbGQvC1fsxZq' &&  chatRef.message != 'PAIDKvC1fVrVsxZqGbGQvC1fsxZq'  &&  chatRef.message != 'BLOCK_GbGQvC1fsxZq'">
+          <div *ngIf="chatRef.message != 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq' && chatRef.message != 'RE_GbGQvC1fsxZq_OPEN' && chatRef.message != 'CANCEL_GQvC1fsxZq_BUYER' &&  chatRef.message != 'RELEASEDKvC1fsxZqGbGQvC1fsxZq' &&  chatRef.message != 'PAIDKvC1fVrVsxZqGbGQvC1fsxZq'  &&  chatRef.message != 'BLOCK_GbGQvC1fsxZq' &&  chatRef.message != 'FEEDBACK_1fsxZqGbGQvC1fsxZq'  &&  chatRef.message != 'FEEDBACK_UPDATE_QvC1fsxZq'">
             <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
                         <span class="avatar box-shadow-1 cursor-pointer">
                             <img [src]="partner_data.profile_link" (click)="openLink(partner_data.username)" alt="avatar" height="32" width="32"/>
@@ -422,6 +422,36 @@
             </ngb-alert>
           </div>
           <!-- TRADE PAID -->
+          <!-- TRADE FEEDBACK -->
+          <div *ngIf="chatRef.message == 'FEEDBACK_1fsxZqGbGQvC1fsxZq'">
+            <ngb-alert [type]="'primary'" [dismissible]="false">
+              <div class="card">
+                <div class="alert-body">
+                  <p class="text-body-heading">
+                    🤠 {{chatRef.senderId}} has left a feedback
+                  </p>
+                    <p class="text-black-50">- Keep your feedbacks precise and accurate</p>
+                </div>
+              </div>
+            </ngb-alert>
+
+          </div>
+          <!-- TRADE FEEDBACK -->
+          <!-- FEEDBACK UPDATE-->
+          <div *ngIf="chatRef.message == 'FEEDBACK_UPDATE_QvC1fsxZq'">
+            <ngb-alert [type]="'primary'" [dismissible]="false">
+              <div class="card">
+                <div class="alert-body">
+                  <p class="text-body-heading">
+                    ✍️ {{chatRef.senderId}} has updated the feedback
+                  </p>
+                  <p class="text-black-50">- Keep your feedbacks precise and truthful</p>
+                </div>
+              </div>
+            </ngb-alert>
+
+          </div>
+          <!-- FEEDBACK UPDATE -->
         </div>
         <!-- END CHAT FLOW  -->
 

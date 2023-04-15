@@ -9,6 +9,7 @@ import {environment} from "../../../../../../environments/environment";
 import {FirebaseService} from "../../../../../services/firebase.service";
 import {ActivatedRoute} from "@angular/router";
 import {v4 as uuidv4} from 'uuid';
+import {pluck} from "rxjs/operators";
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -37,8 +38,12 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   public reopenErr: any;
   public CHECK_POSITIVE: boolean;
   public CHECK_NEGATIVE: boolean;
+  public PARTNER_FLAG: boolean;
   public feed_success: any;
   public feed_error
+  public partner_comment = ' No comment yet';
+  public my_comment = '';
+
   /**
    * Constructor
    *
@@ -76,8 +81,27 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           );
         }
       })
-    //console.log(this.trade[1].feedback)
+    console.log(this.trade[1])
+    if (this.trade[1][this.partner_data.username] != null) {
+      this.partner_comment = ' ' + this.trade[1][this.partner_data.username]['comment']
+      if (this.trade[1][this.partner_data.username]['flag'] == 'POSITIVE') {
+        this.PARTNER_FLAG = true;
+      } else {
+        this.PARTNER_FLAG = false;
+      }
+    } else if (this.trade[1][this.storage.username] != null) {
+      this.my_comment = this.trade[1][this.storage.username]['comment']
+      if (this.trade[1][this.storage.username]['flag'] == 'POSITIVE') {
+        this.CHECK_POSITIVE = true;
+        this.CHECK_NEGATIVE = false;
 
+      } else {
+        this.CHECK_POSITIVE = false;
+        this.CHECK_NEGATIVE = true;
+      }
+
+
+    }
 
 
   }
@@ -459,7 +483,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   view_offer(idd: any) {
-    console.log('view clicked')
     window.location.href = '/offers/bitcoin/details/' + idd
 
   }
@@ -507,7 +530,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
   }
 
-  submit_feedback(tradeId,patner_data) {
+  submit_feedback(tradeId, patner_data) {
     let comment = (<HTMLInputElement>document.getElementById("email-id-icon")).value;
     let type;
     if (this.CHECK_NEGATIVE == true) {
@@ -532,7 +555,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         "comment": comment,
         "target": patner_data.username,
         "photo_url": patner_data.profile_link,
-
 
 
       })
