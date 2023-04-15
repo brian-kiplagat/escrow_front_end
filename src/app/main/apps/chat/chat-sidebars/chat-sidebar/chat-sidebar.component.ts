@@ -89,7 +89,8 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       } else {
         this.PARTNER_FLAG = false;
       }
-    } else if (this.trade[1][this.storage.username] != null) {
+    }
+    if (this.trade[1][this.storage.username] != null) {
       this.my_comment = this.trade[1][this.storage.username]['comment']
       if (this.trade[1][this.storage.username]['flag'] == 'POSITIVE') {
         this.CHECK_POSITIVE = true;
@@ -102,6 +103,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
 
     }
+    console.log(this.my_comment)
 
 
   }
