@@ -23,8 +23,8 @@
 
     <!-- Notifications content -->
     <li class="scrollable-container media-list" [perfectScrollbar]>
-      <a class="d-flex" href="javascript:void(0)" *ngFor="let message of notifications">
-        <div class="media d-flex align-items-start" [routerLink]="'/'+ message.resource_path">
+      <a class="d-flex" (click)="redirect(message.resource_path)" *ngFor="let message of notifications">
+        <div class="media d-flex align-items-start">
           <div class="media-left">
             <div
               class="avatar bg-light-success"

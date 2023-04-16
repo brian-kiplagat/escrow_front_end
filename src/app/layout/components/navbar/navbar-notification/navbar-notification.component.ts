@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {switchMap} from "rxjs/operators";
 import {Subject} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {Router} from "@angular/router";
 
 
 // Interface
@@ -21,7 +22,7 @@ export class NavbarNotificationComponent implements OnInit {
   public notifications: any[] = [];
   public count;
 
-  constructor(private fb: FirebaseService, private firestore: AngularFirestore) {
+  constructor(private fb: FirebaseService, private firestore: AngularFirestore,private router: Router) {
   }
 
   // Lifecycle Hooks
@@ -78,5 +79,9 @@ export class NavbarNotificationComponent implements OnInit {
       }
     })
 
+  }
+
+  redirect(resource_path: any) {
+    this.router.navigate(['/' + resource_path])
   }
 }
