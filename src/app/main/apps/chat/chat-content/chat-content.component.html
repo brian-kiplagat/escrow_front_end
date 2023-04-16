@@ -423,18 +423,27 @@
           </div>
           <!-- TRADE PAID -->
           <!-- TRADE FEEDBACK -->
-          <div *ngIf="chatRef.message == 'FEEDBACK_1fsxZqGbGQvC1fsxZq'">
-            <ngb-alert [type]="'primary'" [dismissible]="false">
+          <div >
+            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="chatRef.message == 'FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE'">
               <div class="card">
                 <div class="alert-body">
                   <p class="text-body-heading">
-                    🤠 {{chatRef.senderId}} has left a feedback
+                    🤠 {{chatRef.senderId}} has left a Positive feedback
                   </p>
                     <p class="text-black-50">- Keep your feedbacks precise and accurate</p>
                 </div>
               </div>
             </ngb-alert>
-
+            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="chatRef.message == 'FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE'">
+              <div class="card">
+                <div class="alert-body">
+                  <p class="text-body-heading">
+                    ☹ {{chatRef.senderId}} has left a Negative feedback
+                  </p>
+                  <p class="text-black-50">- Feedback goes on a users public profile. Traders should be kind and honest to each other</p>
+                </div>
+              </div>
+            </ngb-alert>
           </div>
           <!-- TRADE FEEDBACK -->
           <!-- FEEDBACK UPDATE-->
