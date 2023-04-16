@@ -164,7 +164,8 @@
         >
 
           <!-- NORMAL MESSAGES CHATS  -->
-          <div *ngIf="chatRef.message != 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq' && chatRef.message != 'RE_GbGQvC1fsxZq_OPEN' && chatRef.message != 'CANCEL_GQvC1fsxZq_BUYER' &&  chatRef.message != 'RELEASEDKvC1fsxZqGbGQvC1fsxZq' &&  chatRef.message != 'PAIDKvC1fVrVsxZqGbGQvC1fsxZq'  &&  chatRef.message != 'BLOCK_GbGQvC1fsxZq' &&  chatRef.message != 'FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE' &&  chatRef.message != 'FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE' &&  chatRef.message != 'FEEDBACK_UPDATE_QvC1fsxZq'">
+          <!-- CHECK AN ARRAY OF KEYS FOR BLURBS,,,SO THAT WE ONLY SHOW MESSAGES AND NOT KEYS FOR BLURBS  -->
+          <div *ngIf = "!['XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq','RE_GbGQvC1fsxZq_OPEN','CANCEL_GQvC1fsxZq_BUYER','RELEASEDKvC1fsxZqGbGQvC1fsxZq','PAIDKvC1fVrVsxZqGbGQvC1fsxZq','BLOCK_GbGQvC1fsxZq','FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE','FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE','FEEDBACK_UPDATE_QvC1fsxZq'].includes(chatRef.message)">
             <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
                         <span class="avatar box-shadow-1 cursor-pointer">
                             <img [src]="partner_data.profile_link" (click)="openLink(partner_data.username)" alt="avatar" height="32" width="32"/>
