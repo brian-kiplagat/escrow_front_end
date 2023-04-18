@@ -102,7 +102,7 @@ this._unsubscribeAll.complete();
                     //Logged in user is seller
                     this.partner_data = data.responseMessage.buyer; //Assign to buyer details so that buyer details will be show in chat-content.html
                 }
-              console.log(this.partner_data)
+
               let user = JSON.parse(localStorage.getItem('user'));
               this.fb.retrieveMessage(this.trade.id).subscribe((data: any) => {
                 //console.log(data)
@@ -132,7 +132,7 @@ this._unsubscribeAll.complete();
     this.fb.getTradeByID(user.username, user.token, id).subscribe(
       (data: any) => {
         this.trade = data.responseMessage.trade;
-        console.log(data)
+
       }, (err) => {
         console.log(err)
 

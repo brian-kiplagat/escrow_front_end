@@ -10,6 +10,8 @@ import {FirebaseService} from "../../../../../services/firebase.service";
 import {ActivatedRoute} from "@angular/router";
 import {v4 as uuidv4} from 'uuid';
 import {pluck} from "rxjs/operators";
+import {int} from "flatpickr/dist/utils";
+
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -34,7 +36,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   public minutes;
   public seconds
   //TIMER
-  public mmss: string;
+  public mmss: string = "00:00";
   public reopenErr: any;
   public CHECK_POSITIVE: boolean;
   public CHECK_NEGATIVE: boolean;
@@ -57,31 +59,47 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     this.options = this.toastr.toastrConfig;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  showDialog(message) {
+    Swal.fire({
+      title: ' <h5>Time is running Out!</h5>',
+      html: ' <p class="card-text font-small-3">This trade is about to expire</p><p class="card-text font-small-3">' + message + '</p>',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2746e4',
+      confirmButtonText:
+        'OK THANKS',
+      customClass: {
+        confirmButton: 'btn btn-primary'
+      }
+    })
+  }
 
-    const secs_since_start = new Date(this.trade.created_at).getTime() / 1000;//Here update with trade.created_at
-    const current_time_stamp = Math.floor(Date.now() / 1000)
-    this.counter = 1800 - (current_time_stamp - secs_since_start)
-    this.countDown = timer(0, this.tick)
-      .subscribe(() => {
-        --this.counter
-        //console.log(this.counter)
-        this.mmss = this.transform(this.counter)
-        if (this.counter == 500) {
-          this.toast('Hurry up', 'You have 5 minutes left to conclude this exchange', 'error')
-        }
-        if (this.counter == 0) {
-          this.fb.getTradeByID(this.user.username, this.user.token, this.trade.id).subscribe(
-            (data: any) => {
-              this.trade = data.responseMessage.trade;
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-        }
-      })
-    console.log(this.trade[1])
+  ngOnChanges(changes: SimpleChanges): void {
+    //Get the future date of expiry
+    //Get the current time
+    //Count down the difference
+    let future = new Date(this.trade.created_at).getTime() + 1800000
+    let count = future - new Date().getTime();
+    this.mmss = new Date(count).toISOString().substr(14, 5);
+    let interval = setInterval(() => {
+      count -= 1000;
+      this.mmss = new Date(count).toISOString().substr(14, 5);
+      if (count < 0) {
+        clearInterval(interval);
+        this.mmss = '00:00'
+      }
+      console.log(count)
+          if (this.mmss == "05:00") {
+        this.showDialog('You have 5 minutes remaining. This trade will expire soon and the trade will be automatically cancelled. If you have not sent the money please be quick, send the money and confirm it by clicking the PAID button')
+
+      }
+      if (this.mmss == "02:00") {
+        this.showDialog('You have 2 minutes remaining. This trade will expire soon and the crypto in escrow will be returned to the seller. If you have sent the money please confirm it by clicking the PAID button')
+      }
+
+    }, 1000);
+
+
     if (this.trade[1][this.partner_data.username] != null) {
       this.partner_comment = ' ' + this.trade[1][this.partner_data.username]['comment']
       if (this.trade[1][this.partner_data.username]['flag'] == 'POSITIVE') {
@@ -103,7 +121,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
 
     }
-    console.log(this.my_comment)
 
 
   }
