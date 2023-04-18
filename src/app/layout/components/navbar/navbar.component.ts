@@ -1,11 +1,10 @@
 import {Component, OnDestroy, OnInit, HostBinding, HostListener, ViewEncapsulation} from '@angular/core';
 import {MediaObserver} from '@angular/flex-layout';
-
+import Swal from "sweetalert2";
 import * as _ from 'lodash';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
-
 import {AuthenticationService} from 'app/auth/service';
 import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
 import {CoreConfigService} from '@core/services/config.service';
@@ -13,6 +12,7 @@ import {CoreMediaService} from '@core/services/media.service';
 import {FirebaseService} from 'app/services/firebase.service';
 
 import {Router} from '@angular/router';
+import clipboard from "clipboardy";
 
 
 @Component({
@@ -174,7 +174,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     let user = JSON.parse(localStorage.getItem('user'));
     localStorage.clear();
     this.router.navigate(['/pages/login']);
-    this._firebae.logout(user!.token, user!.username, user.email).then(r =>{
+    this._firebae.logout(user!.token, user!.username, user.email).then(r => {
       console.log(r)
     })
   }
@@ -241,5 +241,26 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  copy_link() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    clipboard.write("https://coinpes.com/pages/register?r=" + user.username);
+    Swal.fire({
+      title: ' <h5>LINK COPIED!</h5>',
+      html: ' <p class="card-text font-small-3">https://coinpes.com/pages/register?r=' + user.username + '</p>' +
+        '<p class="card-text font-small-3">Our Bitcoin Affiliate Program helps you bring financial freedom to your community. And as a bonus, you get a steady stream of income too</p>' +
+        '<p class="card-text font-small-3">You make money every time the people you introduce, and the people they invite, buy Bitcoin</p>' +
+        '<p class="card-text font-small-3">Your rewards are added to your wallet automatically</p>',
+
+      icon: 'success',
+      showCancelButton: false,
+      confirmButtonColor: '#2746e4',
+      confirmButtonText:
+        'OK THANKS',
+      customClass: {
+        confirmButton: 'btn btn-primary'
+      }
+    })
   }
 }

@@ -26,6 +26,7 @@ export class AuthRegisterV2Component implements OnInit {
   // Private
   private _unsubscribeAll: Subject<any>;
   private referral = 'NONE';
+  public info: string;
 
   /**
    * Constructor
@@ -129,6 +130,7 @@ export class AuthRegisterV2Component implements OnInit {
     this.route.queryParams.subscribe(param => {
       if (param.r != null) {
         this.referral = param.r
+        this.info =  'You were invited by ' + param.r
       }
     })
 

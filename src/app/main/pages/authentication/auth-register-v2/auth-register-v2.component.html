@@ -31,10 +31,16 @@
             <p>{{ error }}</p>
           </div>
         </ngb-alert>
+        <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="info">
+          <div class="alert-body">
+            <p>{{ info }}</p>
+          </div>
+        </ngb-alert>
         <form class="auth-register-form mt-2" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="register-email" class="form-label">Email</label>
             <input
+              id="register-email"
               type="text"
               formControlName="email"
               class="form-control"
@@ -55,6 +61,7 @@
 
             <div class="input-group input-group-merge form-password-toggle">
               <input
+                id="register-password"
                 [type]="passwordTextType ? 'text' : 'password'"
                 formControlName="password"
                 class="form-control form-control-merge"
