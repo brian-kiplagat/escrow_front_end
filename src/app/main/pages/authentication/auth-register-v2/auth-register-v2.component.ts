@@ -6,7 +6,7 @@ import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 
 import {CoreConfigService} from '@core/services/config.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth-register-v2',
@@ -25,18 +25,23 @@ export class AuthRegisterV2Component implements OnInit {
 
   // Private
   private _unsubscribeAll: Subject<any>;
+  private referral = 'NONE';
 
   /**
    * Constructor
    *
    * @param {CoreConfigService} _coreConfigService
    * @param {FormBuilder} _formBuilder
+   * @param firebase
+   * @param router
+   * @param route
    */
   constructor(
     private _coreConfigService: CoreConfigService,
     private _formBuilder: FormBuilder,
     public firebase: FirebaseService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this._unsubscribeAll = new Subject();
 
@@ -83,37 +88,35 @@ export class AuthRegisterV2Component implements OnInit {
     this.loading = true
     // stop here if form is invalid
     if (!this.registerForm.invalid) {
-      this.firebase.registration(this.f.email.value, this.f.password.value).subscribe(
+
+      this.firebase.registration(this.f.email.value, this.f.password.value, this.referral).subscribe(
         (response: any) => {
           //Next callback
-          console.log('response received', response.responseMessage.email, response.responseMessage.token);
           this.loading = false
-          this.getUser(response.responseMessage.username, response.responseMessage.token)
-          this.router.navigate(['dashboard/overview'])
-          const data = {
+
+          localStorage.setItem('user', JSON.stringify({
             username: response.responseMessage.username,
             token: response.responseMessage.token,
             email: response.responseMessage.email
-          }
-          localStorage.setItem('user', JSON.stringify(data))
+          }))
+          this.router.navigate(['dashboard/overview'])
+
+
         },
         (error) => {
           //Error callback
           this.loading = false
           this.error = error.error.responseMessage;
-          console.error(error);
 
-          //throw error;   //You can also throw the error to a global error handler
         }
       );
     } else {
       this.loading = false
     }
+
+
   }
 
-  getUser(username: string, token: string) {
-    this.firebase.getUser(username, token)
-  }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
@@ -122,6 +125,14 @@ export class AuthRegisterV2Component implements OnInit {
    * On init
    */
   ngOnInit(): void {
+    //subscribe to referral link
+    this.route.queryParams.subscribe(param => {
+      if (param.r != null) {
+        this.referral = param.r
+      }
+    })
+
+
     this.registerForm = this._formBuilder.group({
       // username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],

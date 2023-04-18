@@ -94,7 +94,7 @@ export class FirebaseService {
   }
 
   //create new user then login
-  registration(email: string, password: string) {
+  registration(email: string, password: string,referral:string) {
     const requestOptions = {
       headers: new HttpHeaders(this.headerDict)
     };
@@ -102,7 +102,8 @@ export class FirebaseService {
       `${environment.endpoint}/registerUser`,
       {
         email: email,
-        password: password
+        password: password,
+        referral:referral
       },
       requestOptions
     );
