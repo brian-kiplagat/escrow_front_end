@@ -490,45 +490,64 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   reopen_trade(tradeId: any) {
-    let user = JSON.parse(localStorage.getItem('user'))
-    const headerDict = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      token: user.token,
-      username: user.username
-    }
-    const requestOptions = {
-      headers: new Headers(headerDict),
-      method: 'POST',
-      body: JSON.stringify({
-        "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
-        "email": user.email,
-        "tradeId": tradeId
-      })
-
-    };
-    fetch(`${environment.endpoint}/reopenTrade`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        if (result.status == true) {
-          console.log(result.responseMessage)
-          this.trade.status = "OPENED"
-          this.playAudio('assets/sounds/turumturum.wav')
-        } else {
-          this.reopenErr = result.responseMessage
-          this.playAudio('assets/sounds/windows_warning.wav')
-          return
+    if (this.trade.seller == this.storage.email) {
+      Swal.fire({
+        title: ' <h5>Reopen this trade?</h5>',
+        html: ' <p class="card-text font-small-3">This will reopen the trade and escrow will be reserved so that payments can be made safely.</p>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#7367F0',
+        cancelButtonColor: '#E42728',
+        confirmButtonText:
+          '<i class="fa fa-check-circle"></i> Reopen Trade',
+        confirmButtonAriaLabel: 'Confirm',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-danger ml-1'
         }
-      })
-      .catch((error) => {
-        console.log(error)
-        this.toast('Ops', '👋 An error happened try again', 'error')
+      }).then(async (result) => {
+        if (result.value) {
+          let user = JSON.parse(localStorage.getItem('user'))
+          const headerDict = {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            token: user.token,
+            username: user.username
+          }
+          const requestOptions = {
+            headers: new Headers(headerDict),
+            method: 'POST',
+            body: JSON.stringify({
+              "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+              "email": user.email,
+              "tradeId": tradeId
+            })
 
-      })
+          };
+          fetch(`${environment.endpoint}/reopenTrade`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+              if (result.status == true) {
+                console.log(result.responseMessage)
+                this.trade.status = "OPENED"
+                this.playAudio('assets/sounds/turumturum.wav')
+              } else {
+                this.reopenErr = result.responseMessage
+                this.playAudio('assets/sounds/windows_warning.wav')
+                return
+              }
+            })
+            .catch((error) => {
+              console.log(error)
+              this.toast('Ops', '👋 An error happened try again', 'error')
 
-
-    console.log('clicked')
-
+            })
+        }
+      });
+    } else {
+      this.playAudio('assets/sounds/windows_warning.wav')
+      this.toast('INVALID', 'Only the seller can reopen a trade', 'error')
+    }
 
   }
 
