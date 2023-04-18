@@ -64,7 +64,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       title: ' <h5>Time is running Out!</h5>',
       html: ' <p class="card-text font-small-3">This trade is about to expire</p><p class="card-text font-small-3">' + message + '</p>',
       icon: 'warning',
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonColor: '#2746e4',
       confirmButtonText:
         'OK THANKS',
@@ -84,17 +84,23 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     let interval = setInterval(() => {
       count -= 1000;
       this.mmss = new Date(count).toISOString().substr(14, 5);
-      if (count < 0) {
+
+      //The trade has just expired
+      if (this.mmss == "00:00") {
         clearInterval(interval);
         this.mmss = '00:00'
-      }
-      console.log(count)
-          if (this.mmss == "05:00") {
-        this.showDialog('You have 5 minutes remaining. This trade will expire soon and the trade will be automatically cancelled. If you have not sent the money please be quick, send the money and confirm it by clicking the PAID button')
+        this.playAudio('assets/sounds/windows_warning.wav')
 
       }
+      //The trade has 5 minutes remaining
+      if (this.mmss == "05:00") {
+        this.showDialog('You have 5 minutes remaining. This trade will expire soon and the trade will be automatically cancelled. If you have not sent the money please be quick, send the money and confirm it by clicking the PAID button')
+        this.playAudio('assets/sounds/tirit.wav')
+      }
+      //The trade has 2 minutes remaining
       if (this.mmss == "02:00") {
-        this.showDialog('You have 2 minutes remaining. This trade will expire soon and the crypto in escrow will be returned to the seller. If you have sent the money please confirm it by clicking the PAID button')
+        this.showDialog('You have 2 minutes remaining. If you have sent the money please confirm it by clicking the PAID button otherwise the trade will be automatically cancelled and the crypto returned to the seller')
+        this.playAudio('assets/sounds/tirit.wav')
       }
 
     }, 1000);
