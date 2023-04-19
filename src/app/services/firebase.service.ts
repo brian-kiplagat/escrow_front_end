@@ -145,22 +145,6 @@ export class FirebaseService {
     );
   }
 
-  //get user by mail
-  getUserByMail(email: string, token: string, username: string) {
-    const header = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      token: token,
-      username: username
-    };
-    const requestOptions = {
-      headers: new HttpHeaders(header)
-    };
-    return this.http.get(
-      `${environment.endpoint}/getUserDataByEmail/` + email,
-      requestOptions
-    );
-  }
 
   //get packages
   getPackages(token: string, username: string, email: string) {
@@ -377,6 +361,7 @@ export class FirebaseService {
 
   //retrieve all messages
   retrieveMessage(docId: string) {
+
     return this.firestore
       .collection('trades')
       .doc(docId.toString())
@@ -384,10 +369,11 @@ export class FirebaseService {
       .valueChanges();
   }
 
-//retrieve all messages
+//retrieve firebase notifications
   retrieveNotifications(email: string, username: string,) {
+
     return this.firestore
-      .collection('notifications', (ref) => ref.where('username', '==', username))
+      .collection('notifications', (ref) => ref.where('username', '==', username).orderBy('timestamp', 'desc').limit(10))
       .valueChanges();
   }
 

@@ -6,6 +6,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {ChatService} from "../chat.service";
 import {ToastrService, GlobalConfig} from 'ngx-toastr';
 import {PaginationService} from '../pagination.service';
+import {ChatComponent} from "../chat.component";
 
 @Component({
   selector: 'app-chat-content',
@@ -45,7 +46,8 @@ export class ChatContentComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               public page: PaginationService,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              private invoke:ChatComponent
   ) {
   }
 
@@ -145,6 +147,16 @@ export class ChatContentComponent implements OnInit {
     this.page.init(routeParams.get('id'), 'time', {reverse: true, prepend: false})
     this.fb.retrieveMessage(routeParams.get('id')).subscribe((data: any) => {
       this.chats = data;
+      //Refresh
+      let lastElement = data[data.length - 1]
+      console.log(lastElement)
+      if (lastElement.senderId !=  this.user.username && lastElement.message == 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq') {
+        console.log('I got the key')
+        //Invoke instance of the sidebar class tto update new info
+        this.invoke.okUpdateSideBar(routeParams.get('id'))
+      }
+
+
       setTimeout(() => {
         this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
       }, 0);

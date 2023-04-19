@@ -108,7 +108,8 @@ export class AuthLoginV2Component implements OnInit {
             const data = {
               username: response.responseMessage.username,
               token: response.responseMessage.token,
-              email: response.responseMessage.email
+              email: response.responseMessage.email,
+              sound: response.responseMessage.sound
             }
             localStorage.setItem('user', JSON.stringify(data))
             //Was from offer page

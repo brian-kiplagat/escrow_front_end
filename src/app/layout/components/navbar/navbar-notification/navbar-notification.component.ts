@@ -22,7 +22,7 @@ export class NavbarNotificationComponent implements OnInit {
   public notifications: any[] = [];
   public count;
 
-  constructor(private fb: FirebaseService, private firestore: AngularFirestore,private router: Router) {
+  constructor(private fb: FirebaseService, private firestore: AngularFirestore, private router: Router) {
   }
 
   // Lifecycle Hooks
@@ -35,28 +35,19 @@ export class NavbarNotificationComponent implements OnInit {
     let user: any = JSON.parse(localStorage.getItem('user'))
     this.fb.retrieveNotifications(user.email, user.username).subscribe((data: any) => {
       this.notifications = data;
-      this.notifications.sort(function (x, y) {
-        return y.timestamp - x.timestamp;
-      })
+      console.log('New notification received:', data[0]);
       if (this.notifications[0].read == false) {
-        //console.log('Play sound')
+        console.log('Playing sound')
         if (this.notifications[0].heading == 'Escrow funded') {
-          if (localStorage.getItem('sound') == 'yes') {
-            this.playAudio('assets/sounds/turumturum.wav')
-          }
-
+          this.playAudio('assets/sounds/turumturum.wav')
         } else if (this.notifications[0].heading == 'New Login') {
-          if (localStorage.getItem('sound') == 'yes') {
-            this.playAudio('assets/sounds/windows_warning.wav')
-          }
+          this.playAudio('assets/sounds/windows_warning.wav')
         } else if (this.notifications[0].heading == 'New Trade message') {
-          if (localStorage.getItem('sound') == 'yes') {
-            this.playAudio('assets/sounds/tirit.wav')
-          }
+          this.playAudio('assets/sounds/tirit.wav')
         }
       }
       this.count = this.notifications.filter(obj => obj.read == false).length
-      this.notifications = this.notifications.slice(0, 15)
+
     }, error => {
       console.log(error)
     });
@@ -65,10 +56,15 @@ export class NavbarNotificationComponent implements OnInit {
   }
 
   playAudio(path) {
-    let audio = new Audio();
-    audio.src = path;
-    audio.load();
-    audio.play();
+    console.log('sound ',localStorage.getItem('sound'))
+    if (localStorage.getItem('sound') == '1') {
+      let audio = new Audio();
+      audio.src = path;
+      audio.load();
+      audio.play();
+
+    }
+
   }
 
   mark_read() {

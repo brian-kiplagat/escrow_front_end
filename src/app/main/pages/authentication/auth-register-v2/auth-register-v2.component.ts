@@ -98,7 +98,8 @@ export class AuthRegisterV2Component implements OnInit {
           localStorage.setItem('user', JSON.stringify({
             username: response.responseMessage.username,
             token: response.responseMessage.token,
-            email: response.responseMessage.email
+            email: response.responseMessage.email,
+            sound: response.responseMessage.sound
           }))
           this.router.navigate(['dashboard/overview'])
 
