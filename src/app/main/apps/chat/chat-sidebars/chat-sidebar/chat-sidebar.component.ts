@@ -9,8 +9,8 @@ import {environment} from "../../../../../../environments/environment";
 import {FirebaseService} from "../../../../../services/firebase.service";
 import {ActivatedRoute} from "@angular/router";
 import {v4 as uuidv4} from 'uuid';
-import {pluck} from "rxjs/operators";
-import {int} from "flatpickr/dist/utils";
+import {NavbarNotificationComponent} from "../../../../../layout/components/navbar/navbar-notification/navbar-notification.component";
+
 
 
 @Component({
@@ -49,13 +49,14 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   /**
    * Constructor
    *
+   * @param notification
    * @param route
    * @param fb
    * @param {ChatService} _chatService
    * @param {CoreSidebarService} _coreSidebarService
    * @param toastr
    */
-  constructor(private route: ActivatedRoute, private fb: FirebaseService, private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
+  constructor(private notification: NavbarNotificationComponent,private route: ActivatedRoute, private fb: FirebaseService, private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
     this.options = this.toastr.toastrConfig;
   }
 
@@ -175,10 +176,9 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
 
   playAudio(path) {
-    let audio = new Audio();
-    audio.src = path;
-    audio.load();
-    audio.play();
+
+    this.notification.playAudio(path)
+
   }
 
 

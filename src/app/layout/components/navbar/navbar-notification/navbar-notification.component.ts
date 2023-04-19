@@ -33,11 +33,11 @@ export class NavbarNotificationComponent implements OnInit {
    */
   ngOnInit(): void {
     let user: any = JSON.parse(localStorage.getItem('user'))
-    this.fb.retrieveNotifications(user.email, user.username).subscribe((data: any) => {
+    this.fb.retrieveNotifications(user.username).subscribe((data: any) => {
       this.notifications = data;
       console.log('New notification received:', data[0]);
       if (this.notifications[0].read == false) {
-        console.log('Playing sound')
+        this.playAudio('assets/sounds/turumturum.wav')
         if (this.notifications[0].heading == 'Escrow funded') {
           this.playAudio('assets/sounds/turumturum.wav')
         } else if (this.notifications[0].heading == 'New Login') {
@@ -56,13 +56,13 @@ export class NavbarNotificationComponent implements OnInit {
   }
 
   playAudio(path) {
-    console.log('sound ',localStorage.getItem('sound'))
-    if (localStorage.getItem('sound') == '1') {
-      let audio = new Audio();
-      audio.src = path;
-      audio.load();
-      audio.play();
-
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (user.sound === "1") {
+      console.log('Playing Sound', path)
+      //let audio = new Audio();
+      //audio.src = path;
+      //audio.load();
+      //audio.play();
     }
 
   }

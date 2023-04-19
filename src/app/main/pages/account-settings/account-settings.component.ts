@@ -14,7 +14,6 @@ import {ImageCroppedEvent, LoadedImage, ImageTransform} from 'ngx-image-cropper'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import * as snippet from 'app/main/pages/account-settings/modals.snippetcode';
-import * as http from "http";
 
 @Component({
   selector: 'app-account-settings',
@@ -67,10 +66,12 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any>;
   private base64Output: string;
   private curr: any;
+  private CHECK_SOUND: boolean;
 
   /**
    * Constructor
    *
+   * @param notifications
    * @param toastr
    * @param http
    * @param fb
@@ -344,7 +345,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         this.currentUser = data.responseMessage?.user_data[0];
         this.avatarImage = this.currentUser.profile_link;
         this.tg_identifier = this.currentUser.tg_hash_identifier;
-        console.log(this.whitelist)
+        this.CHECK_SOUND = this.currentUser.sound
 
         if (this.currentUser.tg_id == 'NA') {
           this.telegram_bool = false;
@@ -872,5 +873,77 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
           this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error');
         }
       );
+  }
+
+  onCheckboxChange(e, type) {
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (e.target.checked) {
+      if (type == 'SOUND') {
+
+        console.log(this.CHECK_SOUND)
+        localStorage.setItem('user', JSON.stringify({
+          username: user.username,
+          token: user.token,
+          email: user.email,
+          sound: "1"
+        }))
+        this.changeNotification("SOUND", "1").subscribe((response: any) => {
+            this.CHECK_SOUND = true;
+            this.toast(
+              'Great',
+              '👋 You turned on Sound notifications',
+              'success'
+            );
+          },
+          (err) => {
+            this.CHECK_SOUND = false;
+            console.log(err);
+            //this.playAudio('assets/sounds/windows_warning.wav');
+            this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error');
+          }
+        );
+
+      }
+    } else {
+      if (type == 'SOUND') {
+        this.CHECK_SOUND = false;
+        console.log(this.CHECK_SOUND)
+        localStorage.setItem('user', JSON.stringify({
+          username: user.username,
+          token: user.token,
+          email: user.email,
+          sound: "0"
+        }))
+        this.changeNotification("SOUND", "0").subscribe((response: any) => {
+            this.CHECK_SOUND = false;
+            this.toast(
+              'Great',
+              '👋 You have turned off Sound notifications',
+              'success'
+            );
+          },
+          (err) => {
+            this.CHECK_SOUND = false;
+            console.log(err);
+            //this.playAudio('assets/sounds/windows_warning.wav');
+            this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error');
+          }
+        );
+
+      }
+
+    }
+
+  }
+
+  private changeNotification(action, status) {
+    let user = JSON.parse(localStorage.getItem('user'));
+    return this.fb.changeNotification(user.token, user.username, {
+      action: action,
+      status: status,
+
+    })
+
   }
 }

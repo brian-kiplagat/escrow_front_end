@@ -105,13 +105,12 @@ export class AuthLoginV2Component implements OnInit {
         else {
 
           if (response.responseMessage.status == 1) {//Active account
-            const data = {
+            localStorage.setItem('user', JSON.stringify({
               username: response.responseMessage.username,
               token: response.responseMessage.token,
               email: response.responseMessage.email,
-              sound: response.responseMessage.sound
-            }
-            localStorage.setItem('user', JSON.stringify(data))
+              sound: response.responseMessage.sound.toString()
+            }))
             //Was from offer page
             if (this.offer == null) {
               this._router.navigate(['dashboard/overview'])

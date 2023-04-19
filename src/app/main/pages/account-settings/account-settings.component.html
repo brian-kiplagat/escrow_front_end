@@ -1110,8 +1110,9 @@
                           <input
                             type="checkbox"
                             class="custom-control-input"
-                            [checked]="true"
+                            [checked]="CHECK_SOUND"
                             id="accountSwitch10"
+                            (change)="onCheckboxChange($event,'SOUND')"
                           />
                           <label
                             class="custom-control-label"

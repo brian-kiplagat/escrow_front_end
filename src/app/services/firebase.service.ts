@@ -94,7 +94,7 @@ export class FirebaseService {
   }
 
   //create new user then login
-  registration(email: string, password: string,referral:string) {
+  registration(email: string, password: string, referral: string) {
     const requestOptions = {
       headers: new HttpHeaders(this.headerDict)
     };
@@ -103,7 +103,7 @@ export class FirebaseService {
       {
         email: email,
         password: password,
-        referral:referral
+        referral: referral
       },
       requestOptions
     );
@@ -365,12 +365,12 @@ export class FirebaseService {
     return this.firestore
       .collection('trades')
       .doc(docId.toString())
-      .collection('chats', (ref) => ref.orderBy('time','asc'))
+      .collection('chats', (ref) => ref.orderBy('time', 'asc'))
       .valueChanges();
   }
 
 //retrieve firebase notifications
-  retrieveNotifications(email: string, username: string,) {
+  retrieveNotifications(username: string,) {
 
     return this.firestore
       .collection('notifications', (ref) => ref.where('username', '==', username).orderBy('timestamp', 'desc').limit(10))
@@ -404,6 +404,7 @@ export class FirebaseService {
       })
     });
   }
+
   // reopen Trade
   reopenTrade(token: string, username: string, formData: any) {
     return this.http.post(`${environment.endpoint}/reopenTrade`, formData, {
@@ -415,6 +416,7 @@ export class FirebaseService {
       })
     });
   }
+
   // quick offer edit
   quickEdit(token: string, username: string, formData: any) {
     return this.http.post(`${environment.endpoint}/offer/quickEdit`, formData, {
@@ -438,6 +440,7 @@ export class FirebaseService {
       })
     });
   }
+
   // Set Whitelist
   setWhitelist(token: string, username: string, formData: any) {
     return this.http.post(`${environment.endpoint}/setWhitelist`, formData, {
@@ -565,6 +568,17 @@ export class FirebaseService {
         })
       }
     );
+  }
+
+  changeNotification(token, username, formData: any) {
+    return this.http.post(`${environment.endpoint}/changeNotification`, formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
   }
 
   confirmMail(formData: any) {

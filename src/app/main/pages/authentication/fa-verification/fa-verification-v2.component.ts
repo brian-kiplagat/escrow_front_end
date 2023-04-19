@@ -97,7 +97,8 @@ export class FaVerificationV2Component implements OnInit {
             const data = {
               username: response.responseMessage.username,
               token: response.responseMessage.token,
-              email: response.responseMessage.email
+              email: response.responseMessage.email,
+              sound: response.responseMessage.sound.toString()
             }
             localStorage.setItem('user', JSON.stringify(data))
             this.router.navigate(['dashboard/overview'])
