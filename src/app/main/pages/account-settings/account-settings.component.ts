@@ -66,6 +66,8 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any>;
   private base64Output: string;
   private curr: any;
+  public CHECK_SOUND: boolean;
+  public CHECK_EMAIL: boolean;
 
   /**
    * Constructor
@@ -333,6 +335,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
+
   /**
    * On init
    */
@@ -344,7 +347,8 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         this.currentUser = data.responseMessage?.user_data[0];
         this.avatarImage = this.currentUser.profile_link;
         this.tg_identifier = this.currentUser.tg_hash_identifier;
-
+        this.CHECK_SOUND = this.currentUser.sound
+        this.CHECK_EMAIL = this.currentUser.mail_notification
         if (this.currentUser.tg_id == 'NA') {
           this.telegram_bool = false;
         } else {
@@ -879,6 +883,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     if (e.target.checked) {
       if (type == 'SOUND') {
         this.changeNotification("SOUND", "1").subscribe((response: any) => {
+            this.CHECK_SOUND = true;
             localStorage.setItem('user', JSON.stringify({
               username: user.username,
               token: user.token,
@@ -887,7 +892,23 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             }))
             this.toast(
               'Great',
-              '👋 You turned on Sound notifications',
+              '🔊 You turned on Sound notifications',
+              'success'
+            );
+          },
+          (err) => {
+            console.log(err);
+            this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error');
+          }
+        );
+
+      }
+      if (type == 'EMAIL') {
+        this.changeNotification("EMAIL", "1").subscribe((response: any) => {
+            this.CHECK_EMAIL = true;
+            this.toast(
+              'Great',
+              '📧 You turned on Email Notifications.',
               'success'
             );
           },
@@ -901,6 +922,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     } else {
       if (type == 'SOUND') {
         this.changeNotification("SOUND", "0").subscribe((response: any) => {
+            this.CHECK_SOUND = false;
             localStorage.setItem('user', JSON.stringify({
               username: user.username,
               token: user.token,
@@ -908,8 +930,30 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
               sound: "0"
             }))
             this.toast(
-              'Great',
-              '👋 You have turned off Sound notifications',
+              'Done',
+              '🔊 You have turned off Sound notifications',
+              'success'
+            );
+          },
+          (err) => {
+            console.log(err);
+            this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error');
+          }
+        );
+
+      }
+      if (type == 'EMAIL') {
+        this.changeNotification("EMAIL", "0").subscribe((response: any) => {
+            this.CHECK_EMAIL = false;
+            localStorage.setItem('user', JSON.stringify({
+              username: user.username,
+              token: user.token,
+              email: user.email,
+              sound: "0"
+            }))
+            this.toast(
+              'Done',
+              '📧 You have turned off your Mail notifications',
               'success'
             );
           },
