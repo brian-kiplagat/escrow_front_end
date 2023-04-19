@@ -66,7 +66,6 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any>;
   private base64Output: string;
   private curr: any;
-  private CHECK_SOUND: boolean;
 
   /**
    * Constructor
@@ -345,7 +344,6 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         this.currentUser = data.responseMessage?.user_data[0];
         this.avatarImage = this.currentUser.profile_link;
         this.tg_identifier = this.currentUser.tg_hash_identifier;
-        this.CHECK_SOUND = this.currentUser.sound
 
         if (this.currentUser.tg_id == 'NA') {
           this.telegram_bool = false;
@@ -880,16 +878,13 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     let user = JSON.parse(localStorage.getItem('user'));
     if (e.target.checked) {
       if (type == 'SOUND') {
-
-        console.log(this.CHECK_SOUND)
-        localStorage.setItem('user', JSON.stringify({
-          username: user.username,
-          token: user.token,
-          email: user.email,
-          sound: "1"
-        }))
         this.changeNotification("SOUND", "1").subscribe((response: any) => {
-            this.CHECK_SOUND = true;
+            localStorage.setItem('user', JSON.stringify({
+              username: user.username,
+              token: user.token,
+              email: user.email,
+              sound: "1"
+            }))
             this.toast(
               'Great',
               '👋 You turned on Sound notifications',
@@ -897,9 +892,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             );
           },
           (err) => {
-            this.CHECK_SOUND = false;
             console.log(err);
-            //this.playAudio('assets/sounds/windows_warning.wav');
             this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error');
           }
         );
@@ -907,16 +900,13 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       }
     } else {
       if (type == 'SOUND') {
-        this.CHECK_SOUND = false;
-        console.log(this.CHECK_SOUND)
-        localStorage.setItem('user', JSON.stringify({
-          username: user.username,
-          token: user.token,
-          email: user.email,
-          sound: "0"
-        }))
         this.changeNotification("SOUND", "0").subscribe((response: any) => {
-            this.CHECK_SOUND = false;
+            localStorage.setItem('user', JSON.stringify({
+              username: user.username,
+              token: user.token,
+              email: user.email,
+              sound: "0"
+            }))
             this.toast(
               'Great',
               '👋 You have turned off Sound notifications',
@@ -924,9 +914,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             );
           },
           (err) => {
-            this.CHECK_SOUND = false;
             console.log(err);
-            //this.playAudio('assets/sounds/windows_warning.wav');
             this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error');
           }
         );
