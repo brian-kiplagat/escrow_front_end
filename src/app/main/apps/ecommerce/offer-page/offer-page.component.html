@@ -79,19 +79,6 @@
                                                                 >This field is required!</small
                                                                 >
                                                             </span>
-                              <span
-                                *ngIf="
-                                                                    f.amount.value <=
-                                                                        offer.minimum &&
-                                                                    f.amount.touched
-                                                                "
-                                class="invalid-form"
-                              >
-                                                                <small class="form-text text-danger"
-                                                                >value must be between offer
-                                                                    maximum and offer minimum</small
-                                                                >
-                                                            </span>
 
                               <!--/ Select Multi with group -->
                             </div>
@@ -110,19 +97,7 @@
                                 placeholder="Amount"
                                 [class.error]="submitted" formControlName="amounttoreceive"
                               />
-                              <span
-                                *ngIf="submitted && f.amounttoreceive.errors"
-                                class="invalid-form"
-                              >
-                                                                <small
-                                                                  class="form-text text-danger"
-                                                                  *ngIf="
-                                                                        f.amounttoreceive.errors
-                                                                            .required
-                                                                    "
-                                                                >This field is required!</small
-                                                                >
-                                                            </span>
+
                               <!--/ Select Multi with group -->
                             </div>
                           </div>
@@ -149,7 +124,8 @@
                               <br>
                               <ngb-alert [type]="'primary'" [dismissible]="false" >
                                 <div class="alert-body">
-                                  This will secure an escrow and Reserve Bitcoins for your trade
+                                  This will secure Bitcoins in Escrow and start live trade chat with {{offer.username}}
+                                   for your trade
                                 </div>
                               </ngb-alert>
                             </div>

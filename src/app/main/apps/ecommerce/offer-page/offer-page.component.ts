@@ -95,11 +95,11 @@ export class OfferPageComponent implements OnInit {
       const arr = formatted_tags.slice(1, -1)
       this.tags = arr.split(',')
       if (data.responseMessage.data.status != 1) {
-        this.err = 'This offer is turned off at the moment. Try other offers'
+        this.err = 'This Offer is not active anymore because it was turned off by the owner. Please browse for other '+this.offer.method+' offers'
         this._fb.playAudio('assets/sounds/windows_warning.wav')
       }
       if (data.responseMessage.data.deauth == 1) {
-        this.err = 'This offer is turned off by a moderator due to a terms of service violation. Try other offers'
+        this.err = 'This offer is turned off by a moderator due to a terms of service violation.  Please browse for other offers'
         this._fb.playAudio('assets/sounds/windows_warning.wav')
       }
     }, error => {
