@@ -177,7 +177,7 @@
               <hr/>
               <!--TRADER INFO -->
               <div class="product-color-options">
-                <h6>About this <span *ngIf="offer.type=='buy'">Sell</span> <span *ngIf="offer.type=='sell'">Buy</span>er
+                <h6>About this {{offer.type | titlecase}}er
                 </h6>
 
                 <ul class="product-features list-unstyled">
