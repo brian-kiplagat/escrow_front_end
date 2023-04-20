@@ -56,7 +56,6 @@ export class NavbarNotificationComponent implements OnInit {
   }
 
 
-
   mark_read() {
     this.notifications.filter(obj => {
       if (obj.read == false) {
