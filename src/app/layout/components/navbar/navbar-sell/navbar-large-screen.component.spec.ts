@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavbarSellComponent } from './navbar-sell.component';
+import { NavbarLargeScreenComponent } from './navbar-large-screen.component';
 
 describe('NavbarSellComponent', () => {
-  let component: NavbarSellComponent;
-  let fixture: ComponentFixture<NavbarSellComponent>;
+  let component: NavbarLargeScreenComponent;
+  let fixture: ComponentFixture<NavbarLargeScreenComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarSellComponent ]
+      declarations: [ NavbarLargeScreenComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavbarSellComponent);
+    fixture = TestBed.createComponent(NavbarLargeScreenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -90,18 +90,18 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       if (this.mmss == "00:00") {
         clearInterval(interval);
         this.mmss = '00:00'
-        this.playAudio('assets/sounds/windows_warning.wav')
+        this.fb.playAudio('assets/sounds/windows_warning.wav')
 
       }
       //The trade has 5 minutes remaining
       if (this.mmss == "05:00") {
         this.showDialog('You have 5 minutes remaining. This trade will expire soon and the trade will be automatically cancelled. If you have not sent the money please be quick, send the money and confirm it by clicking the PAID button')
-        this.playAudio('assets/sounds/tirit.wav')
+        this.fb.playAudio('assets/sounds/tirit.wav')
       }
       //The trade has 2 minutes remaining
       if (this.mmss == "02:00") {
         this.showDialog('You have 2 minutes remaining. If you have sent the money please confirm it by clicking the PAID button otherwise the trade will be automatically cancelled and the crypto returned to the seller')
-        this.playAudio('assets/sounds/tirit.wav')
+        this.fb.playAudio('assets/sounds/tirit.wav')
       }
 
     }, 1000);
@@ -172,14 +172,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   /**
    * On init
    */
-
-
-
-  playAudio(path) {
-
-    this.notification.playAudio(path)
-
-  }
 
 
   private toast(title: string, message: string, type: string) {
@@ -256,29 +248,29 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
             console.log(response);
             if (!response.ok) {
               this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')
-              this.playAudio('assets/sounds/windows_warning.wav')
+              this.fb.playAudio('assets/sounds/windows_warning.wav')
               return
               //throw new Error(response.statusText);
             } else {
               this.trade.status = "PAID"
               this.toast('Great', '👋 You just confirmed your payment. Its now the sellers turn to send the Bitcoin', 'success')
-              this.playAudio('assets/sounds/tirit.wav')
+              this.fb.playAudio('assets/sounds/tirit.wav')
 
             }
           }).catch((error) => {
-            this.playAudio('assets/sounds/windows_warning.wav')
+            this.fb.playAudio('assets/sounds/windows_warning.wav')
             this.toast('Ops', '👋 An error happened try again', 'error')
           })
         }
       });
     } else {
-      this.playAudio('assets/sounds/windows_warning.wav')
+      this.fb.playAudio('assets/sounds/windows_warning.wav')
       this.toast('INVALID', 'You cant do that', 'error')
     }
   }
 
   cancel_trade(id: any) {
-    this.playAudio('assets/sounds/windows_warning.wav')
+    this.fb.playAudio('assets/sounds/windows_warning.wav')
     if (this.trade.buyer == this.storage.email) {
       Swal.fire({
         title: ' <h5>Hey Wait!</h5>',
@@ -322,7 +314,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
             } else {
               this.trade.status = "CANCELLED_BUYER"
               this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
-              this.playAudio('assets/sounds/turumturum.wav')
+              this.fb.playAudio('assets/sounds/turumturum.wav')
 
             }
           }).catch((error) => {
@@ -361,7 +353,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         if (result.status == true) {
           this.trade.status = "SUCCESSFUL"
           this.toast('Congratulations', '👋 You just sold BTC. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
-          this.playAudio('assets/sounds/turumturum.wav')
+          this.fb.playAudio('assets/sounds/turumturum.wav')
         } else {
           this.toast('Failed', '👋 ' + result.responseMessage, 'error')
           return
@@ -467,7 +459,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   open_dispute(id) {
-    this.playAudio('assets/sounds/windows_warning.wav')
+    this.fb.playAudio('assets/sounds/windows_warning.wav')
     Swal.mixin({
       input: 'text',
       confirmButtonText: 'Next &rarr;',
@@ -553,10 +545,10 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
               if (result.status == true) {
                 console.log(result.responseMessage)
                 this.trade.status = "OPENED"
-                this.playAudio('assets/sounds/turumturum.wav')
+                this.fb.playAudio('assets/sounds/turumturum.wav')
               } else {
                 this.reopenErr = result.responseMessage
-                this.playAudio('assets/sounds/windows_warning.wav')
+                this.fb.playAudio('assets/sounds/windows_warning.wav')
                 return
               }
             })
@@ -568,7 +560,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         }
       });
     } else {
-      this.playAudio('assets/sounds/windows_warning.wav')
+      this.fb.playAudio('assets/sounds/windows_warning.wav')
       this.toast('INVALID', 'Only the seller can reopen a trade', 'error')
     }
 
@@ -609,11 +601,11 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         if (result.status == true) {
           this.feed_success = result.responseMessage
           this.feed_error = null
-          //this.playAudio('assets/sounds/turumturum.wav')
+          this.fb.playAudio('assets/sounds/turumturum.wav')
         } else {
           this.feed_error = result.responseMessage
           this.feed_success = null
-          //this.playAudio('assets/sounds/windows_warning.wav')
+          this.fb.playAudio('assets/sounds/windows_warning.wav')
           return
         }
       })

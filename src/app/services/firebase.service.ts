@@ -632,4 +632,18 @@ export class FirebaseService {
       })
     });
   }
+
+  playAudio(path) {
+    //console.log('Sound Invoked')
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (user.sound === "1") {
+      console.log('Playing Sound', path)
+      let audio = new Audio();
+      audio.src = path;
+      audio.load();
+      audio.play();
+    }
+
+  }
+
 }

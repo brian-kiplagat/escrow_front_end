@@ -30,11 +30,11 @@
         <!-- EXPIRE -->
         <div class="design-group mb-2 pt-50" *ngIf="trade.status == 'OPENED'">
           <h6 class="section-label">Expires in:</h6>
-          <div (click)="playAudio('/assets/sounds/tirit.wav')" class="badge badge-light-danger mr-1"
+          <div (click)="fb.playAudio('/assets/sounds/tirit.wav')" class="badge badge-light-danger mr-1"
                ngbTooltip="You have this amount of time left to send the money and click I'VE PAID to confirm the payment"
                placement="right" *ngIf="trade.buyer == storage.email"><span><i data-feather="clock"></i> {{mmss}}</span>
           </div>
-          <div (click)="playAudio('/assets/sounds/tirit.wav')" class="badge badge-light-danger mr-1"
+          <div (click)="fb.playAudio('/assets/sounds/tirit.wav')" class="badge badge-light-danger mr-1"
                ngbTooltip="If the buyer doesn't Pay within this time, the trade expires and the Crypto is returned to you"
                placement="right" *ngIf="trade.seller == storage.email"><span><i
             data-feather="clock"></i> {{mmss}}</span>

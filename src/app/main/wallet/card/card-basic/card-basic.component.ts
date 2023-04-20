@@ -108,14 +108,14 @@ export class CardBasicComponent implements OnInit {
       this.error = false;
       this.loading = false
       this.message = 'You sent ' + amount + ' ' + this.currency_mode + ' to ' + address
-      this.playAudio('assets/sounds/tirit.wav')
+      this.fb.playAudio('assets/sounds/tirit.wav')
     }, (err) => {
       this.error = true;
       this.success = false;
       this.loading = false
       this.message = err.error.responseMessage
       console.log(err)
-      this.playAudio('assets/sounds/windows_warning.wav')
+      this.fb.playAudio('assets/sounds/windows_warning.wav')
       this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error')
 
 
@@ -125,12 +125,6 @@ export class CardBasicComponent implements OnInit {
 
   }
 
-  playAudio(path) {
-    let audio = new Audio();
-    audio.src = path;
-    audio.load();
-    audio.play();
-  }
 
   private toast(title: string, message: string, type: string) {
     if (type == 'success') {

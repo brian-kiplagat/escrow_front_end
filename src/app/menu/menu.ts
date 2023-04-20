@@ -43,6 +43,14 @@ export const menu: CoreMenu[] = [
     translate: 'MENU.APPS.SECTION',
     icon: 'pocket',
     url: "wallet/main"
+  },
+  {
+    id: 'apps_5',
+    type: 'item',
+    title: 'Statistics',
+    translate: 'MENU.APPS.SECTION',
+    icon: 'user-x',
+    url: "wallet/"
   }
 
 

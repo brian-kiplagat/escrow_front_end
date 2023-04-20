@@ -5,10 +5,10 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar-sell',
-  templateUrl: './navbar-sell.component.html',
-  styleUrls: ['./navbar-sell.component.scss']
+  templateUrl: './navbar-large-screen.component.html',
+  styleUrls: ['./navbar-large-screen.component.scss']
 })
-export class NavbarSellComponent implements OnInit {
+export class NavbarLargeScreenComponent implements OnInit {
 
  // Public
  public bookmarkText = '';

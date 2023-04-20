@@ -37,13 +37,13 @@ export class NavbarNotificationComponent implements OnInit {
       this.notifications = data;
       console.log('New notification received:', data[0]);
       if (this.notifications[0].read == false) {
-        this.playAudio('assets/sounds/turumturum.wav')
+        this.fb.playAudio('assets/sounds/turumturum.wav')
         if (this.notifications[0].heading == 'Escrow funded') {
-          this.playAudio('assets/sounds/turumturum.wav')
+          this.fb.playAudio('assets/sounds/turumturum.wav')
         } else if (this.notifications[0].heading == 'New Login') {
-          this.playAudio('assets/sounds/windows_warning.wav')
+          this.fb.playAudio('assets/sounds/windows_warning.wav')
         } else if (this.notifications[0].heading == 'New Trade message') {
-          this.playAudio('assets/sounds/tirit.wav')
+          this.fb.playAudio('assets/sounds/tirit.wav')
         }
       }
       this.count = this.notifications.filter(obj => obj.read == false).length
@@ -55,17 +55,7 @@ export class NavbarNotificationComponent implements OnInit {
 
   }
 
-  playAudio(path) {
-    let user = JSON.parse(localStorage.getItem('user'));
-    if (user.sound === "1") {
-      console.log('Playing Sound', path)
-      //let audio = new Audio();
-      //audio.src = path;
-      //audio.load();
-      //audio.play();
-    }
 
-  }
 
   mark_read() {
     this.notifications.filter(obj => {

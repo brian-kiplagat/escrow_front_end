@@ -96,12 +96,14 @@ export class OfferPageComponent implements OnInit {
       this.tags = arr.split(',')
       if (data.responseMessage.data.status != 1) {
         this.err = 'This offer is turned off at the moment. Try other offers'
+        this._fb.playAudio('assets/sounds/windows_warning.wav')
       }
       if (data.responseMessage.data.deauth == 1) {
-        this.err = 'This offer is deauthorized by a moderator due to a terms of service violation. Try other offers'
+        this.err = 'This offer is turned off by a moderator due to a terms of service violation. Try other offers'
+        this._fb.playAudio('assets/sounds/windows_warning.wav')
       }
     },error => {
-      //this.playAudio('assets/sounds/windows_warning.wav')
+      this._fb.playAudio('assets/sounds/windows_warning.wav')
       this.err = error.error.responseMessage
     });
     this.form = this._formBuilder.group({
@@ -130,12 +132,12 @@ export class OfferPageComponent implements OnInit {
       //formulate request body
       this._fb.openTrade(user.username, user.token, body).subscribe(
         (data: any) => {
-          this.playAudio('assets/sounds/windows_warning.wav')
+          this._fb.playAudio('assets/sounds/windows_warning.wav')
           this.router.navigate(['/offers/chat/room/' + data.responseMessage.trade_id])
         },
         (error) => {
           console.log(error);
-          this.playAudio('assets/sounds/windows_warning.wav')
+          this._fb.playAudio('assets/sounds/windows_warning.wav')
           this.err = error.error.responseMessage
         }
       );
@@ -143,13 +145,6 @@ export class OfferPageComponent implements OnInit {
     }
 
 
-  }
-
-  playAudio(path) {
-    let audio = new Audio();
-    audio.src = path;
-    audio.load();
-    audio.play();
   }
 
   onChangeEvent(event: any) {
