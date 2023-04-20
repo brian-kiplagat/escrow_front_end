@@ -102,7 +102,7 @@ export class OfferPageComponent implements OnInit {
         this.err = 'This offer is turned off by a moderator due to a terms of service violation. Try other offers'
         this._fb.playAudio('assets/sounds/windows_warning.wav')
       }
-    },error => {
+    }, error => {
       this._fb.playAudio('assets/sounds/windows_warning.wav')
       this.err = error.error.responseMessage
     });
@@ -156,6 +156,16 @@ export class OfferPageComponent implements OnInit {
       amounttoreceive: this.btc + ' BTC'
     });
 
+
+  }
+
+  share(offer_id) {
+    navigator.share({
+      title: 'Trade BTC with ' + this.offer.offer_username + ' by ' + this.offer.method + ' | CoinPes',
+      url: 'https://coinpes.com/offers/bitcoin/details/' + offer_id
+    }).then(r => {
+      console.error('Shared success:')
+    }).catch((error) => console.error('Error sharing:', error));
 
   }
 }

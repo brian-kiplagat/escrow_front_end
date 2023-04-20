@@ -204,29 +204,41 @@
                 <ul class="product-features list-unstyled">
                   <li>
                     <i
-                      data-feather="check"
-                      *ngIf="offer.user_data?.id_verified"
+                      class="font-medium-3 fa"
+                      [ngClass]="{
+                          'fa-check text-success': offer.user_data?.id_verified == true,
+                          'fa-times  text-danger': offer.user_data?.id_verified != true
+                        }"
                     ></i>
                     <span>ID Verified</span>
                   </li>
                   <li>
                     <i
-                      data-feather="check"
-                      *ngIf="offer.user_data?.phone_verified"
+                      class="font-medium-3 fa"
+                      [ngClass]="{
+                          'fa-check text-success': offer.user_data?.phone_verified == true,
+                          'fa-times  text-danger': offer.user_data?.phone_verified != true
+                        }"
                     ></i>
                     <span>Phone Verified</span>
                   </li>
                   <li>
                     <i
-                      data-feather="check"
-                      *ngIf="offer.user_data?.email_verified"
+                      class="font-medium-3 fa"
+                      [ngClass]="{
+                          'fa-check text-success': offer.user_data?.email_verified == true,
+                          'fa-times  text-danger': offer.user_data?.email_verified != true
+                        }"
                     ></i>
                     <span>Email Verified</span>
                   </li>
                   <li>
                     <i
-                      data-feather="check"
-                      *ngIf="offer.user_data?.address_verified"
+                      class="font-medium-3 fa"
+                      [ngClass]="{
+                          'fa-check text-success': offer.user_data?.address_verified == true,
+                          'fa-times  text-danger': offer.user_data?.address_verified != true
+                        }"
                     ></i>
                     <span>Address Verified</span>
                   </li>
@@ -234,16 +246,16 @@
               </div>
 
               <div class="ecommerce-details-price d-flex flex-wrap mt-1">
-                <h4 class="item-price mr-1">30</h4>
+                <h4 class="item-price mr-1">{{ offer.user_data?.positive_feedback}}</h4>
                 <div class="rating rating-sm pl-1 border-left mb-1">
-                  <span [data-feather]="'thumbs-up'" [class]="'mr-25'"></span>
+                  <span [data-feather]="'thumbs-up'" [class]="'mr-25  text-success'"></span>
                 </div>
               </div>
               <hr/>
               <div class="ecommerce-details-price d-flex flex-wrap mt-1">
-                <h4 class="item-price mr-1">0</h4>
+                <h4 class="item-price mr-1">{{ offer.user_data?.negative_feedback}}</h4>
                 <div class="rating rating-sm pl-1 border-left mb-1">
-                  <span [data-feather]="'thumbs-down'" [class]="'mr-25'"></span>
+                  <span [data-feather]="'thumbs-down'" [class]="'mr-25  text-danger'"></span>
                 </div>
               </div>
               <!--TRADER INFO -->
@@ -266,6 +278,7 @@
                 </a>
                 <div class="btn-group dropdown-icon-wrapper btn-share" ngbDropdown>
                   <button
+                    (click)="share(offer_id)"
                     ngbDropdownToggle
                     type="button"
                     class="btn btn-icon hide-arrow btn-outline-secondary"
