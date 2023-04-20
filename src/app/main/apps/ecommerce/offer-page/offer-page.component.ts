@@ -173,7 +173,7 @@ export class OfferPageComponent implements OnInit {
 
   }
 
-  report(offer_id) {
+  report(offer_id,reason) {
 
   }
 }

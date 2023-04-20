@@ -249,7 +249,6 @@
 
                 <div class="btn-group dropdown-icon-wrapper btn-share" ngbDropdown>
                   <a ngbDropdownToggle
-                    (click)="report(offer_id)"
                     class="btn btn-outline-secondary btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0"
                     rippleEffect
                   >
@@ -261,12 +260,12 @@
                   </a>
 
                   <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a ngbDropdownItem href="javascript:void(0)">
+                    <a (click)="report(offer_id,'SCAM_OFFER')" ngbDropdownItem href="javascript:void(0)">
                       <i class="fa mr-50 " [ngClass]="'fa-exclamation-triangle text-danger'"
                       ></i>
                       This offer is a scam
                     </a>
-                    <a ngbDropdownItem href="javascript:void(0)">
+                    <a (click)="report(offer_id,'ILLOGICAL_RATE')" ngbDropdownItem href="javascript:void(0)">
                       <i class="fa mr-50"  [ngClass]="'fa-exclamation-triangle text-danger'"
                       ></i>
                       This rate is illogical
