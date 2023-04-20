@@ -27,6 +27,7 @@ import {locale as menuEnglish} from 'app/menu/i18n/en';
 import {locale as menuFrench} from 'app/menu/i18n/fr';
 import {locale as menuGerman} from 'app/menu/i18n/de';
 import {locale as menuPortuguese} from 'app/menu/i18n/pt';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-chat',
@@ -121,7 +122,27 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       },
       (error) => {
         console.log(error);
-        this.router.navigate(['dashboard/overview']);
+        Swal.fire({
+          title: ' <h5>Ops</h5>',
+          html: '<p class="card-text font-small-3">' + error.error.responseMessage + '</p>',
+          icon: 'warning',
+          showCancelButton: false,
+          confirmButtonColor: '#2746e4',
+          confirmButtonText:
+            'OK THANKS',
+          customClass: {
+            confirmButton: 'btn btn-primary'
+          }
+        }).then(result => {
+          console.log(result)
+          if (result.isConfirmed == true) {
+            this.router.navigate(['dashboard/overview']);
+          }
+          if (result.isDismissed == true) {
+            this.router.navigate(['dashboard/overview']);
+          }
+        })
+        //
       }
     );
 

@@ -56,10 +56,10 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     this.options = this.toastr.toastrConfig;
   }
 
-  showDialog(message) {
+  showDialog(message, title) {
     Swal.fire({
-      title: ' <h5>Time is running Out!</h5>',
-      html: ' <p class="card-text font-small-3">This trade is about to expire</p><p class="card-text font-small-3">' + message + '</p>',
+      title: ' <h5>' + title + '</h5>',
+      html: '<p class="card-text font-small-3">' + message + '</p>',
       icon: 'warning',
       showCancelButton: false,
       confirmButtonColor: '#2746e4',
@@ -72,6 +72,11 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
+    if (this.trade == null) {
+      this.showDialog('We could not get this trade', 'Trade not found')
+
+    }
     //Get the future date of expiry
     //Get the current time
     //Count down the difference
@@ -91,12 +96,12 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       }
       //The trade has 5 minutes remaining
       if (this.mmss == "05:00") {
-        this.showDialog('You have 5 minutes remaining. This trade will expire soon and the trade will be automatically cancelled. If you have not sent the money please be quick, send the money and confirm it by clicking the PAID button')
+        this.showDialog('You have 5 minutes remaining. This trade will expire soon and the trade will be automatically cancelled. If you have not sent the money please be quick, send the money and confirm it by clicking the PAID button', 'Trade about to expire')
         this.fb.playAudio('assets/sounds/tirit.wav')
       }
       //The trade has 2 minutes remaining
       if (this.mmss == "02:00") {
-        this.showDialog('You have 2 minutes remaining. If you have sent the money please confirm it by clicking the PAID button otherwise the trade will be automatically cancelled and the crypto returned to the seller')
+        this.showDialog('You have 2 minutes remaining. If you have sent the money please confirm it by clicking the PAID button otherwise the trade will be automatically cancelled and the crypto returned to the seller', 'Time is running out')
         this.fb.playAudio('assets/sounds/tirit.wav')
       }
 
