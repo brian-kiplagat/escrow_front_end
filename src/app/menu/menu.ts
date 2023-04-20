@@ -45,12 +45,12 @@ export const menu: CoreMenu[] = [
     url: "wallet/main"
   },
   {
-    id: 'apps_5',
+    id: 'apps_6',
     type: 'item',
     title: 'Statistics',
     translate: 'MENU.APPS.SECTION',
     icon: 'user-x',
-    url: "wallet/"
+    url: "dashboard/m_overview"
   }
 
 
