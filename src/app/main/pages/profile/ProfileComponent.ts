@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public msg;
   public success = false;
   public error = false;
+  public prev_trades;
   // private
   private _unsubscribeAll: Subject<any>;
 
@@ -87,6 +88,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.has_blocked = data.responseMessage?.has_blocked.length;
       this.blocked_by = data.responseMessage?.blocked_by.length;
       this.feeds = data.responseMessage?.feedback;
+      this.prev_trades = data.responseMessage?.previous_trades;
+
       console.log(this.feeds);
     }, (error) => {
       console.log(error);

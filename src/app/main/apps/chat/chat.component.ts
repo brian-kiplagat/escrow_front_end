@@ -121,7 +121,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
       },
       (error) => {
-        console.log(error);
+       // console.log(error);
         Swal.fire({
           title: ' <h5>Ops</h5>',
           html: '<p class="card-text font-small-3">' + error.error.responseMessage + '</p>',
