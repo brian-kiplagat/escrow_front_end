@@ -84,7 +84,8 @@
                           <ng-template #modalSelect let-modal>
                             <div class="modal-header">
                               <h4 class="modal-title" id="myModalLabel1">Choose a currency</h4>
-                              <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                              <button type="button" class="close" (click)="modal.dismiss('Cross click')"
+                                      aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
@@ -126,7 +127,8 @@
                               </ng-select>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+                              <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')"
+                                      rippleEffect>
                                 Accept
                               </button>
                             </div>
@@ -144,8 +146,9 @@
                       (click)="filterOffers()"
                       rippleEffect
                     >
-                                            <span [data-feather]="'search'" [class]="'mr-25'"></span
-                                            >FIND OFFERS
+                      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                      <span [data-feather]="'search'" [class]="'mr-25'"></span>FIND OFFERS
+
                     </button>
                   </div>
                 </div>
@@ -169,7 +172,7 @@
   ></app-ecommerce-item>
 </section> -->
       <div class="d-flex justify-content-center kb-search-content">
-        <div class="card" *ngIf = "offers.length <=0">
+        <div class="card" *ngIf="offers.length <=0">
           <a>
             <img src="/assets/images/pages/coming-soon.svg" class="card-img-top" alt="knowledge-base-image"/>
             <div class="card-body text-center">

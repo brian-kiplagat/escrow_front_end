@@ -119,12 +119,15 @@
                             <!--LOGGED IN -->
                             <div *ngIf = "logged == true">
                               <a type="button" class="btn btn-primary btn-block" (click)="openTrade(form)" rippleEffect>
-                              <span  [data-feather]="'check-circle'"
-                                     [class]="'mr-25 text-capitalize'"></span>OPEN TRADE</a>
+
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                OPEN TRADE
+
+                              </a>
                               <br>
                               <ngb-alert [type]="'primary'" [dismissible]="false" >
                                 <div class="alert-body">
-                                  This will secure Bitcoins in Escrow and start live trade chat with {{offer.username}}
+                                  This will secure Bitcoins in Escrow and start live trade chat with {{offer.offer_username}}
                                    for your trade
                                 </div>
                               </ngb-alert>

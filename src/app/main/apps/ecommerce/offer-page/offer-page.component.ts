@@ -30,7 +30,7 @@ export class OfferPageComponent implements OnInit {
   public price;
   public btc;
   public productIdFromRoute: string;
-
+  public loading: boolean = false;
   /**
    * Constructor
    *
@@ -69,6 +69,7 @@ export class OfferPageComponent implements OnInit {
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
+
 
 
   /**
@@ -120,6 +121,7 @@ export class OfferPageComponent implements OnInit {
     let user = JSON.parse(localStorage.getItem('user'));
     this.submitted = true;
     if (form.valid) {
+      this.loading = true
       const body = {
         "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
         "email": user.email,
@@ -132,10 +134,12 @@ export class OfferPageComponent implements OnInit {
       //formulate request body
       this._fb.openTrade(user.username, user.token, body).subscribe(
         (data: any) => {
+          this.loading = false
           this._fb.playAudio('assets/sounds/windows_warning.wav')
           this.router.navigate(['/offers/chat/room/' + data.responseMessage.trade_id])
         },
         (error) => {
+          this.loading = false
           console.log(error);
           this._fb.playAudio('assets/sounds/windows_warning.wav')
           this.err = error.error.responseMessage

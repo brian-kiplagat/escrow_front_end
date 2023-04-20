@@ -41,7 +41,7 @@ export class MarketSellComponent implements OnInit {
   public query = 'none'
   public query_method = 'none';
   public search_msg: string;
-
+  public loading: boolean =  false;
   /**
    *
    * @param {CoreSidebarService} _coreSidebarService
@@ -177,12 +177,14 @@ export class MarketSellComponent implements OnInit {
   }
 
   //filter offers by searching against API
+
   filterOffers() {
     let user = JSON.parse(localStorage.getItem('user'))
     let amount = (<HTMLInputElement>document.getElementById("search_amount")).value;
     if (amount == null || amount == '') {
       amount = 'none'
     }
+    this.loading = true
     this._fb.filterOffers(user.token, user.username, {
       "type": "buy",
       "method": this.query_method,
@@ -190,11 +192,14 @@ export class MarketSellComponent implements OnInit {
       "currency": this.query
 
     }).subscribe((data: any) => {
-      //console.log(data.responseMessage)
+
       this.offers = data.responseMessage.offers
       this.search_msg = data.responseMessage.message
+      this.loading = false
 
-
+    },error => {
+      this.loading = false
+      console.log(error.error)
     })
 
   }
