@@ -31,6 +31,7 @@ export class OfferPageComponent implements OnInit {
   public btc;
   public productIdFromRoute: string;
   public loading: boolean = false;
+
   /**
    * Constructor
    *
@@ -71,7 +72,6 @@ export class OfferPageComponent implements OnInit {
   // -----------------------------------------------------------------------------------------------------
 
 
-
   /**
    * On init
    */
@@ -96,7 +96,7 @@ export class OfferPageComponent implements OnInit {
       const arr = formatted_tags.slice(1, -1)
       this.tags = arr.split(',')
       if (data.responseMessage.data.status != 1) {
-        this.err = 'This Offer is not active anymore because it was turned off by the owner. Please browse for other '+this.offer.method+' offers'
+        this.err = 'This Offer is not active anymore because it was turned off by the owner. Please browse for other ' + this.offer.method + ' offers'
         this._fb.playAudio('assets/sounds/windows_warning.wav')
       }
       if (data.responseMessage.data.deauth == 1) {
@@ -170,6 +170,10 @@ export class OfferPageComponent implements OnInit {
     }).then(r => {
       console.error('Shared success:')
     }).catch((error) => console.error('Error sharing:', error));
+
+  }
+
+  report(offer_id) {
 
   }
 }

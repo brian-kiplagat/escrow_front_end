@@ -127,8 +127,8 @@
                               <br>
                               <ngb-alert [type]="'primary'" [dismissible]="false" >
                                 <div class="alert-body">
-                                  This will secure Bitcoins in Escrow and start live trade chat with {{offer.offer_username}}
-                                   for your trade
+                                  This will secure Bitcoins in Escrow and start a live trade chat with {{offer.offer_username}}
+
                                 </div>
                               </ngb-alert>
                             </div>
@@ -181,6 +181,12 @@
                 </h6>
 
                 <ul class="product-features list-unstyled">
+                  <li>
+                    <i
+                      class="font-medium-3 fa"
+                      [ngClass]="'fa-clock-o text-primary'"
+                    ></i>
+                    <span>Last Seen {{ offer.user_data?.last_seen}}</span>
                   <li>
                     <i
                       class="font-medium-3 fa"
@@ -241,19 +247,15 @@
               <!--WISHLIST -->
               <div class="d-flex flex-column flex-sm-row pt-1">
                 <a
-                  href="javascript:void(0)"
+                  (click)="report(offer_id)"
                   class="btn btn-outline-secondary btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0"
                   rippleEffect
                 >
                   <i
                     class="fa mr-50"
-                    [ngClass]="
-                                            offer.isInWishlist === true
-                                                ? 'fa-heart text-danger'
-                                                : 'fa-heart-o'
-                                        "
+                    [ngClass]="'fa-ban text-danger'"
                   ></i>
-                  <span>Wishlist</span>
+                  <span>Report</span>
                 </a>
                 <div class="btn-group dropdown-icon-wrapper btn-share" ngbDropdown>
                   <button
