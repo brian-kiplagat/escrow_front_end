@@ -9,9 +9,6 @@ import {environment} from "../../../../../../environments/environment";
 import {FirebaseService} from "../../../../../services/firebase.service";
 import {ActivatedRoute} from "@angular/router";
 import {v4 as uuidv4} from 'uuid';
-import {NavbarNotificationComponent} from "../../../../../layout/components/navbar/navbar-notification/navbar-notification.component";
-
-
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -49,14 +46,13 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   /**
    * Constructor
    *
-   * @param notification
    * @param route
    * @param fb
    * @param {ChatService} _chatService
    * @param {CoreSidebarService} _coreSidebarService
    * @param toastr
    */
-  constructor(private notification: NavbarNotificationComponent,private route: ActivatedRoute, private fb: FirebaseService, private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
+  constructor(private route: ActivatedRoute, private fb: FirebaseService, private _chatService: ChatService, private _coreSidebarService: CoreSidebarService, private toastr: ToastrService) {
     this.options = this.toastr.toastrConfig;
   }
 
@@ -200,14 +196,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     this.storage = JSON.parse(localStorage.getItem('user'));
     this.openChat(1);//1
 
-
-  }
-
-
-  transform(value: number): string {
-    //MM:SS format
-    const minutes: number = Math.floor(value / 60);
-    return ('00' + minutes).slice(-2) + ':' + ('00' + Math.floor(value - minutes * 60)).slice(-2);
 
   }
 

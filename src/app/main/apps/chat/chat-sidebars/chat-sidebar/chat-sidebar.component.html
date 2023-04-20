@@ -144,7 +144,7 @@
               for
               safe payments
             </p>
-            <p class="font-small-2">{{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.currency}}</p>
+            <p class="font-small-2">{{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}</p>
             <p class="font-small-2">{{trade.btc_amount_with_margin}} BTC</p>
             <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="reopenErr">
               <div class="alert-body">

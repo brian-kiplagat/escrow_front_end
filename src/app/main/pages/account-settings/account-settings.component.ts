@@ -206,7 +206,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             response.json().then((json) => {
               this.avatarImage = json.responseMessage?.path;
             });
-            this.playAudio('assets/sounds/tirit.wav');
+            this.fb.playAudio('assets/sounds/tirit.wav');
             this.toast('Great', '👋 You just uploaded your profile', 'success');
             this.uploading = false;
           }
@@ -267,7 +267,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
                 response.json().then((json) => {
                   this.avatarImage = json.responseMessage?.path;
                 });
-                this.playAudio('assets/sounds/tirit.wav');
+                this.fb.playAudio('assets/sounds/tirit.wav');
                 this.toast('Great', '👋 You just uploaded your profile', 'success');
                 this.uploading = false;
               }
@@ -303,13 +303,6 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         console.log(event.target.result);
       };
     }
-  }
-
-  playAudio(path) {
-    let audio = new Audio();
-    audio.src = path;
-    audio.load();
-    audio.play();
   }
 
   private toast(title: string, message: string, type: string) {
@@ -793,7 +786,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         console.log(data);
         this.avatarImage = data.responseMessage?.path;
         this.uploading = false;
-        this.playAudio('assets/sounds/tirit.wav');
+        this.fb.playAudio('assets/sounds/tirit.wav');
         this.toast(
           'Great',
           '👋 You just reset your profile. Adding one helps you become easily identifiable on the market place',
@@ -812,12 +805,12 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     this.uploading = true;
     let about = (<HTMLInputElement>document.getElementById('about')).value;
     if (about.length <= 5) {
-      this.playAudio('assets/sounds/windows_warning.wav');
+      this.fb.playAudio('assets/sounds/windows_warning.wav');
       this.toast('Sorry', '👋 About must be greater than 20 characters', 'error');
       return;
     }
     if (about.length >= 50) {
-      this.playAudio('assets/sounds/windows_warning.wav');
+      this.fb.playAudio('assets/sounds/windows_warning.wav');
       this.toast('Sorry', '👋 About cannot be greater than 255 characters', 'error');
       return;
     }
@@ -830,7 +823,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: any) => {
           this.uploading = false;
-          this.playAudio('assets/sounds/tirit.wav');
+          this.fb.playAudio('assets/sounds/tirit.wav');
           this.toast(
             'Great',
             '👋 You just updated your profile. You are now up to date to the latest',
@@ -840,7 +833,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         (err) => {
           console.log(err);
           this.uploading = false;
-          this.playAudio('assets/sounds/windows_warning.wav');
+          this.fb.playAudio('assets/sounds/windows_warning.wav');
           this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error');
         }
       );
@@ -861,7 +854,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: any) => {
           this.uploading = false;
-          this.playAudio('assets/sounds/tirit.wav');
+          this.fb.playAudio('assets/sounds/tirit.wav');
           this.toast(
             'Great',
             '👋 Check your inbox. If you cannot see the confirmation email, check your spam folder',
@@ -871,7 +864,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         (err) => {
           console.log(err);
           this.uploading = false;
-          this.playAudio('assets/sounds/windows_warning.wav');
+          this.fb.playAudio('assets/sounds/windows_warning.wav');
           this.toast('Hmm', '👋 ' + err.error.responseMessage, 'error');
         }
       );
