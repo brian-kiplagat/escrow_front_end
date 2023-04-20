@@ -246,45 +246,49 @@
               <!--TRADER INFO -->
               <!--WISHLIST -->
               <div class="d-flex flex-column flex-sm-row pt-1">
-                <a
-                  (click)="report(offer_id)"
-                  class="btn btn-outline-secondary btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0"
-                  rippleEffect
-                >
-                  <i
-                    class="fa mr-50"
-                    [ngClass]="'fa-ban text-danger'"
-                  ></i>
-                  <span>Report</span>
-                </a>
+
                 <div class="btn-group dropdown-icon-wrapper btn-share" ngbDropdown>
-                  <button
-                    (click)="share(offer_id)"
-                    ngbDropdownToggle
-                    type="button"
-                    class="btn btn-icon hide-arrow btn-outline-secondary"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
+                  <a ngbDropdownToggle
+                    (click)="report(offer_id)"
+                    class="btn btn-outline-secondary btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0"
                     rippleEffect
                   >
-                    <i data-feather="share-2"></i>
-                  </button>
+                    <i
+                      class="fa mr-50"
+                      [ngClass]="'fa-ban text-danger'"
+                    ></i>
+                    <span>Report</span>
+                  </a>
+
                   <div class="dropdown-menu-right" ngbDropdownMenu>
                     <a ngbDropdownItem href="javascript:void(0)">
-                      <i data-feather="facebook"></i>
+                      <i class="fa mr-50 " [ngClass]="'fa-exclamation-triangle text-danger'"
+                      ></i>
+                      This offer is a scam
                     </a>
                     <a ngbDropdownItem href="javascript:void(0)">
-                      <i data-feather="twitter"></i>
+                      <i class="fa mr-50"  [ngClass]="'fa-exclamation-triangle text-danger'"
+                      ></i>
+                      This rate is illogical
                     </a>
-                    <a ngbDropdownItem href="javascript:void(0)">
-                      <i data-feather="youtube"></i>
-                    </a>
-                    <a ngbDropdownItem href="javascript:void(0)">
-                      <i data-feather="instagram"></i>
-                    </a>
+
                   </div>
                 </div>
+
+                <button
+                  (click)="share(offer_id)"
+
+                  type="button"
+                  class="btn btn-icon hide-arrow btn-outline-secondary"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  rippleEffect
+                >
+                  <i data-feather="share-2"></i>
+                </button>
+
+
               </div>
               <!--WISHLIST -->
             </div>
