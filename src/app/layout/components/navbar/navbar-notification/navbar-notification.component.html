@@ -23,30 +23,31 @@
 
     <!-- Notifications content -->
     <li class="scrollable-container media-list" [perfectScrollbar]>
-      <a class="d-flex" [routerLink]="message.resource_path"  *ngFor="let message of notifications">
+      <a class="d-flex" [routerLink]="message.resource_path" *ngFor="let message of notifications">
         <div class="media d-flex align-items-start">
           <div class="media-left">
             <div
               class="avatar"
               [ngClass]="{
-                'bg-light-info': message.heading === 'Feedback Updated',
-                'bg-light-light': message.heading === 'New Login',
-                'bg-light-primary': message.heading === 'Escrow funded',
-                'bg-light-warning': message.text === 'Check if you have received the money and release Bitcoin',
-                'bg-light-danger': message.heading === 'Bitcoin Sent',
-                'bg-light-muted': message.heading === 'You sold Bitcoin',
+                'bg-light-info': message.heading == 'Escrow funded',
+                'bg-light-primary': message.heading == 'Feedback Updated',
+                'bg-light-light': message.heading == 'New Login',
+                 'bg-light-warning': message.text == 'Check if you have received the money and release Bitcoin',
+                'bg-light-danger': message.heading == 'Bitcoin Sent',
+                'bg-light-muted': message.heading == 'You sold Bitcoin',
                 'bg-light-success':message.heading
               }"
             >
               <div class="avatar-content">
+                <i class="avatar-icon"
+                   [data-feather]="message.heading.includes('paid') ? 'check' :message.heading.includes('expired') ? 'x' :message.heading == 'New Profile View' ? 'user' :message.heading == 'New Trade message' ? 'message-circle' :message.heading == 'New Login' ? 'alert-triangle' :message.heading == 'You sold Bitcoin' ? 'check-circle' :message.heading == 'Escrow funded' ? 'shield' : message.heading == 'Bitcoin Sent' ? 'dollar-sign' : 'bell'"></i>
 
-                <i class="avatar-icon"  [data-feather]="'bell'"></i>
 
               </div>
             </div>
           </div>
           <div class="media-body">
-            <p class="media-heading" ><span class="font-weight-bolder">{{message.heading}}</span> </p>
+            <p class="media-heading"><span class="font-weight-bolder">{{message.heading}}</span></p>
             <small class="notification-text">{{ message.text }}</small>
           </div>
         </div>

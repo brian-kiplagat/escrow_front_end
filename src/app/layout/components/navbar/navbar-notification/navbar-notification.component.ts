@@ -35,7 +35,7 @@ export class NavbarNotificationComponent implements OnInit {
     let user: any = JSON.parse(localStorage.getItem('user'))
     this.fb.retrieveNotifications(user.username).subscribe((data: any) => {
       this.notifications = data;
-      console.log('New notification received:', data[0]);
+      console.log('New notification received:', data);
       if (this.notifications[0].read == false) {
         this.fb.playAudio('assets/sounds/turumturum.wav')
         if (this.notifications[0].heading == 'Escrow funded') {
