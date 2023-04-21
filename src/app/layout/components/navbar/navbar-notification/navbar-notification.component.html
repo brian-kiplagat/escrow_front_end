@@ -38,11 +38,15 @@
                 'bg-light-success':message.heading
               }"
             >
-              <div class="avatar-content"><i class="avatar-icon" [data-feather]="'bell'"></i></div>
+              <div class="avatar-content">
+
+                <i class="avatar-icon"  [data-feather]="'bell'"></i>
+
+              </div>
             </div>
           </div>
           <div class="media-body">
-            <p class="media-heading" [innerHTML]="message.heading"></p>
+            <p class="media-heading" ><span class="font-weight-bolder">{{message.heading}}</span> </p>
             <small class="notification-text">{{ message.text }}</small>
           </div>
         </div>
