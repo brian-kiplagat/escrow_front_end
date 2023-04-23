@@ -35,14 +35,16 @@ export class NavbarNotificationComponent implements OnInit {
     let user: any = JSON.parse(localStorage.getItem('user'))
     this.fb.retrieveNotifications(user.username).subscribe((data: any) => {
       this.notifications = data;
-      console.log('New notification received:', data);
-      if (this.notifications[0].read == false) {
-        this.fb.playAudio('assets/sounds/turumturum.wav')
+      console.log('New notification received:', data[0]);
+      //Play notification only if the username is mine
+      if (this.notifications[0].read == false && this.notifications[0].username == user.username) {
         if (this.notifications[0].heading == 'Escrow funded') {
           this.fb.playAudio('assets/sounds/turumturum.wav')
         } else if (this.notifications[0].heading == 'New Login') {
           this.fb.playAudio('assets/sounds/windows_warning.wav')
         } else if (this.notifications[0].heading == 'New Trade message') {
+          this.fb.playAudio('assets/sounds/tirit.wav')
+        } else if (this.notifications[0].heading == 'Feedback Updated') {
           this.fb.playAudio('assets/sounds/tirit.wav')
         }
       }
@@ -77,7 +79,8 @@ export class NavbarNotificationComponent implements OnInit {
     }
     if (heading.includes('Dispute')) {
       return 'gitlab';
-    } if (heading === 'Feedback Updated') {
+    }
+    if (heading === 'Feedback Updated') {
       return 'edit';
     }
     if (message.text.includes('Positive')) {

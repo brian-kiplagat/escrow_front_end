@@ -8,7 +8,7 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
-
+import * as Tone from 'tone';
 
 @Injectable({
   providedIn: 'root'
@@ -636,17 +636,13 @@ export class FirebaseService {
     });
   }
 
-  playAudio(path) {
-    //console.log('Sound Invoked')
+  playAudio(path: string) {
     let user = JSON.parse(localStorage.getItem('user'));
     if (user.sound === "1") {
-      console.log('Playing Sound', path)
-      let audio = new Audio();
-      audio.src = path;
-      audio.load();
-      audio.play();
+      console.log('Playing Sound', path);
+      const player = new Tone.Player(path).toDestination();
+      player.autostart = true;
     }
-
   }
 
 }
