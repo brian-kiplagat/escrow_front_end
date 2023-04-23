@@ -69,4 +69,50 @@ export class NavbarNotificationComponent implements OnInit {
   redirect(resource_path: any) {
     this.router.navigate(['/' + resource_path])
   }
+
+  getFeatherIcon(message) {
+    const heading = message?.heading || '';
+    if (heading.includes('Dispute')) {
+      return 'gitlab';
+    }
+    if (message.text.includes('Positive')) {
+      return 'user-check';
+    }
+    if (message.text.includes('Negative')) {
+      return 'user-x';
+    }
+    if (heading.includes('paid')) {
+      return 'check';
+    }
+    if (heading.includes('expired')) {
+      return 'x-circle';
+    }
+    if (heading === 'Password Changed') {
+      return 'alert-circle';
+    }
+
+    if (heading === 'You bought Bitcoin') {
+      return 'dollar-sign';
+    }
+    if (heading === 'New Profile View') {
+      return 'user';
+    }
+    if (heading === 'New Trade message') {
+      return 'message-circle';
+    }
+    if (heading === 'New Login') {
+      return 'alert-triangle';
+    }
+    if (heading === 'You sold Bitcoin') {
+      return 'check-circle';
+    }
+    if (heading === 'Escrow funded') {
+      return 'shield';
+    }
+    if (heading === 'Bitcoin Sent') {
+      return 'dollar-sign';
+    }
+    return 'bell';
+  }
+
 }
