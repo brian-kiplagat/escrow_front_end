@@ -72,16 +72,21 @@ export class NavbarNotificationComponent implements OnInit {
 
   getFeatherIcon(message) {
     const heading = message?.heading || '';
+    if (heading.includes('cancelled')) {
+      return 'x';
+    }
     if (heading.includes('Dispute')) {
       return 'gitlab';
+    } if (heading === 'Feedback Updated') {
+      return 'edit';
     }
     if (message.text.includes('Positive')) {
-      return 'user-check';
+      return 'thumbs-up';
     }
     if (message.text.includes('Negative')) {
-      return 'user-x';
+      return 'thumbs-down';
     }
-    if (heading.includes('paid')) {
+    if (heading.includes('Paid')) {
       return 'check';
     }
     if (heading.includes('expired')) {
@@ -112,7 +117,69 @@ export class NavbarNotificationComponent implements OnInit {
     if (heading === 'Bitcoin Sent') {
       return 'dollar-sign';
     }
+    if (heading === 'Bitcoin Received') {
+      return 'dollar-sign';
+    }
+
     return 'bell';
+  }
+
+  getBackgroundClass(message) {
+
+    const heading = message?.heading || '';
+    if (heading.includes('cancelled')) {
+      return 'bg-light-danger';
+    }
+    if (heading.includes('Dispute')) {
+      return 'bg-light-info';
+    }
+    if (message.text.includes('Positive')) {
+      return 'bg-light-success';
+    }
+    if (message.text.includes('Negative')) {
+      return 'bg-light-danger';
+    }
+    if (heading.includes('paid')) {
+      return 'bg-light-info';
+    }
+    if (heading.includes('expired')) {
+      return 'bg-light-danger';
+    }
+    if (heading === 'Password Changed') {
+      return 'bg-light-danger';
+    }
+
+    if (heading === 'You bought Bitcoin') {
+      return 'bg-light-success';
+    }
+    if (heading === 'New Profile View') {
+      return 'bg-light-success';
+    }
+    if (heading === 'New Trade message') {
+      return 'bg-light-info';
+    }
+    if (heading === 'New Login') {
+      return 'bg-light-danger';
+    }
+    if (heading === 'You sold Bitcoin') {
+      return 'bg-light-success';
+    }
+    if (heading === 'Escrow funded') {
+      return 'bg-light-primary';
+    }
+    if (heading === 'Bitcoin Sent') {
+      return 'bg-light-primary';
+    }
+    if (heading === 'Bitcoin Received') {
+      return 'bg-light-success';
+    }
+    if (heading === 'Bitcoin Incoming') {
+      return 'bg-light-warning';
+    }
+    if (heading === 'Feedback Updated') {
+      return 'bg-light-info';
+    }
+    return 'bg-light-success';
   }
 
 }

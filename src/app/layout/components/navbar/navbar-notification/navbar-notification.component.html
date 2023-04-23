@@ -28,15 +28,7 @@
           <div class="media-left">
             <div
               class="avatar"
-              [ngClass]="{
-                'bg-light-info': message.heading == 'Escrow funded',
-                'bg-light-primary': message.heading == 'Feedback Updated',
-                'bg-light-light': message.heading == 'New Login',
-                 'bg-light-warning': message.text == 'Check if you have received the money and release Bitcoin',
-                'bg-light-danger': message.heading == 'Bitcoin Sent',
-                'bg-light-muted': message.heading == 'You sold Bitcoin',
-                'bg-light-success':message.heading
-              }"
+              [ngClass]="getBackgroundClass(message)"
             >
               <div class="avatar-content">
                 <i class="avatar-icon" [data-feather]="getFeatherIcon(message)"></i>

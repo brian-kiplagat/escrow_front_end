@@ -89,7 +89,7 @@
             </div>
           </button>
           <!-- BUYER CANCEL TRADE-->
-          <button *ngIf="trade.status == 'OPENED'|| status == 'PAID'"
+          <button *ngIf="trade.status == 'OPENED'|| trade.status == 'PAID'"
                   type="button"
                   (click)="cancel_trade(trade.id)" rippleEffect class="btn btn-outline-warning btn-block"
                   ngbTooltip="Do not cancel this trade if you had sent any amount, if you cancel this trade after sending money you may loose the BTC because we will return return this escrow to the seller. For your safety, we require you to ask for refund first before cancelling. If you feel you have a problem with the seller, Click DISPUTE NOW and well join in to help you"
@@ -98,7 +98,7 @@
           <!-- BUYER VIEW OFFER-->
           <button *ngIf="trade.status == 'CANCELLED_BUYER'|| trade.status == 'CANCELLED_SYSTEM'"
                   type="button"
-                  (click)="view_offer(trade.idd)" rippleEffect class="btn btn-outline-warning btn-block"
+                  (click)="view_offer(trade.offer_id)" rippleEffect class="btn btn-outline-warning btn-block"
                   ngbTooltip="Use this to open another Trade with this offer"
                   placement="bottom">VIEW OFFER
           </button>
