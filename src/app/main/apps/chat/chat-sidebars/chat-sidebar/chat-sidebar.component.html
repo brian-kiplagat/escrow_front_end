@@ -48,7 +48,9 @@
             Send {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
             using  {{trade.offer_method | titlecase}}
           </p>
-          <p class="font-small-2">{{trade.btc_amount_with_margin}} BTC will be added to your Coinpes
+          <p class="font-small-2"
+             *ngIf="trade.status == 'OPENED' ||trade.status == 'PAID'">{{trade.btc_amount_with_margin}} BTC will be added
+            to your Coinpes
             wallet</p>
           <p class="font-small-2" *ngIf="trade.status == 'PAID'"
              ngbTooltip='You have sent the payment. Now wait for the seller to send you the Bitcoin. If the seller refuses or you have a problem, Open a dispute and well come in to help you'
@@ -265,8 +267,9 @@
                 <label for="first-name-icon">{{partner_data.username}}</label>
                 <div class="input-group input-group-merge">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" *ngIf = "partner_comment == ' No comment yet'" ><span [data-feather]="'user'"></span></span>
-                    <span class="input-group-text" *ngIf = "partner_comment != ' No comment yet'" ><i
+                    <span class="input-group-text" *ngIf="partner_comment == ' No comment yet'"><span
+                      [data-feather]="'user'"></span></span>
+                    <span class="input-group-text" *ngIf="partner_comment != ' No comment yet'"><i
                       class="font-medium-3 fa"
                       [ngClass]="{
                           'fa-thumbs-up text-success': PARTNER_FLAG == true,
@@ -274,7 +277,6 @@
                         }"
                     ></i></span>
                   </div>
-
 
 
                   <input
