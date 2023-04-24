@@ -81,7 +81,7 @@
                       </li>
                       <li class="mr-1 nav-item">
                         <a class="nav-link font-weight-bold active" rippleEffect href="javascript:void(0)"
-                           ngbTooltip="Trust {{external_username}}" placement="top"
+                           ngbTooltip="Add {{external_username}} to my trusted list" placement="top"
                         >
                           <span class="d-none d-md-block">Trust</span>
                           <i data-feather="user-plus" class="d-block d-md-none"></i>
@@ -90,7 +90,7 @@
                       <li class="nav-item">
                         <a class="button nav-link font-weight-bold" (click)="block(external_username)"
                            href="javascript:void(0)"
-                           ngbTooltip="Block {{external_username}}" placement="top"
+                           ngbTooltip="Block {{external_username}} from trading with me" placement="top"
                         >
                           <span class="d-none d-md-block">Block</span>
                           <i data-feather="user-x" class="d-block d-md-none"></i>
@@ -157,7 +157,7 @@
                 <h5>Feedbacks</h5>
                 <!-- twitter feed -->
                 <div class="profile-twitter-feed mt-2" *ngFor="let feed of feeds">
-                  <div class="d-flex justify-content-start align-items-center mb-1">
+                  <div class="d-flex justify-content-start align-items-center mb-1" ngbTooltip = "{{feed.created_at | date:'fullDate'}}">
                     <div class="avatar mr-1">
                       <a href="/users/{{feed.username}}">
                         <img [src]="feed.photo_url" alt="avatar img" height="40" width="40"/>
