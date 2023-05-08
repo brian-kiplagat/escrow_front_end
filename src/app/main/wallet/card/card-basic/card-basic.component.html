@@ -192,7 +192,7 @@
                     <span class="font-weight-bold">{{tx.amount}} BTC</span>
                   </td>
                   <td>{{tx.type}}</td>
-                  <td><span class="badge badge-pill badge-light-primary mr-1">{{tx.hash}}</span></td>
+                  <td><span class="badge badge-pill badge-light-primary mr-1">{{tx.hash.substring(0,10)+'...'}} </span><span class="badge badge-pill badge-light-warning mr-1" (click)="copy_link(tx.hash)">copy</span></td>
                   <td>{{tx.created_at | date:'medium'}}</td>
                   <td *ngIf="tx.paid == 1"
                       ngbTooltip="This transaction was confirmed on {{tx.created_at | date}}. It currently has  {{tx.confirmations}} Confirmation"

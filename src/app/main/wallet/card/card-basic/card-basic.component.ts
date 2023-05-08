@@ -85,7 +85,15 @@ export class CardBasicComponent implements OnInit {
       closeButton: true
     });
   }
-
+  copy_link(link) {
+    clipboard.write(link);
+    // Success
+    this.toaster.success('👋 You just copied your link. Use a blockchain explorer to search your transaction', 'Great!', {
+      toastClass: 'toast ngx-toastr',
+      timeOut: 5000,
+      closeButton: true
+    });
+  }
   sendBTC() {
     let address = (<HTMLInputElement>document.getElementById("address")).value;
     let amount = (<HTMLInputElement>document.getElementById("amount")).value;
