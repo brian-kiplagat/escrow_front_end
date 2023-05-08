@@ -93,12 +93,6 @@ export class EcommerceComponent implements OnInit {
 
   }
 
-  playAudio(path) {
-    let audio = new Audio();
-    audio.src = path;
-    audio.load();
-    audio.play();
-  }
 
   private toast(title: string, message: string, type: string) {
     if (type == 'success') {
@@ -204,7 +198,7 @@ export class EcommerceComponent implements OnInit {
   }
 
   delete_offer(id: any) {
-    this.playAudio('assets/sounds/bmw.mp3')
+    this.fb.playAudio('assets/sounds/bmw.mp3')
     if (this.user) {
       Swal.fire({
         title: ' <h5>Hey Wait!</h5>',
@@ -230,7 +224,7 @@ export class EcommerceComponent implements OnInit {
           }, (error: any) => {
             //console.log("this is the error", error)
             this.toast('Ops', error.error.responseMessage, 'error')
-            this.playAudio('assets/sounds/windows_warning.wav')
+            this.fb.playAudio('assets/sounds/windows_warning.wav')
           })
         }
       });
