@@ -192,7 +192,7 @@
                     <span class="font-weight-bold">{{tx.amount}} BTC</span>
                   </td>
                   <td>{{tx.type}}</td>
-                  <td><span class="badge badge-pill badge-light-primary mr-1">{{tx.hash.substring(0,10)+'...'}} </span><span class="badge badge-pill badge-light-warning mr-1" (click)="copy_link(tx.hash)">copy</span></td>
+                  <td (click)="copy_link(tx.hash)"><span class="badge badge-pill badge-light-primary mr-1  cursor-pointer">   <i data-feather="copy" class="font-small-2"></i> {{tx.hash.substring(0,10)+'...'}} </span></td>
                   <td>{{tx.created_at | date:'medium'}}</td>
                   <td *ngIf="tx.paid == 1"
                       ngbTooltip="This transaction was confirmed on {{tx.created_at | date}}. It currently has  {{tx.confirmations}} Confirmation"
@@ -202,17 +202,10 @@
                       ngbTooltip="This means that your transaction is still processing. Bitcoin transactions usually take 30 minutes to 1.5 hours to complete. However, there can be delays in the transaction if there is a high volume of transactions in the blockchain"
                       placement="top">Pending
                   </td>
-                  <td class="overflow-hidden">
-                    <div ngbDropdown container="body">
-                      <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
-                        <i data-feather="more-vertical"></i>
-                      </button>
-                      <div ngbDropdownMenu>
-                        <a ngbDropdownItem href="https://www.blockchain.com/btc/tx/{{tx.hash}}" target="_blank"
-                        ><i data-feather="chrome" class="mr-50"></i><span>View</span></a
-                        >
-                      </div>
-                    </div>
+                  <td >
+                    <a href="https://www.blockchain.com/btc/tx/{{tx.hash}}" target="_blank"
+                    ><i data-feather="chrome" class="mr-50"></i><span>View</span></a
+                    >
                   </td>
                 </tr>
 
