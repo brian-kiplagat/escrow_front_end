@@ -7,6 +7,8 @@ import {ChatService} from "../chat.service";
 import {ToastrService, GlobalConfig} from 'ngx-toastr';
 import {PaginationService} from '../pagination.service';
 import {ChatComponent} from "../chat.component";
+import Swal from "sweetalert2";
+
 
 @Component({
   selector: 'app-chat-content',
@@ -47,7 +49,7 @@ export class ChatContentComponent implements OnInit {
               private router: Router,
               public page: PaginationService,
               private toastr: ToastrService,
-              private invoke:ChatComponent
+              private invoke: ChatComponent
   ) {
   }
 
@@ -150,7 +152,7 @@ export class ChatContentComponent implements OnInit {
       //Refresh
       let lastElement = data[data.length - 1]
       console.log(lastElement)
-      if (lastElement.senderId !=  this.user.username && lastElement.message == 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq') {
+      if (lastElement.senderId != this.user.username && lastElement.message == 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq') {
         console.log('I got the key')
         //Invoke instance of the sidebar class tto update new info
         this.invoke.okUpdateSideBar(routeParams.get('id'))
@@ -160,6 +162,30 @@ export class ChatContentComponent implements OnInit {
       setTimeout(() => {
         this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
       }, 0);
+    }, error => {
+      console.log(error)
+      Swal.fire({
+        title: ' <h5>An error happened</h5>',
+        html: ' <p class="card-text font-small-3">We could not obtain your Chat. Please refresh the page</p>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#7367F0',
+        cancelButtonColor: '#E42728',
+        confirmButtonText:
+          '<i class="fa fa-check-circle"></i> Refresh Page',
+        confirmButtonAriaLabel: 'Confirm',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-danger ml-1'
+        }
+      }).then(async (result) => {
+        if (result.value) {
+          Swal.close()
+          location.reload()
+
+        }
+      });
+
     });
     this.activeChat = false;
 

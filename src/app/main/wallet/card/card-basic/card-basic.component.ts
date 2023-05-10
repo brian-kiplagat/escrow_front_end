@@ -88,7 +88,7 @@ export class CardBasicComponent implements OnInit {
   copy_link(link) {
     clipboard.write(link);
     // Success
-    this.toaster.success('👋 You just copied your link. Use a blockchain explorer to search your transaction', 'Great!', {
+    this.toaster.success('👋 You just copied your Transaction hash. Use a blockchain explorer to search your transaction. Some popular Blockchain explorers include Blockchain.com for Bitcoin, Etherscan.io for Ethereum, and Blockchair.com for multiple Blockchain networks', 'Great!', {
       toastClass: 'toast ngx-toastr',
       timeOut: 5000,
       closeButton: true
