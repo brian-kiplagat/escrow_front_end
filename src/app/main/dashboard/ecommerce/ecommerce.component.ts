@@ -322,7 +322,7 @@ export class EcommerceComponent implements OnInit {
     }
 
     if (offer.limit_countries == 'none') {
-      let clause = 'No countries blocked or allowed'
+      let clause = 'Every country can see and access this offer because no countries have been blocked or allowed'
       if (options !== null) {
         return clause + options
       } else {
