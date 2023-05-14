@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FirebaseService} from '../../../../services/firebase.service';
 import {v4 as uuidv4} from 'uuid';
 
+
 @Component({
   selector: 'app-ecommerce-details',
   templateUrl: './offer-page.component.html',
@@ -175,5 +176,10 @@ export class OfferPageComponent implements OnInit {
 
   report(offer_id,reason) {
 
+  }
+
+  getMargin(margin) {
+
+    return Math.abs(margin)
   }
 }
