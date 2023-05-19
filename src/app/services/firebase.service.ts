@@ -638,13 +638,13 @@ export class FirebaseService {
 
   uploadImage(file: File): Promise<string> {
 
-    let allowedFileTypes = ['image/png', 'image/jpeg', 'application/pdf'];
+    let allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'application/pdf'];
     if (!allowedFileTypes.includes(file.type)) {
       return Promise.reject('INVALID_FILE_TYPE');
     }
     let filePath;
     if (file.type == 'application/pdf') {
-      filePath = `images/${Date.now()}_${file.name}`;
+      filePath = `documents/${Date.now()}_${file.name}`;
     } else {
       filePath = `images/${Date.now()}_${file.name}`;
     }

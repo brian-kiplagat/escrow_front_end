@@ -8,6 +8,7 @@ import {ToastrService, GlobalConfig} from 'ngx-toastr';
 import {PaginationService} from '../pagination.service';
 import {ChatComponent} from "../chat.component";
 import Swal from "sweetalert2";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 
 @Component({
@@ -49,7 +50,8 @@ export class ChatContentComponent implements OnInit {
               private router: Router,
               public page: PaginationService,
               private toastr: ToastrService,
-              private invoke: ChatComponent
+              private invoke: ChatComponent,
+              private firestore: AngularFirestore,
   ) {
   }
 
@@ -222,13 +224,13 @@ export class ChatContentComponent implements OnInit {
   ) {
     window.location.href = '/users/' + username
   }
+
   goExternal(link
-             :
-             string
+               :
+               string
   ) {
     window.open(link)
   }
-
 
 
   upload(event) {
@@ -246,18 +248,36 @@ export class ChatContentComponent implements OnInit {
             recepient: this.partner_data.username
 
           })
+          let text
+          if (file.type == 'application/pdf') {
+            text = JSON.parse(localStorage.getItem('user')).username + ' has uploaded a new document'
+
+          } else {
+            text = JSON.parse(localStorage.getItem('user')).username + ' has uploaded a new image'
+
+          }
+
+          this.firestore.collection('notifications').add({
+            heading: 'New Trade Attachment',
+            timestamp: Date.now(),
+            resource_path: '/offers/chat/room/' + this.trade.id,
+            text: text,
+            username: this.partner_data.username,
+            read: false
+          });
         })
         .catch((error) => {
           // An error occurred during the upload process
           console.error('Error uploading image:', error);
-          if (error == 'INVALID_FILE_TYPE'){
-            this.showDialog('Only PNG, JPEG, and PDF files are allowed.','Invalid File','warning')
+          if (error == 'INVALID_FILE_TYPE') {
+            this.showDialog('Only PNG, JPEG, and PDF files are allowed.', 'Invalid File', 'warning')
           }
         });
     }
 
   }
-  showDialog(message, title,icon) {
+
+  showDialog(message, title, icon) {
     Swal.fire({
       title: ' <h5>' + title + '</h5>',
       html: '<p class="card-text font-small-3">' + message + '</p>',
