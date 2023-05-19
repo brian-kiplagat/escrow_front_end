@@ -263,16 +263,17 @@ export class ChatContentComponent implements OnInit {
 
           })
           let text
+          let heading
           if (file.type == 'application/pdf') {
-            text = JSON.parse(localStorage.getItem('user')).username + ' has uploaded a new document'
-
+            text = JSON.parse(localStorage.getItem('user')).username + ' has uploaded a new PDF document'
+            heading = 'New Document uploaded'
           } else {
-            text = JSON.parse(localStorage.getItem('user')).username + ' has uploaded a new image'
-
+            text = JSON.parse(localStorage.getItem('user')).username + ' has uploaded a new Image file'
+            heading = 'New Image uploaded'
           }
 
           this.firestore.collection('notifications').add({
-            heading: 'New Trade Attachment',
+            heading: heading,
             timestamp: Date.now(),
             resource_path: '/offers/chat/room/' + this.trade.id,
             text: text,
