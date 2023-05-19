@@ -332,22 +332,12 @@ export class FirebaseService {
   //send message
   async sendMessage(data: any) {
     //Send message
-    this.firestore.collection('trades').doc(data.tradeId.toString()).collection('chats').add({
+   return this.firestore.collection('trades').doc(data.tradeId.toString()).collection('chats').add({
       senderId: data.senderId,
       message: data.message,
       time: Date.now()
     });
 
-    if (Math.floor(Math.random() * 2) + 1 == 1) {
-      this.firestore.collection('notifications').add({
-        heading: 'New Trade message',
-        timestamp: Date.now(),
-        resource_path: '/offers/chat/room/' + data.tradeId,
-        text: data.senderId + ' has sent you a message',
-        username: data.recepient,
-        read: false
-      });
-    }
 
 
   }

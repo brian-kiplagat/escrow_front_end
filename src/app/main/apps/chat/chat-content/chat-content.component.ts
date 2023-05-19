@@ -84,6 +84,20 @@ export class ChatContentComponent implements OnInit {
         message: this.chatMessage,
         recepient: this.partner_data.username
 
+      }).then(data => {
+        //console.log(data)
+        this.firestore.collection('notifications').add({
+          heading: 'New Trade message',
+          timestamp: Date.now(),
+          resource_path: '/offers/chat/room/' + this.trade.id,
+          text: user.username + ' has sent you a message',
+          username: this.partner_data.username,
+          read: false
+        });
+
+      }).catch(error => {
+        console.log(error)
+        this.showDialog('We could not sed your message. Please refresh the page', 'Ops', 'warning')
       })
       this.chatMessage = '';//Reset the input to an empty value
       setTimeout(
