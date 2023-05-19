@@ -8,7 +8,10 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
+
 import * as Tone from 'tone';
+import {AngularFireStorage} from "@angular/fire/compat/storage";
+import {finalize} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +19,6 @@ import * as Tone from 'tone';
 export class FirebaseService {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
-  signuperror: string = '';
-  loginerror: string = '';
-  userData: any = {};
-  signuperrorChange: Subject<string> = new Subject<string>();
-  userDataChange: Subject<any> = new Subject<any>();
-  loginerrorChange: Subject<string> = new Subject<string>();
   headerDict = {
     'Content-Type': 'application/json',
     Accept: 'application/json'
@@ -31,17 +28,10 @@ export class FirebaseService {
     private router: Router,
     public auth: AngularFireAuth,
     private http: HttpClient,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private storage: AngularFireStorage
   ) {
-    this.signuperrorChange.subscribe((value) => {
-      this.signuperror = value;
-    });
-    this.loginerrorChange.subscribe((value) => {
-      this.loginerror = value;
-    });
-    this.userDataChange.subscribe((value) => {
-      this.userData = value;
-    });
+
   }
 
   // public methods
@@ -348,7 +338,7 @@ export class FirebaseService {
       time: Date.now()
     });
 
-    if ( Math.floor(Math.random() * 2) + 1 == 1){
+    if (Math.floor(Math.random() * 2) + 1 == 1) {
       this.firestore.collection('notifications').add({
         heading: 'New Trade message',
         timestamp: Date.now(),
@@ -644,5 +634,35 @@ export class FirebaseService {
       player.autostart = true;
     }
   }
+
+
+  uploadImage(file: File): Promise<string> {
+
+    let allowedFileTypes = ['image/png', 'image/jpeg', 'application/pdf'];
+    if (!allowedFileTypes.includes(file.type)) {
+      return Promise.reject('INVALID_FILE_TYPE');
+    }
+    let filePath;
+    if (file.type == 'application/pdf') {
+      filePath = `images/${Date.now()}_${file.name}`;
+    } else {
+      filePath = `images/${Date.now()}_${file.name}`;
+    }
+    const fileRef = this.storage.ref(filePath);
+    const uploadTask = this.storage.upload(filePath, file);
+
+    return new Promise<string>((resolve, reject) => {
+      uploadTask.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            resolve(url);
+          }, (error) => {
+            reject(error);
+          });
+        })
+      ).subscribe();
+    });
+  }
+
 
 }

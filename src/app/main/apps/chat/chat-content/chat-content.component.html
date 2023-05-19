@@ -165,340 +165,366 @@
 
           <!-- NORMAL MESSAGES CHATS  -->
           <!-- CHECK AN ARRAY OF KEYS FOR BLURBS,,,SO THAT WE ONLY SHOW MESSAGES AND NOT KEYS FOR BLURBS  -->
-          <div *ngIf = "!['XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq','RE_GbGQvC1fsxZq_OPEN','CANCEL_GQvC1fsxZq_BUYER','RELEASEDKvC1fsxZqGbGQvC1fsxZq','PAIDKvC1fVrVsxZqGbGQvC1fsxZq','BLOCK_GbGQvC1fsxZq','FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE','FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE','FEEDBACK_UPDATE_QvC1fsxZq','EXPIRED_GQvC1fsxZER'].includes(chatRef.message)">
+          <div
+            *ngIf="!['XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq','RE_GbGQvC1fsxZq_OPEN','CANCEL_GQvC1fsxZq_BUYER','RELEASEDKvC1fsxZqGbGQvC1fsxZq','PAIDKvC1fVrVsxZqGbGQvC1fsxZq','BLOCK_GbGQvC1fsxZq','FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE','FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE','FEEDBACK_UPDATE_QvC1fsxZq','EXPIRED_GQvC1fsxZER'].includes(chatRef.message)">
             <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
                         <span class="avatar box-shadow-1 cursor-pointer">
-                            <img [src]="partner_data.profile_link" (click)="openLink(partner_data.username)" alt="avatar" height="32" width="32"/>
+                            <img [src]="partner_data.profile_link" (click)="openLink(partner_data.username)"
+                                 alt="avatar" height="32" width="32"/>
                         </span>
             </div>
             <div class="chat-body">
               <div class="chat-content">
-                <p>{{ chatRef.message }}</p>
+                <p *ngIf="!chatRef.message.startsWith('https://firebasestorage.googleapis.com/v0/b/chatapp-3b35b.appspot.com/o/')">{{ chatRef.message }}</p>
+                <div *ngIf="chatRef.message.startsWith('https://firebasestorage.googleapis.com/v0/b/chatapp-3b35b.appspot.com/o/')">
+                  <img
+                    role="button"
+                    [src]="chatRef.message.indexOf('pdf') !== -1 ? '/assets/images/icons/file-icons/pdf.png' : chatRef.message"
+                    alt="Meeting Pic"
+                    height="170"
+                    (click)="goExternal(chatRef.message)"
+                  />
+
+                </div>
               </div>
+
             </div>
+
           </div>
           <!-- NORMAL MESSAGES CHATS -->
-          <!-- TRADE BLOCKED -->
-          <div *ngIf="chatRef.message == 'BLOCK_GbGQvC1fsxZq'">
-            <ngb-alert [type]="'primary'" [dismissible]="false">
-              <div class="card alert-body">
-                <p>🛡️ A Trade Partner has been blocked. If a user blocks you, it means that they won't see any offers you post in the future and they cannot trade with you anymore </p>
-              </div>
-            </ngb-alert>
-          </div>
-          <!-- TRADE BLOCKED -->
-          <!-- TRADE REOPENED -->
-          <div *ngIf="chatRef.message == 'RE_GbGQvC1fsxZq_OPEN'">
-            <ngb-alert [type]="'primary'" [dismissible]="false">
-              <div class="card alert-body">
-                <p>🛡️ This Trade has been reopened. Escrow has been reserved and it is now safe
-                   to make payments.</p>
-              </div>
-            </ngb-alert>
-            <ngb-alert
-              [type]="'primary'"
-              [dismissible]="false"
-              *ngIf="trade.seller == user.email"
-            >
-              <div class="card">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    You’re selling {{ trade.btc_amount_with_margin }} BTC ({{
-                    trade.fiat_amount_with_margin | number: '1.2-2'
-                    }}
-                    {{ trade.offer_currency }}) for
-                    {{ trade.fiat_amount_original | number: '1.2-2' }}
-                    {{ trade.offer_currency }} via {{ trade.offer_method | titlecase }}. Your funds
-                    are being securely held in escrow.
-                  </p>
 
-                  <p class="text-black-50">
-                    1. Share your {{ trade.offer_method | titlecase }} details and the account
-                    holder’s name with your trade partner
-                  </p>
-                  <p class="text-black-50">
-                    2. Your trade partner will make their payment
-                  </p>
-                  <p class="text-black-50">
-                    3. Wait for your trade partner to mark the trade as "Paid"
-                  </p>
-                  <p class="text-black-50">
-                    4. Confirm that you’ve received your payment
-                  </p>
-                  <p class="text-black-50">5. Release the BTC to your trade partner</p>
-                </div>
-              </div>
-            </ngb-alert>
-            <ngb-alert
-              [type]="'primary'"
-              [dismissible]="false"
-              *ngIf="trade.buyer == user.email"
-            >
-              <div class="card">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    You’re buying {{ trade.btc_amount_with_margin }} BTC ({{
-                    trade.fiat_amount_with_margin | number: '1.2-2'
-                    }}
-                    {{ trade.offer_currency }}) for
-                    {{ trade.fiat_amount_original | number: '1.2-2' }}
-                    {{ trade.offer_currency }} via {{ trade.offer_method | titlecase }}. BTC is
-                    being securely held in escrow and its safe to make payments.
-                  </p>
-
-                  <p class="text-black-50">
-                    1. The seller will share {{ trade.offer_method | titlecase }} details
-                  </p>
-                  <p class="text-black-50">
-                    2. Follow the instructions below and send the payment
-                  </p>
-                  <p class="text-black-50">
-                    3. Click "I've paid" to confirm your payment
-                  </p>
-                  <p class="text-black-50">4. The seller will confirm your payment</p>
-                  <p class="text-black-50">
-                    5. The seller will release the BTC to your wallet
-                  </p>
-                </div>
-              </div>
-            </ngb-alert>
-
-            <ngb-alert [type]="'primary'" [dismissible]="false">
-              <div class="card">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    Follow these instructions from your trade patner
-                  </p>
-                  <p class="text-black-50">{{ trade.instructions }}</p>
-                </div>
-              </div>
-            </ngb-alert>
-          </div>
-          <!-- TRADE REOPENED -->
-          <!-- TRADE CANCELLED -->
-          <div *ngIf="chatRef.message == 'CANCEL_GQvC1fsxZq_BUYER'">
-            <ngb-alert [type]="'warning'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
-              <div class="card  btn-gradient-warning">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    ❌ You CANCELLED this trade
-                  </p>
-                  <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC back to the seller</p>
-                  <p class="text-black-50">2. To trade again, You must ask the Seller to REOPEN the trade so that escrow
-                                           is
-                                           reserved </p>
-                  <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY
-                                           in
-                                           escrow </p>
-
-
-                </div>
-              </div>
-            </ngb-alert>
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email;">
-              <div class="card btn-gradient-warning">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    ❌  Trade CANCELLED by Buyer
-                  </p>
-                  <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC back to you</p>
-                  <p class="text-black-50">2. To trade again, You must REOPEN the trade so that escrow is reserved </p>
-                  <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY
-                                           in
-                                           escrow </p>
-                  <p class="text-black-50">3. Attempting to sell outside escrow you will get you BANNED </p>
-
-
-                </div>
-              </div>
-            </ngb-alert>
-          </div>
-          <!-- TRADE CANCELLED -->
-          <!-- TRADE EXPIRED -->
-          <div *ngIf="chatRef.message == 'EXPIRED_GQvC1fsxZER'">
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
-              <div class="card btn-gradient-warning">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    ❌ This trade has EXPIRED
-                  </p>
-                  <p class="text-black-50">1. We returned the BTC Back to the seller</p>
-                  <p class="text-black-50">2. You have 30 minutes to send the money and confirm it by clicking paid </p>
-                  <p class="text-black-50">3. If you dont click paid the trade is cancelled automatically after 30
-                                           minutes </p>
-                  <p class="text-black-50">4. If you want to trade again you must open a new trade so we reserve an escrow for safe payments</p>
-                  <p class="text-black-50">5. If you forget to click paid after paying you must report it to us for assistance</p>
-
-
-                </div>
-              </div>
-            </ngb-alert>
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email;">
-              <div class="card btn-gradient-warning">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    ❌ Trade has EXPIRED
-                  </p>
-                  <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC back to you</p>
-                  <p class="text-black-50">2. To trade again, You must REOPEN the trade so that escrow is reserved </p>
-                  <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY
-                                           in
-                                           escrow </p>
-                  <p class="text-black-50">4. Attempting to sell outside escrow will get you BANNED </p>
-                  <p class="text-black-50">5. If you receive payments where buyer forgets to click paid, you must
-                                           promptly
-                                           reopen and release BTC otherwise you will get BANNED </p>
-
-
-                </div>
-              </div>
-            </ngb-alert>
-          </div>
-          <!-- TRADE EXPIRED -->
-          <!-- TRADE SUCCESSFUL -->
-          <div *ngIf="chatRef.message == 'RELEASEDKvC1fsxZqGbGQvC1fsxZq'">
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
-              <div class="card">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    🎉 This trade was successfull
-                  </p>
-                  <p class="text-black-50">1. You received {{ trade.btc_amount_with_margin }} BTC ({{
-                    trade.fiat_amount_with_margin | number: '1.2-2'
-                    }} {{ trade.offer_currency | uppercase }}) in your CoinPes wallet</p>
-                  <p class="text-black-50">2. Be sure to leave feedback </p>
-
-                </div>
-              </div>
-            </ngb-alert>
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email;">
-              <div class="card">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    🎉 This trade was successful
-                  </p>
-                  <p class="text-black-50">1. You sent {{ trade.btc_amount_with_margin }} BTC ({{
-                    trade.fiat_amount_with_margin | number: '1.2-2'
-                    }} {{ trade.offer_currency | uppercase }})</p>
-                  <p class="text-black-50">2. Be sure to leave feedback </p>
-
-                </div>
-              </div>
-            </ngb-alert>
-          </div>
-          <!-- TRADE SUCCESSFUL -->
-          <!-- TRADE PAID -->
-          <div *ngIf="chatRef.message == 'PAIDKvC1fVrVsxZqGbGQvC1fsxZq'">
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email">
-              <div class="card">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    🛡️ This trade was marked PAID
-                  </p>
-                  <p class="text-black-50">1. You sent {{
-                    trade.fiat_amount_original | number: '1.2-2'
-                    }} {{ trade.offer_currency | uppercase }} via {{ trade.offer_method | titlecase }}</p>
-                  <p class="text-black-50">2. If the seller refuses to release or you have any problem please start a dispute</p>
-                  <p class="text-black-50">3. Report any suspicious activity to moderators</p>
-                  <p class="text-black-50">4. Please wait patiently for the seller to verify your money and release the BTC</p>
-                  <p class="text-black-50">5. If you coinlock i.e did not send any money yet mark paid you may be blocked and banned</p>
-                </div>
-              </div>
-            </ngb-alert>
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email">
-              <div class="card">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    🛡️ This trade was marked PAID
-                  </p>
-                  <p class="text-black-50">1. You received {{
-                    trade.fiat_amount_original | number: '1.2-2'
-                    }} {{ trade.offer_currency | uppercase }} via {{ trade.offer_method | titlecase }}</p>
-                  <p class="text-black-50">2. If you did not receive any money please start a dispute</p>
-                  <p class="text-black-50">3. If you are coinlocked please start a dispute</p>
-                  <p class="text-black-50">4. Report any suspicious activity to moderators</p>
-                  <p class="text-black-50">5. Any suspicious activity by sellers will have the account placed on hold</p>
-                </div>
-              </div>
-            </ngb-alert>
-          </div>
-          <!-- TRADE PAID -->
-          <!-- TRADE FEEDBACK -->
-          <div >
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="chatRef.message == 'FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE'">
-              <div class="card">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    🤠 {{chatRef.senderId}} has left a Positive feedback
-                  </p>
-                    <p class="text-black-50">- Keep your feedbacks precise and accurate</p>
-                </div>
-              </div>
-            </ngb-alert>
-            <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="chatRef.message == 'FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE'">
-              <div class="card">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    ☹ {{chatRef.senderId}} has left a Negative feedback
-                  </p>
-                  <p class="text-black-50">- Feedback goes on a users public profile. Traders should be kind and honest to each other</p>
-                </div>
-              </div>
-            </ngb-alert>
-          </div>
-          <!-- TRADE FEEDBACK -->
-          <!-- FEEDBACK UPDATE-->
-          <div *ngIf="chatRef.message == 'FEEDBACK_UPDATE_QvC1fsxZq'">
-            <ngb-alert [type]="'primary'" [dismissible]="false">
-              <div class="card">
-                <div class="alert-body">
-                  <p class="text-body-heading">
-                    ✍️ {{chatRef.senderId}} has updated the feedback
-                  </p>
-                  <p class="text-black-50">- Keep your feedbacks precise and truthful</p>
-                </div>
-              </div>
-            </ngb-alert>
-
-          </div>
-          <!-- FEEDBACK UPDATE -->
+        <!-- TRADE IMAGE -->
+        <!-- TRADE BLOCKED -->
+        <div *ngIf="chatRef.message == 'BLOCK_GbGQvC1fsxZq'">
+          <ngb-alert [type]="'primary'" [dismissible]="false">
+            <div class="card alert-body">
+              <p>🛡️ A Trade Partner has been blocked. If a user blocks you, it means that they won't see any offers
+                you post in the future and they cannot trade with you anymore </p>
+            </div>
+          </ngb-alert>
         </div>
-        <!-- END CHAT FLOW  -->
+        <!-- TRADE BLOCKED -->
+        <!-- TRADE REOPENED -->
+        <div *ngIf="chatRef.message == 'RE_GbGQvC1fsxZq_OPEN'">
+          <ngb-alert [type]="'primary'" [dismissible]="false">
+            <div class="card alert-body">
+              <p>🛡️ This Trade has been reopened. Escrow has been reserved and it is now safe
+                to make payments.</p>
+            </div>
+          </ngb-alert>
+          <ngb-alert
+            [type]="'primary'"
+            [dismissible]="false"
+            *ngIf="trade.seller == user.email"
+          >
+            <div class="card">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  You’re selling {{ trade.btc_amount_with_margin }} BTC ({{
+                  trade.fiat_amount_with_margin | number: '1.2-2'
+                  }}
+                  {{ trade.offer_currency }}) for
+                  {{ trade.fiat_amount_original | number: '1.2-2' }}
+                  {{ trade.offer_currency }} via {{ trade.offer_method | titlecase }}. Your funds
+                  are being securely held in escrow.
+                </p>
+
+                <p class="text-black-50">
+                  1. Share your {{ trade.offer_method | titlecase }} details and the account
+                  holder’s name with your trade partner
+                </p>
+                <p class="text-black-50">
+                  2. Your trade partner will make their payment
+                </p>
+                <p class="text-black-50">
+                  3. Wait for your trade partner to mark the trade as "Paid"
+                </p>
+                <p class="text-black-50">
+                  4. Confirm that you’ve received your payment
+                </p>
+                <p class="text-black-50">5. Release the BTC to your trade partner</p>
+              </div>
+            </div>
+          </ngb-alert>
+          <ngb-alert
+            [type]="'primary'"
+            [dismissible]="false"
+            *ngIf="trade.buyer == user.email"
+          >
+            <div class="card">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  You’re buying {{ trade.btc_amount_with_margin }} BTC ({{
+                  trade.fiat_amount_with_margin | number: '1.2-2'
+                  }}
+                  {{ trade.offer_currency }}) for
+                  {{ trade.fiat_amount_original | number: '1.2-2' }}
+                  {{ trade.offer_currency }} via {{ trade.offer_method | titlecase }}. BTC is
+                  being securely held in escrow and its safe to make payments.
+                </p>
+
+                <p class="text-black-50">
+                  1. The seller will share {{ trade.offer_method | titlecase }} details
+                </p>
+                <p class="text-black-50">
+                  2. Follow the instructions below and send the payment
+                </p>
+                <p class="text-black-50">
+                  3. Click "I've paid" to confirm your payment
+                </p>
+                <p class="text-black-50">4. The seller will confirm your payment</p>
+                <p class="text-black-50">
+                  5. The seller will release the BTC to your wallet
+                </p>
+              </div>
+            </div>
+          </ngb-alert>
+
+          <ngb-alert [type]="'primary'" [dismissible]="false">
+            <div class="card">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  Follow these instructions from your trade patner
+                </p>
+                <p class="text-black-50">{{ trade.instructions }}</p>
+              </div>
+            </div>
+          </ngb-alert>
+        </div>
+        <!-- TRADE REOPENED -->
+        <!-- TRADE CANCELLED -->
+        <div *ngIf="chatRef.message == 'CANCEL_GQvC1fsxZq_BUYER'">
+          <ngb-alert [type]="'warning'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
+            <div class="card  btn-gradient-warning">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  ❌ You CANCELLED this trade
+                </p>
+                <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC back to the seller</p>
+                <p class="text-black-50">2. To trade again, You must ask the Seller to REOPEN the trade so that escrow
+                  is
+                  reserved </p>
+                <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY
+                  in
+                  escrow </p>
 
 
+              </div>
+            </div>
+          </ngb-alert>
+          <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email;">
+            <div class="card btn-gradient-warning">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  ❌ Trade CANCELLED by Buyer
+                </p>
+                <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC back to you</p>
+                <p class="text-black-50">2. To trade again, You must REOPEN the trade so that escrow is reserved </p>
+                <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY
+                  in
+                  escrow </p>
+                <p class="text-black-50">3. Attempting to sell outside escrow you will get you BANNED </p>
+
+
+              </div>
+            </div>
+          </ngb-alert>
+        </div>
+        <!-- TRADE CANCELLED -->
+        <!-- TRADE EXPIRED -->
+        <div *ngIf="chatRef.message == 'EXPIRED_GQvC1fsxZER'">
+          <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
+            <div class="card btn-gradient-warning">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  ❌ This trade has EXPIRED
+                </p>
+                <p class="text-black-50">1. We returned the BTC Back to the seller</p>
+                <p class="text-black-50">2. You have 30 minutes to send the money and confirm it by clicking paid </p>
+                <p class="text-black-50">3. If you dont click paid the trade is cancelled automatically after 30
+                  minutes </p>
+                <p class="text-black-50">4. If you want to trade again you must open a new trade so we reserve an
+                  escrow for safe payments</p>
+                <p class="text-black-50">5. If you forget to click paid after paying you must report it to us for
+                  assistance</p>
+
+
+              </div>
+            </div>
+          </ngb-alert>
+          <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email;">
+            <div class="card btn-gradient-warning">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  ❌ Trade has EXPIRED
+                </p>
+                <p class="text-black-50">1. We returned {{ trade.btc_amount_with_margin }} BTC back to you</p>
+                <p class="text-black-50">2. To trade again, You must REOPEN the trade so that escrow is reserved </p>
+                <p class="text-black-50">3. Reopening activates BUYER PROTECTION, so that the payment is made SAFELY
+                  in
+                  escrow </p>
+                <p class="text-black-50">4. Attempting to sell outside escrow will get you BANNED </p>
+                <p class="text-black-50">5. If you receive payments where buyer forgets to click paid, you must
+                  promptly
+                  reopen and release BTC otherwise you will get BANNED </p>
+
+
+              </div>
+            </div>
+          </ngb-alert>
+        </div>
+        <!-- TRADE EXPIRED -->
+        <!-- TRADE SUCCESSFUL -->
+        <div *ngIf="chatRef.message == 'RELEASEDKvC1fsxZqGbGQvC1fsxZq'">
+          <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email;">
+            <div class="card">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  🎉 This trade was successfull
+                </p>
+                <p class="text-black-50">1. You received {{ trade.btc_amount_with_margin }} BTC ({{
+                  trade.fiat_amount_with_margin | number: '1.2-2'
+                  }} {{ trade.offer_currency | uppercase }}) in your CoinPes wallet</p>
+                <p class="text-black-50">2. Be sure to leave feedback </p>
+
+              </div>
+            </div>
+          </ngb-alert>
+          <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email;">
+            <div class="card">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  🎉 This trade was successful
+                </p>
+                <p class="text-black-50">1. You sent {{ trade.btc_amount_with_margin }} BTC ({{
+                  trade.fiat_amount_with_margin | number: '1.2-2'
+                  }} {{ trade.offer_currency | uppercase }})</p>
+                <p class="text-black-50">2. Be sure to leave feedback </p>
+
+              </div>
+            </div>
+          </ngb-alert>
+        </div>
+        <!-- TRADE SUCCESSFUL -->
+        <!-- TRADE PAID -->
+        <div *ngIf="chatRef.message == 'PAIDKvC1fVrVsxZqGbGQvC1fsxZq'">
+          <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.buyer == user.email">
+            <div class="card">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  🛡️ This trade was marked PAID
+                </p>
+                <p class="text-black-50">1. You sent {{
+                  trade.fiat_amount_original | number: '1.2-2'
+                  }} {{ trade.offer_currency | uppercase }} via {{ trade.offer_method | titlecase }}</p>
+                <p class="text-black-50">2. If the seller refuses to release or you have any problem please start a
+                  dispute</p>
+                <p class="text-black-50">3. Report any suspicious activity to moderators</p>
+                <p class="text-black-50">4. Please wait patiently for the seller to verify your money and release the
+                  BTC</p>
+                <p class="text-black-50">5. If you coinlock i.e did not send any money yet mark paid you may be
+                  blocked and banned</p>
+              </div>
+            </div>
+          </ngb-alert>
+          <ngb-alert [type]="'primary'" [dismissible]="false" *ngIf="trade.seller == user.email">
+            <div class="card">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  🛡️ This trade was marked PAID
+                </p>
+                <p class="text-black-50">1. You received {{
+                  trade.fiat_amount_original | number: '1.2-2'
+                  }} {{ trade.offer_currency | uppercase }} via {{ trade.offer_method | titlecase }}</p>
+                <p class="text-black-50">2. If you did not receive any money please start a dispute</p>
+                <p class="text-black-50">3. If you are coinlocked please start a dispute</p>
+                <p class="text-black-50">4. Report any suspicious activity to moderators</p>
+                <p class="text-black-50">5. Any suspicious activity by sellers will have the account placed on
+                  hold</p>
+              </div>
+            </div>
+          </ngb-alert>
+        </div>
+        <!-- TRADE PAID -->
+        <!-- TRADE FEEDBACK -->
+        <div>
+          <ngb-alert [type]="'primary'" [dismissible]="false"
+                     *ngIf="chatRef.message == 'FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE'">
+            <div class="card">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  🤠 {{chatRef.senderId}} has left a Positive feedback
+                </p>
+                <p class="text-black-50">- Keep your feedbacks precise and accurate</p>
+              </div>
+            </div>
+          </ngb-alert>
+          <ngb-alert [type]="'primary'" [dismissible]="false"
+                     *ngIf="chatRef.message == 'FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE'">
+            <div class="card">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  ☹ {{chatRef.senderId}} has left a Negative feedback
+                </p>
+                <p class="text-black-50">- Feedback goes on a users public profile. Traders should be kind and honest
+                  to each other</p>
+              </div>
+            </div>
+          </ngb-alert>
+        </div>
+        <!-- TRADE FEEDBACK -->
+        <!-- FEEDBACK UPDATE-->
+        <div *ngIf="chatRef.message == 'FEEDBACK_UPDATE_QvC1fsxZq'">
+          <ngb-alert [type]="'primary'" [dismissible]="false">
+            <div class="card">
+              <div class="alert-body">
+                <p class="text-body-heading">
+                  ✍️ {{chatRef.senderId}} has updated the feedback
+                </p>
+                <p class="text-black-50">- Keep your feedbacks precise and truthful</p>
+              </div>
+            </div>
+          </ngb-alert>
+
+        </div>
+        <!-- FEEDBACK UPDATE -->
       </div>
-    </div>
-    <!-- User Chat messages -->
+      <!-- END CHAT FLOW  -->
 
-    <!-- Submit Chat form -->
-    <form class="chat-app-form" action="javascript:void(0);" autocomplete="on">
-      <div class="input-group input-group-merge mr-1 form-send-message">
-        <input
-          type="text"
-          autocomplete="off"
-          class="form-control message"
-          placeholder="Type your message"
-          [(ngModel)]="chatMessage"
-          name="chat-message"
-          (keydown.enter)="updateChat()"
-        />
-        <div class="input-group-append">
+
+    </div>
+  </div>
+  <!-- User Chat messages -->
+
+  <!-- Submit Chat form -->
+  <form class="chat-app-form" action="javascript:void(0);" autocomplete="on">
+    <div class="input-group input-group-merge mr-1 form-send-message">
+      <input
+        type="text"
+        autocomplete="off"
+        class="form-control message"
+        placeholder="Type your message"
+        [(ngModel)]="chatMessage"
+        name="chat-message"
+        (keydown.enter)="updateChat()"
+      />
+      <div class="input-group-append">
                     <span class="input-group-text">
                         <label for="attach-doc" class="attachment-icon mb-0">
                             <i
                               data-feather="image"
                               class="cursor-pointer lighten-2 text-secondary"
                             ></i>
-                            <input type="file" id="attach-doc" hidden/> </label
+                            <input type="file" id="attach-doc" (change)="upload($event)" hidden/> </label
                         ></span>
-        </div>
       </div>
-      <button type="button" class="btn btn-primary send" (click)="updateChat()" rippleEffect>
-        <i data-feather="send" class="d-lg-none"></i>
-        <span class="d-none d-lg-block">Send</span>
-      </button>
-    </form>
-    <!--/ Submit Chat form -->
+    </div>
+    <button type="button" class="btn btn-primary send" (click)="updateChat()" rippleEffect>
+      <i data-feather="send" class="d-lg-none"></i>
+      <span class="d-none d-lg-block">Send</span>
+    </button>
+  </form>
+  <!--/ Submit Chat form -->
 
 
   </div>

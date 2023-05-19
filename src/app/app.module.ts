@@ -27,6 +27,7 @@ import {ProfileComponent} from './main/pages/profile/ProfileComponent';
 import {FaqComponent} from './main/pages/faq/faq.component';
 import {EcommerceModule} from "./main/apps/ecommerce/ecommerce.module";
 import {NgApexchartsModule} from "ng-apexcharts";
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
 
 
 const appRoutes: Routes = [
@@ -99,6 +100,7 @@ const appRoutes: Routes = [
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     EcommerceModule,
     NgApexchartsModule,
   ],

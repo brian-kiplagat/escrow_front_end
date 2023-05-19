@@ -222,6 +222,53 @@ export class ChatContentComponent implements OnInit {
   ) {
     window.location.href = '/users/' + username
   }
+  goExternal(link
+             :
+             string
+  ) {
+    window.open(link)
+  }
 
 
+
+  upload(event) {
+
+    const file = event.target.files[0];
+    if (file) {
+      this.fb.uploadImage(file)
+        .then((url) => {
+          // The image has been uploaded successfully
+          console.log('Image URL:', url);
+          this.fb.sendMessage({
+            tradeId: this.trade.id,
+            senderId: JSON.parse(localStorage.getItem('user')).username,
+            message: url,
+            recepient: this.partner_data.username
+
+          })
+        })
+        .catch((error) => {
+          // An error occurred during the upload process
+          console.error('Error uploading image:', error);
+          if (error == 'INVALID_FILE_TYPE'){
+            this.showDialog('Only PNG, JPEG, and PDF files are allowed.','Invalid File','warning')
+          }
+        });
+    }
+
+  }
+  showDialog(message, title,icon) {
+    Swal.fire({
+      title: ' <h5>' + title + '</h5>',
+      html: '<p class="card-text font-small-3">' + message + '</p>',
+      icon: icon,
+      showCancelButton: false,
+      confirmButtonColor: '#2746e4',
+      confirmButtonText:
+        'OK THANKS',
+      customClass: {
+        confirmButton: 'btn btn-primary'
+      }
+    })
+  }
 }
