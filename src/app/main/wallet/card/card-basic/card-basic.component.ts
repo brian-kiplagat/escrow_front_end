@@ -78,8 +78,6 @@ export class CardBasicComponent implements OnInit {
 
   ngAfterViewInit() {
     this.route.queryParams.subscribe(params => {
-      this.loading = true
-      console.log(params.username)
       let wallet = params.wallet
       let username = params.username
       const inputElement = document.getElementById('address') as HTMLInputElement;
