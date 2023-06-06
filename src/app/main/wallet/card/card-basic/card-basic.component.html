@@ -75,7 +75,8 @@
                 </div>
 
                 <div class="col-12 mb-1">
-                  <label id="label_amount" for="amount" ngbTooltip="Enter your amount in {{currency}}." placement="right">Amount
+                  <label id="label_amount" for="amount" ngbTooltip="Enter your amount in {{currency}}."
+                         placement="right">Amount
                     ({{currency}})</label>
 
                   <fieldset>
@@ -146,7 +147,7 @@
             <h5 class="apply-job-title">Why do i need to confirm the address when sending?</h5>
             <p class="card-text mb-2">
               Due to the irreversible nature of cryptocurrency protocols, transactions can't be reversed once initiated.
-              , this means that
+              This means that
               we're not able to recover any funds sent to an incorrect address. We strongly suggest that you double
               check addresses before sending
             </p>
@@ -192,7 +193,10 @@
                     <span class="font-weight-bold">{{tx.amount}} BTC</span>
                   </td>
                   <td>{{tx.type}}</td>
-                  <td (click)="copy_link(tx.hash)"><span class="badge badge-pill badge-light-primary mr-1  cursor-pointer">   <i data-feather="copy" class="font-small-2"></i> {{tx.hash.substring(0,10)+'...'}} </span></td>
+                  <td (click)="copy_link(tx.hash)"><span
+                    class="badge badge-pill badge-light-primary mr-1  cursor-pointer">   <i data-feather="copy"
+                                                                                            class="font-small-2"></i> {{tx.hash.substring(0, 10) + '...'}} </span>
+                  </td>
                   <td>{{tx.created_at | date:'medium'}}</td>
                   <td *ngIf="tx.paid == 1"
                       ngbTooltip="This transaction was confirmed on {{tx.created_at | date}}. It currently has  {{tx.confirmations}} Confirmation"
@@ -202,7 +206,7 @@
                       ngbTooltip="This means that your transaction is still processing. Bitcoin transactions usually take 30 minutes to 1.5 hours to complete. However, there can be delays in the transaction if there is a high volume of transactions in the blockchain"
                       placement="top">Pending
                   </td>
-                  <td >
+                  <td>
                     <a href="https://www.blockchain.com/btc/tx/{{tx.hash}}" target="_blank"
                     ><i data-feather="chrome" class="mr-50"></i><span>View</span></a
                     >
@@ -225,7 +229,8 @@
             <div class="card-header"><h4 class="card-title">Internal Transfers</h4></div>
             <div class="card-body">
               <p class="card-text">
-                These are transfers from other CoinPes Users. Since these are off-chain transactions, the transfer is free and available immediately</p>
+                These are transfers from other CoinPes Users. Since these are off-chain transactions, the transfer is
+                free and available immediately</p>
             </div>
             <div class="table-responsive">
               <table class="table">
@@ -254,7 +259,8 @@
                   <td><span class="badge badge-pill badge-light-warning mr-1"
                             ngbTooltip="This was interpreted at the time of the transaction. The current value of these Bitcoins may change depending on the market rate">{{internal.fiat}} {{internal.currency}}</span>
                   </td>
-                  <td><span class="badge badge-pill badge-light-success mr-1">{{internal.amount_btc  | number:'1.8-8'}} BTC</span></td>
+                  <td><span class="badge badge-pill badge-light-success mr-1">{{internal.amount_btc  | number:'1.8-8'}}
+                    BTC</span></td>
                   <td>{{internal.created_at | date}}</td>
 
                 </tr>
