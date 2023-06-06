@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 
 import {FirebaseService} from "../../../../services/firebase.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import clipboard from "clipboardy";
 import {GlobalConfig, ToastrService} from "ngx-toastr";
 import {v4 as uuidv4} from 'uuid';
@@ -32,7 +32,7 @@ export class CardBasicComponent implements OnInit {
   public internal_tx: any;
   public currency_mode: any;
 
-  constructor(private fb: FirebaseService, private router: Router, private toaster: ToastrService) {
+  constructor(private route: ActivatedRoute, private fb: FirebaseService, private router: Router, private toaster: ToastrService) {
     this.options = this.toaster.toastrConfig;
   }
 
@@ -76,6 +76,22 @@ export class CardBasicComponent implements OnInit {
 
   }
 
+  ngAfterViewInit() {
+    this.route.queryParams.subscribe(params => {
+      this.loading = true
+      console.log(params.username)
+      let wallet = params.wallet
+      let username = params.username
+      const inputElement = document.getElementById('address') as HTMLInputElement;
+      inputElement.value = wallet;
+      this.toaster.success('👋 Bitcoin will be sent internally. The transaction is free and available immediately', 'Sending to ' + username, {
+        toastClass: 'toast ngx-toastr',
+        timeOut: 8000,
+        closeButton: true
+      });
+    })
+  }
+
   copy_address() {
     clipboard.write(this.address);
     // Success
@@ -85,6 +101,7 @@ export class CardBasicComponent implements OnInit {
       closeButton: true
     });
   }
+
   copy_link(link) {
     clipboard.write(link);
     // Success
@@ -94,6 +111,7 @@ export class CardBasicComponent implements OnInit {
       closeButton: true
     });
   }
+
   sendBTC() {
     let address = (<HTMLInputElement>document.getElementById("address")).value;
     let amount = (<HTMLInputElement>document.getElementById("amount")).value;
@@ -107,7 +125,7 @@ export class CardBasicComponent implements OnInit {
       "amount": amount,
       "wallet": address,
       "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
-      "currency_mode":this.currency_mode,
+      "currency_mode": this.currency_mode,
       "otp": otp
 
     }).subscribe((response: any) => {
@@ -176,7 +194,7 @@ export class CardBasicComponent implements OnInit {
 
   change_currency(currency) {
     this.currency_mode = currency
-    document.querySelector('#label_amount').innerHTML = 'Amount ('+currency+')';
+    document.querySelector('#label_amount').innerHTML = 'Amount (' + currency + ')';
     document.querySelector('#button_change').innerHTML = currency;
 
     //console.log(this.currency_mode)

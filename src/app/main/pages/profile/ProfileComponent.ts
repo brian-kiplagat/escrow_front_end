@@ -146,6 +146,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   send_coins(external_username) {
+    location.href = '/wallet/main?wallet='+this.currentUser.wallet + '&username='+external_username
 
   }
 }
