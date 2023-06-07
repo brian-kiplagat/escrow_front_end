@@ -25,7 +25,7 @@
       <div class="card-body">
         <!-- TRADE STATUS AND DATE -->
         <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
-        <h4 class="card-title mt-1 mb-75 pt-25">Trade {{trade.status}}</h4>
+        <h4 class="card-title mt-1 mb-75 pt-25">Trade {{trade.status.replace('_',' ')}}</h4>
         <!-- TRADE STATUS AND DATE -->
         <!-- EXPIRE -->
         <div class="design-group mb-2 pt-50" *ngIf="trade.status == 'OPENED'">
@@ -212,15 +212,20 @@
                   <small class="text-muted">Support</small>
                 </div>
               </div>
-              <div class="badge badge-pill badge-light-primary"
-              >
-                Awaiting
+              <div  class="badge badge-pill"
+                    [ngClass]="trade.status == 'AWARDED_SELLER' ? 'badge-light-danger' : trade.status == 'DISPUTE_OPEN' ? 'badge-light-primary' : trade.status == 'AWARDED_BUYER' ? 'badge-success' : ''">
+                {{ trade.status == 'AWARDED_SELLER' ? 'Seller Won' : (trade.status == 'DISPUTE_OPEN' ? 'Awaiting' : (trade.status == 'AWARDED_BUYER' ? 'Buyer Won' : '')) }}
               </div>
+
+
+
             </div>
-            <h5 class="apply-job-title">Having a
-              problem?
-              We're joining in
-              shortly to help.</h5>
+            <h5 class="apply-job-title">
+              {{ trade.status == 'AWARDED_SELLER' ? 'Seller Won this Dispute' : (trade.status == 'DISPUTE_OPEN' ? 'Having a problem? We are joining in shortly to help.' : (trade.status == 'AWARDED_BUYER' ? 'Buyer Won this Dispute' : '')) }}
+
+
+
+            </h5>
             <p class="card-text mb-2" *ngIf="trade.dispute_started == true && trade.status == 'DISPUTE_OPEN'">
               Meanwhile explain to us what happened and upload evidence showing you sent the money including
               screenshots, video records and account statement. The
