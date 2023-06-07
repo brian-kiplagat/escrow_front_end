@@ -466,7 +466,7 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       .queue([
         {
           title: 'Reason',
-          text: 'Enter a brief explanation'
+          text: 'Why open this dispute?'
         },
         {
           title: 'Explain',
@@ -480,6 +480,43 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
           let reason = (<HTMLInputElement>result).value[0]
           let explanation = (<HTMLInputElement>result).value[1]
           console.log(reason + ": " + explanation)
+          let user = JSON.parse(localStorage.getItem('user'))
+          const headerDict = {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            token: user.token,
+            username: user.username
+          }
+          const requestOptions = {
+            headers: new Headers(headerDict),
+            method: 'POST',
+            body: JSON.stringify({
+              "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+              "email": user.email,
+              "tradeId": id,
+              "reason": reason,
+              "explanation": explanation
+
+
+            })
+
+          };
+          fetch(`${environment.endpoint}/openDispute`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+              if (result.status == true) {
+                console.log(result.responseMessage)
+              } else {
+                return
+              }
+            })
+            .catch((error) => {
+              console.log(error)
+
+
+            })
+
+
           Swal.fire({
             title: 'DISPUTE OPEN',
             html: 'Provide the moderator with as much information and evidence as you can. Check your email for details on how to win. Well be joining you shortly to help you',
