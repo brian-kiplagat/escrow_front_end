@@ -332,12 +332,11 @@ export class FirebaseService {
   //send message
   async sendMessage(data: any) {
     //Send message
-   return this.firestore.collection('trades').doc(data.tradeId.toString()).collection('chats').add({
+    return this.firestore.collection('trades').doc(data.tradeId.toString()).collection('chats').add({
       senderId: data.senderId,
       message: data.message,
       time: Date.now()
     });
-
 
 
   }
@@ -471,6 +470,17 @@ export class FirebaseService {
 
   setChangePaswordInApp(token, username, formData: any) {
     return this.http.post(`${environment.endpoint}/changePasswordAuth`, formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
+
+  deleteSession(token, username, formData: any) {
+    return this.http.post(`${environment.endpoint}/tokenDelete`, formData, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',

@@ -42,6 +42,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public factor_release = false;
   public reset_error = false;
   public reset_error_text;
+  public devices
   public whitelist: Observable<any>
   file_data: any = '';
   public file = new FormControl('');
@@ -336,6 +337,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.fb.getUser(this.user.username, this.user.token).subscribe(
       (data: any) => {
+        this.devices = data.responseMessage?.devices;
         this.whitelist = data.responseMessage?.whitelist;
         this.currentUser = data.responseMessage?.user_data[0];
         this.avatarImage = this.currentUser.profile_link;
@@ -607,6 +609,17 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
           }
         }
       });
+  }
+
+  deleteDevice(session_id: string) {
+    let user = JSON.parse(localStorage.getItem('user'));
+    this.fb.deleteSession(user.token, user.username, {
+      'session_id': session_id
+    }).subscribe(data => {
+      console.log(data)
+    }, error => {
+      console.log(error)
+    })
   }
 
   fireSwalError(title: string, message: string) {

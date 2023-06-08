@@ -413,6 +413,56 @@
                 </div>
 
                 <div class="card">
+                  <div class="card card-developer-meetup">
+                    <div class="card-body">
+                      <div class="meetup-header d-flex align-items-center">
+                        <div class="my-auto">
+                          <h4 class="card-title mb-25">
+                            Signed in Devices
+                          </h4>
+                          <p class="card-text mb-0">
+                            When you sign in to new devices you'll see them here.                          </p>
+
+                        </div>
+                      </div>
+
+                      <br>
+
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th>Location</th>
+                            <th>Date</th>
+                            <th>IP</th>
+                            <th>Delete</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+
+                          <tr *ngFor="let device of devices">
+                            <td>
+                              <span class="font-weight-bold">{{device.location}}</span>
+                            </td>
+                            <td><span
+                              class="badge badge-pill badge-light-primary mr-1">{{device.created_at | date:'medium'}}</span>
+                            </td>
+                            <td><span
+                              class="badge badge-pill badge-light-warning mr-1">{{device.ip}}</span>
+                            </td>
+
+                            <td  role="button"  (click)="deleteDevice(device.id)"><i data-feather="x-circle" class="mr-50"></i></td>
+                          </tr>
+
+                          </tbody>
+                        </table>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
                   <div class="card-body">
                     <div *ngIf="two_factor == true">
                       <div class="card card-developer-meetup">
