@@ -615,8 +615,9 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     let user = JSON.parse(localStorage.getItem('user'));
     this.fb.deleteSession(user.token, user.username, {
       'session_id': session_id
-    }).subscribe(data => {
-      console.log(data)
+    }).subscribe((data: any) => {
+      this.devices = data.responseMessage
+      console.log(this.devices)
     }, error => {
       console.log(error)
     })
