@@ -80,13 +80,18 @@ export class CardBasicComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       let wallet = params.wallet
       let username = params.username
-      const inputElement = document.getElementById('address') as HTMLInputElement;
-      inputElement.value = wallet;
-      this.toaster.success('👋 Bitcoin will be sent internally. The transaction is free and available immediately', 'Sending to ' + username, {
-        toastClass: 'toast ngx-toastr',
-        timeOut: 8000,
-        closeButton: true
-      });
+      if (params.wallet && params.username) {
+        console.log(params)
+        const inputElement = document.getElementById('address') as HTMLInputElement;
+        inputElement.value = wallet;
+        this.toaster.success('👋 Bitcoin will be sent internally. The transaction is free and available immediately', 'Sending to ' + username, {
+          toastClass: 'toast ngx-toastr',
+          timeOut: 8000,
+          closeButton: true
+        });
+      }
+
+
     })
   }
 
