@@ -45,7 +45,7 @@ export class EditofferComponent implements OnInit {
   public max;
   public offer: any = {};
   public user_data: any = {};
-  public current_tags = []
+  public current_tags
   public limit_countries = 'none';
   public CHECK_ID: boolean;
   public CHECK_NAME: boolean;
@@ -143,34 +143,6 @@ export class EditofferComponent implements OnInit {
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');
-
-    this.user = JSON.parse(localStorage.getItem('user'))
-    this._fb.getInfo(productIdFromRoute).subscribe((data: any) => {
-      this.offer = data.responseMessage.data;
-      this.offer_id = data.responseMessage.data.offer_id
-      this.rate = data.responseMessage.data.margin
-      this.min = data.responseMessage.data.minimum
-      this.max = data.responseMessage.data.maximum
-      this.CHECK_NAME = data.responseMessage.data.full_name
-      this.CHECK_ID = data.responseMessage.data.id_verification
-      this.CHECK_VPN = data.responseMessage.data.vpn
-      this.current_tags = data.responseMessage.data.tags
-      this.user_data = data.responseMessage.data.user_data
-
-    });
-    this.user ? this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
-      this.tags = data.responseMessage
-    }) : this.user = {}
-
-    this._fb.getCurrency().subscribe((data: any) => {
-      this.currencies = data.responseMessage.currencies
-      this.methods = data.responseMessage.methods
-      this.countries = data.responseMessage.currencies
-
-    }, (error) => {
-      console.log(error)
-    })
-
     //initialize form
     this.checkoutForm = this._formBuilder.group({
       // username: ['', [Validators.required]],
@@ -179,7 +151,6 @@ export class EditofferComponent implements OnInit {
       currency: [null]
     });
     this.form2 = this._formBuilder.group({
-      // username: ['', [Validators.required]],
       minimum: [''],
       maximum: [''],
       offerRate: [''],
@@ -203,6 +174,38 @@ export class EditofferComponent implements OnInit {
     this.form3.controls['allowedCountries'].disable();
     this.form3.controls['blockedCountries'].disable();
 
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this._fb.getInfo(productIdFromRoute).subscribe((data: any) => {
+      this.offer = data.responseMessage.data;
+      this.offer_id = data.responseMessage.data.offer_id
+      this.rate = data.responseMessage.data.margin
+      this.min = data.responseMessage.data.minimum
+      this.max = data.responseMessage.data.maximum
+      this.CHECK_NAME = data.responseMessage.data.full_name
+      this.CHECK_ID = data.responseMessage.data.id_verification
+      this.CHECK_VPN = data.responseMessage.data.vpn
+      this.current_tags = data.responseMessage.data.tags
+      this.user_data = data.responseMessage.data.user_data
+      console.log(this.current_tags)
+      console.log(JSON.parse(this.current_tags))
+
+      this.form2.patchValue({
+        tags: JSON.parse(this.current_tags),
+      });
+
+    });
+    this.user ? this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
+      this.tags = data.responseMessage
+    }) : this.user = {}
+
+    this._fb.getCurrency().subscribe((data: any) => {
+      this.currencies = data.responseMessage.currencies
+      this.methods = data.responseMessage.methods
+      this.countries = data.responseMessage.currencies
+
+    }, (error) => {
+      console.log(error)
+    })
 
     this.checkoutStepper = new Stepper(document.querySelector('#checkoutStepper'), {
       linear: false,
