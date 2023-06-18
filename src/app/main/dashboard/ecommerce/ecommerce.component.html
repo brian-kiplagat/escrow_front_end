@@ -127,7 +127,7 @@
             <!-- ONE ELEMENT -->
             <div *ngFor="let trade of tradeData">
               <ngb-alert [type]="'primary'" [dismissible]="false">
-                <div class="alert-body">TRADE {{ trade.trade.status }}</div>
+                <div class="alert-body">Trade {{trade.trade.status.replace('_',' ') | titlecase}}</div>
               </ngb-alert>
               <div class="d-flex justify-content-between align-items-center mb-1">
                 <div class="media">
@@ -175,32 +175,23 @@
                   VIEW
                 </button>
               </div>
-              <div
-                class="apply-job-package bg-light-warning rounded"
-                *ngIf="trade.trade.moderator_flag != 'NA'"
-                ngbTooltip="This dispute was started. Each user must prove that they have fulfilled their end of the deal. A moderator will shortly message you via your trade chat. Provide the moderator with as much information and evidence as you can, which could be any of the following:
-Transaction receipt,
-Screenshot of payment confirmation,
-Video or screen recording of payment being made,
-Proof of ownership receipts online and offline in transactions involving gift cards,
-Any additional proof as determined by the moderator. The moderator will then assess all the evidence given by both parties and award the escrow to the correct fair party"
-                placement="top"
-              >
-                <div>
-                  <sup class="text-body"
-                  ><small>
-                    <i
-                      data-feather="shield"
-                      class="avatar-icon font-medium-3"
-                    ></i></small
-                  ></sup>
-                  <h2 class="d-inline mr-25">DISPUTE</h2>
-                  <sub class="text-body"
-                  ><small>{{ trade.status }}</small></sub
-                  >
+              <div class="d-flex justify-content-between align-items-center mb-1" *ngIf = "trade.trade.status == 'DISPUTE_OPEN'">
+                <div class="media">
+                  <div class="avatar bg-light-danger mr-2">
+                    <div class="avatar-content">
+                      <i data-feather="shield" class="avatar-icon font-medium-3"></i>
+                    </div>
+                  </div>
+                  <div class="media-body">
+                    <h5 class="mb-0">Dispute started</h5>
+                    <small class="text-muted">{{trade.trade.dispute_time | date :'short'}}</small>
+                  </div>
                 </div>
-                <div class="badge badge-pill badge-light-primary">2hr Ago</div>
+                <div class="badge badge-pill badge-light-danger">
+                  Awaiting Mods
+                </div>
               </div>
+
               <hr/>
             </div>
             <!-- ONE ELEMENT -->

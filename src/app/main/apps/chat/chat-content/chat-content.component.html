@@ -166,7 +166,7 @@
           <!-- NORMAL MESSAGES CHATS  -->
           <!-- CHECK AN ARRAY OF KEYS FOR BLURBS,,,SO THAT WE ONLY SHOW MESSAGES AND NOT KEYS FOR BLURBS  -->
           <div
-            *ngIf="!['XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq','RE_GbGQvC1fsxZq_OPEN','CANCEL_GQvC1fsxZq_BUYER','RELEASEDKvC1fsxZqGbGQvC1fsxZq','PAIDKvC1fVrVsxZqGbGQvC1fsxZq','BLOCK_GbGQvC1fsxZq','FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE','FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE','FEEDBACK_UPDATE_QvC1fsxZq','DISPUTE_QvC1fsxZq'].includes(chatRef.message)">
+            *ngIf="!['XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq','RE_GbGQvC1fsxZq_OPEN','CANCEL_GQvC1fsxZq_BUYER','RELEASEDKvC1fsxZqGbGQvC1fsxZq','PAIDKvC1fVrVsxZqGbGQvC1fsxZq','BLOCK_GbGQvC1fsxZq','FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE','FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE','FEEDBACK_UPDATE_QvC1fsxZq','DISPUTE_QvC1fsxZq','DISPUTE_QvC_RESOLVED_1fsxZq'].includes(chatRef.message)">
             <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
                         <span class="avatar box-shadow-1 cursor-pointer">
                             <img [src]="partner_data.profile_link" (click)="openLink(partner_data.username)"
@@ -495,9 +495,23 @@
             <ngb-alert [type]="'primary'" [dismissible]="false">
               <div class="card">
                 <div class="alert-body">
-                  <p class="text-body-heading">
-                    🛡️ Dispute started by {{trade.dispute_started_by}}
-                  </p>
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <div class="media">
+                      <div class="avatar mr-1">
+                        <img
+                          src="/assets/images/avatars/avatar.webp"
+                          alt="Avatar"
+                          width="42"
+                          height="42"
+                        />
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mb-0 text-body-heading">Dispute started by {{trade.dispute_started_by}}</h5>
+                        <small class="text-muted">{{ trade.dispute_time | date }}</small>
+                      </div>
+                    </div>
+                  </div>
+
                   <p class="text-black-50"> A dispute has been started by {{trade.dispute_started_by}}. The reason
                     is: {{trade.dispute_reason}}: {{trade.dispute_explanation}}
                     <br>
@@ -516,9 +530,25 @@
             <ngb-alert [type]="'primary'" [dismissible]="false">
               <div class="card">
                 <div class="alert-body">
-                  <p class="text-body-heading">
-                    🛡️ @Seller and @Buyer
-                  </p>
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <div class="media">
+                      <div class="avatar mr-1">
+                        <img
+                          src="/assets/images/logo/logo.png"
+                          alt="Avatar"
+                          width="42"
+                          height="42"
+                        />
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mb-0">@Seller and @Buyer</h5>
+                        <small class="text-muted">{{ trade.dispute_time | date }}</small>
+                      </div>
+                    </div>
+                    <div class="badge badge-pill badge-primary">
+                      coinpes
+                    </div>
+                  </div>
                   <p class="text-black-50"> Hi, this trade is now in a dispute.</p><br>
                   <p class="text-black-50">For us to resolve this as quickly as possible, please provide as much evidence as you can.
                     What should you provide?
@@ -539,7 +569,44 @@
 
           </div>
           <!-- TRADE DISPUTE -->
+          <!-- TRADE RESOLUTION -->
+          <div *ngIf="chatRef.message == 'DISPUTE_QvC_RESOLVED_1fsxZq'">
+            <ngb-alert [type]="'primary'" [dismissible]="false">
+              <div class="card">
+                <div class="alert-body">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <div class="media">
+                      <div class="avatar mr-1">
+                        <img
+                          src="/assets/images/avatars/12-small.png"
+                          alt="Avatar"
+                          width="42"
+                          height="42"
+                        />
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mb-0">@Seller and @Buyer</h5>
+                        <small class="text-muted">{{ trade.dispute_time_resolve | date }}</small>
+                      </div>
+                    </div>
+                    <div class="badge badge-pill badge-primary">
+                      Moderator
+                    </div>
+                  </div>
+                  <p class="text-body-heading">
+                    Dispute Resolution
+                  </p>
+                  <p class="text-black-50"> Hi, this trade dispute has been resolved.</p><br>
+                  <p class="text-black-50">This is a final decision after reviewing your cases and evidence uploaded by the parties
+                  </p>
+                  <br>
+                  <p class="text-black-50"> {{trade.dispute_mod_notes}}</p><br>
+                </div>
+              </div>
+            </ngb-alert>
 
+          </div>
+          <!-- TRADE RESOLUTION -->
         </div>
         <!-- END CHAT FLOW  -->
 
