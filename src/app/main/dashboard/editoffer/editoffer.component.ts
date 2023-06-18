@@ -143,6 +143,7 @@ export class EditofferComponent implements OnInit {
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('id');
+    this.user = JSON.parse(localStorage.getItem('user'))
     //initialize form
     this.checkoutForm = this._formBuilder.group({
       // username: ['', [Validators.required]],
@@ -160,21 +161,18 @@ export class EditofferComponent implements OnInit {
       instructions: ['']
     });
     this.form3 = this._formBuilder.group({
-      // username: ['', [Validators.required]],
       idverification: [''],
       minimumTrades: [''],
       limitusers: [''],
       limit_block: [''],
       fullname: [''],
+      radioButton: [''],
       vpn: [''],
       limitCountries: ['none'],
       allowedCountries: [[]],
       blockedCountries: [[]]
     });
-    this.form3.controls['allowedCountries'].disable();
-    this.form3.controls['blockedCountries'].disable();
 
-    this.user = JSON.parse(localStorage.getItem('user'))
     this._fb.getInfo(productIdFromRoute).subscribe((data: any) => {
       this.offer = data.responseMessage.data;
       this.offer_id = data.responseMessage.data.offer_id
@@ -186,12 +184,47 @@ export class EditofferComponent implements OnInit {
       this.CHECK_VPN = data.responseMessage.data.vpn
       this.current_tags = data.responseMessage.data.tags
       this.user_data = data.responseMessage.data.user_data
-      console.log(this.current_tags)
-      console.log(JSON.parse(this.current_tags))
+      this.limit_countries = data.responseMessage.data.limit_countries
 
       this.form2.patchValue({
         tags: JSON.parse(this.current_tags),
       });
+
+      this.form3.patchValue({
+        minimumTrades: data.responseMessage.data.min_trades,
+        limitusers: data.responseMessage.data.new_trader_limit,
+        limit_block: data.responseMessage.data.limit_block
+
+
+      });
+
+      if (this.limit_countries == 'none') {
+        this.form3.get('radioButton').setValue('none');
+        this.form3.controls['allowedCountries'].disable();
+        this.form3.controls['blockedCountries'].disable();
+
+      }
+      if (this.limit_countries == 'blocked') {
+        this.form3.get('radioButton').setValue('blocked');
+        this.blockCountires = true
+        this.allowCountires = false
+        this.form3.patchValue({
+          blockedCountries: JSON.parse(data.responseMessage.data.blocked_countries)
+        });
+
+
+      }
+      if (this.limit_countries == 'allowed') {
+        this.form3.get('radioButton').setValue('allowed');
+        this.blockCountires = false
+        this.allowCountires = true
+        this.form3.patchValue({
+          allowedCountries: JSON.parse(data.responseMessage.data.allowed_countries)
+        });
+
+
+      }
+
 
     });
     this.user ? this._fb.getTags(this.user.username, this.user.token).subscribe((data: any) => {
@@ -230,14 +263,14 @@ export class EditofferComponent implements OnInit {
       "label": !this.form2.value.label ? this.offer.label : this.form2.value.label,
       "terms": !this.form2.value.terms ? this.offer.terms : this.form2.value.terms,
       "instructions": !this.form2.value.instructions ? this.offer.instructions : this.form2.value.instructions,
-      "new_trader_limit": !this.form3.value.limitusers ? 0 : this.form3.value.limitusers,
-      "limit_block": !this.form3.value.limit_block ? 0 : this.form3.value.limit_block,
+      "new_trader_limit": !this.form3.value.limitusers ? 0 : parseInt(this.form3.value.limitusers),
+      "limit_block": !this.form3.value.limit_block ? 0 : parseInt(this.form3.value.limit_block),
+      "min_trades": !this.form3.value.minimumTrades ? 0 : parseInt(this.form3.value.minimumTrades),
       "blocked_countries": !this.form3.value.blockedCountries ? "N/A" : this.form3.value.blockedCountries,
       "allowed_countries": !this.form3.value.allowedCountries ? "N/A" : this.form3.value.allowedCountries,
       "vpn": this.CHECK_VPN,
       "id_verification": this.CHECK_ID,
       "full_name": this.CHECK_NAME,
-      "min_trades": !this.form3.value.minimumTrades ? 0 : this.form3.value.minimumTrades,
       "limit_countries": !this.form3.value.limit_countries ? this.limit_countries : this.form3.value.limit_countries,
 
     }).subscribe((data) => {
