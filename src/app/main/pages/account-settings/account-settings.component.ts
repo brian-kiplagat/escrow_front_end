@@ -173,55 +173,48 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
    * @param event
    */
   async uploadDP() {
-    console.log("updating")
-    if (this.croppedImage.size / 1048576 <= 4) {
-      this.uploading = true;
-      let user = JSON.parse(localStorage.getItem('user'));
-      const headerDict = {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        token: user.token,
-        username: user.username
-      };
-      const requestOptions = {
-        headers: new Headers(headerDict),
-        method: 'POST',
-        body: JSON.stringify({
-          profile_image: this.croppedImage,
-          type: this.croppedImage.type
-        })
-      };
-      await fetch(`https://api.coinlif.com/api/files/v1/uploadDP`, requestOptions)
-        .then((response) => {
-          console.log(response);
-          if (!response.ok) {
-            this.toast(
-              'FAILED',
-              '👋 Seems an error happened .Please try again',
-              'error'
-            );
-            this.uploading = false;
-            //throw new Error(response.statusText);
-          } else {
-            //reader.readAsDataURL(event.target.files[0]);
-            response.json().then((json) => {
-              this.avatarImage = json.responseMessage?.path;
-            });
-            this.fb.playAudio('assets/sounds/tirit.wav');
-            this.toast('Great', '👋 You just uploaded your profile', 'success');
-            this.uploading = false;
-          }
-        })
-        .catch((error) => {
-          this.toast('Ops', '👋 An error happened try again', 'error');
-        });
-    } else {
-      this.toast(
-        'Ops',
-        'File size exceeds 4 MB. Please choose less than 4 MB',
-        'error'
-      );
-    }
+    console.log(this.croppedImage)
+    this.uploading = true;
+    let user = JSON.parse(localStorage.getItem('user'));
+    const headerDict = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: user.token,
+      username: user.username
+    };
+    const requestOptions = {
+      headers: new Headers(headerDict),
+      method: 'POST',
+      body: JSON.stringify({
+        profile_image: this.croppedImage,
+        type: this.croppedImage.type
+      })
+    };
+    await fetch(`https://api.coinpes.com/api/coin/v1/uploadProfile`, requestOptions)
+      .then((response) => {
+        console.log(response);
+        if (!response.ok) {
+          this.toast(
+            'FAILED',
+            '👋 Seems an error happened .Please try again',
+            'error'
+          );
+          this.uploading = false;
+          //throw new Error(response.statusText);
+        } else {
+          //reader.readAsDataURL(event.target.files[0]);
+          response.json().then((json) => {
+            this.avatarImage = json.responseMessage?.path;
+          });
+          this.fb.playAudio('assets/sounds/tirit.wav');
+          this.toast('Great', '👋 You just uploaded your profile', 'success');
+          this.uploading = false;
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+        this.toast('Ops', '👋 An error happened try again', 'error');
+      });
   }
 
   onFileSelected(event) {

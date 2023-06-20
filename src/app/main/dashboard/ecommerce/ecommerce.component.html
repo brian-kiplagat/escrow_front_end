@@ -260,13 +260,12 @@
                     >
                   </div>
                 </div>
-                <div
-                  class="badge badge-pill badge-light-primary"
-                  placement="left"
-                  ngbTooltip="{{ getBlocked(offer)}}"
-                >
+                <div class="badge badge-pill"
+                     [ngClass]="offer.limit_countries == 'none' ? 'badge-light-primary' : offer.limit_countries == 'blocked' ? 'badge-light-danger' : offer.limit_countries == 'allowed' ? 'badge-light-success' : 'badge-light-info'"
+                     placement="left" ngbTooltip="{{ getBlocked(offer) }}">
                   <i data-feather="alert-circle" class="font-medium-5"></i>
                 </div>
+
               </div>
               <div class="transaction-item">
                 <div class="media">
