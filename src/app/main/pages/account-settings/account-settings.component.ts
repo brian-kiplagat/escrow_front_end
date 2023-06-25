@@ -811,17 +811,11 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   saveProfile() {
     this.uploading = true;
     let about = (<HTMLInputElement>document.getElementById('about')).value;
-    if (about.length <= 5) {
+    if (about.length <= 4) {
       this.fb.playAudio('assets/sounds/windows_warning.wav');
       this.toast('Sorry', '👋 About must be greater than 20 characters', 'error');
       return;
     }
-    if (about.length >= 50) {
-      this.fb.playAudio('assets/sounds/windows_warning.wav');
-      this.toast('Sorry', '👋 About cannot be greater than 255 characters', 'error');
-      return;
-    }
-
     this.fb
       .updateProfile(this.user.token, this.user.username, {
         currency: this.curr,
