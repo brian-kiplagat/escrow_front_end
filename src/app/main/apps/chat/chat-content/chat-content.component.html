@@ -166,7 +166,7 @@
           <!-- NORMAL MESSAGES CHATS  -->
           <!-- CHECK AN ARRAY OF KEYS FOR BLURBS,,,SO THAT WE ONLY SHOW MESSAGES AND NOT KEYS FOR BLURBS  -->
           <div
-            *ngIf="!['XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq','RE_GbGQvC1fsxZq_OPEN','CANCEL_GQvC1fsxZq_BUYER','RELEASEDKvC1fsxZqGbGQvC1fsxZq','PAIDKvC1fVrVsxZqGbGQvC1fsxZq','BLOCK_GbGQvC1fsxZq','FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE','FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE','FEEDBACK_UPDATE_QvC1fsxZq','DISPUTE_QvC1fsxZq','DISPUTE_QvC_RESOLVED_1fsxZq'].includes(chatRef.message)">
+            *ngIf="!['XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq','RE_GbGQvC1fsxZq_OPEN','CANCEL_GQvC1fsxZq_BUYER','RELEASEDKvC1fsxZqGbGQvC1fsxZq','PAIDKvC1fVrVsxZqGbGQvC1fsxZq','BLOCK_GbGQvC1fsxZq','FEEDBACK_1fsxZqGbGQvC1fsxZq_POSITIVE','FEEDBACK_1fsxZqGbGQvC1fsxZq_NEGATIVE','FEEDBACK_UPDATE_QvC1fsxZq','DISPUTE_QvC1fsxZq','DISPUTE_QvC_RESOLVED_1fsxZq','EXPIRED_GQvC1fsxZER'].includes(chatRef.message)">
             <div class="chat-avatar" *ngIf="chatRef.senderId != user.username">
                         <span class="avatar box-shadow-1 cursor-pointer">
                             <img [src]="partner_data.profile_link" (click)="openLink(partner_data.username)"
