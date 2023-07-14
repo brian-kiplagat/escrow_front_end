@@ -81,26 +81,28 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     //Get the current time
     //Count down the difference
     let future = new Date(this.trade.created_at).getTime() + 1800000
+    console.log(this.trade)
     let count = future - new Date().getTime();
     this.mmss = new Date(count).toISOString().substr(14, 5);
     let interval = setInterval(() => {
       count -= 1000;
       this.mmss = new Date(count).toISOString().substr(14, 5);
-
+      console.log('minutes remaining:',count/60000)
       //The trade has just expired
-      if (this.mmss == "00:00") {
+      if (count/60000 <= 0) {
         clearInterval(interval);
+        console.log('cleared interval')
         this.mmss = '00:00'
         this.fb.playAudio('assets/sounds/windows_warning.wav')
 
       }
       //The trade has 5 minutes remaining
-      if (this.mmss == "05:00") {
+      if (this.mmss === "05:00") {
         this.showDialog('You have 5 minutes remaining. This trade will expire soon and the trade will be automatically cancelled. If you have not sent the money please be quick, send the money and confirm it by clicking the PAID button', 'Trade about to expire')
         this.fb.playAudio('assets/sounds/tirit.wav')
       }
       //The trade has 2 minutes remaining
-      if (this.mmss == "02:00") {
+      if (this.mmss === "02:00") {
         this.showDialog('You have 2 minutes remaining. If you have sent the money please confirm it by clicking the PAID button otherwise the trade will be automatically cancelled and the crypto returned to the seller', 'Time is running out')
         this.fb.playAudio('assets/sounds/tirit.wav')
       }
