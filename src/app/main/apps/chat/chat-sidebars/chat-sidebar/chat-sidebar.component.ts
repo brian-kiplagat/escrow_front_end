@@ -425,7 +425,8 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       } else {
         Swal.fire({
           title: ' <h5>Are you sure!</h5>',
-          html: ' <p class="card-text font-small-3">Before releasing the Bitcoin, be sure to check your balance to confirm that you’ve received your money. Once you\'ve released your funds, the transaction is final. If you have any issues, click Back, start a dispute and well join in to help.</p>',
+          html: `<p class="card-text font-small-3">Before releasing the Bitcoin, check your balance to confirm that you’ve actually received your money. Once you release BTC, the transaction is final. </p>
+                <p class="card-text font-small-3">Enter your 2FA Code to authorize this transaction</p>`,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#2746e4',
@@ -505,24 +506,37 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
             .then(response => response.json())
             .then(result => {
               if (result.status == true) {
+                Swal.fire({
+                  title: 'DISPUTE STARTED',
+                  html: `<p  style="text-align: start;" class="card-text text-body-heading">Provide the moderator with as much information and evidence as you can, which could be any of the following:</p>
+                 <p  style="text-align: start;" class="card-text font-small-3 text-start">1. Transaction receipt.</p>
+                 <p style="text-align: start;" class="card-text font-small-3  text-start">2. Screenshot of payment confirmation.</p>
+                 <p  style="text-align: start;" class="card-text font-small-3  text-start">3. Video or screen recording of payment being made.</p>
+                 <p style="text-align: start;" class="card-text font-small-3 text-start">4. Proof of ownership receipts online and offline in transactions involving gift cards.</p>
+
+`,
+                  confirmButtonText: 'OKAY',
+                  customClass: {confirmButton: 'btn btn-primary'}
+                })
                 console.log(result.responseMessage)
               } else {
+                console.log('ops',result.responseMessage)
+                Swal.fire({
+                  title: 'Whoops!',
+                  icon: 'warning',
+                  html: `<p class="card-text font-small-3">${result.responseMessage}</p>`,
+                  confirmButtonText: 'OKAY',
+                  customClass: {confirmButton: 'btn btn-primary'}
+                })
                 return
               }
             })
             .catch((error) => {
-              console.log(error)
+              console.log('error',error)
 
 
             })
 
-
-          Swal.fire({
-            title: 'DISPUTE OPEN',
-            html: 'Provide the moderator with as much information and evidence as you can. Check your email for details on how to win. Well be joining you shortly to help you',
-            confirmButtonText: 'OKAY',
-            customClass: {confirmButton: 'btn btn-primary'}
-          })
 
         }
       });
