@@ -81,13 +81,14 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     //Get the current time
     //Count down the difference
     //Prevent interval from running if the trade has expired i.e count < o
+    //Only run interval for open trades
 
     let future = new Date(this.trade.created_at).getTime() + 1800000
     let count = future - new Date().getTime();
     this.mmss = new Date(count).toISOString().substr(14, 5);
     //console.log(this.mmss,count)
 
-    if (count >= 0){
+    if (count >= 0 && this.trade.status == 'OPENED'){
       let interval = setInterval(() => {
         count -= 1000;
         this.mmss = new Date(count).toISOString().substr(14, 5);

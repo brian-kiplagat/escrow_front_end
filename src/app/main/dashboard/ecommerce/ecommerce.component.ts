@@ -348,4 +348,9 @@ export class EcommerceComponent implements OnInit {
     }
 
   }
+
+  openLink() {
+    const link = 'https://t.me/coinpes_support';
+    window.open(link, '_blank') || window.location.replace(link);
+  }
 }

@@ -126,9 +126,11 @@
           <div class="card-body">
             <!-- ONE ELEMENT -->
             <div *ngFor="let trade of tradeData">
-              <ngb-alert [type]="'primary'" [dismissible]="false">
-                <div class="alert-body">Trade {{trade.trade.status.replace('_',' ') | titlecase}}</div>
+              <ngb-alert [type]="trade.trade.status === 'OPENED' ? 'primary' : trade.trade.status === 'PAID' ? 'success' : trade.trade.status === 'DISPUTE_OPEN' ? 'warning' : 'primary'" [dismissible]="false">
+                <div class="alert-body">Trade {{ trade.trade.status.replace('_', ' ') | titlecase }}</div>
               </ngb-alert>
+
+
               <div class="d-flex justify-content-between align-items-center mb-1">
                 <div class="media">
                   <div class="avatar mr-1">
@@ -187,8 +189,8 @@
                     <small class="text-muted">{{trade.trade.dispute_time | date :'short'}}</small>
                   </div>
                 </div>
-                <div class="badge badge-pill badge-light-danger">
-                  Awaiting Mods
+                <div class="badge badge-pill badge-light-danger" role="button" (click)="openLink()">
+                  Support <i data-feather="phone-outgoing" class="avatar-icon font-small-1"></i>
                 </div>
               </div>
 
