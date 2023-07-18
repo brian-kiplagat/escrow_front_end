@@ -45,6 +45,11 @@
                           {{ err }}
                         </div>
                       </ngb-alert>
+                      <ngb-alert [type]="'warning'" [dismissible]="false">
+                        <div class="alert-body" *ngIf="offer.username == 'NastinesCodsi423'">
+                          This offer was verified by Coinpes Verify. It comes with 24-7 live Support
+                        </div>
+                      </ngb-alert>
                       <!--WARNING ERRORS -->
                       <form
                         class="auth-register-form mt-2"
