@@ -82,7 +82,7 @@
 
                   <fieldset>
                     <div class="input-group">
-                      <input id="amount" type="text" class="form-control" placeholder="Enter your Amount"
+                      <input id="amount" type="number" class="form-control" placeholder="Enter your Amount"
                              aria-label="Amount"/>
                       <div ngbDropdown class="input-group-append">
                         <button
@@ -118,7 +118,7 @@
                 </div>
 
                 <div class="col-12">
-                  <button type="button" class="btn btn-primary btn-block" (click)="sendBTC()" rippleEffect>SEND BTC
+                  <button type="button" class="btn btn-primary btn-block" (click)="sendBTC()" rippleEffect><span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>SEND BTC
                   </button>
                 </div>
               </div>
