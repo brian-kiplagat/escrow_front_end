@@ -391,7 +391,8 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   }
 
   openLink() {
-    const link = 'https://t.me/CoinPesBot?start=' + this.tg_identifier;
+    console.log(this.currentUser.tg_id)
+    const link = 'https://t.me/CoinPesBot?start=' + this.currentUser.tg_id;
     window.open(link, '_blank') || window.location.replace(link);
   }
 
