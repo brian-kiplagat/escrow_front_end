@@ -94,6 +94,7 @@ export class OfferPageComponent implements OnInit {
       this.max = data.responseMessage.data.maximum
       let offer_tags = data.responseMessage.data.tags
       let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
+      console.log(this.offer)
       const arr = formatted_tags.slice(1, -1)
       this.tags = arr.split(',')
       if (data.responseMessage.data.status != 1) {
