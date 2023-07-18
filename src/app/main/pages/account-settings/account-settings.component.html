@@ -7,17 +7,17 @@
     <section id="page-account-settings">
       <div class="row nav-vertical d-flex">
         <div class="col-md-3 mb-2 mb-md-0">
-          <ul ngbNav #navVertical="ngbNav" class="nav nav-pills flex-column nav-left">
+          <ul #navVertical="ngbNav" class="nav nav-pills flex-column nav-left" ngbNav>
             <li class="nav-item" ngbNavItem>
               <a
-                ngbNavLink
+                aria-expanded="true"
                 class="nav-link d-flex py-75"
-                id="account-pill-general"
                 data-toggle="pill"
                 href="#account-vertical-general"
-                aria-expanded="true"
+                id="account-pill-general"
+                ngbNavLink
               >
-                <i data-feather="user" class="font-medium-3 mr-1"></i>
+                <i class="font-medium-3 mr-1" data-feather="user"></i>
                 <span class="font-weight-bold">Profile</span>
               </a>
               <ng-template ngbNavContent>
@@ -25,18 +25,18 @@
                   <div class="card-body">
                     <div class="card-body">
                       <ngb-alert
-                        [type]="'primary'"
-                        [dismissible]="false"
                         *ngIf="uploading"
+                        [dismissible]="false"
+                        [type]="'primary'"
                       >
                         <div class="alert-body">
                           <p>Hold on. This should take a moment</p>
                         </div>
                       </ngb-alert>
                       <ngb-alert
-                        [type]="'primary'"
-                        [dismissible]="false"
                         *ngIf="reset_error"
+                        [dismissible]="false"
+                        [type]="'primary'"
                       >
                         <div class="alert-body">
                           <p>{{ reset_error_text }}</p>
@@ -45,27 +45,27 @@
                       <!-- header media -->
                       <div class="media">
                         <a
-                          href="javascript:void(0);"
-                          class="mr-25"
                           *ngIf="croppedImage"
+                          class="mr-25"
+                          href="javascript:void(0);"
                         >
                           <img
                             [src]="croppedImage"
-                            class="round mr-50"
                             alt="profile image"
+                            class="round mr-50"
                             height="80"
                             width="80"
                           />
                         </a>
                         <a
-                          href="javascript:void(0);"
-                          class="mr-25"
                           *ngIf="!croppedImage"
+                          class="mr-25"
+                          href="javascript:void(0);"
                         >
                           <img
                             [src]="avatarImage"
-                            class="round mr-50"
                             alt="profile image"
+                            class="round mr-50"
                             height="80"
                             width="80"
                           />
@@ -74,25 +74,25 @@
                         <div class="media-body mt-75 ml-1">
                           <button
                             (click)="file.click()"
-                            for="account-upload"
                             class="btn btn-sm btn-primary mb-75 mr-75"
+                            for="account-upload"
                             rippleEffect
                           >
                             Choose Image
                           </button>
                           <input
-                            type="file"
                             #file
-                            id="account-upload"
-                            hidden
-                            accept="image/*"
                             (change)="fileChangeEvent($event);
                              modalOpenVC(modalVC)
                                                         "
+                            accept="image/*"
+                            hidden
+                            id="account-upload"
+                            type="file"
                           />
                           <button
-                            class="btn btn-sm btn-outline-secondary mb-75"
                             (click)="resetProfile()"
+                            class="btn btn-sm btn-outline-secondary mb-75"
                             rippleEffect
                           >
                             Reset
@@ -111,44 +111,44 @@
                             Crop Profile Picture
                           </h5>
                           <button
-                            type="button"
-                            class="close"
                             (click)="modal.dismiss('Cross click')"
                             aria-label="Close"
+                            class="close"
+                            type="button"
                           >
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <div class="modal-body" tabindex="0" ngbAutofocus>
+                        <div class="modal-body" ngbAutofocus tabindex="0">
                           <image-cropper
-                            [imageChangedEvent]="imageChangedEvent"
-                            [maintainAspectRatio]="true"
-                            [aspectRatio]="4 / 3"
-                            format="png"
-                            [roundCropper]="true"
-                            [canvasRotation]="canvasRotation"
-                            [transform]="transform"
+                            (cropperReady)="cropperReady()"
                             (imageCropped)="imageCropped($event)"
                             (imageLoaded)="imageLoaded()"
-                            (cropperReady)="cropperReady()"
                             (loadImageFailed)="loadImageFailed()"
+                            [aspectRatio]="4 / 3"
+                            [canvasRotation]="canvasRotation"
+                            [imageChangedEvent]="imageChangedEvent"
+                            [maintainAspectRatio]="true"
+                            [roundCropper]="true"
+                            [transform]="transform"
+                            format="png"
                           ></image-cropper>
 
                         </div>
                         <div class="modal-footer d-flex justify-content-between">
                           <button
-                            type="button"
+                            (click)="modal.dismiss('Cross click')"
                             class="btn btn-outline-primary"
                             rippleEffect
-                            (click)="modal.dismiss('Cross click')"
+                            type="button"
                           >
                             Cancel
                           </button>
                           <button
-                            type="button"
-                            class="btn btn-primary"
                             (click)="modal.close('Accept click');uploadDP()"
+                            class="btn btn-primary"
                             rippleEffect
+                            type="button"
                           >
                             Upload Image
                           </button>
@@ -168,10 +168,10 @@
                                 (change)="onSelected(teams)"
                                 [(ngModel)]="selected"
                                 [items]="currencies"
+                                [loading]="false"
                                 bindLabel="currency"
                                 bindValue="currentUser.currency"
                                 name="first"
-                                [loading]="false"
                               >
                               </ng-select>
                               <!--/ Basic Multi select -->
@@ -184,13 +184,13 @@
                               >Phone number</label
                               >
                               <input
-                                type="text"
                                 class="form-control"
+                                disabled
                                 id="account-username"
                                 name="username"
-                                disabled
-                                value="Not available"
                                 placeholder="Username"
+                                type="text"
+                                value="Not available"
                               />
                             </div>
                           </div>
@@ -201,15 +201,15 @@
                                 class="form-control"
                                 id="about"
                                 name="accountTextarea"
-                                rows="4"
                                 placeholder="Your Bio data here..."
+                                rows="4"
                                 value="{{ currentUser.about }}"
                               ></textarea>
                             </div>
                           </div>
                           <div
-                            class="col-12 mt-75"
                             *ngIf="currentUser.verified_email == false"
+                            class="col-12 mt-75"
                           >
                             <div
                               class="alert alert-warning mb-50"
@@ -221,9 +221,9 @@
                               </h4>
                               <div class="alert-body">
                                 <a
-                                  href="javascript: void(0);"
                                   (click)="resendConfirmation()"
                                   class="alert-link"
+                                  href="javascript: void(0);"
                                 >Resend confirmation</a
                                 >
                               </div>
@@ -231,10 +231,10 @@
                           </div>
                           <div class="col-12">
                             <button
-                              type="submit"
                               (click)="saveProfile()"
                               class="btn btn-primary mt-2 mr-1"
                               rippleEffect
+                              type="submit"
                             >
                               Save changes
                             </button>
@@ -249,27 +249,27 @@
             </li>
             <li class="nav-item" ngbNavItem>
               <a
-                ngbNavLink
+                aria-expanded="false"
                 class="nav-link d-flex py-75"
-                id="account-pill-password"
                 data-toggle="pill"
                 href="#account-vertical-password"
-                aria-expanded="false"
+                id="account-pill-password"
+                ngbNavLink
               >
-                <i data-feather="shield" class="font-medium-3 mr-1"></i>
+                <i class="font-medium-3 mr-1" data-feather="shield"></i>
                 <span class="font-weight-bold">Security</span>
               </a>
               <ng-template ngbNavContent>
                 <div
-                  class="alert alert-danger mb-50"
                   *ngIf="password_response != null"
+                  class="alert alert-danger mb-50"
                   role="alert"
                 >
                   <h4 class="alert-heading">{{ password_response }}</h4>
                 </div>
                 <div
-                  class="alert alert-danger mb-50"
                   *ngIf="two_factor == false"
+                  class="alert alert-danger mb-50"
                   role="alert"
                 >
                   <h4 class="alert-heading">
@@ -279,13 +279,13 @@
                   </h4>
                 </div>
                 <br/>
-                <div class="card" *ngIf="two_factor == false">
+                <div *ngIf="two_factor == false" class="card">
                   <div class="card card-developer-meetup">
                     <div class="bg-light-primary rounded-top text-center">
                       <img
-                        src="{{ currentUser.qrcode }}"
                         alt="Meeting Pic"
                         height="170"
+                        src="{{ currentUser.qrcode }}"
                       />
                     </div>
                     <div class="card-body">
@@ -310,21 +310,21 @@
                         <div class="">
                           <div class="input-group">
                             <input
-                              id="2fa_otp"
-                              type="number"
-                              class="form-control"
-                              placeholder="Your 2FA code"
                               aria-describedby="button-addon2"
+                              class="form-control"
+                              id="2fa_otp"
+                              placeholder="Your 2FA code"
+                              type="number"
                             />
                             <div
                               class="input-group-append"
                               id="button-addon2"
                             >
                               <button
-                                class="btn btn-outline-primary"
-                                type="button"
                                 (click)="set2FA()"
+                                class="btn btn-outline-primary"
                                 rippleEffect
+                                type="button"
                               >
                                 Go
                               </button>
@@ -358,11 +358,11 @@
                         <div class="">
                           <div class="input-group">
                             <input
-                              id="whitelist"
-                              type="text"
-                              class="form-control"
-                              placeholder="Your BTC Address"
                               aria-describedby="button-addon2"
+                              class="form-control"
+                              id="whitelist"
+                              placeholder="Your BTC Address"
+                              type="text"
                             />
                             <div
                               class="input-group-append"
@@ -371,8 +371,8 @@
                               <button
                                 (click)="addWhitelist()"
                                 class="btn btn-outline-primary"
-                                type="button"
                                 rippleEffect
+                                type="button"
                               >
                                 WHITELIST
                               </button>
@@ -400,7 +400,7 @@
                             <td><span
                               class="badge badge-pill badge-light-primary mr-1">{{tx.created_at | date:'medium'}}</span>
                             </td>
-                            <td (click)="removeWhitelist(tx.address)"><i data-feather="x-circle" class="mr-50"></i></td>
+                            <td (click)="removeWhitelist(tx.address)"><i class="mr-50" data-feather="x-circle"></i></td>
                           </tr>
 
                           </tbody>
@@ -455,8 +455,8 @@
                               class="badge badge-pill badge-light-secondary mr-1">{{device.ip}}</span>
                             </td>
 
-                            <td role="button" (click)="deleteDevice(device.id)"><i data-feather="x-circle"
-                                                                                   class="mr-50"></i></td>
+                            <td (click)="deleteDevice(device.id)" role="button"><i class="mr-50"
+                                                                                   data-feather="x-circle"></i></td>
                           </tr>
 
                           </tbody>
@@ -481,11 +481,11 @@
                           <div class="col-12 mt-1 mb-2">
                             <div class="custom-control custom-switch">
                               <input
-                                type="checkbox"
-                                class="custom-control-input"
-                                [checked]="factor_login"
-                                id="accountSwitch4"
                                 (click)="change2FA('login')"
+                                [checked]="factor_login"
+                                class="custom-control-input"
+                                id="accountSwitch4"
+                                type="checkbox"
                               />
                               <label
                                 class="custom-control-label"
@@ -497,11 +497,11 @@
                           <div class="col-12 mb-2">
                             <div class="custom-control custom-switch">
                               <input
-                                type="checkbox"
-                                class="custom-control-input"
-                                [checked]="factor_send"
-                                id="accountSwitch6"
                                 (click)="change2FA('send')"
+                                [checked]="factor_send"
+                                class="custom-control-input"
+                                id="accountSwitch6"
+                                type="checkbox"
                               />
                               <label
                                 class="custom-control-label"
@@ -513,11 +513,11 @@
                           <div class="col-12 mb-75">
                             <div class="custom-control custom-switch">
                               <input
-                                type="checkbox"
-                                class="custom-control-input"
-                                [checked]="factor_release"
-                                id="accountSwitch5"
                                 (click)="change2FA('release')"
+                                [checked]="factor_release"
+                                class="custom-control-input"
+                                id="accountSwitch5"
+                                type="checkbox"
                               />
                               <label
                                 class="custom-control-label"
@@ -532,8 +532,8 @@
                     <!-- form -->
                     <form class="validate-form">
                       <div
-                        class="alert alert-danger mb-50"
                         *ngIf="reset_error == true"
+                        class="alert alert-danger mb-50"
                         role="alert"
                       >
                         <h4 class="alert-heading">
@@ -564,16 +564,16 @@
                                                                 <span
                                                                   class="input-group-text cursor-pointer"
                                                                 ><i
-                                                                  class="feather font-small-4"
+                                                                  (click)="
+                                                                            togglePasswordTextTypeOld()
+                                                                        "
                                                                   [ngClass]="{
                                                                             'icon-eye-off':
                                                                                 passwordTextTypeOld,
                                                                             'icon-eye':
                                                                                 !passwordTextTypeOld
                                                                         }"
-                                                                  (click)="
-                                                                            togglePasswordTextTypeOld()
-                                                                        "
+                                                                  class="feather font-small-4"
                                                                 ></i
                                                                 ></span>
                               </div>
@@ -596,25 +596,25 @@
                                                                         ? 'text'
                                                                         : 'password'
                                                                 "
+                                class="form-control"
                                 id="account-new-password"
                                 name="new-password"
-                                class="form-control"
                                 placeholder="New Password"
                               />
                               <div class="input-group-append">
                                                                 <span
                                                                   class="input-group-text cursor-pointer"
                                                                 ><i
-                                                                  class="feather font-small-4"
+                                                                  (click)="
+                                                                            togglePasswordTextTypeNew()
+                                                                        "
                                                                   [ngClass]="{
                                                                             'icon-eye-off':
                                                                                 passwordTextTypeNew,
                                                                             'icon-eye':
                                                                                 !passwordTextTypeNew
                                                                         }"
-                                                                  (click)="
-                                                                            togglePasswordTextTypeNew()
-                                                                        "
+                                                                  class="feather font-small-4"
                                                                 ></i
                                                                 ></span>
                               </div>
@@ -644,16 +644,16 @@
                                                                 <span
                                                                   class="input-group-text cursor-pointer"
                                                                 ><i
-                                                                  class="feather font-small-4"
+                                                                  (click)="
+                                                                            togglePasswordTextTypeRetype()
+                                                                        "
                                                                   [ngClass]="{
                                                                             'icon-eye-off':
                                                                                 passwordTextTypeRetype,
                                                                             'icon-eye':
                                                                                 !passwordTextTypeRetype
                                                                         }"
-                                                                  (click)="
-                                                                            togglePasswordTextTypeRetype()
-                                                                        "
+                                                                  class="feather font-small-4"
                                                                 ></i
                                                                 ></span>
                               </div>
@@ -662,10 +662,10 @@
                         </div>
                         <div class="col-12">
                           <button
-                            type="submit"
-                            class="btn btn-primary mr-1 mt-1"
                             (click)="changePassword()"
+                            class="btn btn-primary mr-1 mt-1"
                             rippleEffect
+                            type="submit"
                           >
                             Change Password
                           </button>
@@ -682,36 +682,36 @@
             </li>
             <li class="nav-item" ngbNavItem>
               <a
-                ngbNavLink
+                aria-expanded="false"
                 class="nav-link d-flex py-75"
-                id="account-pill-info"
                 data-toggle="pill"
                 href="#verification"
-                aria-expanded="false"
+                id="account-pill-info"
+                ngbNavLink
               >
-                <i data-feather="info" class="font-medium-3 mr-1"></i>
+                <i class="font-medium-3 mr-1" data-feather="info"></i>
                 <span class="font-weight-bold">Verification</span>
               </a>
-              <ng-template ngbNavContent id="verification">
+              <ng-template id="verification" ngbNavContent>
                 <div class="row match-height">
-                  <!-- User Timeline Card -->
+                  <!-- Verification Timeline Card -->
                   <div class="container-fluid">
                     <div class="card card-user-timeline">
                       <ngb-alert
-                        class="m-1"
-                        [type]="'primary'"
-                        [dismissible]="false"
                         *ngIf="uploading"
+                        [dismissible]="false"
+                        [type]="'primary'"
+                        class="m-1"
                       >
                         <div class="alert-body">
                           <p>Hold on. This should take a moment</p>
                         </div>
                       </ngb-alert>
                       <ngb-alert
-                        class="m-1"
-                        [type]="'primary'"
-                        [dismissible]="false"
                         *ngIf="reset_error"
+                        [dismissible]="false"
+                        [type]="'primary'"
+                        class="m-1"
                       >
                         <div class="alert-body">
                           <p>{{ reset_error_text }}</p>
@@ -720,14 +720,14 @@
                       <div class="card-header">
                         <div class="d-flex align-items-center">
                           <i
-                            data-feather="user"
                             class="user-timeline-title-icon"
+                            data-feather="user"
                           ></i>
                           <h4 class="card-title">User Verification</h4>
                         </div>
                         <i
-                          data-feather="shield"
                           class="font-medium-3 cursor-pointer"
+                          data-feather="shield"
                         ></i>
                       </div>
                       <div class="card-body">
@@ -754,7 +754,7 @@
                                                                         false
                                                                     "
                                 >
-                                  Verifiy Email
+                                  Verify Email
                                 </h6>
                               </div>
                               <p
@@ -774,17 +774,17 @@
                                 Check your email or spam folder
                               </p>
                               <div
-                                class="media align-items-center"
                                 *ngIf="
                                                                     currentUser.verified_email ==
                                                                     true
                                                                 "
+                                class="media align-items-center"
                               >
                                 <img
-                                  class="mr-1"
-                                  src="assets/images/icons/rocket.svg"
                                   alt="data.json"
+                                  class="mr-1"
                                   height="23"
+                                  src="assets/images/icons/rocket.svg"
                                 />
                                 <h6 class="media-body mb-0">
                                   {{ currentUser.email }}
@@ -796,11 +796,11 @@
                                                                     currentUser.verified_email ==
                                                                     false
                                                                 "
-                                style="width: 200px"
-                                rippleEffect
                                 class="btn btn-gradient-primary btn-block"
                                 ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
                                 placement="bottom"
+                                rippleEffect
+                                style="width: 200px"
                               >
                                 <div>
                                   <h2
@@ -826,8 +826,7 @@
                                 class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1"
                               >
                                 <h6
-                                  *ngIf="
-                                                                        currentUser.verified_id ==
+                                  *ngIf="                 currentUser.verified_id ==
                                                                         true
                                                                     "
                                 >
@@ -839,7 +838,7 @@
                                                                         false
                                                                     "
                                 >
-                                  Verifiy ID
+                                  Verify ID
                                 </h6>
                               </div>
                               <p
@@ -858,33 +857,29 @@
                                 Licence or Passport
                               </p>
                               <div
-                                class="media align-items-center"
                                 *ngIf="
                                                                     currentUser.verified_id == true
                                                                 "
+                                class="media align-items-center"
                               >
                                 <img
-                                  class="mr-1"
-                                  src="assets/images/icons/book.svg"
                                   alt="data.json"
+                                  class="mr-1"
                                   height="23"
+                                  src="assets/images/icons/book.svg"
                                 />
                                 <h6 class="media-body mb-0">
                                   Done
                                 </h6>
                               </div>
                               <button
-                                [routerLink]="
-                                                                    '/forms/form-elements/file-uploader'
-                                                                "
-                                *ngIf="
-                                                                    currentUser.verified_id == false
-                                                                "
-                                style="width: 200px"
-                                rippleEffect
+                                *ngIf="currentUser.verified_id == false                                                            "
+                                (click)="verify('ID')"
                                 class="btn btn-gradient-primary btn-block"
                                 ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
                                 placement="bottom"
+                                rippleEffect
+                                style="width: 200px"
                               >
                                 <div>
                                   <h2
@@ -923,7 +918,7 @@
                                                                         false
                                                                     "
                                 >
-                                  Verifiy Address
+                                  Verify Address
                                 </h6>
                               </div>
                               <p
@@ -944,32 +939,30 @@
                                 statement
                               </p>
                               <div
-                                class="media align-items-center"
                                 *ngIf="
                                                                     currentUser.verified_address ==
                                                                     true
                                                                 "
+                                class="media align-items-center"
                               >
                                 <img
-                                  class="mr-1"
-                                  src="assets/images/icons/book.svg"
                                   alt="data.json"
+                                  class="mr-1"
                                   height="23"
+                                  src="assets/images/icons/book.svg"
                                 />
                                 <h6 class="media-body mb-0">
                                   Done
                                 </h6>
                               </div>
                               <button
-                                *ngIf="
-                                                                    currentUser.verified_address ==
-                                                                    false
-                                                                "
-                                style="width: 200px"
-                                rippleEffect
+                                *ngIf="currentUser.verified_address ==false"
+                                (click)="verify('ADDRESS')"
                                 class="btn btn-gradient-primary btn-block"
                                 ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
                                 placement="bottom"
+                                rippleEffect
+                                style="width: 200px"
                               >
                                 <div>
                                   <h2
@@ -1028,17 +1021,17 @@
                                 Upload your Incorporation Documents
                               </p>
                               <div
-                                class="media align-items-center"
                                 *ngIf="
                                                                     currentUser.verified_corporate ==
                                                                     true
                                                                 "
+                                class="media align-items-center"
                               >
                                 <img
-                                  class="mr-1"
-                                  src="assets/images/icons/book.svg"
                                   alt="data.json"
+                                  class="mr-1"
                                   height="23"
+                                  src="assets/images/icons/book.svg"
                                 />
                                 <h6 class="media-body mb-0">
                                   Done
@@ -1049,11 +1042,12 @@
                                                                     currentUser.verified_corporate ==
                                                                     false
                                                                 "
-                                style="width: 200px"
-                                rippleEffect
                                 class="btn btn-gradient-primary btn-block"
+                                (click)="verify('CORPORATE')"
                                 ngbTooltip="If you have a problem contact support so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
                                 placement="bottom"
+                                rippleEffect
+                                style="width: 200px"
                               >
                                 <div>
                                   <h2
@@ -1080,14 +1074,14 @@
             </li>
             <li class="nav-item" ngbNavItem>
               <a
-                ngbNavLink
+                aria-expanded="false"
                 class="nav-link d-flex py-75"
-                id="account-pill-notifications"
                 data-toggle="pill"
                 href="#account-vertical-notifications"
-                aria-expanded="false"
+                id="account-pill-notifications"
+                ngbNavLink
               >
-                <i data-feather="bell" class="font-medium-3 mr-1"></i>
+                <i class="font-medium-3 mr-1" data-feather="bell"></i>
                 <span class="font-weight-bold">Notifications</span>
               </a>
               <ng-template ngbNavContent>
@@ -1098,11 +1092,11 @@
                       <div class="col-12 mb-2">
                         <div class="custom-control custom-switch">
                           <input
-                            disabled
-                            type="checkbox"
-                            class="custom-control-input"
                             [checked]="true"
+                            class="custom-control-input"
+                            disabled
                             id="accountSwitch1"
+                            type="checkbox"
                           />
                           <label
                             class="custom-control-label"
@@ -1115,11 +1109,11 @@
                       <div class="col-12 mb-2">
                         <div class="custom-control custom-switch">
                           <input
-                            disabled
-                            type="checkbox"
-                            class="custom-control-input"
                             [checked]="true"
+                            class="custom-control-input"
+                            disabled
                             id="accountSwitch2"
+                            type="checkbox"
                           />
                           <label
                             class="custom-control-label"
@@ -1132,11 +1126,11 @@
                       <div class="col-12 mb-2">
                         <div class="custom-control custom-switch">
                           <input
-                            disabled
-                            type="checkbox"
-                            class="custom-control-input"
                             [checked]="true"
+                            class="custom-control-input"
+                            disabled
                             id="accountSwitch3"
+                            type="checkbox"
                           />
                           <label
                             class="custom-control-label"
@@ -1150,11 +1144,11 @@
                       <div class="col-12 mt-1 mb-2">
                         <div class="custom-control custom-switch">
                           <input
-                            type="checkbox"
-                            class="custom-control-input"
-                            [checked]="telegram_bool"
-                            id="accountSwitch9"
                             (click)="openLink()"
+                            [checked]="telegram_bool"
+                            class="custom-control-input"
+                            id="accountSwitch9"
+                            type="checkbox"
                           />
                           <label
                             class="custom-control-label"
@@ -1166,11 +1160,11 @@
                       <div class="col-12 mb-2">
                         <div class="custom-control custom-switch">
                           <input
-                            type="checkbox"
-                            class="custom-control-input"
-                            [checked]="CHECK_SOUND"
-                            id="accountSwitch10"
                             (change)="onCheckboxChange($event,'SOUND')"
+                            [checked]="CHECK_SOUND"
+                            class="custom-control-input"
+                            id="accountSwitch10"
+                            type="checkbox"
                           />
                           <label
                             class="custom-control-label"
@@ -1182,11 +1176,11 @@
                       <div class="col-12 mb-75">
                         <div class="custom-control custom-switch">
                           <input
-                            type="checkbox"
-                            class="custom-control-input"
-                            [checked]="CHECK_EMAIL"
-                            id="accountSwitch11"
                             (change)="onCheckboxChange($event,'EMAIL')"
+                            [checked]="CHECK_EMAIL"
+                            class="custom-control-input"
+                            id="accountSwitch11"
+                            type="checkbox"
                           />
                           <label
                             class="custom-control-label"
@@ -1197,16 +1191,16 @@
                       </div>
                       <div class="col-12">
                         <button
-                          type="submit"
                           class="btn btn-primary mt-2 mr-1"
                           rippleEffect
+                          type="submit"
                         >
                           Save changes
                         </button>
                         <button
-                          type="reset"
                           class="btn btn-outline-secondary mt-2"
                           rippleEffect
+                          type="reset"
                         >
                           Cancel
                         </button>

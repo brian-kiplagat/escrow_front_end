@@ -972,4 +972,35 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     })
 
   }
+
+  verify(id: string) {
+    console.log(id)
+     switch(id) {
+      case 'ID':
+        this.fb.playAudio('assets/sounds/windows_warning.wav');
+        this.reset_error = true
+        this.reset_error_text = 'Send your ID or Passport with your selfie to @coinpes_support on telegram'
+        this.toast('Send us your Details','Contact us with your selfie and ID on @coinpes_support on telegram','success')
+
+        break;
+      case 'ADDRESS':
+        this.fb.playAudio('assets/sounds/windows_warning.wav');
+        this.reset_error = true
+        this.reset_error_text = 'Send your Bank Statement or Utility bill to @coinpes_support on telegram'
+        this.toast('Send us your Details','Contact us with your your Bank Statement or Utility bill to @coinpes_support on telegram. The document should be issued within the last 6 month old','success')
+
+        break;
+       case 'CORPORATE':
+         this.fb.playAudio('assets/sounds/windows_warning.wav');
+         this.reset_error = true
+         this.reset_error_text = 'Finish the last two steps or contact @coinpes_support for more information'
+         this.toast('Send us your Details','Contact us with your your Bank Statement or Utility bill to @coinpes_support on telegram. The document should be issued within the last 6 month old','success')
+
+         break;
+      default:
+      // code block
+    }
+
+
+  }
 }
