@@ -160,49 +160,56 @@ export class ChatContentComponent implements OnInit {
   ngOnInit()
     :
     void {
+    this.route.params.subscribe(params => {
+      this.tradeId = params['id'];
+      console.log('ID params:', this.tradeId);
+      // Perform any other actions based on the updated parameter value
+      //Get new messages because is another chat
+      this.fb.retrieveMessage(this.tradeId).subscribe((data: any) => {
+        this.chats = data;
+        //Refresh
+        let lastElement = data[data.length - 1]
+        console.log(lastElement)
+        if (lastElement.senderId != this.user.username && lastElement.message == 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq') {
+          console.log('I got the key')
+          //Invoke instance of the sidebar class tto update new info
+          this.invoke.okUpdateSideBar(this.tradeId)
+        }
+
+
+        setTimeout(() => {
+          this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
+        }, 0);
+      }, error => {
+        console.log(error)
+        Swal.fire({
+          title: ' <h5>An error happened</h5>',
+          html: ' <p class="card-text font-small-3">We could not obtain your Chat. Please refresh the page</p>',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#7367F0',
+          cancelButtonColor: '#E42728',
+          confirmButtonText:
+            '<i class="fa fa-check-circle"></i> Refresh Page',
+          confirmButtonAriaLabel: 'Confirm',
+          customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-danger ml-1'
+          }
+        }).then(async (result) => {
+          if (result.value) {
+            Swal.close()
+            location.reload()
+
+          }
+        });
+
+      });
+    });
     const routeParams = this.route.snapshot.paramMap;
     this.user = JSON.parse(localStorage.getItem('user'));
     this.page.init(routeParams.get('id'), 'time', {reverse: true, prepend: false})
-    this.fb.retrieveMessage(routeParams.get('id')).subscribe((data: any) => {
-      this.chats = data;
-      //Refresh
-      let lastElement = data[data.length - 1]
-      console.log(lastElement)
-      if (lastElement.senderId != this.user.username && lastElement.message == 'XYgvC1fsxZqGvC1fsxZqGPKvC1fsxZqGbGQvC1fsxZq') {
-        console.log('I got the key')
-        //Invoke instance of the sidebar class tto update new info
-        this.invoke.okUpdateSideBar(routeParams.get('id'))
-      }
 
-
-      setTimeout(() => {
-        this.scrolltop = this.scrollMe?.nativeElement.scrollHeight;
-      }, 0);
-    }, error => {
-      console.log(error)
-      Swal.fire({
-        title: ' <h5>An error happened</h5>',
-        html: ' <p class="card-text font-small-3">We could not obtain your Chat. Please refresh the page</p>',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#7367F0',
-        cancelButtonColor: '#E42728',
-        confirmButtonText:
-          '<i class="fa fa-check-circle"></i> Refresh Page',
-        confirmButtonAriaLabel: 'Confirm',
-        customClass: {
-          confirmButton: 'btn btn-primary',
-          cancelButton: 'btn btn-danger ml-1'
-        }
-      }).then(async (result) => {
-        if (result.value) {
-          Swal.close()
-          location.reload()
-
-        }
-      });
-
-    });
     this.activeChat = false;
 
   }

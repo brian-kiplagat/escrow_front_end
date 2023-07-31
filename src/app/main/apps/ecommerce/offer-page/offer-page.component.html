@@ -161,8 +161,6 @@
 
   </span>
               </p>
-
-
               <p class="card-text">
                 <span *ngIf="offer.type=='buy'">Sell</span> <span *ngIf="offer.type=='sell'">Buy</span> limits:
                 <span class="text-success"
@@ -178,10 +176,15 @@
               <p class="card-text">
                 Trade time limit: <span class="text-success">30 minutes</span>
               </p>
+              <!--OFFER TERMS -->
+              <hr/>
+              <!--TRADER INFO -->
+              <div class="product-color-options">
+                <h6>Offer Terms and Conditions </h6>
 
-              <p class="card-text">
-                {{ offer.terms }}
-              </p>
+              </div>
+              <pre class="card-text" style="white-space: pre-wrap; max-width: 100%; font-size: 14px;background-color: white !important;">{{ offer.terms }}</pre>
+
               <!--OFFER RATES AND INSTRUCTION -->
               <hr/>
               <!--TRADER INFO -->

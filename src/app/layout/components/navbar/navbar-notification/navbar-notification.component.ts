@@ -70,6 +70,12 @@ export class NavbarNotificationComponent implements OnInit {
 
   redirect(resource_path: any) {
     this.router.navigate(['/' + resource_path])
+      .then(() => {
+        console.log('Navigation successful');
+      })
+      .catch((e) => {
+        console.error('Navigation error:', e);
+      });
   }
 
   getFeatherIcon(message) {
