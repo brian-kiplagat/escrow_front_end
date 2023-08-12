@@ -3,7 +3,7 @@
 
   <!-- Sidebar header start -->
   <div class="chat-fixed-search">
-    <button class="btn sidebar-close-icon" (click)="toggleSidebar('chat-sidebar')">
+    <button (click)="toggleSidebar('chat-sidebar')" class="btn sidebar-close-icon">
       <i data-feather="x"></i>
     </button>
     <div class="meetup-header d-flex align-items-center">
@@ -17,7 +17,7 @@
   <!-- Sidebar header end -->
 
   <!-- Sidebar Users start -->
-  <div id="users-list" class="chat-user-list-wrapper list-group" [perfectScrollbar]>
+  <div [perfectScrollbar] class="chat-user-list-wrapper list-group" id="users-list">
 
     <!-- App Design Card -->
     <div class="card card-app-design">
@@ -25,18 +25,18 @@
       <div class="card-body">
         <!-- TRADE STATUS AND DATE -->
         <div class="badge badge-light-primary">{{trade.created_at|date}}</div>
-        <h4 class="card-title mt-1 mb-75 pt-25">Trade {{trade.status.replace('_',' ')}}</h4>
+        <h4 class="card-title mt-1 mb-75 pt-25">Trade {{trade.status.replace('_', ' ')}}</h4>
         <!-- TRADE STATUS AND DATE -->
         <!-- EXPIRE -->
-        <div class="design-group mb-2 pt-50" *ngIf="trade.status == 'OPENED'">
+        <div *ngIf="trade.status == 'OPENED'" class="design-group mb-2 pt-50">
           <h6 class="section-label">Expires in:</h6>
-          <div (click)="fb.playAudio('/assets/sounds/tirit.wav')" class="badge badge-light-danger mr-1"
-               ngbTooltip="You have this amount of time left to send the money and click I'VE PAID to confirm the payment"
-               placement="right" *ngIf="trade.buyer == storage.email"><span><i data-feather="clock"></i> {{mmss}}</span>
+          <div (click)="fb.playAudio('/assets/sounds/tirit.wav')" *ngIf="trade.buyer == storage.email"
+               class="badge badge-light-danger mr-1"
+               ngbTooltip="You have this amount of time left to send the money and click I'VE PAID to confirm the payment" placement="right"><span><i data-feather="clock"></i> {{mmss}}</span>
           </div>
-          <div (click)="fb.playAudio('/assets/sounds/tirit.wav')" class="badge badge-light-danger mr-1"
-               ngbTooltip="If the buyer doesn't Pay within this time, the trade expires and the Crypto is returned to you"
-               placement="right" *ngIf="trade.seller == storage.email"><span><i
+          <div (click)="fb.playAudio('/assets/sounds/tirit.wav')" *ngIf="trade.seller == storage.email"
+               class="badge badge-light-danger mr-1"
+               ngbTooltip="If the buyer doesn't Pay within this time, the trade expires and the Crypto is returned to you" placement="right"><span><i
             data-feather="clock"></i> {{mmss}}</span>
           </div>
 
@@ -44,29 +44,29 @@
         <!-- EXPIRE -->
         <!--BUYER BLURB-->
         <div *ngIf="trade.buyer == storage.email">
-          <p class="font-small-2" *ngIf="trade.status == 'OPENED'">
+          <p *ngIf="trade.status == 'OPENED'" class="font-small-2">
             Send {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
             using  {{trade.offer_method | titlecase}}
           </p>
-          <p class="font-small-2"
-             *ngIf="trade.status == 'OPENED' ||trade.status == 'PAID'">{{trade.btc_amount_with_margin}} BTC will be
+          <p *ngIf="trade.status == 'OPENED' ||trade.status == 'PAID'"
+             class="font-small-2">{{trade.btc_amount_with_margin}} BTC will be
             added
             to your Coinpes
             wallet</p>
-          <p class="font-small-2" *ngIf="trade.status == 'PAID'"
+          <p *ngIf="trade.status == 'PAID'" class="font-small-2"
              ngbTooltip='You have sent the payment. Now wait for the seller to send you the Bitcoin. If the seller refuses or you have a problem, Open a dispute and well come in to help you'
              placement='bottom'>
             You sent {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
             using  {{trade.offer_method | titlecase}}. Its now the sellers turn to send {{trade.btc_amount_with_margin}}
             BTC
           </p>
-          <p class="font-small-2" *ngIf="trade.status == 'CANCELLED_SYSTEM'"
+          <p *ngIf="trade.status == 'CANCELLED_SYSTEM'" class="font-small-2"
              ngbTooltip='Every trade has a payment window for a buyer to make a payment. When a trade is funded, but a buyer failed to mark a trade as paid, the payment window expires. This status means that a trade has been cancelled'
              placement='bottom'>
             This trade expired and the Bitcoin was returned to the sellers wallet. If you wish to continue, this trade
             must be reopened by the seller. You may also fund this escrow by opening it yourself via the offer below
           </p>
-          <p class="font-small-2" *ngIf="trade.status == 'CANCELLED_BUYER'"
+          <p *ngIf="trade.status == 'CANCELLED_BUYER'" class="font-small-2"
              ngbTooltip='Every trade has a payment window for a buyer to make a payment. When a trade is funded, but a buyer failed to mark a trade as paid, the payment window expires. This status means that a trade has been cancelled'
              placement='bottom'>
             You cancelled this trade. If you wish to continue, this trade
@@ -74,36 +74,36 @@
           </p>
 
 
-          <p class="font-small-2" *ngIf="trade.status == 'SUCCESSFUL'">
+          <p *ngIf="trade.status == 'SUCCESSFUL'" class="font-small-2">
             You bought {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
             using  {{trade.offer_method | titlecase}}, {{trade.btc_amount_with_margin}} BTC was added to your Coinpes
             wallet
           </p>
           <!-- BUYER BUTTONS-->
           <!-- BUYER MARK PAID-->
-          <button *ngIf="trade.status == 'OPENED'" type="button"
-                  (click)="mark_paid(trade.id)" rippleEffect
-                  class="btn btn-primary btn-block"
-                  ngbTooltip="After sending the payment, Click here to confirm that you have sent. If you don't the trade will be cancelled automatically after 30 minutes and BTC will be returned from escrow to the seller."
-                  placement="bottom">
+          <button (click)="mark_paid(trade.id)" *ngIf="trade.status == 'OPENED'"
+                  class="btn btn-primary btn-block" ngbTooltip="After sending the payment, Click here to confirm that you have sent. If you don't the trade will be cancelled automatically after 30 minutes and BTC will be returned from escrow to the seller."
+                  placement="bottom"
+                  rippleEffect
+                  type="button">
             <div>
               <h2 class="d-inline mr-25 text-white">I'VE PAID</h2>
               <sub class="text-body"><small class="text-white">Confirm payment</small></sub>
             </div>
           </button>
           <!-- BUYER CANCEL TRADE-->
-          <button *ngIf="trade.status == 'OPENED'|| trade.status == 'PAID'|| trade.status == 'DISPUTE_OPEN'"
-                  type="button"
-                  (click)="cancel_trade(trade.id)" rippleEffect class="btn btn-outline-warning btn-block"
-                  ngbTooltip="Do not cancel this trade if you had sent any amount, if you cancel this trade after sending money you may loose the BTC because we will return return this escrow to the seller. For your safety, we require you to ask for refund first before cancelling. If you feel you have a problem with the seller, Click DISPUTE NOW and well join in to help you"
-                  placement="bottom">CANCEL TRADE
+          <button (click)="cancel_trade(trade.id)"
+                  *ngIf="trade.status == 'OPENED'|| trade.status == 'PAID'|| trade.status == 'DISPUTE_OPEN'"
+                  class="btn btn-outline-warning btn-block" ngbTooltip="Do not cancel this trade if you had sent any amount, if you cancel this trade after sending money you may loose the BTC because we will return return this escrow to the seller. For your safety, we require you to ask for refund first before cancelling. If you feel you have a problem with the seller, Click DISPUTE NOW and well join in to help you" placement="bottom"
+                  rippleEffect
+                  type="button">CANCEL TRADE
           </button>
           <!-- BUYER VIEW OFFER-->
-          <button *ngIf="trade.status == 'CANCELLED_BUYER'|| trade.status == 'CANCELLED_SYSTEM'"
-                  type="button"
-                  (click)="view_offer(trade.offer_id)" rippleEffect class="btn btn-outline-warning btn-block"
-                  ngbTooltip="Use this to open another Trade with this offer"
-                  placement="bottom">VIEW OFFER
+          <button (click)="view_offer(trade.offer_id)"
+                  *ngIf="trade.status == 'CANCELLED_BUYER'|| trade.status == 'CANCELLED_SYSTEM'"
+                  class="btn btn-outline-warning btn-block" ngbTooltip="Use this to open another Trade with this offer" placement="bottom"
+                  rippleEffect
+                  type="button">VIEW OFFER
           </button>
 
         </div>
@@ -111,25 +111,25 @@
         <!--SELLER BLURB-->
         <div *ngIf="trade.seller == storage.email">
 
-          <p class="font-small-2" *ngIf="trade.status == 'OPENED'">
+          <p *ngIf="trade.status == 'OPENED'" class="font-small-2">
             You're selling {{trade.btc_amount_with_margin}} BTC
             for {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
             using  {{trade.offer_method | titlecase}}, promptly provide your details to receive the money
           </p>
-          <p class="font-small-2" *ngIf="trade.status == 'PAID'"
+          <p *ngIf="trade.status == 'PAID'" class="font-small-2"
              ngbTooltip='You have received the payment. Now its your turn to release the Bitcoin. If the buyer has not sent any payment or made a wrong or suspicious claim please open a dispute and well come in to help you'
              placement='bottom'>
             Check if you have received {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
             using  {{trade.offer_method | titlecase}} and release the Bitcoin.
           </p>
-          <p class="font-small-2" *ngIf="trade.status == 'CANCELLED_SYSTEM'"
+          <p *ngIf="trade.status == 'CANCELLED_SYSTEM'" class="font-small-2"
              ngbTooltip='You have received the payment. Now its your turn to release the Bitcoin. If the buyer has not sent any payment or made a wrong or suspicious claim please open a dispute and well come in to help you. Look out for dishonest traders who ask for early release or use fake payment screenshots. Make sure you’ve received your money before releasing the crypto'
              placement='bottom'>
             This trade expired. Have you received the payment? If so, please reopen the trade and release the Bitcoin
             into
             the buyer’s wallet.
           </p>
-          <p class="font-small-2" *ngIf="trade.status == 'SUCCESSFUL'">
+          <p *ngIf="trade.status == 'SUCCESSFUL'" class="font-small-2">
             You sold {{trade.btc_amount_with_margin}} BTC
             for {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
             using  {{trade.offer_method | titlecase}}. Thanks again for using Coinpes
@@ -139,7 +139,7 @@
           <!-- SELLER BUTTONS-->
           <div
             *ngIf="trade.status == 'CANCELLED_BUYER' || trade.status == 'SUCCESSFUL' || trade.status == 'CANCELLED_SYSTEM'">
-            <p class="font-small-2" *ngIf="trade.status == 'CANCELLED_BUYER'">
+            <p *ngIf="trade.status == 'CANCELLED_BUYER'" class="font-small-2">
               Trade cancelled by buyer. If you received the payment you must reopen the trade and release the Bitcoin
               into
               the buyer’s wallet. If you wish to sell again you must also open another trade so that we reserve an
@@ -149,47 +149,49 @@
             </p>
             <p class="font-small-2">{{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}</p>
             <p class="font-small-2">{{trade.btc_amount_with_margin}} BTC</p>
-            <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="reopenErr">
+            <ngb-alert *ngIf="reopenErr" [dismissible]="false" [type]="'danger'">
               <div class="alert-body">
                 <p>{{ reopenErr }}</p>
               </div>
             </ngb-alert>
             <!-- REOPEN TRADE-->
-            <button (click)="reopen_trade(trade.id)" type="button" rippleEffect
-                    class="btn btn-primary btn-block"
+            <button (click)="reopen_trade(trade.id)" class="btn btn-primary btn-block" rippleEffect
+                    type="button"
             >REOPEN TRADE
             </button>
             <!-- REOPEN TRADE-->
           </div>
 
-
-          <button *ngIf="trade.status == 'OPENED' || trade.status == 'PAID'" type="button"
-                  (click)="release_btc(trade.id)" rippleEffect
-                  class="btn btn-primary btn-block"
-                  ngbTooltip="After sending the payment, Click this button, this will confirm that you have sent. If you don't confirm, the trade will be cancelled automatically after 30 minutes and BTC will be returned from our escrow | trust account back to the seller."
-                  placement="bottom">
+          <!--RELEASE BTC -->
+          <button (click)="release_btc(trade.id)"
+                  *ngIf="trade.status == 'DISPUTE_OPEN' || trade.status == 'OPENED' || trade.status == 'PAID'"
+                  class="btn btn-primary btn-block" ngbTooltip="After sending the payment, Click this button, this will confirm that you have sent. If you don't confirm, the trade will be cancelled automatically after 30 minutes and BTC will be returned from our escrow | trust account back to the seller."
+                  placement="bottom"
+                  rippleEffect
+                  type="button">
             <div>
               <h2 class="d-inline mr-25 text-white">RELEASE</h2>
               <sub class="text-body"><small class="text-white">Bitcoin</small></sub>
             </div>
           </button>
-
-          <button *ngIf="trade.status == 'OPENED' && buyer_online == false"
-                  type="button"
-                  (click)="cancel_trade(trade.id)" rippleEffect class="btn btn-outline-warning btn-block"
-                  ngbTooltip="You can only cancel this trade if the buyer has not viewed your trade for the last 5 minutes"
-                  placement="bottom">CANCEL TRADE
+          <!--RELEASE BTC -->
+          <!--CANCEL TRADE -->
+          <button (click)="cancel_trade(trade.id)"
+                  *ngIf="trade.status == 'OPENED' && buyer_online == false"
+                  class="btn btn-outline-warning btn-block" ngbTooltip="You can only cancel this trade if the buyer has not viewed your trade for the last 5 minutes" placement="bottom"
+                  rippleEffect
+                  type="button">CANCEL TRADE
           </button>
-
+          <!--CANCEL TRADE -->
         </div>
         <!--SELLER BLURB-->
         <!-- ANYONE OPEN DISPUTE-->
         <div class="mt-1">
-          <button *ngIf="trade.status == 'PAID' && trade.dispute_started == false" type="button"
-                  (click)="open_dispute(trade.id)" rippleEffect
-                  class="btn btn-gradient-warning btn-block"
-                  ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
-                  placement="bottom">
+          <button (click)="open_dispute(trade.id)" *ngIf="trade.status == 'PAID' && trade.dispute_started == false"
+                  class="btn btn-gradient-warning btn-block" ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
+                  placement="bottom"
+                  rippleEffect
+                  type="button">
             <div>
               <h2 class="d-inline mr-25 text-white">OPEN DISPUTE</h2>
               <sub class="text-body"><small class="text-white">NOW</small></sub>
@@ -198,25 +200,24 @@
         </div>
 
         <!-- ANYONE OPEN DISPUTE-->
-        <div class="card-apply-job"
-             *ngIf="(trade.dispute_started == true && trade.status == 'PAID') || trade.status == 'AWARDED_BUYER'  || trade.status == 'AWARDED_SELLER' || trade.status == 'DISPUTE_OPEN'">
+        <div *ngIf="(trade.dispute_started == true && trade.status == 'PAID') || trade.status == 'AWARDED_BUYER'  || trade.status == 'AWARDED_SELLER' || trade.status == 'DISPUTE_OPEN'"
+             class="card-apply-job">
           <div>
 
             <div class="d-flex justify-content-between align-items-center mb-1">
               <div class="media">
                 <div class="avatar mr-1">
-                  <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" width="42" height="42"/>
+                  <img alt="Avatar" height="42" src="assets/images/portrait/small/avatar-s-7.jpg" width="42"/>
                 </div>
                 <div class="media-body">
                   <h5 class="mb-0">Moderator</h5>
                   <small class="text-muted">Support</small>
                 </div>
               </div>
-              <div  class="badge badge-pill"
-                    [ngClass]="trade.status == 'AWARDED_SELLER' ? 'badge-light-danger' : trade.status == 'DISPUTE_OPEN' ? 'badge-light-primary' : trade.status == 'AWARDED_BUYER' ? 'badge-success' : ''">
+              <div [ngClass]="trade.status == 'AWARDED_SELLER' ? 'badge-light-danger' : trade.status == 'DISPUTE_OPEN' ? 'badge-light-primary' : trade.status == 'AWARDED_BUYER' ? 'badge-success' : ''"
+                   class="badge badge-pill">
                 {{ trade.status == 'AWARDED_SELLER' ? 'Seller Won' : (trade.status == 'DISPUTE_OPEN' ? 'Awaiting' : (trade.status == 'AWARDED_BUYER' ? 'Buyer Won' : '')) }}
               </div>
-
 
 
             </div>
@@ -224,15 +225,14 @@
               {{ trade.status == 'AWARDED_SELLER' ? 'Seller Won this Dispute' : (trade.status == 'DISPUTE_OPEN' ? 'Having a problem? We are joining in shortly to help.' : (trade.status == 'AWARDED_BUYER' ? 'Buyer Won this Dispute' : '')) }}
 
 
-
             </h5>
-            <p class="card-text mb-2" *ngIf="trade.dispute_started == true && trade.status == 'DISPUTE_OPEN'">
+            <p *ngIf="trade.dispute_started == true && trade.status == 'DISPUTE_OPEN'" class="card-text mb-2">
               Meanwhile explain to us what happened and upload evidence showing you sent the money including
               screenshots, video records and account statement. The
               moderator will join and assess the evidence and award the
               dispute to the correct party
             </p>
-            <p class="card-text mb-2" *ngIf="trade.status == 'AWARDED_BUYER' || trade.status == 'AWARDED_SELLER'">
+            <p *ngIf="trade.status == 'AWARDED_BUYER' || trade.status == 'AWARDED_SELLER'" class="card-text mb-2">
               {{trade.dispute_mod_notes}}
             </p>
 
@@ -241,17 +241,17 @@
         </div>
         <!--DISPUTE BLURB -->
         <!-- ANYONE FEEDBACK PROVIDE -->
-        <form class="form form-vertical" *ngIf="trade.status == 'SUCCESSFUL'">
+        <form *ngIf="trade.status == 'SUCCESSFUL'" class="form form-vertical">
           <div class="row">
-            <div class="col-12" *ngIf="feed_error">
-              <ngb-alert [type]="'danger'" [dismissible]="false">
+            <div *ngIf="feed_error" class="col-12">
+              <ngb-alert [dismissible]="false" [type]="'danger'">
                 <div class="alert-body">
                   <p>{{ feed_error }}</p>
                 </div>
               </ngb-alert>
             </div>
-            <div class="col-12" *ngIf="feed_success">
-              <ngb-alert [type]="'success'" [dismissible]="false">
+            <div *ngIf="feed_success" class="col-12">
+              <ngb-alert [dismissible]="false" [type]="'success'">
                 <div class="alert-body">
                   <p>{{ feed_success }}</p>
                 </div>
@@ -265,26 +265,26 @@
                 <label for="first-name-icon">{{partner_data.username}}</label>
                 <div class="input-group input-group-merge">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" *ngIf="partner_comment == ' No comment yet'"><span
+                    <span *ngIf="partner_comment == ' No comment yet'" class="input-group-text"><span
                       [data-feather]="'user'"></span></span>
-                    <span class="input-group-text" *ngIf="partner_comment != ' No comment yet'"><i
-                      class="font-medium-3 fa"
+                    <span *ngIf="partner_comment != ' No comment yet'" class="input-group-text"><i
                       [ngClass]="{
                           'fa-thumbs-up text-success': PARTNER_FLAG == true,
                           'fa-thumbs-down text-danger': PARTNER_FLAG != true
                         }"
+                      class="font-medium-3 fa"
                     ></i></span>
                   </div>
 
 
                   <input
-                    type="text"
-                    id="first-name-icon"
-                    class="form-control"
-                    name="fname-icon"
-                    disabled
                     [value]="partner_comment"
+                    class="form-control"
+                    disabled
+                    id="first-name-icon"
+                    name="fname-icon"
                     placeholder=" No comment yet"
+                    type="text"
                   />
                 </div>
               </div>
@@ -297,12 +297,12 @@
                     <span class="input-group-text"><span [data-feather]="'user'"></span></span>
                   </div>
                   <input
-                    type="text"
-                    id="email-id-icon"
-                    class="form-control"
-                    name="email-id-icon"
                     [value]="my_comment"
+                    class="form-control"
+                    id="email-id-icon"
+                    name="email-id-icon"
                     placeholder=" No comment yet"
+                    type="text"
                   />
                 </div>
               </div>
@@ -311,25 +311,25 @@
               <div class="demo-inline-spacing  form-group">
                 <div class="custom-control custom-control-success custom-radio">
                   <input
-                    type="radio"
+                    (click)="onRadioChange($event,'POSITIVE')"
+                    [checked]="CHECK_POSITIVE"
+                    class="custom-control-input"
                     id="positive"
                     name="customColorRadio3"
-                    class="custom-control-input"
+                    type="radio"
                     value="positive"
-                    [checked]="CHECK_POSITIVE"
-                    (click)="onRadioChange($event,'POSITIVE')"
                   />
                   <label class="custom-control-label" for="positive">Positive</label>
                 </div>
                 <div class="custom-control custom-control-danger custom-radio">
                   <input
-                    type="radio"
+                    (click)="onRadioChange($event,'NEGATIVE')"
+                    [checked]="CHECK_NEGATIVE"
+                    class="custom-control-input"
                     id="negative"
                     name="customColorRadio5"
-                    class="custom-control-input"
+                    type="radio"
                     value="negative"
-                    [checked]="CHECK_NEGATIVE"
-                    (click)="onRadioChange($event,'NEGATIVE')"
                   />
                   <label class="custom-control-label" for="negative">Negative</label>
                 </div>
@@ -337,8 +337,8 @@
             </div>
 
           </div>
-          <button type="submit" (click)="submit_feedback(trade.id,partner_data)" rippleEffect
-                  class="btn btn-primary btn-block">
+          <button (click)="submit_feedback(trade.id,partner_data)" class="btn btn-primary btn-block" rippleEffect
+                  type="submit">
             SAVE FEEDBACK
           </button>
         </form>
