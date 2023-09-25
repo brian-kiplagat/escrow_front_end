@@ -1,17 +1,17 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 
-import {Observable, ReplaySubject, Subject} from 'rxjs';
-import {FlatpickrOptions} from 'ng2-flatpickr';
-import {FirebaseService} from '../../../services/firebase.service';
-import {Router} from '@angular/router';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import { FirebaseService } from '../../../services/firebase.service';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {isNumeric} from 'rxjs/internal-compatibility';
-import {FormControl} from '@angular/forms';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ToastrService} from 'ngx-toastr';
-import {environment} from '../../../../environments/environment';
-import {ImageCroppedEvent, LoadedImage, ImageTransform} from 'ngx-image-cropper';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { isNumeric } from 'rxjs/internal-compatibility';
+import { FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../../environments/environment';
+import { ImageCroppedEvent, LoadedImage, ImageTransform } from 'ngx-image-cropper';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import * as snippet from 'app/main/pages/account-settings/modals.snippetcode';
 
@@ -42,8 +42,8 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   public factor_release = false;
   public reset_error = false;
   public reset_error_text;
-  public devices
-  public whitelist: Observable<any>
+  public devices;
+  public whitelist: Observable<any>;
   file_data: any = '';
   public file = new FormControl('');
   public uploading: boolean;
@@ -173,7 +173,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
    * @param event
    */
   async uploadDP() {
-    console.log(this.croppedImage)
+    console.log(this.croppedImage);
     this.uploading = true;
     let user = JSON.parse(localStorage.getItem('user'));
     const headerDict = {
@@ -212,7 +212,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         }
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         this.toast('Ops', '👋 An error happened try again', 'error');
       });
   }
@@ -335,8 +335,8 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         this.currentUser = data.responseMessage?.user_data[0];
         this.avatarImage = this.currentUser.profile_link;
         this.tg_identifier = this.currentUser.tg_hash_identifier;
-        this.CHECK_SOUND = this.currentUser.sound
-        this.CHECK_EMAIL = this.currentUser.mail_notification
+        this.CHECK_SOUND = this.currentUser.sound;
+        this.CHECK_EMAIL = this.currentUser.mail_notification;
         if (this.currentUser.tg_id == 'NA') {
           this.telegram_bool = false;
         } else {
@@ -391,7 +391,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   }
 
   openLink() {
-    console.log(this.currentUser.tg_hash_identifier)
+    console.log(this.currentUser.tg_hash_identifier);
     const link = 'https://t.me/CoinPesBot?start=' + this.currentUser.tg_hash_identifier;
     window.open(link, '_blank') || window.location.replace(link);
   }
@@ -443,7 +443,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             console.log(response.responseMessage);
             this.fireSwalSuccess(
               'DONE',
-              "You are now protected with 2FA.  Even if an intruder gets past your password, that's no longer enough to give unauthorized access: without approval of your 2FA Code"
+              'You are now protected with 2FA.  Even if an intruder gets past your password, that\'s no longer enough to give unauthorized access: without approval of your 2FA Code'
             );
           },
           (err) => {
@@ -459,7 +459,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   addWhitelist() {
     const address = (document.getElementById('whitelist') as HTMLInputElement).value;
     console.log(address);
-    if (address === "") {
+    if (address === '') {
       this.fireSwalError(
         'Address Required',
         'Whitelisting is a security feature in the Address Book that allows crypto withdrawals to only go to addresses (external or internal) already designated in your Address Book. Whitelisting allows users to more safely withdraw to verified addresses'
@@ -468,7 +468,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     } else {
       this.fb
         .setWhitelist(this.user.token, this.user.username, {
-          address: address,
+          address: address
 
         })
         .subscribe(
@@ -502,7 +502,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
           html: msg,
           icon: sign,
           confirmButtonText: 'OKAY',
-          customClass: {confirmButton: 'btn btn-primary'}
+          customClass: { confirmButton: 'btn btn-primary' }
         });
       }
 
@@ -529,7 +529,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
             json.responseMessage.message
           );
           //Here look for way to update wallet with data
-          console.log(json.responseMessage.addresses)
+          console.log(json.responseMessage.addresses);
         } else {
           fireAlert('error', 'Ops', json.responseMessage);
         }
@@ -552,14 +552,14 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
           text: 'Get your code from Authy or Google Authenticator to authorize this action'
         }
       ])
-      .then(function (result) {
+      .then(function(result) {
         function fireSwal(option: string, title: string, msg: string) {
           Swal.fire({
             title: title,
             html: msg,
             icon: 'error',
             confirmButtonText: 'OKAY',
-            customClass: {confirmButton: 'btn btn-primary'}
+            customClass: { confirmButton: 'btn btn-primary' }
           });
         }
 
@@ -605,16 +605,16 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       });
   }
 
-  deleteDevice(session_id: string) {
+  deleteDevice = (session_id: string) => {
     let user = JSON.parse(localStorage.getItem('user'));
     this.fb.deleteSession(user.token, user.username, {
       'session_id': session_id
     }).subscribe((data: any) => {
-      this.devices = data.responseMessage
-      console.log(this.devices)
+      this.devices = data.responseMessage;
+      console.log(this.devices);
     }, error => {
-      console.log(error)
-    })
+      console.log(error);
+    });
   }
 
   fireSwalError(title: string, message: string) {
@@ -623,7 +623,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       html: message,
       icon: 'error',
       confirmButtonText: 'OKAY',
-      customClass: {confirmButton: 'btn btn-primary'}
+      customClass: { confirmButton: 'btn btn-primary' }
     });
   }
 
@@ -633,7 +633,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       html: message,
       icon: 'success',
       confirmButtonText: 'OKAY',
-      customClass: {confirmButton: 'btn btn-primary'}
+      customClass: { confirmButton: 'btn btn-primary' }
     });
   }
 
@@ -648,7 +648,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
           html: msg,
           icon: sign,
           confirmButtonText: 'OKAY',
-          customClass: {confirmButton: 'btn btn-primary'}
+          customClass: { confirmButton: 'btn btn-primary' }
         });
       }
 
@@ -697,14 +697,14 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
           text: 'Get your code from Authy or Google Authenticator to authorize this action'
         }
       ])
-      .then(function (result) {
+      .then(function(result) {
         function fireSwal(option: string, title: string, msg: string) {
           Swal.fire({
             title: title,
             html: msg,
             icon: 'error',
             confirmButtonText: 'OKAY',
-            customClass: {confirmButton: 'btn btn-primary'}
+            customClass: { confirmButton: 'btn btn-primary' }
           });
         }
 
@@ -786,6 +786,25 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         }
       );
   }
+
+  endAll = () => {
+    this.fb
+      .deleteAllExeptCurrent(this.user.token, this.user.username, {
+        token: this.user.token
+      })
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          this.devices = response.responseMessage;
+        },
+        (err) => {
+          console.log(err.error.responseMessage);
+          this.toastr.error(err.error.responseMessage, 'Ops');
+
+
+        }
+      );
+  };
 
   resetProfile() {
     this.uploading = true;
@@ -877,14 +896,14 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     let user = JSON.parse(localStorage.getItem('user'));
     if (e.target.checked) {
       if (type == 'SOUND') {
-        this.changeNotification("SOUND", "1").subscribe((response: any) => {
+        this.changeNotification('SOUND', '1').subscribe((response: any) => {
             this.CHECK_SOUND = true;
             localStorage.setItem('user', JSON.stringify({
               username: user.username,
               token: user.token,
               email: user.email,
-              sound: "1"
-            }))
+              sound: '1'
+            }));
             this.toast(
               'Great',
               '🔊 You turned on Sound notifications',
@@ -899,7 +918,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
 
       }
       if (type == 'EMAIL') {
-        this.changeNotification("EMAIL", "1").subscribe((response: any) => {
+        this.changeNotification('EMAIL', '1').subscribe((response: any) => {
             this.CHECK_EMAIL = true;
             this.toast(
               'Great',
@@ -916,14 +935,14 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
       }
     } else {
       if (type == 'SOUND') {
-        this.changeNotification("SOUND", "0").subscribe((response: any) => {
+        this.changeNotification('SOUND', '0').subscribe((response: any) => {
             this.CHECK_SOUND = false;
             localStorage.setItem('user', JSON.stringify({
               username: user.username,
               token: user.token,
               email: user.email,
-              sound: "0"
-            }))
+              sound: '0'
+            }));
             this.toast(
               'Done',
               '🔊 You have turned off Sound notifications',
@@ -938,14 +957,14 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
 
       }
       if (type == 'EMAIL') {
-        this.changeNotification("EMAIL", "0").subscribe((response: any) => {
+        this.changeNotification('EMAIL', '0').subscribe((response: any) => {
             this.CHECK_EMAIL = false;
             localStorage.setItem('user', JSON.stringify({
               username: user.username,
               token: user.token,
               email: user.email,
-              sound: "0"
-            }))
+              sound: '0'
+            }));
             this.toast(
               'Done',
               '📧 You have turned off your Mail notifications',
@@ -968,36 +987,36 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
     let user = JSON.parse(localStorage.getItem('user'));
     return this.fb.changeNotification(user.token, user.username, {
       action: action,
-      status: status,
+      status: status
 
-    })
+    });
 
   }
 
   verify(id: string) {
-    console.log(id)
-     switch(id) {
+    console.log(id);
+    switch (id) {
       case 'ID':
         this.fb.playAudio('assets/sounds/windows_warning.wav');
-        this.reset_error = true
-        this.reset_error_text = 'Send your ID or Passport with your selfie to @coinpes_support on telegram'
-        this.toast('Send us your Details','Contact us with your selfie and ID on @coinpes_support on telegram','success')
+        this.reset_error = true;
+        this.reset_error_text = 'Send your ID or Passport with your selfie to @coinpes_support on telegram';
+        this.toast('Send us your Details', 'Contact us with your selfie and ID on @coinpes_support on telegram', 'success');
 
         break;
       case 'ADDRESS':
         this.fb.playAudio('assets/sounds/windows_warning.wav');
-        this.reset_error = true
-        this.reset_error_text = 'Send your Bank Statement or Utility bill to @coinpes_support on telegram'
-        this.toast('Send us your Details','Contact us with your your Bank Statement or Utility bill to @coinpes_support on telegram. The document should be issued within the last 6 month old','success')
+        this.reset_error = true;
+        this.reset_error_text = 'Send your Bank Statement or Utility bill to @coinpes_support on telegram';
+        this.toast('Send us your Details', 'Contact us with your your Bank Statement or Utility bill to @coinpes_support on telegram. The document should be issued within the last 6 month old', 'success');
 
         break;
-       case 'CORPORATE':
-         this.fb.playAudio('assets/sounds/windows_warning.wav');
-         this.reset_error = true
-         this.reset_error_text = 'Finish the last two steps or contact @coinpes_support for more information'
-         this.toast('Send us your Details','Contact us with your your Bank Statement or Utility bill to @coinpes_support on telegram. The document should be issued within the last 6 month old','success')
+      case 'CORPORATE':
+        this.fb.playAudio('assets/sounds/windows_warning.wav');
+        this.reset_error = true;
+        this.reset_error_text = 'Finish the last two steps or contact @coinpes_support for more information';
+        this.toast('Send us your Details', 'Contact us with your your Bank Statement or Utility bill to @coinpes_support on telegram. The document should be issued within the last 6 month old', 'success');
 
-         break;
+        break;
       default:
       // code block
     }

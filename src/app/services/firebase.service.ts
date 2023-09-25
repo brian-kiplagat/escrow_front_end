@@ -479,6 +479,16 @@ export class FirebaseService {
     });
   }
 
+  deleteAllExeptCurrent(token, username, formData: any) {
+    return this.http.post(`${environment.endpoint}/logOutEveryOne`, formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        token: token,
+        username: username
+      })
+    });
+  }
   deleteSession(token, username, formData: any) {
     return this.http.post(`${environment.endpoint}/tokenDelete`, formData, {
       headers: new HttpHeaders({
