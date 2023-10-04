@@ -212,122 +212,128 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
   }
 
-  mark_paid(id: any) {
-    if (this.trade.buyer == this.storage.email) {
-      Swal.fire({
-        title: ' <h5>Are you sure?</h5>',
-        html: ' <p class="card-text font-small-3">You must ensure that you have sent the money first before clicking this button. Providing false information or coinlocking will cause your account to be banned</p>',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#7367F0',
-        cancelButtonColor: '#E42728',
-        confirmButtonText:
-          '<i class="fa fa-check-circle"></i> Confirm Payment',
-        confirmButtonAriaLabel: 'Confirm',
-        customClass: {
-          confirmButton: 'btn btn-primary',
-          cancelButton: 'btn btn-danger ml-1'
-        }
-      }).then(async (result) => {
-        if (result.value) {
-          let user = JSON.parse(localStorage.getItem('user'))
-          const headerDict = {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            token: user.token,
-            username: user.username
-          }
-          const requestOptions = {
-            headers: new Headers(headerDict),
-            method: 'POST',
-            body: JSON.stringify({
-              "id": id
-            })
-
-          };
-          await fetch(`${environment.endpoint}/markPaid`, requestOptions).then((response) => {
-            console.log(response);
-            if (!response.ok) {
-              this.toast('FAILED', '👋 Seems an error happened .Please try again', 'error')
-              this.fb.playAudio('assets/sounds/windows_warning.wav')
-              return
-              //throw new Error(response.statusText);
-            } else {
-              this.trade.status = "PAID"
-              this.toast('Great', '👋 You just confirmed your payment. Its now the sellers turn to send the Bitcoin', 'success')
-              this.fb.playAudio('assets/sounds/tirit.wav')
-
-            }
-          }).catch((error) => {
-            this.fb.playAudio('assets/sounds/windows_warning.wav')
-            this.toast('Ops', '👋 An error happened try again', 'error')
-          })
-        }
-      });
-    } else {
-      this.fb.playAudio('assets/sounds/windows_warning.wav')
-      this.toast('INVALID', 'You cant do that', 'error')
-    }
-  }
-
-  cancel_trade(id: any) {
-    this.fb.playAudio('assets/sounds/windows_warning.wav')
-    if (this.trade.buyer == this.storage.email) {
-      Swal.fire({
-        title: ' <h5>Hey Wait!</h5>',
-        html: ' <p class="card-text font-small-3">Stay on this trade if you\'ve already made this payment. For any other issues, click Back and start a dispute.</p>',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#2746e4',
-        cancelButtonColor: '#E42728',
-        cancelButtonText: 'Go back',
-        confirmButtonText:
-          '<i class="fa fa-ban"></i> CANCEL TRADE',
-        confirmButtonAriaLabel: 'CANCEL',
-        customClass: {
-          confirmButton: 'btn btn-primary',
-          cancelButton: 'btn btn-danger ml-1'
-        }
-      }).then(async (result) => {
-        if (result.value) {
-          let user = JSON.parse(localStorage.getItem('user'))
-          const headerDict = {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            token: user.token,
-            username: user.username
-          }
-          const requestOptions = {
-            headers: new Headers(headerDict),
-            method: 'POST',
-            body: JSON.stringify({
-              "id": id
-            })
-
-          };
-          await fetch(`${environment.endpoint}/cancelTrade`, requestOptions).then((response) => {
-            console.log(response);
-            if (!response.ok) {
-
-              this.toast('Failed', '👋 an error happened .Please try again', 'error')
-              return
-              //throw new Error(response.statusText);
-            } else {
-              this.trade.status = "CANCELLED_BUYER"
-              this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again you must open a trade, so that we reserve an escrow for safe payments', 'success')
-              this.fb.playAudio('assets/sounds/turumturum.wav')
-
-            }
-          }).catch((error) => {
-            this.toast('Ops', '👋 An error happened try again', 'error')
-          })
-        }
-      });
-    } else {
-      this.toast('INVALID', 'You cant do that', 'error')
+  mark_paid = async (id: any) => {
+    if (this.trade.buyer !== this.storage.email) {
+      this.fb.playAudio('assets/sounds/windows_warning.wav');
+      this.toast('Invalid Action', 'You cant do that', 'error');
+      return;
     }
 
-  }
+    this.fb.playAudio('assets/sounds/windows_warning.wav');
+
+    const swalResult = await Swal.fire({
+      title: '<h5>Are you sure?</h5>',
+      html: '<p class="card-text font-small-3">You must ensure that you have sent the money first before clicking this button. Providing false information or coinlocking will cause your account to be banned</p>',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#7367F0',
+      cancelButtonColor: '#E42728',
+      confirmButtonText: '<i class="fa fa-check-circle"></i> Confirm Payment',
+      confirmButtonAriaLabel: 'Confirm',
+      customClass: {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-danger ml-1'
+      }
+    });
+
+    if (!swalResult.isConfirmed) {
+      return; // User clicked "Cancel" or closed the dialog
+    }
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    const headerDict = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: user.token,
+      username: user.username
+    };
+
+    const requestOptions = {
+      headers: new Headers(headerDict),
+      method: 'POST',
+      body: JSON.stringify({
+        id: id
+      })
+    };
+
+    try {
+      const response = await fetch(`${environment.endpoint}/markPaid`, requestOptions);
+
+      if (!response.ok) {
+        this.toast('FAILED', '👋 Seems an error happened. Please try again', 'error');
+        return;
+      }
+
+      this.trade.status = 'PAID';
+      this.toast('Great', '👋 You just confirmed your payment. It\'s now the seller\'s turn to send the Bitcoin', 'success');
+      this.fb.playAudio('assets/sounds/tirit.wav');
+    } catch (error) {
+      this.toast('Ops', '👋 An error happened. Try again', 'error');
+    }
+  };
+
+
+  cancel_trade = async (id: any) => {
+    if (this.trade.buyer !== this.storage.email) {
+      this.toast('Invalid Action', 'You cant do that', 'error');
+      return;
+    }
+
+    this.fb.playAudio('assets/sounds/windows_warning.wav');
+
+    const swalResult = await Swal.fire({
+      title: '<h5>Hey Wait!</h5>',
+      html: '<p class="card-text font-small-3">Stay on this trade if you\'ve already made this payment. For any other issues, click Back and start a dispute.</p>',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2746e4',
+      cancelButtonColor: '#E42728',
+      cancelButtonText: 'Go back',
+      confirmButtonText: '<i class="fa fa-ban"></i> CANCEL TRADE',
+      confirmButtonAriaLabel: 'GO BACK',
+      customClass: {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-danger ml-1'
+      }
+    });
+
+    if (!swalResult.isConfirmed) {
+      return; // User clicked "Go back" or closed the dialog
+    }
+
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    const headerDict = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      token: user.token,
+      username: user.username
+    };
+
+    const requestOptions = {
+      headers: new Headers(headerDict),
+      method: 'POST',
+      body: JSON.stringify({
+        id: id
+      })
+    };
+
+    try {
+      const response = await fetch(`${environment.endpoint}/cancelTrade`, requestOptions);
+
+      if (!response.ok) {
+        this.toast('Failed', '👋 An error happened. Please try again', 'error');
+        return;
+      }
+
+      this.trade.status = 'CANCELLED_BUYER';
+      this.toast('Cancelled', '👋 You just cancelled this trade. If you wish to trade again, you must open a new trade to reserve escrow for safe payments', 'success');
+      this.fb.playAudio('assets/sounds/turumturum.wav');
+    } catch (error) {
+      this.toast('Ops', '👋 An error happened. Try again', 'error');
+    }
+  };
+
 
   okSendCrpto(otp: string, id: any) {
     let user = JSON.parse(localStorage.getItem('user'))
@@ -369,10 +375,13 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   release_btc = async (id: any) => {
+
     if (this.trade.seller !== this.storage.email) {
       this.toast('INVALID', 'You cant do that', 'error');
       return;
     }
+
+    this.fb.playAudio('assets/sounds/windows_warning.wav');
 
     if (this.trade[0].seller_2fa === '2FA' && this.trade[0].seller_2fa_status === 1) {
       console.log('Show 2fa dialog');
@@ -446,19 +455,20 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
     }
   };
 
-  open_dispute(id) {
-    this.fb.playAudio('assets/sounds/windows_warning.wav')
-    Swal.mixin({
-      input: 'text',
-      confirmButtonText: 'Next &rarr;',
-      showCancelButton: true,
-      progressSteps: ['1', '2'],
-      customClass: {
-        confirmButton: 'btn btn-primary',
-        cancelButton: 'btn btn-danger ml-1'
-      }
-    })
-      .queue([
+  open_dispute = async (id: any) => {
+    this.fb.playAudio('assets/sounds/windows_warning.wav');
+
+    try {
+      const result = await Swal.mixin({
+        input: 'text',
+        confirmButtonText: 'Next &rarr;',
+        showCancelButton: true,
+        progressSteps: ['1', '2'],
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-danger ml-1'
+        }
+      }).queue([
         {
           title: 'Reason',
           text: 'Why open this dispute?'
@@ -466,196 +476,181 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
         {
           title: 'Explain',
           text: 'Tell us briefly what happened'
-        },
-
-      ])
-      .then(function (result) {
-        if ((<HTMLInputElement>result).value) {
-          console.log((<HTMLInputElement>result).value);
-          let reason = (<HTMLInputElement>result).value[0]
-          let explanation = (<HTMLInputElement>result).value[1]
-          console.log(reason + ": " + explanation)
-          let user = JSON.parse(localStorage.getItem('user'))
-          const headerDict = {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            token: user.token,
-            username: user.username
-          }
-          const requestOptions = {
-            headers: new Headers(headerDict),
-            method: 'POST',
-            body: JSON.stringify({
-              "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
-              "email": user.email,
-              "tradeId": id,
-              "reason": reason,
-              "explanation": explanation
-
-
-            })
-
-          };
-          fetch(`${environment.endpoint}/openDispute`, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-              if (result.status == true) {
-                Swal.fire({
-                  title: 'DISPUTE STARTED',
-                  html: `<p  style="text-align: start;" class="card-text text-body-heading">Provide the moderator with as much information and evidence as you can, which could be any of the following:</p>
-                 <p  style="text-align: start;" class="card-text font-small-3 text-start">1. Transaction receipt.</p>
-                 <p style="text-align: start;" class="card-text font-small-3  text-start">2. Screenshot of payment confirmation.</p>
-                 <p  style="text-align: start;" class="card-text font-small-3  text-start">3. Video or screen recording of payment being made.</p>
-                 <p style="text-align: start;" class="card-text font-small-3 text-start">4. Proof of ownership receipts online and offline in transactions involving gift cards.</p>
-
-`,
-                  confirmButtonText: 'OKAY',
-                  customClass: {confirmButton: 'btn btn-primary'}
-                })
-                console.log(result.responseMessage)
-              } else {
-                console.log('ops',result.responseMessage)
-                Swal.fire({
-                  title: 'Whoops!',
-                  icon: 'warning',
-                  html: `<p class="card-text font-small-3">${result.responseMessage}</p>`,
-                  confirmButtonText: 'OKAY',
-                  customClass: {confirmButton: 'btn btn-primary'}
-                })
-                return
-              }
-            })
-            .catch((error) => {
-              console.log('error',error)
-
-
-            })
-
-
         }
-      });
+      ]) as any;
 
-  }
+      if (result.value) {
+        const [reason, explanation] = result.value;
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        const headerDict = {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          token: user.token,
+          username: user.username
+        };
+
+        const requestOptions = {
+          headers: new Headers(headerDict),
+          method: 'POST',
+          body: JSON.stringify({
+            requestId: uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+            email: user.email,
+            tradeId: id,
+            reason,
+            explanation
+          })
+        };
+
+        const response = await fetch(`${environment.endpoint}/openDispute`, requestOptions);
+        const data = await response.json();
+
+        if (data.status) {
+          Swal.fire({
+            title: 'DISPUTE STARTED',
+            html: `<p style="text-align: start;" class="card-text text-body-heading">Provide the moderator with as much information and evidence as you can, which could be any of the following:</p>
+            <p style="text-align: start;" class="card-text font-small-3 text-start">1. Transaction receipt.</p>
+            <p style="text-align: start;" class="card-text font-small-3 text-start">2. Screenshot of payment confirmation.</p>
+            <p style="text-align: start;" class="card-text font-small-3 text-start">3. Video or screen recording of payment being made.</p>
+            <p style="text-align: start;" class="card-text font-small-3 text-start">4. Proof of ownership receipts online and offline in transactions involving gift cards.</p>`,
+            confirmButtonText: 'OKAY',
+            customClass: { confirmButton: 'btn btn-primary' }
+          });
+          console.log(data.responseMessage);
+        } else {
+          console.log('ops', data.responseMessage);
+          Swal.fire({
+            title: 'Whoops!',
+            icon: 'warning',
+            html: `<p class="card-text font-small-3">${data.responseMessage}</p>`,
+            confirmButtonText: 'OKAY',
+            customClass: { confirmButton: 'btn btn-primary' }
+          });
+        }
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
 
   view_offer(idd: any) {
     window.location.href = '/offers/bitcoin/details/' + idd
 
   }
 
-  reopen_trade(tradeId: any) {
-    if (this.trade.seller == this.storage.email) {
-      Swal.fire({
-        title: ' <h5>Reopen this trade?</h5>',
-        html: ' <p class="card-text font-small-3">This will reopen the trade and escrow will be reserved so that payments can be made safely.</p>',
+  reopen_trade = async (tradeId: any) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (this.trade.seller != this.storage.email){
+      this.fb.playAudio('assets/sounds/windows_warning.wav');
+      this.toast('Invalid Action', 'Only the seller can reopen a trade', 'error');
+      return
+
+    }
+    try {
+      const result = await Swal.fire({
+        title: '<h5>Reopen this trade?</h5>',
+        html: '<p class="card-text font-small-3">This will reopen the trade and escrow will be reserved so that payments can be made safely.</p>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#7367F0',
         cancelButtonColor: '#E42728',
-        confirmButtonText:
-          '<i class="fa fa-check-circle"></i> Reopen Trade',
+        confirmButtonText: '<i class="fa fa-check-circle"></i> Reopen Trade',
         confirmButtonAriaLabel: 'Confirm',
         customClass: {
           confirmButton: 'btn btn-primary',
           cancelButton: 'btn btn-danger ml-1'
         }
-      }).then(async (result) => {
-        if (result.value) {
-          let user = JSON.parse(localStorage.getItem('user'))
-          const headerDict = {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            token: user.token,
-            username: user.username
-          }
-          const requestOptions = {
-            headers: new Headers(headerDict),
-            method: 'POST',
-            body: JSON.stringify({
-              "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
-              "email": user.email,
-              "tradeId": tradeId
-            })
-
-          };
-          fetch(`${environment.endpoint}/reopenTrade`, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-              if (result.status == true) {
-                console.log(result.responseMessage)
-                this.trade.status = "OPENED"
-                this.fb.playAudio('assets/sounds/turumturum.wav')
-              } else {
-                this.reopenErr = result.responseMessage
-                this.fb.playAudio('assets/sounds/windows_warning.wav')
-                return
-              }
-            })
-            .catch((error) => {
-              console.log(error)
-              this.toast('Ops', '👋 An error happened try again', 'error')
-
-            })
-        }
       });
-    } else {
-      this.fb.playAudio('assets/sounds/windows_warning.wav')
-      this.toast('INVALID', 'Only the seller can reopen a trade', 'error')
+
+      if (result.value) {
+        const headerDict = {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          token: user.token,
+          username: user.username
+        };
+
+        const requestOptions = {
+          headers: new Headers(headerDict),
+          method: 'POST',
+          body: JSON.stringify({
+            requestId: uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+            email: user.email,
+            tradeId: tradeId
+          })
+        };
+
+        const response = await fetch(`${environment.endpoint}/reopenTrade`, requestOptions);
+        const data = await response.json();
+
+        if (data.status) {
+          console.log(data.responseMessage);
+          this.trade.status = 'OPENED';
+          this.fb.playAudio('assets/sounds/turumturum.wav');
+        } else {
+          this.reopenErr = data.responseMessage;
+          this.fb.playAudio('assets/sounds/windows_warning.wav');
+          return;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      this.toast('Ops', '👋 An error happened, try again', 'error');
     }
+  };
 
-  }
 
-  submit_feedback(tradeId, patner_data) {
-    let comment = (<HTMLInputElement>document.getElementById("email-id-icon")).value;
+  submit_feedback = async (tradeId: any, partner_data: any) => {
+    const comment = (document.getElementById("email-id-icon") as HTMLInputElement)?.value;
     let type;
-    if (this.CHECK_NEGATIVE == true) {
+
+    if (this.CHECK_NEGATIVE) {
       type = 'NEGATIVE';
-    } else if (this.CHECK_POSITIVE == true) {
+    } else if (this.CHECK_POSITIVE) {
       type = 'POSITIVE';
     }
-    let user = JSON.parse(localStorage.getItem('user'))
+
+    const user = JSON.parse(localStorage.getItem('user'));
     const headerDict = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
       token: user.token,
       username: user.username
-    }
+    };
+
     const requestOptions = {
       headers: new Headers(headerDict),
       method: 'POST',
       body: JSON.stringify({
-        "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
-        "feedback_type": type,
-        "trade_id": tradeId,
-        "comment": comment,
-        "target": patner_data.username
-
-
+        requestId: uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+        feedback_type: type,
+        trade_id: tradeId,
+        comment: comment,
+        target: partner_data.username
       })
-
     };
-    fetch(`${environment.endpoint}/postFeedback`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        if (result.status == true) {
-          this.feed_success = result.responseMessage
-          this.feed_error = null
-          this.fb.playAudio('assets/sounds/turumturum.wav')
-        } else {
-          this.feed_error = result.responseMessage
-          this.feed_success = null
-          this.fb.playAudio('assets/sounds/windows_warning.wav')
-          return
-        }
-      })
-      .catch((error) => {
-        this.feed_error = 'An error happened, consult admin'
-        console.log(error)
-        this.toast('Ops', '👋 An error happened try again', 'error')
 
-      })
+    try {
+      const response = await fetch(`${environment.endpoint}/postFeedback`, requestOptions);
+      const result = await response.json();
 
-
-  }
+      if (result.status) {
+        this.feed_success = result.responseMessage;
+        this.feed_error = null;
+        this.fb.playAudio('assets/sounds/turumturum.wav');
+      } else {
+        this.feed_error = result.responseMessage;
+        this.feed_success = null;
+        this.fb.playAudio('assets/sounds/windows_warning.wav');
+        return;
+      }
+    } catch (error) {
+      this.feed_error = 'An error happened, consult admin';
+      console.log(error);
+      this.toast('Ops', '👋 An error happened, try again', 'error');
+    }
+  };
 
 
   onRadioChange(e, type) {
