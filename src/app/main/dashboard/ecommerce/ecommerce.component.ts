@@ -351,8 +351,7 @@ export class EcommerceComponent implements OnInit {
   }
 
   openLink() {
-    window.open(coreConfig.app.appTelegramSupport, '_blank') || window.location.replace(link);
+    window.open(coreConfig.app.appTelegramSupport, '_blank') || window.location.replace(coreConfig.app.appTelegramSupport);
   }
 
-  protected readonly coreConfig = coreConfig;
 }
