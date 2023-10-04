@@ -190,7 +190,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         type: this.croppedImage.type
       })
     };
-    await fetch(`https://api.coinpes.com/api/coin/v1/uploadProfile`, requestOptions)
+    await fetch(`${environment.apiUrl}/api/coin/v1/uploadProfile`, requestOptions)
       .then((response) => {
         console.log(response);
         if (!response.ok) {
@@ -216,89 +216,6 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         this.toast('Ops', '👋 An error happened try again', 'error');
       });
   }
-
-  onFileSelected(event) {
-    this.convertFile(event.target.files[0]).subscribe(async (base64) => {
-      this.base64Output = base64;
-      console.log(base64);
-      const fileList: FileList = event.target.files;
-      //check whether file is selected or not
-      if (fileList.length > 0) {
-        const file = fileList[0];
-        //get file information such as name, size and type
-        console.log('finfo', file.name, file.size, file.type);
-        //max file size is 4 mb
-        if (this.croppedImage.size / 1048576 <= 4) {
-          this.uploading = true;
-          let user = JSON.parse(localStorage.getItem('user'));
-          const headerDict = {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            token: user.token,
-            username: user.username
-          };
-          const requestOptions = {
-            headers: new Headers(headerDict),
-            method: 'POST',
-            body: JSON.stringify({
-              profile_image: this.croppedImage,
-              type: file.type
-            })
-          };
-          await fetch(`https://api.coinlif.com/api/files/v1/uploadDP`, requestOptions)
-            .then((response) => {
-              console.log(response);
-              if (!response.ok) {
-                this.toast(
-                  'FAILED',
-                  '👋 Seems an error happened .Please try again',
-                  'error'
-                );
-                this.uploading = false;
-                //throw new Error(response.statusText);
-              } else {
-                //reader.readAsDataURL(event.target.files[0]);
-                response.json().then((json) => {
-                  this.avatarImage = json.responseMessage?.path;
-                });
-                this.fb.playAudio('assets/sounds/tirit.wav');
-                this.toast('Great', '👋 You just uploaded your profile', 'success');
-                this.uploading = false;
-              }
-            })
-            .catch((error) => {
-              this.toast('Ops', '👋 An error happened try again', 'error');
-            });
-        } else {
-          this.toast(
-            'Ops',
-            'File size exceeds 4 MB. Please choose less than 4 MB',
-            'error'
-          );
-        }
-      }
-    });
-  }
-
-  convertFile(file: File): Observable<string> {
-    const result = new ReplaySubject<string>(1);
-    const reader = new FileReader();
-    reader.readAsBinaryString(file);
-    reader.onload = (event) => result.next(btoa(event.target.result.toString()));
-    return result;
-  }
-
-  async uploadImage(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = (event: any) => {
-        this.avatarImage = event.target.result;
-        console.log(event.target.result);
-      };
-    }
-  }
-
   private toast(title: string, message: string, type: string) {
     if (type == 'success') {
       this.toastr.success(message, title, {

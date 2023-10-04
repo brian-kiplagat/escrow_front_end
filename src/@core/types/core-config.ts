@@ -8,6 +8,7 @@ export interface CoreConfig {
     appLanguage :'en' | 'fr' | 'de' | 'pt';
     appUrl:string;
     appSupportEmail:string;
+    appTelegramSupport:string;
 
   };
   layout: {

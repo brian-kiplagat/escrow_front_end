@@ -21,7 +21,8 @@ export const coreConfig: CoreConfig = {
     appLogoImage: 'assets/images/logo/logo.png',                  // App Logo
     appLanguage : 'en',                                           // App Default Language (en, fr, de, pt etc..)
     appUrl:'https://coinpes.com',
-    appSupportEmail:'support@coinpes.com'
+    appSupportEmail:'support@coinpes.com',
+    appTelegramSupport:'https://t.me/coinpes_support'
 
   },
   layout: {
