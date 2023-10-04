@@ -9,6 +9,9 @@ import {PaginationService} from '../pagination.service';
 import {ChatComponent} from "../chat.component";
 import Swal from "sweetalert2";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import { CoreConfigService } from '../../../../../@core/services/config.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -21,6 +24,8 @@ export class ChatContentComponent implements OnInit {
   // Decorator
   @ViewChild('scrollMe') scrollMe: ElementRef;
   scrolltop: number = null;
+  coreConfig: any;
+  private _unsubscribeAll: Subject<any>;
 
   // Public
   public activeChat: Boolean;
@@ -45,6 +50,7 @@ export class ChatContentComponent implements OnInit {
 
   constructor(private _chatService: ChatService,
               private _coreSidebarService: CoreSidebarService,
+              private _coreConfigService: CoreConfigService,
               private fb: FirebaseService,
               private route: ActivatedRoute,
               private router: Router,
@@ -53,6 +59,16 @@ export class ChatContentComponent implements OnInit {
               private invoke: ChatComponent,
               private firestore: AngularFirestore,
   ) {
+    // Subscribe config change
+    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+      this.coreConfig = config;
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   // Public Methods
@@ -71,7 +87,7 @@ export class ChatContentComponent implements OnInit {
     let toCheck = ['Clubhouse', 'VKontakte', 'Quora', 'Twitter', 'Reddit', 'Pinterest', 'QZone', 'Snapchat',
       'Telegram', 'Weibo', 'Sina', 'QQ', 'Douyin', 'TikTok', 'LinkedIn', 'WeChat', 'Instagram', 'Facebook', 'Messenger', 'YouTube', 'whatsapp', 'Fuck', 'Asshole', 'Ass', 'Petrol', 'Diesel'];
     if (toCheck.some(o => this.chatMessage.toLowerCase().includes(o.toLowerCase()))) {
-      this.chatMessage = 'This message was censored because it violates out Terms. Don’t share your phone numbers contact like information e.g whatsapp, telegram, discord etc. Scammers can try to rip you on off by asking you to send money outside our Coinpes escrow platform which actually keeps you safe. You must insist to keep all your messages inside this chat so that if your trade ends up in a dispute, our team can fully help you'
+      this.chatMessage = 'This message was censored because it violates out Terms. Don’t share your phone numbers contact like information e.g whatsapp, telegram, discord etc. Scammers can try to rip you on off by asking you to send money outside our  escrow platform which actually keeps you safe. You must insist to keep all your messages inside this chat so that if your trade ends up in a dispute, our team can fully help you'
 
     }
     let user = JSON.parse(localStorage.getItem('user'));
@@ -313,4 +329,6 @@ export class ChatContentComponent implements OnInit {
       }
     })
   }
+
+  protected readonly confirm = confirm;
 }

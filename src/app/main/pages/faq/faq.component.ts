@@ -23,6 +23,8 @@ import {
 import {colors} from 'app/colors.const';
 import {CoreConfigService} from '@core/services/config.service';
 import {FirebaseService} from "../../../services/firebase.service";
+import { coreConfig } from '../../../app-config';
+import { takeUntil } from 'rxjs/operators';
 
 // interface ChartOptions
 export interface ChartOptions {
@@ -54,7 +56,7 @@ export class FaqComponent implements OnInit, OnDestroy {
   @ViewChild('apexCandlestickChartRef',{ static: false }) apexCandlestickChartRef: any;
   // public
   public contentHeader: object;
-
+  public coreConfig: any;
   public data2: any;
   public searchText: string;
   public shopSidebarToggle = false;
@@ -230,6 +232,11 @@ export class FaqComponent implements OnInit, OnDestroy {
       }
     };
 
+    // Subscribe to config changes
+    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe((config) => {
+      this.coreConfig = config;
+    });
+
   }
 
   ngch
@@ -279,4 +286,6 @@ export class FaqComponent implements OnInit, OnDestroy {
       timeZoneName: "short"
     }); // "Wed Jun 29 2011 09:52:48 GMT-0700 (PDT)"
   }
+
+
 }

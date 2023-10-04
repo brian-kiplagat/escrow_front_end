@@ -19,6 +19,7 @@ import Swal from "sweetalert2";
 import {ToastrService, GlobalConfig} from 'ngx-toastr';
 import {v4 as uuidv4} from 'uuid';
 import {off} from "@angular/fire/database";
+import { coreConfig } from '../../../app-config';
 
 @Component({
 
@@ -251,7 +252,7 @@ export class EcommerceComponent implements OnInit {
   }
 
   copy(text: any) {
-    clipboard.write('https://coinpes.com/offers/bitcoin/details/' + text);
+    clipboard.write(coreConfig.app.appUrl+'/offers/bitcoin/details/' + text);
     // Success
     this.toastr.success('👋 You just copied your offer link. Share this link to get clients to open trades which are secured by escrow and guided by moderators 24-7', 'Great!', {
       toastClass: 'toast ngx-toastr',

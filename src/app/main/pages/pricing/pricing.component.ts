@@ -5,6 +5,8 @@ import {takeUntil} from 'rxjs/operators';
 import {FirebaseService} from "../../../services/firebase.service";
 import {Router} from "@angular/router";
 import {v4 as uuidv4} from 'uuid';
+import { coreConfig } from '../../../app-config';
+import { CoreConfigService } from '../../../../@core/services/config.service';
 
 @Component({
   selector: 'app-pricing',
@@ -13,6 +15,7 @@ import {v4 as uuidv4} from 'uuid';
 })
 export class PricingComponent implements OnInit, OnDestroy {
   // public
+  public coreConfig: any;
   public data: any;
   public user;
   public packages;
@@ -45,10 +48,11 @@ export class PricingComponent implements OnInit, OnDestroy {
   /**
    * Constructor
    *
+   * @param _coreConfigService
    * @param fb
    * @param router
    */
-  constructor(private fb: FirebaseService, private router: Router) {
+  constructor(  private _coreConfigService: CoreConfigService,private fb: FirebaseService, private router: Router) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -60,6 +64,10 @@ export class PricingComponent implements OnInit, OnDestroy {
       console.log(data)
     }, (error) => {
       console.log(error)
+    });
+    // Subscribe to config changes
+    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe((config) => {
+      this.coreConfig = config;
     });
 
   }
@@ -93,4 +101,5 @@ export class PricingComponent implements OnInit, OnDestroy {
     });
 
   }
+
 }

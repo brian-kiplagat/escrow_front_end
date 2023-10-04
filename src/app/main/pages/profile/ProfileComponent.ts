@@ -4,7 +4,7 @@ import {FirebaseService} from 'app/services/firebase.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {ActivatedRoute, Router} from "@angular/router";
-import {object} from "@angular/fire/database";
+import { CoreConfigService } from '../../../../@core/services/config.service';
 
 
 @Component({
@@ -16,23 +16,11 @@ import {object} from "@angular/fire/database";
 export class ProfileComponent implements OnInit, OnDestroy {
   // public
   public contentHeader: object;
-
+  public coreConfig: any;
   public data: any;
   public toggleMenu = true;
-  public Monthly = false;
-  public toggleNavbarRef = false;
   public loadMoreRef = false;
   email: string = '';
-  public userData: any = {
-    about: "No about yet",
-    active: 1,
-    feed_neg: 0,
-    feed_pos: 0,
-    geolocation: "none",
-    ip: "none",
-    registration_date: "2022-04-01 13:14:34",
-    status: 1
-  };
   public feeds;
   public currentUser: any = {};
   public image = '/assets/images/avatars/avatar.webp'
@@ -50,12 +38,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   /**
    * Constructor
    *
+   * @param _coreConfigService
    * @param route
    * @param sanitizer
    * @param fb
    * @param router
    */
-  constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer, private fb: FirebaseService, private router: Router) {
+  constructor(  private _coreConfigService: CoreConfigService,private route: ActivatedRoute, private sanitizer: DomSanitizer, private fb: FirebaseService, private router: Router) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -110,11 +99,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
         ]
       }
     };
+
+    // Subscribe to config changes
+    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe((config) => {
+      this.coreConfig = config;
+    });
   }
 
-  getEmail() {
-    return localStorage.getItem('user');
-  }
 
 
   /**

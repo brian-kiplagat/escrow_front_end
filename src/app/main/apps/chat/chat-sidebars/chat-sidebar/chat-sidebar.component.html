@@ -51,7 +51,7 @@
           <p *ngIf="trade.status == 'OPENED' ||trade.status == 'PAID'"
              class="font-small-2">{{trade.btc_amount_with_margin}} BTC will be
             added
-            to your Coinpes
+            to your {{coreConfig.app.appName}}
             wallet</p>
           <p *ngIf="trade.status == 'PAID'" class="font-small-2"
              ngbTooltip='You have sent the payment. Now wait for the seller to send you the Bitcoin. If the seller refuses or you have a problem, Open a dispute and well come in to help you'
@@ -76,7 +76,7 @@
 
           <p *ngIf="trade.status == 'SUCCESSFUL'" class="font-small-2">
             You bought {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
-            using  {{trade.offer_method | titlecase}}, {{trade.btc_amount_with_margin}} BTC was added to your Coinpes
+            using  {{trade.offer_method | titlecase}}, {{trade.btc_amount_with_margin}} BTC was added to your {{coreConfig.app.appName}}
             wallet
           </p>
           <!-- BUYER BUTTONS-->
@@ -132,7 +132,7 @@
           <p *ngIf="trade.status == 'SUCCESSFUL'" class="font-small-2">
             You sold {{trade.btc_amount_with_margin}} BTC
             for {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
-            using  {{trade.offer_method | titlecase}}. Thanks again for using Coinpes
+            using  {{trade.offer_method | titlecase}}. Thanks again for using {{coreConfig.app.appName}}
           </p>
 
 
@@ -188,7 +188,7 @@
         <!-- ANYONE OPEN DISPUTE-->
         <div class="mt-1">
           <button (click)="open_dispute(trade.id)" *ngIf="trade.status == 'PAID' && trade.dispute_started == false"
-                  class="btn btn-gradient-warning btn-block" ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
+                  class="btn btn-gradient-warning btn-block" ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against our Terms of Service will lead to a permanent ban"
                   placement="bottom"
                   rippleEffect
                   type="button">

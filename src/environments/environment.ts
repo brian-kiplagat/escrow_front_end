@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   hmr: false,
+  appName:'Coinpes',
   apiUrl: 'http://localhost:4000',
   endpoint:'https://api.coinpes.com/api/coin/v1',
   upload_endpoint:'https://api.coinlif.com/api/coin/v1',

@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FirebaseService} from '../../../../services/firebase.service';
-import {v4 as uuidv4} from 'uuid';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FirebaseService } from '../../../../services/firebase.service';
+import { v4 as uuidv4 } from 'uuid';
+import { coreConfig } from '../../../../app-config';
 
 
 @Component({
@@ -10,7 +11,7 @@ import {v4 as uuidv4} from 'uuid';
   templateUrl: './offer-page.component.html',
   styleUrls: ['./offer-page.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  host: {class: 'ecommerce-application'}
+  host: { class: 'ecommerce-application' }
 })
 export class OfferPageComponent implements OnInit {
   // public
@@ -18,10 +19,10 @@ export class OfferPageComponent implements OnInit {
   public submitted = false;
   public offer: any = {};
   public offers = [];
-  public buyamount = ""
-  public err = "";
+  public buyamount = '';
+  public err = '';
   public form: FormGroup;
-  public tags: string[] = []
+  public tags: string[] = [];
 
   public offer_id;
   public rate;
@@ -87,33 +88,33 @@ export class OfferPageComponent implements OnInit {
     this.productIdFromRoute = routeParams.get('id');
     this._fb.getInfo(this.productIdFromRoute).subscribe((data: any) => {
       this.offer = data.responseMessage.data;
-      this.offer_id = data.responseMessage.data.offer_id
-      this.rate = data.responseMessage.data.margin
-      this.price = data.responseMessage.data.price
-      this.min = data.responseMessage.data.minimum
-      this.max = data.responseMessage.data.maximum
-      let offer_tags = data.responseMessage.data.tags
-      let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, "")
-      console.log(this.offer)
-      const arr = formatted_tags.slice(1, -1)
-      this.tags = arr.split(',')
+      this.offer_id = data.responseMessage.data.offer_id;
+      this.rate = data.responseMessage.data.margin;
+      this.price = data.responseMessage.data.price;
+      this.min = data.responseMessage.data.minimum;
+      this.max = data.responseMessage.data.maximum;
+      let offer_tags = data.responseMessage.data.tags;
+      let formatted_tags = offer_tags.replace(/[&\/\\#+()$~%.'":*?<>{}]/g, '');
+      console.log(this.offer);
+      const arr = formatted_tags.slice(1, -1);
+      this.tags = arr.split(',');
       if (data.responseMessage.data.status != 1) {
-        this.err = 'This Offer is not active anymore because it was turned off by the owner. Please browse for other ' + this.offer.method + ' offers'
-        this._fb.playAudio('assets/sounds/windows_warning.wav')
+        this.err = 'This Offer is not active anymore because it was turned off by the owner. Please browse for other ' + this.offer.method + ' offers';
+        this._fb.playAudio('assets/sounds/windows_warning.wav');
       }
       if (data.responseMessage.data.deauth == 1) {
-        this.err = 'This offer is turned off by a moderator due to a terms of service violation.  Please browse for other offers'
-        this._fb.playAudio('assets/sounds/windows_warning.wav')
+        this.err = 'This offer is turned off by a moderator due to a terms of service violation.  Please browse for other offers';
+        this._fb.playAudio('assets/sounds/windows_warning.wav');
       }
     }, error => {
-      this._fb.playAudio('assets/sounds/windows_warning.wav')
-      this.err = error.error.responseMessage
+      this._fb.playAudio('assets/sounds/windows_warning.wav');
+      this.err = error.error.responseMessage;
     });
     this.form = this._formBuilder.group({
       amounttoreceive: ['', Validators.required],
       amount: ['', Validators.compose([
-        Validators.required,
-      ])],
+        Validators.required
+      ])]
     });
 
   }
@@ -123,28 +124,28 @@ export class OfferPageComponent implements OnInit {
     let user = JSON.parse(localStorage.getItem('user'));
     this.submitted = true;
     if (form.valid) {
-      this.loading = true
+      this.loading = true;
       const body = {
-        "requestId": uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
-        "email": user.email,
-        "offer_id": this.offer_id,
-        "amount_fiat": this.form.value.amount,
-        "rate": this.rate,
-        "min": this.min,
-        "max": this.max
-      }
+        'requestId': uuidv4() + Math.round(new Date().getTime() / 1000).toString(),
+        'email': user.email,
+        'offer_id': this.offer_id,
+        'amount_fiat': this.form.value.amount,
+        'rate': this.rate,
+        'min': this.min,
+        'max': this.max
+      };
       //formulate request body
       this._fb.openTrade(user.username, user.token, body).subscribe(
         (data: any) => {
-          this.loading = false
-          this._fb.playAudio('assets/sounds/windows_warning.wav')
-          this.router.navigate(['/offers/chat/room/' + data.responseMessage.trade_id])
+          this.loading = false;
+          this._fb.playAudio('assets/sounds/windows_warning.wav');
+          this.router.navigate(['/offers/chat/room/' + data.responseMessage.trade_id]);
         },
         (error) => {
-          this.loading = false
+          this.loading = false;
           console.log(error);
-          this._fb.playAudio('assets/sounds/windows_warning.wav')
-          this.err = error.error.responseMessage
+          this._fb.playAudio('assets/sounds/windows_warning.wav');
+          this.err = error.error.responseMessage;
         }
       );
       this.submitted = false;
@@ -156,7 +157,7 @@ export class OfferPageComponent implements OnInit {
   onChangeEvent(event: any) {
     this.btc = event.target.value / this.price;
     this.btc = parseFloat(this.btc.toFixed(8));
-    console.log(this.btc)
+    console.log(this.btc);
 
     this.form.patchValue({
       amounttoreceive: this.btc + ' BTC'
@@ -167,20 +168,20 @@ export class OfferPageComponent implements OnInit {
 
   share(offer_id) {
     navigator.share({
-      title: 'Trade BTC with ' + this.offer.offer_username + ' by ' + this.offer.method + ' | CoinPes',
-      url: 'https://coinpes.com/offers/bitcoin/details/' + offer_id
+      title: 'Trade BTC with ' + this.offer.offer_username + ' by ' + this.offer.method,
+      url: coreConfig.app.appUrl + 'offers/bitcoin/details/' + offer_id
     }).then(r => {
-      console.error('Shared success:')
+      console.error('Shared success:');
     }).catch((error) => console.error('Error sharing:', error));
 
   }
 
-  report(offer_id,reason) {
+  report(offer_id, reason) {
 
   }
 
   getMargin(margin) {
 
-    return Math.abs(margin)
+    return Math.abs(margin);
   }
 }

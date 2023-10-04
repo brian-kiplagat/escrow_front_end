@@ -20,6 +20,9 @@ export const coreConfig: CoreConfig = {
     appTitle    : 'CoinPes', // App Title
     appLogoImage: 'assets/images/logo/logo.png',                  // App Logo
     appLanguage : 'en',                                           // App Default Language (en, fr, de, pt etc..)
+    appUrl:'https://coinpes.com',
+    appSupportEmail:'support@coinpes.com'
+
   },
   layout: {
     skin  : 'default',                        // default, dark, bordered, semi-dark

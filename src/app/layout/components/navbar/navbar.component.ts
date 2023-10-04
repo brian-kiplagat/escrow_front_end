@@ -1,18 +1,19 @@
-import {Component, OnDestroy, OnInit, HostBinding, HostListener, ViewEncapsulation} from '@angular/core';
-import {MediaObserver} from '@angular/flex-layout';
-import Swal from "sweetalert2";
+import { Component, OnDestroy, OnInit, HostBinding, HostListener, ViewEncapsulation } from '@angular/core';
+import { MediaObserver } from '@angular/flex-layout';
+import Swal from 'sweetalert2';
 import * as _ from 'lodash';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {TranslateService} from '@ngx-translate/core';
-import {AuthenticationService} from 'app/auth/service';
-import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
-import {CoreConfigService} from '@core/services/config.service';
-import {CoreMediaService} from '@core/services/media.service';
-import {FirebaseService} from 'app/services/firebase.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthenticationService } from 'app/auth/service';
+import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
+import { CoreConfigService } from '@core/services/config.service';
+import { CoreMediaService } from '@core/services/media.service';
+import { FirebaseService } from 'app/services/firebase.service';
 
-import {Router} from '@angular/router';
-import clipboard from "clipboardy";
+import { Router } from '@angular/router';
+import clipboard from 'clipboardy';
+import { coreConfig } from '../../../app-config';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public selectedLanguage: any;
   public mail = '';
   public balance = 0;
-  public fiat: number = 0
+  public fiat: number = 0;
 
   @HostBinding('class.fixed-top')
   public isFixed = false;
@@ -138,7 +139,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // Use the selected language id for translations
     this._translateService.use(language);
 
-    this._coreConfigService.setConfig({app: {appLanguage: language}}, {emitEvent: true});
+    this._coreConfigService.setConfig({ app: { appLanguage: language } }, { emitEvent: true });
   }
 
   /**
@@ -158,12 +159,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     if (this.currentSkin === 'dark') {
       this._coreConfigService.setConfig(
-        {layout: {skin: this.prevSkin ? this.prevSkin : 'default'}},
-        {emitEvent: true}
+        { layout: { skin: this.prevSkin ? this.prevSkin : 'default' } },
+        { emitEvent: true }
       );
     } else {
       localStorage.setItem('prevSkin', this.currentSkin);
-      this._coreConfigService.setConfig({layout: {skin: 'dark'}}, {emitEvent: true});
+      this._coreConfigService.setConfig({ layout: { skin: 'dark' } }, { emitEvent: true });
     }
   }
 
@@ -175,8 +176,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     localStorage.clear();
     this.router.navigate(['/pages/login']);
     this._firebae.logout(user!.token, user!.username, user.email).then(r => {
-      console.log(r)
-    })
+      console.log(r);
+    });
   }
 
   // Lifecycle Hooks
@@ -191,12 +192,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     //console.log(user)
     user ? this._firebae.getUser(user!.username, user!.token).subscribe((data: any) => {
       this.currentUser = data.responseMessage?.user_data[0];
-      this.fiat = data.responseMessage?.fiat
+      this.fiat = data.responseMessage?.fiat;
 
     }, (error) => {
-      console.log(error)
-      this.router.navigate(['/'])
-    }) : user = {}
+      console.log(error);
+      this.router.navigate(['/']);
+    }) : user = {};
 
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
@@ -245,10 +246,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   copy_link() {
     let user = JSON.parse(localStorage.getItem('user'));
-    clipboard.write("https://coinpes.com/pages/register?r=" + user.username);
+    clipboard.write(`${coreConfig.app.appUrl}/pages/register?r=` + user.username);
     Swal.fire({
       title: ' <h5>LINK COPIED!</h5>',
-      html: ' <p class="card-text font-small-3">https://coinpes.com/pages/register?r=' + user.username + '</p>' +
+      html: ' <p class="card-text font-small-3">' + coreConfig.app.appUrl + '/pages/register?r=' + user.username + '</p>' +
         '<p class="card-text font-small-3">Our Bitcoin Affiliate Program helps you bring financial freedom to your community. And as a bonus, you get a steady stream of income too</p>' +
         '<p class="card-text font-small-3">You make money every time the people you introduce, and the people they invite, buy Bitcoin</p>' +
         '<p class="card-text font-small-3">Your rewards are added to your wallet automatically</p>',
@@ -261,6 +262,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       customClass: {
         confirmButton: 'btn btn-primary'
       }
-    })
+    });
   }
 }

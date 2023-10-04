@@ -6,9 +6,9 @@
       <!-- title text and switch button -->
 
       <div class="text-center">
-        <h1 class="mt-5">Coinpes Yield</h1>
+        <h1 class="mt-5">{{coreConfig.app.appName}} Yield</h1>
         <p class="mb-2 pb-75">
-          What is Coinpes yield? It is  principal-guaranteed product that allows you to take advantage of the volatilty of your chosen crypto asset. You can deposit Coins to earn attractive yield in low-volatility markets.
+          What is {{coreConfig.app.appName}}  yield? It is  principal-guaranteed product that allows you to take advantage of the volatilty of your chosen crypto asset. You can deposit Coins to earn attractive yield in low-volatility markets.
         </p>
 
         <ngb-alert [type]="'success'" [dismissible]="true" *ngIf="success">
@@ -60,7 +60,7 @@
 
                   <button rippleEffect (click)="invest(package.id)"
                           class="btn btn-gradient-primary btn-block"
-                          ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against CoinPes Terms of Service will lead to a permanent ban"
+                          ngbTooltip="If you have a problem or disagreement with your partner click here so a moderator joins to help you. Note that providing false information or going against our Terms of Service will lead to a permanent ban"
                           placement="bottom">
                     <div>
                       <h2 class="d-inline mr-25 text-white">YIELD</h2>
@@ -104,7 +104,7 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header"><h4 class="card-title">About Coinpes Yield</h4></div>
+            <div class="card-header"><h4 class="card-title">About {{coreConfig.app.appName}}  Yield</h4></div>
             <div class="card-body">
               <p class="card-text">
                 We use institutional-grade algorithmic trading software to automate trading strategies in crypto, forex,
