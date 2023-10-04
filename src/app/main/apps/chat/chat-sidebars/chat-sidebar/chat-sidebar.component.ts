@@ -3,8 +3,7 @@ import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.ser
 import {ChatService} from 'app/main/apps/chat/chat.service';
 import {GlobalConfig, ToastrService} from 'ngx-toastr';
 import Swal from "sweetalert2";
-import {Subscription, timer} from "rxjs";
-import {isNumeric} from "rxjs/internal-compatibility";
+import {Subscription} from "rxjs";
 import {environment} from "../../../../../../environments/environment";
 import {FirebaseService} from "../../../../../services/firebase.service";
 import {ActivatedRoute} from "@angular/router";
@@ -370,6 +369,10 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   }
 
   release_btc(id: any) {
+    if (this.trade.seller !== this.storage.email) {
+      this.toast('Invalid Action', 'You cant do that', 'error');
+      return;
+    }
 
 
     if (this.trade.seller == this.storage.email) {
@@ -405,30 +408,19 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
               })
             }
 
-            if ((<HTMLInputElement>result).value) {
-              let otp = (<HTMLInputElement>result).value[0]
-              console.log(otp)
-              if (otp.length <= 0) {
-                fireSwal('error', 'OTP REQUIRED', 'Please input the 2FA Code. Get your code from Authy or Google Authenticator to authorize this action')
-                return
-              }
-              if (otp.length > 6) {
-                fireSwal('error', 'OTP TOO LONG', 'Your 2FA code cannot be longer than 6 numbers. Get your code from Authy or Google Authenticator')
-                return
-              }
-              if (otp.length > 0 && otp.length < 6) {
-                fireSwal('error', 'OTP TOO SHORT', 'Your 2FA code cannot be shorter than 6 numbers. Get your code from Authy or Google Authenticator')
-                return
-              }
-              if (otp.length > 0 && !isNumeric(parseInt(otp))) {
-                fireSwal('error', 'OTP MUST BE A NUMBER', 'Your 2FA code must be a 6 digit number. Get your code from Authy or Google Authenticator')
-                return
-              } else {
-                this.okSendCrpto(otp, id)
-
-              }
+            const otp = (<HTMLInputElement>result).value[0];
 
 
+            if (!otp) {
+              fireSwal('error', 'OTP REQUIRED', 'Please input the 2FA Code. Get your code from Authy or Google Authenticator to authorize this action');
+            } else if (otp.length > 6) {
+              fireSwal('error', 'OTP TOO LONG', 'Your 2FA code cannot be longer than 6 numbers. Get your code from Authy or Google Authenticator');
+            } else if (otp.length < 6) {
+              fireSwal('error', 'OTP TOO SHORT', 'Your 2FA code cannot be shorter than 6 numbers. Get your code from Authy or Google Authenticator');
+            } else if (!/^\d+$/.test(otp)) {
+              fireSwal('error', 'OTP MUST BE A NUMBER', 'Your 2FA code must be a 6-digit number. Get your code from Authy or Google Authenticator');
+            } else {
+              this.okSendCrpto(otp, id);
             }
           });
       } else {
