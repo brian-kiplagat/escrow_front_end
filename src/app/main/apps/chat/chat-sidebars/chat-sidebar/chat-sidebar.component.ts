@@ -3,7 +3,6 @@ import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.ser
 import {ChatService} from 'app/main/apps/chat/chat.service';
 import {GlobalConfig, ToastrService} from 'ngx-toastr';
 import Swal from "sweetalert2";
-import {Subscription} from "rxjs";
 import {environment} from "../../../../../../environments/environment";
 import {FirebaseService} from "../../../../../services/firebase.service";
 import {ActivatedRoute} from "@angular/router";
@@ -18,15 +17,12 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
   @Input() currentUser: any;
   @Input() partner_data: any;
   // Public
-  public searchText;
   public selectedIndex = null;
-  public userProfile;
   private options: GlobalConfig;
   public user: any = {}
   public storage: any;
 
   //TIMER
-  countDown: Subscription;
   counter;//1800
   tick = 1000;
   public minutes;
@@ -148,7 +144,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
    * Open Chat
    *
    * @param id
-   * @param newChat
    */
   openChat(id) {
     this._chatService.openChat(id);//Invoke chat.service.ts instance
@@ -381,7 +376,6 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
       return;
     }
 
-    this.fb.playAudio('assets/sounds/windows_warning.wav');
 
     if (this.trade[0].seller_2fa === '2FA' && this.trade[0].seller_2fa_status === 1) {
       console.log('Show 2fa dialog');

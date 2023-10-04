@@ -24,8 +24,6 @@ export class ChatContentComponent implements OnInit {
   // Decorator
   @ViewChild('scrollMe') scrollMe: ElementRef;
   scrolltop: number = null;
-  coreConfig: any;
-  private _unsubscribeAll: Subject<any>;
 
   // Public
   public activeChat: Boolean;
@@ -38,19 +36,13 @@ export class ChatContentComponent implements OnInit {
     ago: '2 Minutes ago'
 
   };
-  public userProfile;
   public chatMessage = '';
-  public newChat;
-  public startConvo: Boolean = true;
   public user: any = {}
   public currentUser: any = {}
-  public tradeData: any = {}
   public buyer: boolean;
   public tradeId = ""
 
-  constructor(private _chatService: ChatService,
-              private _coreSidebarService: CoreSidebarService,
-              private _coreConfigService: CoreConfigService,
+  constructor(private _coreSidebarService: CoreSidebarService,
               private fb: FirebaseService,
               private route: ActivatedRoute,
               private router: Router,
@@ -59,17 +51,9 @@ export class ChatContentComponent implements OnInit {
               private invoke: ChatComponent,
               private firestore: AngularFirestore,
   ) {
-    // Subscribe config change
-    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
-      this.coreConfig = config;
-    });
+
   }
 
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
-    this._unsubscribeAll.next();
-    this._unsubscribeAll.complete();
-  }
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -228,6 +212,7 @@ export class ChatContentComponent implements OnInit {
 
     this.activeChat = false;
 
+
   }
 
   block(ext_username, trade_id) {
@@ -330,5 +315,5 @@ export class ChatContentComponent implements OnInit {
     })
   }
 
-  protected readonly confirm = confirm;
+
 }

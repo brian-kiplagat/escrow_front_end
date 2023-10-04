@@ -51,7 +51,7 @@
           <p *ngIf="trade.status == 'OPENED' ||trade.status == 'PAID'"
              class="font-small-2">{{trade.btc_amount_with_margin}} BTC will be
             added
-            to your {{coreConfig.app.appName}}
+            to your Internal
             wallet</p>
           <p *ngIf="trade.status == 'PAID'" class="font-small-2"
              ngbTooltip='You have sent the payment. Now wait for the seller to send you the Bitcoin. If the seller refuses or you have a problem, Open a dispute and well come in to help you'
@@ -76,8 +76,7 @@
 
           <p *ngIf="trade.status == 'SUCCESSFUL'" class="font-small-2">
             You bought {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
-            using  {{trade.offer_method | titlecase}}, {{trade.btc_amount_with_margin}} BTC was added to your {{coreConfig.app.appName}}
-            wallet
+            using  {{trade.offer_method | titlecase}}, {{trade.btc_amount_with_margin}} BTC was added to your wallet
           </p>
           <!-- BUYER BUTTONS-->
           <!-- BUYER MARK PAID-->
@@ -132,7 +131,7 @@
           <p *ngIf="trade.status == 'SUCCESSFUL'" class="font-small-2">
             You sold {{trade.btc_amount_with_margin}} BTC
             for {{trade.fiat_amount_original  | number : '1.2-2'}} {{trade.offer_currency}}
-            using  {{trade.offer_method | titlecase}}. Thanks again for using {{coreConfig.app.appName}}
+            using  {{trade.offer_method | titlecase}}. Thanks again for trading with us
           </p>
 
 
