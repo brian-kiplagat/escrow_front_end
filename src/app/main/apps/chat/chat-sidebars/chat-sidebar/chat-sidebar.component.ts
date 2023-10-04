@@ -368,90 +368,83 @@ export class ChatSidebarComponent implements OnInit, OnChanges {
 
   }
 
-  release_btc(id: any) {
+  release_btc = async (id: any) => {
     if (this.trade.seller !== this.storage.email) {
-      this.toast('Invalid Action', 'You cant do that', 'error');
+      this.toast('INVALID', 'You cant do that', 'error');
       return;
     }
 
+    if (this.trade[0].seller_2fa === '2FA' && this.trade[0].seller_2fa_status === 1) {
+      console.log('Show 2fa dialog');
 
-    if (this.trade.seller == this.storage.email) {
-      if (this.trade[0].seller_2fa == '2FA' && this.trade[0].seller_2fa_status == 1) {
-        console.log('Show 2fa dialog')
-        Swal.mixin({
-          input: 'text',
-          confirmButtonText: 'SEND BITCOIN',
-          showCancelButton: true,
-          progressSteps: ['1', '2'],
-          customClass: {
-            confirmButton: 'btn btn-primary',
-            cancelButton: 'btn btn-danger ml-1'
-          }
-        })
-          .queue([
-            {
-              title: '<h5>Are you sure!</h5>',
-              html: '<p class="card-text font-small-3">Before releasing the Bitcoin, check your balance to confirm that you’ve actually received your money. Once you release BTC, the transaction is final. </p>' +
-                '<p class="card-text font-small-3">Enter your 2FA Code to authorize this transaction</p>',
-
-            },
-
-          ])
-          .then((result) => {
-            function fireSwal(option: string, title: string, msg: string) {
-              Swal.fire({
-                title: title,
-                html: msg,
-                icon: 'error',
-                confirmButtonText: 'OKAY',
-                customClass: {confirmButton: 'btn btn-primary'}
-              })
-            }
-
-            const otp = (<HTMLInputElement>result).value[0];
-
-
-            if (!otp) {
-              fireSwal('error', 'OTP REQUIRED', 'Please input the 2FA Code. Get your code from Authy or Google Authenticator to authorize this action');
-            } else if (otp.length > 6) {
-              fireSwal('error', 'OTP TOO LONG', 'Your 2FA code cannot be longer than 6 numbers. Get your code from Authy or Google Authenticator');
-            } else if (otp.length < 6) {
-              fireSwal('error', 'OTP TOO SHORT', 'Your 2FA code cannot be shorter than 6 numbers. Get your code from Authy or Google Authenticator');
-            } else if (!/^\d+$/.test(otp)) {
-              fireSwal('error', 'OTP MUST BE A NUMBER', 'Your 2FA code must be a 6-digit number. Get your code from Authy or Google Authenticator');
-            } else {
-              this.okSendCrpto(otp, id);
-            }
-          });
-      } else {
+      const fireSwal = (option: string, title: string, msg: string) => {
         Swal.fire({
-          title: ' <h5>Are you sure!</h5>',
-          html: `<p class="card-text font-small-3">Before releasing the Bitcoin, check your balance to confirm that you’ve actually received your money. Once you release BTC, the transaction is final. </p>
-                <p class="card-text font-small-3">Enter your 2FA Code to authorize this transaction</p>`,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#2746e4',
-          cancelButtonColor: '#E42728',
-          cancelButtonText: 'Go back',
-          confirmButtonText:
-            '<i class="fa fa-ban"></i> RELEASE BTC',
-          confirmButtonAriaLabel: 'CANCEL',
-          customClass: {
-            confirmButton: 'btn btn-primary',
-            cancelButton: 'btn btn-danger ml-1'
-          }
-        }).then(async (result) => {
-          if (result.value) {
-            await this.okSendCrpto('', id)
-
-          }
+          title: title,
+          html: msg,
+          icon: 'error',
+          confirmButtonText: 'OKAY',
+          customClass: { confirmButton: 'btn btn-primary' },
         });
+      };
+
+      const result = await Swal.mixin({
+        input: 'text',
+        confirmButtonText: 'SEND BITCOIN',
+        showCancelButton: true,
+        progressSteps: ['1', '2'],
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-danger ml-1',
+        },
+      }).queue([
+        {
+          title: '<h5>Are you sure!</h5>',
+          html:
+            '<p class="card-text font-small-3">Before releasing the Bitcoin, check your balance to confirm that you’ve actually received your money. Once you release BTC, the transaction is final. </p>' +
+            '<p class="card-text font-small-3">Enter your 2FA Code to authorize this transaction</p>',
+        },
+      ]);
+
+      const otp = (<HTMLInputElement>result).value[0];
+
+      if (!otp) {
+        fireSwal(
+          'error',
+          'OTP REQUIRED',
+          'Please input the 2FA Code. Get your code from Authy or Google Authenticator to authorize this action'
+        );
+      } else if (otp.length > 6) {
+        fireSwal('error', 'OTP TOO LONG', 'Your 2FA code cannot be longer than 6 numbers. Get your code from Authy or Google Authenticator');
+      } else if (otp.length < 6) {
+        fireSwal('error', 'OTP TOO SHORT', 'Your 2FA code cannot be shorter than 6 numbers. Get your code from Authy or Google Authenticator');
+      } else if (!/^\d+$/.test(otp)) {
+        fireSwal('error', 'OTP MUST BE A NUMBER', 'Your 2FA code must be a 6-digit number. Get your code from Authy or Google Authenticator');
+      } else {
+        await this.okSendCrpto(otp, id);
       }
     } else {
-      this.toast('INVALID', 'You cant do that', 'error')
-    }
+      const result = await Swal.fire({
+        title: ' <h5>Are you sure!</h5>',
+        html: `<p class="card-text font-small-3">Before releasing the Bitcoin, check your balance to confirm that you’ve actually received your money. Once you release BTC, the transaction is final. </p>
+                <p class="card-text font-small-3">Enter your 2FA Code to authorize this transaction</p>`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#2746e4',
+        cancelButtonColor: '#E42728',
+        cancelButtonText: 'Go back',
+        confirmButtonText: '<i class="fa fa-ban"></i> RELEASE BTC',
+        confirmButtonAriaLabel: 'CANCEL',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-danger ml-1',
+        },
+      });
 
-  }
+      if (result.value) {
+        await this.okSendCrpto('', id);
+      }
+    }
+  };
 
   open_dispute(id) {
     this.fb.playAudio('assets/sounds/windows_warning.wav')
