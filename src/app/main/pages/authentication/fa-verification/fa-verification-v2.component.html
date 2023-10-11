@@ -44,6 +44,7 @@
                 class="form-control form-control-merge"
                 aria-describedby="reset-password-new"
                 tabindex="1"
+                (input)='onInputChange($event)'
                 autofocus
                 [ngClass]="{ 'is-invalid error': submitted && f.newPassword.errors }"
               />

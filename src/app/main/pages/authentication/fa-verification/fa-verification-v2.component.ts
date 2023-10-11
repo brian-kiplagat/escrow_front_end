@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
-import {CoreConfigService} from '@core/services/config.service';
-import {FirebaseService} from '../../../../services/firebase.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
+import { CoreConfigService } from '@core/services/config.service';
+import { FirebaseService } from '../../../../services/firebase.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth-fa-verification-v2',
@@ -86,9 +86,9 @@ export class FaVerificationV2Component implements OnInit {
     //console.log(this.f.newPassword.value);
     this.firebase
       .confirm2FAAuth({
-        "email": this.mail,
-        "secret": this.choice_2fa_log,
-        "code": this.f.newPassword.value
+        'email': this.mail,
+        'secret': this.choice_2fa_log,
+        'code': this.f.newPassword.value
       })
       .subscribe(
         (response: any) => {
@@ -99,26 +99,26 @@ export class FaVerificationV2Component implements OnInit {
               token: response.responseMessage.token,
               email: response.responseMessage.email,
               sound: response.responseMessage.sound.toString()
-            }
-            localStorage.setItem('user', JSON.stringify(data))
-            this.router.navigate(['dashboard/overview'])
+            };
+            localStorage.setItem('user', JSON.stringify(data));
+            this.router.navigate(['dashboard/overview']);
           }
           if (response.responseMessage.status == 2) {//On hold
-            this.router.navigate(['dashboard/overview'])
+            this.router.navigate(['dashboard/overview']);
           }
           if (response.responseMessage.status == 3) {//Banned
-            this.router.navigate(['dashboard/overview'])
+            this.router.navigate(['dashboard/overview']);
           }
           if (response.responseMessage.status == 4) {//Restricted
-            this.router.navigate(['dashboard/overview'])
+            this.router.navigate(['dashboard/overview']);
           }
           if (response.responseMessage.status == 5) {//Temporarily locked
-            this.router.navigate(['dashboard/overview'])
+            this.router.navigate(['dashboard/overview']);
           }
 
         },
         (error: any) => {
-          this.loading = false
+          this.loading = false;
           this.error = error.error.responseMessage;
           console.error(error);
         }
@@ -143,7 +143,7 @@ export class FaVerificationV2Component implements OnInit {
     });
 
     this.route.queryParams.pipe(filter((params) => params.mail)).subscribe((params) => {
-     // console.log(params); // { order: "popular" }
+      // console.log(params); // { order: "popular" }
       (this.choice_2fa_log = params.choice_2fa_log), (this.mail = params.mail);
     });
 
@@ -160,4 +160,17 @@ export class FaVerificationV2Component implements OnInit {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
+
+
+  onInputChange = (event: Event) => {
+    // Your event handling code here
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+    console.log('Input value changed to:', value);
+    if (value.length >= 6) {
+      console.log('Input value is:', value);
+      this.onSubmit();
+
+    }
+  };
 }
