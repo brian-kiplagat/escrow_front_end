@@ -18,7 +18,6 @@ export class AuthGuard implements CanActivate {
     //console.log(currentUser)
 
     if (currentUser) {
-
       // authorised so return true
       return true;
     }
