@@ -118,7 +118,7 @@ export class FirebaseService {
 
 
   //get user by username
-  getUsersWithOffers(token, username) {
+  getUsersWithOffers(token, username,value) {
     const header = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -130,7 +130,7 @@ export class FirebaseService {
       headers: new HttpHeaders(header)
     };
     return this.http.get(
-      `${environment.endpoint}/getUsersWithOffers`,
+      `${environment.endpoint}/getUsersWithOffers/${value}`,
       requestOptions
     );
   }

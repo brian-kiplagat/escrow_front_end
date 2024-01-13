@@ -1,7 +1,7 @@
-import {DOCUMENT} from '@angular/common';
-import {Router} from '@angular/router';
-import {Component, ElementRef, HostListener, Inject, OnInit, ViewChild} from '@angular/core';
-import {FirebaseService} from "../../../../services/firebase.service";
+import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
+import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
+import { FirebaseService } from '../../../../services/firebase.service';
 
 @Component({
   selector: 'app-navbar-search',
@@ -120,6 +120,16 @@ export class NavbarSearchComponent implements OnInit {
     const val = event.target.value.toLowerCase();
     if (val !== '') {
       this.document.querySelector('.app-content').classList.add('show-overlay');
+      let user = JSON.parse(localStorage.getItem('user'));
+      this.firebase.getUsersWithOffers(user.token, user.username, val).subscribe(
+        (data: any) => {
+          this.contacts = data.responseMessage;
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     } else {
       this.document.querySelector('.app-content').classList.remove('show-overlay');
     }
@@ -133,15 +143,8 @@ export class NavbarSearchComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    let user = JSON.parse(localStorage.getItem('user'));
-    this.firebase.getUsersWithOffers(user.token, user.username).subscribe(
-      (data: any) => {
-        this.contacts = data.responseMessage;
-        //console.log(data)
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+
   }
+
+
 }
