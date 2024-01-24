@@ -118,7 +118,7 @@ export class FirebaseService {
 
 
   //get user by username
-  getUsersWithOffers(token, username,value) {
+  searchUsers(token, username,value) {
     const header = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
